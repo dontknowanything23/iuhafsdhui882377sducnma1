@@ -1,0 +1,383 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>cs_energy_battery - evaluation of data written by Logger_Battery</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="cs_energy_battery.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>cs_energy_battery - evaluation of data written by Logger_Battery</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Function Call</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Description</a></li><li><a href="#5">References</a></li><li><a href="#6">check the inputs</a></li><li><a href="#7">load the data</a></li><li><a href="#8">timerange</a></li><li><a href="#9">determine output</a></li><li><a href="#10">display some statistics</a></li><li><a href="#12">Copyright and Versions</a></li></ul></div><h2 id="1">Function Call</h2><pre>y = cs_energy_battery([timeclass], [file], [filedetail])</pre><h2 id="2">Inputs</h2><pre>timeclass - optional input parameter for the evaluation period
+ 1 : year (default)
+ 2 : month
+ 3 : week
+ 4 : day
+ 5 : hour</pre><pre>file - optional character string with the name of the .mat file
+ created by the data logger. If not given during function call, the
+ function itsself will open an input window for the choice of the file.
+ Files written by the Logger_Battery have the format 'batteryoutput*.mat'</pre><pre>filedetail - optional character string with the name of the .mat file
+ created by the enabled data logger in the Logger_Battery block.
+ This file contain the same information as file but they are stored only
+ when the battery is charged or discharged.
+ Files written by the Logger_Battery have the format 'batterydetailoutput*.mat'</pre><pre>The file contains the following information in timeseries :
+ batt.EnergySetpointCharge   AC energy charged at setpoint in J
+ batt.EnergySetpointDisarge  AC energy discharged at setpoint in J
+ batt.EnergyChargeAC         energy charged at AC connection in J
+ batt.EnergyDischargeAC      energy discharged at AC connection in J
+ batt.EnergyChargeDC         energy charged on DC side (into the cell) in J
+ batt.EnergyDischargeDC      energy discharged on DC side (from the cell) in J
+ batt.Energy_Excess          energy excess (which could not be stored, typically sent to grid) in J
+ batt.Energy_Deficit         energy deficit (which could not be deliverey by the battery, typically taken from grid) in J
+ batt.Energy                 energy in the battery in J
+ batt.SOC                    state of charge
+ batt.Capacity               capacity of the batter in J
+ batt.Time_Charging          duration of charging in s
+ batt.Time_Discharging       duration of discharging in s
+ batt.Cycles_Charging        number of charging cycles
+ batt.Cycles_Discharging     number of discharging cycles</pre><h2 id="3">Outputs</h2><pre>Matrix where for timeclass 1 the first row has the annual values.
+For timeclass 2 the 12 rows contain the monthly values.
+Columns:
+  1   time of simulation or timeclass start
+  2   time of simulation or timeclass end
+  3   energy charged at AC connection in J
+  4   energy discharged at AC connection in Joule
+  5   energy charged into the cell in J
+  6   energy discharged from the cell in J
+  7   desired energy charged at AC connection in J
+  8   desired energy discharged at AC connection in J
+  9   energy difference between beginning and end of the timeclass in J
+ 10   state of charge difference between beginning and end of the timeclass
+ 11   energy losses in the battery in J
+ 12   number of charging cycles
+ 13   number of discharging cycles
+ 14   number of energy cycles (defined for the DC side)
+ 15   duration of charging in s
+ 16   duration of discharging in s</pre><h2 id="4">Description</h2><pre>Evaluation of data written by Logger_Battery. The result
+of the function is the energy in annual, monthly, ... values, depending
+on the timeclass. For timeclass 1 the first row has the annual values.
+For timeclass 2 the 12 rows contain the monthly values.
+The outputs are organized in groups: time, energy, efficiency,
+operation, average massflows, average temperatures, economics</pre><h2 id="5">References</h2><pre>see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m
+ cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m
+ cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m
+ cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m</pre><h2 id="6">check the inputs</h2><h2 id="7">load the data</h2><h2 id="8">timerange</h2><h2 id="9">determine output</h2><h2 id="10">display some statistics</h2><h2 id="12">Copyright and Versions</h2><pre>This file is part of the CARNOT Blockset.
+Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+Additional Copyright for this file see list auf authors.
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.</pre><pre>************************************************************************
+VERSIONS
+author list:     hf -&gt; Bernd Hafner
+version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Version  Author  Changes                                     Date
+6.1.0    hf      created, based on cs_energy_boiler          01sep2015
+6.1.1    hf      new order of inputs, adapted to logger      03jan2017
+7.1.2    hf      adapted to publish                          18feb2022
+8.1.3    hf      completed public version                    11mar2023
+8.1.4    hf      use inputfiles4cs_energy                    17mar2023
+8.1.5    hf      updated comments for publish and help       26mar2023
+8.1.6    hf      energy cycles defined on DC side            28mar2023
+************************************************************************</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% cs_energy_battery - evaluation of data written by Logger_Battery 
+%% Function Call
+%  y = cs_energy_battery([timeclass], [file], [filedetail])
+%% Inputs
+%  timeclass - optional input parameter for the evaluation period
+%   1 : year (default)
+%   2 : month
+%   3 : week
+%   4 : day
+%   5 : hour
+% 
+%  file - optional character string with the name of the .mat file 
+%   created by the data logger. If not given during function call, the  
+%   function itsself will open an input window for the choice of the file.
+%   Files written by the Logger_Battery have the format 'batteryoutput*.mat'
+% 
+%  filedetail - optional character string with the name of the .mat file 
+%   created by the enabled data logger in the Logger_Battery block.
+%   This file contain the same information as file but they are stored only 
+%   when the battery is charged or discharged.
+%   Files written by the Logger_Battery have the format 'batterydetailoutput*.mat'
+%
+%  The file contains the following information in timeseries :
+%   batt.EnergySetpointCharge   AC energy charged at setpoint in J
+%   batt.EnergySetpointDisarge  AC energy discharged at setpoint in J
+%   batt.EnergyChargeAC         energy charged at AC connection in J
+%   batt.EnergyDischargeAC      energy discharged at AC connection in J
+%   batt.EnergyChargeDC         energy charged on DC side (into the cell) in J
+%   batt.EnergyDischargeDC      energy discharged on DC side (from the cell) in J
+%   batt.Energy_Excess          energy excess (which could not be stored, typically sent to grid) in J
+%   batt.Energy_Deficit         energy deficit (which could not be deliverey by the battery, typically taken from grid) in J
+%   batt.Energy                 energy in the battery in J
+%   batt.SOC                    state of charge
+%   batt.Capacity               capacity of the batter in J
+%   batt.Time_Charging          duration of charging in s
+%   batt.Time_Discharging       duration of discharging in s
+%   batt.Cycles_Charging        number of charging cycles
+%   batt.Cycles_Discharging     number of discharging cycles
+% 
+%% Outputs
+%  Matrix where for timeclass 1 the first row has the annual values.
+%  For timeclass 2 the 12 rows contain the monthly values.
+%  Columns:
+%    1   time of simulation or timeclass start
+%    2   time of simulation or timeclass end
+%    3   energy charged at AC connection in J
+%    4   energy discharged at AC connection in Joule
+%    5   energy charged into the cell in J
+%    6   energy discharged from the cell in J
+%    7   desired energy charged at AC connection in J
+%    8   desired energy discharged at AC connection in J
+%    9   energy difference between beginning and end of the timeclass in J          
+%   10   state of charge difference between beginning and end of the timeclass
+%   11   energy losses in the battery in J
+%   12   number of charging cycles
+%   13   number of discharging cycles
+%   14   number of energy cycles (defined for the DC side)
+%   15   duration of charging in s   
+%   16   duration of discharging in s
+%
+%% Description
+%  Evaluation of data written by Logger_Battery. The result
+%  of the function is the energy in annual, monthly, ... values, depending 
+%  on the timeclass. For timeclass 1 the first row has the annual values.
+%  For timeclass 2 the 12 rows contain the monthly values.
+%  The outputs are organized in groups: time, energy, efficiency, 
+%  operation, average massflows, average temperatures, economics
+% 
+%% References
+%  see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m 
+%   cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m 
+%   cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m 
+%   cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m
+
+function y = cs_energy_battery(varargin)
+%% check the inputs
+[timeclass, file, filedetail, details, filter] = ...
+    inputfiles4cs_energy('battery', varargin{:});
+ncol = 16;
+if filter == 0
+    y = zeros(1,ncol);
+    return
+end
+%% load the data 
+D = importdata(file);               % import data from file to variable D
+if details                          % detailed data exists
+    % DD = importdata(filedetail);    % import it to DD
+    % if isempty(DD.Energy.Data)      % if it's empty
+    % details = false;            % there are no details
+    % else
+    disp(['cs_energy_battery: detailed output file ' filedetail ' not used'])
+    % end
+end
+%% timerange
+[classnumber, limit] = get_timeclass_limits(timeclass);
+if classnumber < 0
+    y = zeros(1,ncol);
+    help cs_energy_battery
+    return
+end
+%% determine output
+y = zeros(classnumber,ncol);
+for class = 1:(length(limit)-1)
+    idxs = find(D.Energy.Time >= limit(class),1,'first');
+    idxe = find(D.Energy.Time <= limit(class+1),1,'last');
+    % if the simulation is not in the classlimit, the result matrix is zero
+    if ~isempty(idxs) ...                   % if the start is in the data
+            && (idxe > idxs)                % and start and end are not same
+        % 1   time of simulation or timeclass start
+        y(class,1) = D.Energy.Time(idxs);
+        % 2   time of simulation or timeclass end
+        y(class,2) = D.Energy.Time(idxe);
+        % Output 3 energy charged at AC connection in J
+        y(class,3) = D.EnergyChargeAC.Data(idxe)-D.EnergyChargeAC.Data(idxs);
+        % Output 4   energy discharged at AC connection in Joule
+        y(class,4) = D.EnergyDischargeAC.Data(idxe)-D.EnergyDischargeAC.Data(idxs);
+        % Output 5   energy charged into the cell in J
+        y(class,5) = D.EnergyChargeDC.Data(idxe)-D.EnergyChargeDC.Data(idxs);
+        % Output 6   energy discharged from the cell in J
+        y(class,6) = D.EnergyDischargeDC.Data(idxe)-D.EnergyDischargeDC.Data(idxs);
+        % Output 7   desired energy charged at AC connection in J
+        y(class,7) = D.EnergySetpointCharge.Data(idxe)-D.EnergySetpointCharge.Data(idxs);
+        % Output 8   desired energy discharged at AC connection in J
+        y(class,8) = D.EnergySetpointDisarge.Data(idxe)-D.EnergySetpointDisarge.Data(idxs);
+        % 9 energy difference between beginning and end of the timeclass in J          
+        y(class,9) = D.Energy.Data(idxe)-D.Energy.Data(idxs); 
+        % 10 state of charge difference between beginning and end of the timeclass
+        y(class,10) = D.SOC.Data(idxe)-D.SOC.Data(idxs); 
+        % 11 energy losses in the battery in J = energy discharged + energy charged - energy stored
+        y(class,11) = y(class,4)+y(class,3)-y(class,9); 
+        % 12 number of charging cycles
+        y(class,12) = D.Cycles_Charging.Data(idxe)-D.Cycles_Charging.Data(idxs); 
+        % 13 number of discharging cycles
+        y(class,13) = D.Cycles_Discharging.Data(idxe)-D.Cycles_Discharging.Data(idxs); 
+        % 14 number of energy cycles (definition on the DC side)
+        y(class,14) = (D.EnergyDischargeDC.Data(idxs)-D.EnergyDischargeDC.Data(idxe))/D.Capacity.Data(1); 
+        % 15 duration of charging in s   
+        y(class,15) = D.Time_Charging.Data(idxe)-D.Time_Charging.Data(idxs);
+        % 16 duration of discharging in s
+        y(class,16) = D.Time_Discharging.Data(idxe)-D.Time_Discharging.Data(idxs); 
+    end
+end
+%% display some statistics
+starttime = D.Energy.Time(1);   % time of simulation or timeclass start
+endtime = D.Energy.Time(end);   % time of simulation or timeclass end
+time = endtime-starttime;               % total simulation time
+startdate = sec2date(starttime);        % date of simulation start
+enddate = sec2date(endtime);            % date of simulation end
+fprintf('*** Evaluation of the battery ***\n');
+fprintf('* Simulation start\t%02.0f:%02.0f:%02.0f  %02.0f.%02.0f.%04.0f\n', ...
+    startdate(4),startdate(5),startdate(6), ...
+    startdate(3), startdate(2),startdate(1));
+fprintf('*            end\t%02.0f:%02.0f:%02.0f  %02.0f.%02.0f.%04.0f\n', ...
+    enddate(4),enddate(5),enddate(6),...
+    enddate(3), enddate(2),enddate(1));
+fprintf('*            duration in hours\t%.1f\n', time/3600);
+fprintf('*');
+fprintf('* Energy:    AC charged in kWh\t%.1f\n', D.EnergyChargeAC.Data(end)/3.6e6);
+fprintf('*            AC discharged in kWh\t%.1f\n', D.EnergyDischargeAC.Data(end)/3.6e6);
+fprintf('*            charged into the cell in kWh\t%.1f\n', D.EnergyChargeDC.Data(end)/3.6e6);
+fprintf('*            discharged from the cell in kWh\t%.1f\n',D.EnergyDischargeDC.Data(end)/3.6e6);
+fprintf('*            desired AC charged in kWh\t%.1f\n', D.EnergySetpointCharge.Data(end)/3.6e6);
+fprintf('*            desired AC discharged in kWh\t%.1f\n',D.EnergySetpointDisarge.Data(end)/3.6e6);
+fprintf('*            efficiency \t%.2f\n', (D.EnergyChargeAC.Data(end)+D.EnergyDischargeAC.Data(end) ...
+    +(D.Energy.Data(1)-D.Energy.Data(end)))/abs(D.EnergyDischargeAC.Data(end)));
+fprintf('*            difference between start and end in kWh\t%.1f\n', ...
+    (D.Energy.Data(end)-D.Energy.Data(1))/3.6e6);
+fprintf('*            SOC between start and end\t%.2f\n', D.SOC.Data(end)-D.SOC.Data(end));
+fprintf('*');
+fprintf('* Operation: duration of charging in h\t%.1f\n', D.Time_Charging.Data(end)/3600);
+fprintf('*            duration of discharging in h\t%.1f\n', D.Time_Discharging.Data(end)/3600);
+fprintf('*            number of charging cycles \t%.0f\n', D.Cycles_Charging.Data(end));
+fprintf('*            number of charging cycles \t%.0f\n', D.Cycles_Discharging.Data(end));
+fprintf('*            number of energy cycles \t%.2f\n', D.EnergyChargeAC.Data(end)/D.Capacity.Data(1));
+fprintf('*** End of cogeneration evaluation ***\n\n');
+
+%% Copyright and Versions
+%  This file is part of the CARNOT Blockset.
+%  Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+%  Additional Copyright for this file see list auf authors.
+%  All rights reserved.
+%  Redistribution and use in source and binary forms, with or without 
+%  modification, are permitted provided that the following conditions are 
+%  met:
+%  1. Redistributions of source code must retain the above copyright notice, 
+%    this list of conditions and the following disclaimer.
+%  2. Redistributions in binary form must reproduce the above copyright 
+%    notice, this list of conditions and the following disclaimer in the 
+%    documentation and/or other materials provided with the distribution.
+%  3. Neither the name of the copyright holder nor the names of its 
+%    contributors may be used to endorse or promote products derived from 
+%    this software without specific prior written permission.
+%  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+%  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+%  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+%  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+%  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+%  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+%  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+%  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+%  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+%  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+%  THE POSSIBILITY OF SUCH DAMAGE.
+%  
+%  ************************************************************************
+%  VERSIONS
+%  author list:     hf -> Bernd Hafner
+%  version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+%  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+%  Version  Author  Changes                                     Date
+%  6.1.0    hf      created, based on cs_energy_boiler          01sep2015
+%  6.1.1    hf      new order of inputs, adapted to logger      03jan2017
+%  7.1.2    hf      adapted to publish                          18feb2022
+%  8.1.3    hf      completed public version                    11mar2023
+%  8.1.4    hf      use inputfiles4cs_energy                    17mar2023
+%  8.1.5    hf      updated comments for publish and help       26mar2023
+%  8.1.6    hf      energy cycles defined on DC side            28mar2023
+%  ************************************************************************
+
+##### SOURCE END #####
+--></body></html>

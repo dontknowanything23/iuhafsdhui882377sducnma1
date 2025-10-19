@@ -1,0 +1,113 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - relflowcoeff2qua</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/relflowcoeff2qua.gif" align=right>
+<p class="blockname">relflowcoeff2qua</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Pressure_Drop
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The blocks convert the relative flow factor Psi to the Carnot pressure drop coefficient q.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Determine the Carnot pressure drop coefficient q (or qua) from the flow coefficient Kv.<br>
+The flow coefficient Kvs for an open valve is the volume flow rate which 
+creates a pressure drop of 1e5 Pa (1 bar). So for any position of the valve 
+the flow coefficient Kv is : <br>
+&nbsp;&nbsp;&nbsp; Kv = Vdot * sqrt(1e5Pa/dp * rho/1000kg/m<sup>3</sup>) 
+&nbsp;&nbsp;&nbsp;(equation 1)<br><br>
+&nbsp;&nbsp;&nbsp; Vdot = mdot/rho &nbsp;&nbsp;&nbsp; (equation 2)<br><br>
+with<br>
+Vdot : volumetric flow rate in m<sup>3</sup>/h <br>
+rho : density in kg/m<sup>3</sup> <br>
+Kv : flow coefficent in m<sup>3</sup>/h <br><br>
+The Carnot equation for pressure drop is : <br>
+&nbsp;&nbsp;&nbsp; dp = c + l*mdot + q*mdot<sup>2</sup> &nbsp;&nbsp;&nbsp; (equation 3)<br><br>
+For valves the flow coefficient for a fully open valve Kvs in m<sup>3</sup>/h is given. 
+With the relative flow factor Psi the flow coefficent Kv is:<br>
+&nbsp;&nbsp;&nbsp; Kv = Psi * Kvs <br><br>
+Resolve (equation 1) for pressure drop dp<br>
+&nbsp;&nbsp;&nbsp; dp = (100 Pa*m³/kg)/rho * (mdot/Kv)<sup>2</sup> <br><br>
+change unit of Kv: kg/h = kg/(3600s) <br>
+&nbsp;&nbsp;&nbsp; dp = (100 Pa*m³/kg) * (3600 s/h)<sup>2</sup> / rho * (mdot/Kv)<sup>2</sup> <br>
+&nbsp;&nbsp;&nbsp; q = (100 Pa*m³/kg) * (3600 s/h)<sup>2</sup> / 
+(rho*Psi<sup>2</sup>*Kvs<sup>2</sup>)<br><br>
+For more information see the <a href="density.html">density</a> block and the 
+<a href="velocity.html">velocity</a> block.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> psi </td>
+        <td>:</td>
+        <td> dimensionless relative flow factor </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">qua</td>
+		<td style="width: 10px;">:</td>
+        <td> Carnot pressure drop coefficient q in Pa/(kg/s)<sup>2</sup> </td>
+    </tr>
+</table>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+
+</p>
+
+</body>
+
+</html>

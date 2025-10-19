@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="de-at" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>room node</title>
+<style type="text/css">
+ div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+p
+	{margin-right:0cm;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ tt
+	{font-family:"Courier New";
+	}
+ a:link
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;
+}
+ p.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+</style>
+</head>
+
+<body>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:schwamberger'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=10 width="100%" noshade style='color:#A0A0A0' align=center>
+
+</span></span></span></div>
+
+<p><img alt="" src="Figures/RoomNode.jpg" style="float: right" /><!--[if gte vml 1]><v:shape id="Bild_x0020_187" o:spid="_x0000_s1458"
+ type="#_x0000_t75" style='position:absolute;left:0;text-align:left;
+ margin-left:28.25pt;margin-top:0;width:68.25pt;height:135.75pt;z-index:185;
+ visibility:visible;mso-wrap-style:square;mso-wrap-distance-left:0;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:0;mso-wrap-distance-bottom:0;
+ mso-position-horizontal:right;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:line'
+ o:allowoverlap="f"><v:imagedata src="Figures/room_node.jpg" xmlns:v="urn:schemas-microsoft-com:vml"/><w:wrap type="square" anchory="line" xmlns:w="urn:schemas-microsoft-com:office:word"/></v:shape><![endif]--><span class=GramE><span style='mso-bookmark:
+room_node'><span style='mso-bookmark:literature'><span style='mso-bookmark:
+schwamberger'><b><span style='font-size:18.0pt;line-height:120%'>R</span><span lang=EN-US style='font-size:18.0pt;line-height:120%'>oom_</span><span style='font-size:18.0pt;line-height:120%'>N</span><span lang=EN-US style='font-size:18.0pt;line-height:120%'>ode</span></b></span></span></span></span><span
+style='mso-bookmark:room_node'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+<b>Path: CARNOT/<span
+style='mso-bookmark:floor_in'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Basic/Thermal_Models</span></span></span></b> <br clear=all style='mso-special-character:
+line-break'>
+<o:p></o:p></span></span></span></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:room_node'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></span></div>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Purpose</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+<font size="4">Thermal model of a room or zone in a building model with 
+convective and radiative temperature nodes.</font> </span><span
+lang=EN-US style='font-size:12.0pt;line-height:120%'><o:p></o:p></span></span></span></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Description</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+This block calculates the temperature at a node in a building room. <span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>The incoming energy flows are defined in the </span></span></span>
+<a href="Sbus_format.html">S<span style='font-size:13.5pt;line-height:120%'>bus</span></a></span><span style='font-size:13.5pt;line-height:120%'>. </span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> The input
+is a </span><span style='font-size:13.5pt;line-height:120%'> bus with the</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> different heat flows to and from the room node</span><span style='font-size:13.5pt;line-height:120%'>. </span>
+<span class=GramE><span style='font-size:13.5pt;line-height:120%'> An</span></span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> energy balance is made for 
+the room node. The temperature is calculated by dividing by the heat capacity, 
+so that the equation for the room node is the</span><span style='font-size:13.5pt;line-height:120%'> 
+energy conservation</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> equation</span><span style='font-size:13.5pt;line-height:120%'> 
+:</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> </span></span></span></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+class=GramE><tt><span lang=EN-US style='font-size:10.0pt;line-height:120%'>dT<sub>node</sub></span></tt></span><tt><span
+lang=EN-US style='font-size:10.0pt;line-height:120%'>/ dt = Q<sub>in</sub> /(m<sub>node</sub>*c<sub>node</sub>)
+</span></tt></span></span></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>The room node integrates 
+radiative and convective heat flows. <font size="4">The elements QdotConvective 
+and QdotRadiative are evaluated in the nodes. </font> </span></span></span></p>
+<p><font size="4">The air volume of the room is defined by the parameters of the 
+model. Properties of air are calculated once at initialization (with node start 
+temperature, humidity and air pressure).&nbsp; </font></p>
+<p><span style='mso-bookmark:literature'>
+<span style='mso-bookmark:schwamberger'>
+<span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>The output</span><span style='font-size:13.5pt;line-height:120%'> 
+AIB </span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>of the
+room_node have to be connected to the walls</span><span style='font-size:13.5pt;line-height:120%'>, 
+floor</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> and other components of
+the room-zone. </span></span></span><font size="4">Solar gains (QdotSolar) is 
+sumed up in the model and given as output QdotSolar2Floor to connect to the 
+floor model. </font></p>
+<p><font size="4">Connect all incomming Sbuses with a Bus Creator block to a new 
+Sbus_all (see following figure). Do this even if only a single Sbus is connected 
+to the room node.</font></p>
+<p><img alt="" src="Figures/RoomNode_Fig1.jpg" /></p>
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b>
+<span style='font-size:13.5pt;line-height:120%'>In</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>puts<br />
+</span></b></span></span><font size="4">Sbus_all&nbsp; - Bus created by a 
+BusCreator block of Simulink combining all Sbus outputs of the different models 
+(wall, floor, ...).<br />
+</font></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Outputs</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'><br />
+</span><span style='font-size:13.5pt;line-height:120%'> AIB - Air Infiltration 
+Bus of the room zone<br />
+<span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> 
+<a href="Sbus_format.html">Sbus</a></span> - sum of all enerering thermal power 
+elements in Sbus_all (output for information and further evaluation)<br />
+<font size="4">QdotSolar2Floor - sum of solar gains to be given to the floor of 
+the zone<br />
+Vair - air volume of the room or zone in m^3</font></span></span></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></div>
+
+<p class=MsoNormal><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%;mso-fareast-font-family:"Times New Roman"'>NOTE:</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'> Only one floor is allowed per room / zone. <o:p></o:p></span></span></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></div>
+
+<p><span style='mso-bookmark:literature'>
+<span style='mso-bookmark:schwamberger'><b>
+<span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Parameters and Dialog Box</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'><br>
+</span></span></span><img alt="" src="Figures/RoomNodeMask.jpg" /><!--[if gte vml 1]><v:shape id="Bild_x0020_188" o:spid="_x0000_s1457"
+ type="#_x0000_t75" style='position:absolute;left:0;text-align:left;
+ margin-left:0;margin-top:0;width:282pt;height:400.5pt;z-index:186;
+ visibility:visible;mso-wrap-style:square;mso-wrap-distance-left:0;
+ mso-wrap-distance-top:0;mso-wrap-distance-right:0;mso-wrap-distance-bottom:0;
+ mso-position-horizontal:left;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:line'
+ o:allowoverlap="f"><v:imagedata src="Figures/room_nodeSHOT.jpg" xmlns:v="urn:schemas-microsoft-com:vml"/><w:wrap type="square" anchory="line" xmlns:w="urn:schemas-microsoft-com:office:word"/></v:shape><![endif]--><span
+style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'><br clear=all
+style='mso-special-character:line-break'>
+</span></span></span></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Note:</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> The air temperature may
+set as &quot;natural&quot;, which means that the temperature follows the
+convective energy flows in the room. <br>
+If the temperature <span class=GramE>ist</span> set as &quot;ideal
+profile&quot;, the convective room temperature is taken from a a
+repeating-sequence block of Simulink. The parameters are defined by the
+following entries: &quot;time vector for ideal profile&quot; and &quot;values
+for ideal profile&quot;. The heating demand of a room can be calculated by
+integrating the &quot;heat flow to convective node&quot; in the S-vector (use </span></span></span><a
+href="carnot_manual.htm#s_selector"><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>S_selector</span></span></span></a><span
+style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> and a
+Simulink-Integrator).</span></span></span></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Characteristics</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample
+time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;line-height:120%'>&nbsp;
+</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> Inherited
+from driving block <br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;line-height:120%'>&nbsp;&nbsp;
+</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> No
+</span></span></span></p>
+
+</body>
+
+</html>

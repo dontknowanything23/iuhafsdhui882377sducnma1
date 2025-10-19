@@ -1,0 +1,257 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Room_Radiator</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/RoomRadiator.jpg" align=right>
+<p class="blockname">Room_Radiator</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Loads/Houses
+<br><br><br><br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Model of two rooms, separated by a wall. The rooms may be heated by a radiator.
+</p>
+
+<p><b>Description:</b><br>
+In the model the rooms 1 and 2 are arranged according to the following 
+construction drawing. The dimensions of the rooms are given by mask 
+parameters. The width of the rooms (length of wall B and D) has to be the 
+same for both rooms whereas the length of the rooms (extension of the room 
+along wall A and C) is individual for each room. <br />
+Parameters of the windows are defined for each wall A to D. <br />
+In the northern hemisphere the main facade B is typically oriented to the south. 
+The whole building can be turned by giving an angle between facade B and the 
+south orientation.</p>
+<p><img alt="" src="Figures/RoomDrawing.gif" /></p>
+<p>The beneath and above laying room are modelled as &quot;virtual zones&quot; 
+with a fixed temperature. </p>
+<p>The room temperature itself can be modeled as : <br />
+natural : room temperature is dependant on thermal energy balance<br />
+or <br />
+ideal : room temperature is fixed to the initial start temperature, the sum of 
+the thermal power QdotConvection and QdotRadiation is the necessary heating or 
+cooling power to maintain this temperature</p>
+<p>
+For the description of the components of the Room_Radiator model, see :<br>
+<a href="Wall_with_Window.html">Wall_with_Window</a> <br />
+<a href="Window.html">Window</a><br />
+<a href="Wall_in.html">Wall_in</a> <br />
+<a href="Floor_in.html">Floor_in</a><br />
+<a href="Room_Node.html">Room_Node</a><br />
+<a href="RadiatorAIV.html">Radiator_AIV</a><br />
+<a href="Window_Ventilation.html">Window_ventilation</a><br />
+<a href="Ventilation_AIV.html">Ventilation_AIV</a> 
+</p>
+<p>The construction parameters of the walls, windows, floor and 
+ceiling can be given by a mat-file. To create new mat-file use the individual 
+models Wall_in, Wall_out, Floor_in and Window.<br />
+</p>
+<p>
+Detailed descriptions of building simulation models have been presented by 
+<a href="pdf/OCHS_fabian_CARNOT_User_Meeting_2022.pdf">
+Ochs: BES Simulation, 2022 </a> and 
+<a href="pdf/Ochs_Carnot_Gebaeudemodelle_UserMeeting2013.pdf">
+Ochs: Überblick der Aktivitäten an der UIBK, 2013 </a>
+at the Carnot User Meetings.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">weather data bus</a> </td>
+    </tr>
+    <tr>
+    	<td> air_exchange_rate </td>
+        <td>:</td>
+        <td> air exchange between room air and outdoor air relative 
+		to the room volume in 1/h </td>
+    </tr>
+    <tr>
+    	<td> RDB1 </td>
+        <td>:</td>
+        <td> <a href="ResidentData.html">Resident Data Bus</a> 
+		of room 1, with internal gains, ventilation and shading 
+		control</td>
+    </tr>
+    <tr>
+    	<td> RDB2 </td>
+        <td>:</td>
+        <td> <a href="ResidentData.html">Resident Data Bus</a> 
+		of room 2, with internal gains, ventilation and shading 
+		control</td>
+    </tr>
+    <tr>
+    	<td> THBrad1 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the flow line to the raditor heating system in room 1</td>
+    </tr>
+    <tr>
+    	<td> THBrad2 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the flow line to the radiator heating system in room 2</td>
+    </tr>
+    <tr>
+    	<td> THBvent1 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of an external ventilation system to supply air to room 1</td>
+    </tr>
+    <tr>
+    	<td> THBvent2 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of an external ventilation system to supply air to room 2</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Sbus1</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="Sbus_format.html">Sources-Bus</a> 
+		of the building model, room 1 </td>
+    </tr>
+	<tr>
+		<td>Sbus2</td>
+		<td>:</td>
+        <td><a href="Sbus_format.html">Sources-Bus</a> 
+		of the building model, room 2 </td>
+    </tr>
+	<tr>
+		<td>AIB1</td>
+		<td>:</td>
+        <td><a href="AIB_format.html">Air Infiltration Bus</a> 
+		of the building model, room 1 </td>
+    </tr>
+	<tr>
+		<td>AIB2</td>
+		<td>:</td>
+        <td><a href="AIB_format.html">Air Infiltration Bus</a> 
+		of the building model, room 2 </td>
+    </tr>
+    <tr>
+    	<td> THB_rad1 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the return line to the raditor heating system in room 1</td>
+    </tr>
+    <tr>
+    	<td> THB_rad2 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the retrun line to the radiator heating system in room 2</td>
+    </tr>
+    <tr>
+    	<td> THB_vent1 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the exhaust air of room 1 to the external ventilation system</td>
+    </tr>
+    <tr>
+    	<td> THB_vent2 </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the exhaust air of room 2 to the external ventilation system</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box</b></p>
+<p><img src="Figures/RoomRadiatorMask1.jpg" /></p>
+<p><img src="Figures/RoomRadiatorMask2.jpg" /></p>
+<p><img src="Figures/RoomRadiatorMask3.jpg" /></p>
+<p><img src="Figures/RoomRadiatorMask4.jpg" /></p>
+<p><img src="Figures/RoomRadiatorMask5.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_House_RoomRadiator </li>
+ <li> example_House_RoomFloorHeating </li>
+</ul>
+
+<p><b>Validation</b> </p>
+<ul>
+ <li>The room model using the same components has been compared to the 
+ results given by [Feist 1994] and to measured data and calculated 
+ data of the SOPASIM-project [Balters 1995].</li>
+ <li>Comparison to measurements of the components has also been done 
+ with the data form a project in Argentina (Mueller 1999).</li>
+ <li>A complete validation of a room model using the same components as 
+ Room_Floor_Heating was done by FHNW in the work for IEA Task 32 and 44, see
+ <a href="pdf/Wemhoener_et_al_Validierung_Gebaeude_2007.pdf">
+ [Wemhoener 2007]</a>.</li>
+</ul>
+
+<p><b>Literature:</b><br>
+Wolfgang Feist: Thermische Gebäudesimulation. Kritische Prüfung 
+unterschiedlicher Modellansätze. Heidelberg, C. F. Müller, 1994.</p>
+<p>Balters, E., Lehmann, H., Schaub, A.: SOPASIM - Test weit verbreiteter 
+Solar-Passiv-Simulationssysteme für Architekten, Abschlussbericht, UHL Data, 
+Herzogstr. 27, Aachen, Arbeitsgemeinschaft Solar Nordrhein-Westfalen, 1995
+</p>
+<p><a href="pdf/Wemhoener_et_al_Validierung_Gebaeude_2007.pdf"> 
+Wemhöner, Dott, Afjei: Validierung des thermischen Gebäudemodells in der 
+CARNOT toolbox, Fachhochschule Nordwestschweiz, Institut Energie am Bau 
+IEBau, 2007</a>
+</p>
+<p><a href="pdf/OCHS_fabian_CARNOT_User_Meeting_2022.pdf">
+Ochs, Breuss, Jenewein, Magni, Venturi: BES Performance Matlab vs. Simulink, 
+Carnot User Meeting, Innsbruck, 2022 </a> <br> also available on 
+<a href = "https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2022_Innsbruck">
+https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2022_Innsbruck </a>
+</p>
+<p><a href="pdf/Ochs_Carnot_Gebaeudemodelle_UserMeeting2013.pdf">
+Fabian Ochs: Überblick der Aktivitäten an der UIBK, Carnot User Meeting, Basel/Muttenz, 2013 </a> 
+<br> also available on 
+<a href = "https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2013_Basel"> 
+https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2013_Basel </a>
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

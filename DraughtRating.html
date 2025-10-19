@@ -1,0 +1,125 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - DraughtRating</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/DraughtRating.gif" align=right>
+<p class="blockname">DraughtRating</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Outputs/Comfort<br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+This block calculates the draught rating according to ISO 7730.
+</p>
+<p><b>Description:</b><br>
+The draught rating is the predicted percentage of people evaluating a room 
+climate as drought.</p>
+<p>From ISO 7730 : The model is applicable to people with a light, mainly 
+sedentary job and a nearly neutral thermal sensation of the whole body and 
+predicted draught at the neck. At the level of the arms and legs, the model 
+might overestimate the predicted draught rate. Draught impairment is lower 
+for higher activity levels (&gt; 1.2 met) compared to sedentary activity 
+and for people who perceive the ambient climate as warmer rather than 
+thermally neutral. Appendix G contains additional information on the 
+influence of air velocity. </p>
+<p>The draught rating in the ISO 7730 is defined by the calculation :</p>
+<p><img src="Figures/DraughtRatingFig1.jpg" /></p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">LocalTemperature</td>
+		<td style="width: 10px;">:</td>
+        <td> local air temperature in &deg;C, 
+		valid range 20 &deg;C to 26 &deg;C </td>
+    </tr>
+    <tr>
+    	<td> LocalMeanAirVelocity </td>
+        <td>:</td>
+        <td> local mean air velocity in m/s, 0 m/s to 0.5 m/s </td>
+    </tr>
+    <tr>
+    	<td> LocalTurbulence </td>
+        <td>:</td>
+        <td> local air turbulence in %, 10 % to 60 %, 
+		if inknown a value of 40 % can be used </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> DroughtRating </td>
+		<td style="width: 10px;">:</td>
+        <td> predicted percentage of people evaluating the room 
+		climate as drought </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/DraughtRatingMask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_DraughtRating">
+	example_DraughtRating</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+ISO 7730 : Ergonomics of the thermal environment – Analytical determination 
+and interpretation of thermal comfort using calculation of the PMV and PPD 
+indices and local thermal comfort criteria (ISO 7730:2005)</p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+The room and building models of Carnot are not able to deliver the necessary 
+data for this block. Use the block only in combination with other data sources 
+e.g. detailed room models or measurements.
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

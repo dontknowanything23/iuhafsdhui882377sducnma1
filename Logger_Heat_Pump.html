@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerHeatPump.jpg" style="float: right"><a name="data_logging_heat_pump"><font
+ size="5"><b>Logger_HeatPump</b></font></a><b><br>
+Path: carint/Evaluation</b> <br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate a <a href="#heatpump">heat pump 
+block</a> of the Carnot blockset by using <a href="cs_energy_heatpump.html">
+cs_energy_heatpump</a>  
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>HPdat : output data of the heat pump 
+	<li>ElectricPrice : price of the electricity in 1/J 
+	<li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_hp : displaying data for a heat pump 
+    <li>files : &quot;heatpumpoutput<i>_extension</i>.mat&quot; and &quot;heatpumpdetailoutput<i>_extension</i>.mat&quot; 
+    where extension is a string you can choose in the parameters of the block. 
+    
+</ul>
+<p><strong>Description</strong><p>The file &quot;heatpumpdetailoutput<i>_extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated.&nbsp; <br>Detailed outputs 
+are written only if the compressor is working.<br>The files are saved in the 
+current working directory of Matlab unless you specify a complete pathname.</p>
+<p>The ElectricPrice input is usefull if you want to evaluate the energy costs 
+with variable traiffs.</p>
+<p>The files contain the following informations in timeseries variables : </p>
+<ul type="disc">
+    <li>&nbsp;Tc_in source inlet temperature in degree Celsius
+    <li>Tc_out source outlet temperature in degree Celsius
+    <li>MassC source integrated massflow in kg
+    <li>Qc source energy in Joule
+    <li>Th_in heating inlet temperature in degree Celsius
+    <li>Th_out heating outlet temperature in degree Celsius
+    <li>MassH heating integrated massflow in kg
+    <li>Qh heating energy in Joule
+    <li>Welec_in consumed electric energy in Joule
+    <li>Cycles compressor number of 'on' cycles
+    <li>OpTime compressor working time in s
+    <li>CostElecBuy costs of the electric energy in 1/J
+    </ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br></p>
+<p><b>Parameters and Dialog Box</b>
+<ul type="disc">
+    <li>sample time for data saving in s (standard value 3600 s)
+    <li>File extension: the text string replaces <i>&quot;extension&quot;</i> 
+    in the filename &quot;heatpumpoutput<i>_extension</i>.mat&quot; and &quot;heatpumpdetailoutput<i>_extension</i>.mat&quot;
+    <li>checkbox for additional detailed data file
+	(some evaluations in <a href="cs_energy_heatpump.html">cs_energy_heatpump</a> 
+	are only possible with the detailed file, e.g. mean operation temperature)<li>
+	sample time for detailed logging (default value of 60 s, be carefull when 
+	changing this value)</ul>
+<p><img alt="" src="Figures/LoggerHeatPumpMask.jpg"></p>
+<p><b>References<br></b>For more informations about the loggers and evaluation 
+see <a href="manual_evaluation.html">manual_evalulation</a>.</p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes</p>
+</body>
+
+</html>

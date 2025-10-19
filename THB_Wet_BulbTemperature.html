@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - THB_WetBulbTemperature</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/THB_wetBulbTemperature.gif" align=right>
+<p class="blockname">THB_WetBulbTemperature</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The function calculates the wet bulb temperature of humid air.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The function uses a look-up table created by the function rel_hum2x to 
+calculate the wet bulb temperature in &deg;C of moist air according to the input.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB_air </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the air </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> WBT </td>
+		<td style="width: 10px;">:</td>
+        <td> wet bulb temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> rel_hum </td>
+        <td>:</td>
+        <td> relative humidity of the air on % </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/THB_wetBulbTemperature_MASK.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - heat exchanger storage</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/heat_exchanger_storage.jpg" align=right>
+<p class="blockname">heat_exchanger_storage</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Storage/Thermal/detailed_storage_models
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculates the output of the THB of the hot and cold fluid of a heat exchanger.
+</p>
+
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The heat exchanger storage is divided into &quot;NODES&quot; nodes on 
+both fluid</span> sides, the heat transfer side and the outer wall.
+The energy balance for every node is the differential equation.</p>
+<p>For the outer wall it is:</p>
+<p><img src="Formulas/formel_heatexsto_a.jpg"></p>
+<p>For the heat-exchanger wall it is:</p>
+<p><img src="Formulas/formel_heatexsto_b.jpg"></p>
+
+<p>For the storage fluid it is: </p>
+<p><img src="Formulas/formel_heatexsto_c.jpg"></p>
+
+<p>For the heat-exchanger fluid it is:</p>
+<p><img src="Formulas/formel_heatexsto_d.jpg"></p>
+
+<p>with the heat transfer coefficient of the heat exchanger:</p>
+<p><img src="Formulas/formel_heatexsto_e.jpg"></p>
+
+<p>and the pressure drop:</p>
+<p><img src="Formulas/formel_heatexsto_f.jpg"></p>
+
+<p> For this node-scheme you have to obey a boundary condition for the Courant number: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt>c = Dt*</span>v/L<sub>node</sub>&lt; = 1</tt></p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>symbol</b></td>
+		<td style="width: 400px;"><b>used for</b></td>
+        <td> <b> unit </b></td>
+    </tr>
+    <tr>
+    	<td> A</td>
+        <td> surface area </td>
+        <td> m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> cond </td>
+        <td> effective thermal conductivity </td>
+        <td> W/m/K </td>
+    </tr>
+    <tr>
+    	<td> c </td>
+        <td> heat capacity </td>
+        <td> J/kg/K </td>
+    </tr>
+    <tr>
+    	<td> dh </td>
+        <td> distance between two nodes </td>
+        <td> m </td>
+    </tr>
+    <tr>
+    	<td> down </td>
+        <td> one node down (next node in flow direction) </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> hx </td>
+        <td> wall of heat exchanger pipe </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> in </td>
+        <td> fluid in the heat exchanger pipe </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> loss </td>
+        <td> thermal losses </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> m<sub>dot</sub></td>
+        <td> mass flow rate </td>
+        <td> kg/s </td>
+    </tr>
+    <tr>
+    	<td> rho </td>
+        <td> density </td>
+        <td> kg/m<sup>3</sup> </td>
+    </tr>
+    <tr>
+    	<td> T </td>
+        <td> temperature </td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> t </td>
+        <td> time </td>
+        <td> s </td>
+    </tr>
+    <tr>
+    	<td> stg </td>
+        <td> fluid in the store </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> U </td>
+        <td> heat loss coefficient </td>
+        <td> W/m<sup>2</sup>/K</td>
+    </tr>
+    <tr>
+    	<td> up </td>
+        <td> one node up (last node in flow direction) </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> V </td>
+        <td> node volume </td>
+        <td> m<sup>3</sup> </td>
+    </tr>
+    <tr>
+    	<td> w </td>
+        <td> outer wall of store </td>
+        <td> - </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature of the surrounding in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THBhx_in </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the heat exchanger inlet</td>
+    </tr>
+    <tr>
+    	<td> THBstg_in </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the inlet flow through the store</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+    <tr>
+    	<td> THBhx_out </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the heat exchanger outlet</td>
+    </tr>
+    <tr>
+    	<td> THBstg_out </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the outlet flow through the store</td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/heat_exchanger_storageSHOT.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

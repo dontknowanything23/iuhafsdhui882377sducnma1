@@ -1,0 +1,242 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - House_simple</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/HouseSimple.jpg" align=right>
+<p class="blockname">House_simple</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Loads/Houses
+<br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Simple one node / one zone model of a house with an integrated heating 
+system.
+</p>
+
+<p><b>Description:</b><br>
+House_simple uses the model 
+<a href="HouseOneNodeModel.html">House_OneNodeModel</a> 
+for the building physics. The heating system uses the 
+<a href="Radiator.html">Radiator</a> model.
+A neighbour building may be modelled by using the same block or just as 
+a constant temperature zone. An external ventilation system may supply 
+air to the building. The exhaust air of the ventilation system is 
+avaibale as THBvent_out.<br>
+The air exchange through gaps and mechanical ventilation with or without 
+heat recovery is is calculated by the 
+<a href="Ventilation.html">Ventilation</a> block. Air exchange by windows 
+is calculated by the 
+<a href="Window_Ventilation.html">Window_Ventilation</a> model. 
+Opening and closing of windows is defined by the the 
+<a href="ResidentData.html">Resident Data Bus</a>. Use 
+<a href="ResidentData.html">Resident_Data</a> or 
+<a href="ResidentTask44.html">Redident_Task44</a> blocks.<br>
+A simplified concentration model RoomAirComposition is integrated in 
+House_simple. Activate the calculation of CO2 and VOC concentrations 
+with the check box "Calculate air composition". In this model also 
+the humidity is damped by a transfer function. But this does NOT 
+replace a humidity model of the walls and other surfaces in the room.
+</p>
+<p>
+Detailed descriptions of building simulation models have been presented by 
+<a href="pdf/OCHS_fabian_CARNOT_User_Meeting_2022.pdf">
+Ochs: BES Simulation, 2022 </a> and 
+<a href="pdf/Ochs_Carnot_Gebaeudemodelle_UserMeeting2013.pdf">
+Ochs: Überblick der Aktivitäten an der UIBK, 2013 </a>
+at the Carnot User Meetings.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">weather data bus</a> </td>
+    </tr>
+    <tr>
+    	<td> THB </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo-Hydraulic Bus</a> 
+		of the flow line to the heating system</td>
+    </tr>
+    <tr>
+    	<td> RDB </td>
+        <td>:</td>
+        <td> <a href="ResidentData.html">Resident Data Bus</a> 
+		with internal gains, ventilation and shading control</td>
+    </tr>
+    <tr>
+    	<td> THBfreshAir </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo-Hydraulic Bus</a> 
+		of an external ventilation system to supply air to the house</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Hdat</td>
+		<td style="width: 10px;">:</td>
+        <td> House Data Bus with information on the temperatures and 
+		energy flows (see below)</td>
+    </tr>
+    <tr>
+    	<td> THBout </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo-Hydraulic Bus</a> 
+		of the return line of the heating system </td>
+    </tr>
+    <tr>
+    	<td> THBvent_out </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo-Hydraulic Bus</a> 
+		of the exhaust air to the external ventilation system </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;">Definition of the House Data Bus Hdat :</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Troom : </td>
+		<td style="width: 10px;">:</td>
+        <td> room temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Qdot </td>
+        <td>:</td>
+        <td> Bus with information of the thermal model, see 
+		definition of Qdot_all in 
+		<a href="HouseOneNodeModel.html">House_OneNodeModel</a></td>
+    </tr>
+    <tr>
+    	<td> RDB </td>
+        <td>:</td>
+        <td> <a href="ResidentData.html">Resident Data Bus</a> 
+		with internal gains, ventilation and shading control</td>
+    </tr>
+    <tr>
+    	<td> THB_in </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo-Hydraulic Bus</a> 
+		of the low line to the heating system</td>
+    </tr>
+    <tr>
+    	<td> THBout </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo-Hydraulic Bus</a> 
+		of the return line of the heating system </td>
+    </tr>
+    <tr>
+    	<td> Ahabit </td>
+        <td>:</td>
+        <td> living surface of the house in m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> THBvent_out </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo-Hydraulic Bus</a> 
+		of the exhaust air to the external ventilation system </td>
+    </tr>
+</table>
+
+<p>Remark : <br>
+Qdot_h is not the heating or cooling power delivered by the HVAC 
+system. Use an <a href="EnergyMeter_HC.html">EnergyMeter_HC</a> and 
+connect it to THB input / THBout output to get the correct balance 
+of heating and cooling energy delivered by the HVAC.</p>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/HouseSimpleMASK1.jpg" /></p>
+<p><img alt="" src="Figures/HouseSimpleMASK2.jpg" /></p>
+<p><img alt="" src="Figures/HouseSimpleMASK3.jpg" /></p>
+<p><img alt="" src="Figures/HouseSimpleMASK4.jpg" /></p>
+<p><img alt="" src="Figures/HouseSimpleMASK5.jpg" /></p>
+<p>Parameter sets can be loaded from a configuration file or can 
+be edited by the user. See <a href="2_Basic_Concepts.html#dialog_box">Basic 
+Concepts - 6.2 Parameters and Dialog Box of the Model</a>. </p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_XY </li>
+ <li> example_YZ </li>
+</ul>
+
+<p>Verifcation and Validation</b></p>
+<p class="auto-style2">See [Peter, Wintler, Dott 2014] and verfiy_HouseSimple.m 
+in the verification folder of the model.</p>
+
+<p><b>Literature:</b><br>
+Andreas Peter, Christian Winteler, Ralf Dott :
+<a href="pdf/Peter_Wintler_Dott_IEA_Task_44_Building_2014.pdf">Implementation of 
+the IEA SHC &amp; HPP T44/A38 Boundary Conditions in Matlab/Simulink with 
+CARNOT-blockset</a> A Platform Independence Check for the IEA SHC Task 44 / HPP 
+Annex 38 – Subtask C, Institut Energie am Bau - Fachhochschule Nordwestschweiz, 
+2014 </p>
+<p>Michel Y. Haller, Ralf Dott, Jörn Ruschenburg, Fabian Ochs, Jacques Bony:
+<a href="pdf/T44A38_Rep_C1_A_BoundaryConditions_Final_Revised_131108.pdf">The 
+Reference Framework for System Simulations of the IEA SHC Task 44 / HPP Annex 38 
+Part A: General Simulation Boundary Conditions</a> A technical report of subtask 
+C Report C1 Part A, 2013</p>
+<p>Ralf Dott, Michel Y. Haller, Jörn Ruschenburg, Fabian Ochs, Jacques Bony :
+<a href="pdf/T44A38_Rep_C1_B_ReferenceBuildingDescription_Final_Revised_130906.pdf">
+The Reference Framework for System Simulations of the IEA SHC Task 44 / HPP 
+Annex 38 Part B: Buildings and Space Heat Load</a> A technical report of subtask 
+C Report C1 Part B, 2013</p>
+<p><a href="pdf/OCHS_fabian_CARNOT_User_Meeting_2022.pdf">
+Ochs, Breuss, Jenewein, Magni, Venturi: BES Performance Matlab vs. Simulink, 
+Carnot User Meeting, Innsbruck, 2022 </a> <br> also available on 
+<a href = "https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2022_Innsbruck">
+https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2022_Innsbruck </a>
+</p>
+<p><a href="pdf/Ochs_Carnot_Gebaeudemodelle_UserMeeting2013.pdf">
+Fabian Ochs: Überblick der Aktivitäten an der UIBK, Carnot User Meeting, Basel/Muttenz, 2013 </a> 
+<br> also available on 
+<a href = "https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2013_Basel"> 
+https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2013_Basel </a>
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

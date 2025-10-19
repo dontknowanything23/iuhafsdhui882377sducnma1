@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - basic_create_EB</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/basic_create_EB.png" align=right>
+<p class="blockname">basic_create_EB</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Electric
+<br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Create an <a href="2_Basic_Concepts.html#electric_bus">Electric Bus</a>.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Active power and voltage are set by input ports. The other parameters are 
+constant and set in the block mask. The output of the block is a constant 
+<a href="2_Basic_Concepts.html#electric_bus">Electric Bus</a> signal.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">voltage</td>
+		<td style="width: 10px;">:</td>
+        <td> voltage DC or AC all phases in V </td>
+    </tr>
+    <tr>
+    	<td> ActivePower1</td>
+        <td>:</td>
+        <td> active power DC or AC all phases in W</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">EB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#electric_bus">Electric Bus</a></td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/basicCreateEBmask.png" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+</html>

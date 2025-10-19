@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="de-at" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>measure mdot</title>
+<style type="text/css">
+ div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+p
+	{margin-right:0cm;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ ul
+	{margin-bottom:0cm;}
+ li.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ .auto-style1 {
+	margin-left: 120px;
+}
+.auto-style2 {
+	font-size: 13.5pt;
+	font-weight: bold;
+}
+.auto-style3 {
+	font-size: 13.5pt;
+}
+</style>
+</head>
+
+<body>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:schwamberger'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=10 width="100%" noshade style='color:#A0A0A0' align=center>
+
+</span></span></span></div>
+
+<p><span class=GramE><span
+style='mso-bookmark:Measure_mdot'><span style='mso-bookmark:literature'>
+<span
+style='mso-bookmark:schwamberger'><b>
+<span style='font-size:18.0pt;
+line-height:120%'>
+<img alt="" src="Figures/DefristAirSourceHP.gif" style="float: right" />Defrost_Air_Source_HeatPump</span></b></span></span></span></span><span
+style='mso-bookmark:Measure_mdot'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;line-height:120%'><br>
+<b>Path: CARNOT/<span lang="de-at">C</span>ontrol</b> <br clear=all style='mso-special-character:line-break'>
+<o:p></o:p></span></span></span></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:Measure_mdot'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></span></div>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Purpose</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+</span><span style='font-size:13.5pt;line-height:120%'> Defrost model for the 
+evaporator of an air source heat pump.</span></span></span></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Description</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+</span><span style='font-size:13.5pt;line-height:120%'> The block is a model for 
+the ice formation and the defrosting of an air source heat pump. <span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'>
+<span style='font-size:13.5pt;line-height:120%'> The model describes the 
+defrosting with a hot gas bypass - not with a cycle inversion.</span></span></span><br />
+The mass of ice is increasing during the operation of the heat pump. The rate of 
+ice formation is dependent on the air temperature and the relative humidity. 
+After a certain maximum operation time the defrost is triggered. During the 
+defrost the thermal output on the secondary side is zero, only electric power is 
+consumed. <br />
+Depending on the air temperature and the relative humidity the defrosting is 
+operated for a certain time with a certain constant electric power.<br />
+The defrost is not acivated if the air temperature is above a certain threshold.
+<br />
+During the standby period of the heat pump the evaporator is "automatically" 
+loosing the ice due to the outdoor air temperature if the air temperature is 
+above a threshold. Set the automatic defrost temperature limit to a value above 
+the defrost temperature limit if you do not want to use this function.<br />
+<span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'>
+<span style='font-size:13.5pt;line-height:120%'> Use measurement data to fit the 
+model to the 2-D look-up-table for the operation time as a function of air 
+temperature and humidity and for the defrost time and electric power during 
+defrost.
+</span></span></span>&nbsp;</span></span></span></p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Input </span></b></span></span></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l35 level1 lfo125;tab-stops:list 36.0pt; mso-fareast-font-family: "Times New Roman"; font-size: 13.5pt;'>
+ THB_air : Thermo-Hydraulic Bus of the incomming air</li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l35 level1 lfo125;tab-stops:list 36.0pt; mso-fareast-font-family: "Times New Roman"; font-size: 13.5pt;'>
+	ctrl : Control signal setpoint of the heat pump operation</li>
+</ul>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Output </span></b></span></span></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l74 level1 lfo126;tab-stops:list 36.0pt'>
+ <span
+     style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'>
+ <span style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+     "Times New Roman"'>Ctrl_defrost : control signal for defrost (0 : normal 
+ operation, 1 : defrosting active)</span></span></span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l74 level1 lfo126;tab-stops:list 36.0pt'>
+    <font size="4">Ctrl_heating : </font>
+	<span
+     style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'>
+ &nbsp;<span
+     style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+     "Times New Roman"'>control signal for heating (1 : normal operation, 0 : 
+	defrosting active)</span></span></span></span></span></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p class="auto-style2">Mask and Parameters</p>
+<p class="auto-style3"><img alt="" src="Figures/DefristAirSourceHPmask.jpg" /></p>
+<p class="auto-style3"></p>
+<p><span style='mso-bookmark:literature'>
+<span style='mso-bookmark:schwamberger'><b>
+<span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>Characteristics</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample
+time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;line-height:120%'>&nbsp;
+</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> Inherited
+from driving block <br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;line-height:120%'>&nbsp;&nbsp;
+</span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> No
+</span></span></span></p>
+
+</body>
+
+</html>

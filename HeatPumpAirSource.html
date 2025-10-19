@@ -1,0 +1,165 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - HeatPump_Air_Source</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/HeatPumpAirSource.jpg" align=right>
+<p class="blockname">HeatPump_Air_Source</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Heat_Pump
+<br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Model for the calculation of an air to water heat pump.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The dynamic behaviour of the heat pump is calculated using an empirical model. 
+The model is described in <a href="HeatPump_basic.html">HeatPump_basic</a> 
+(more details see
+<a href="pdf/CARNOT_Nutzertreffen2017_Viessmann_Hafner_Modellierung_LuftWasserWP.pdf">
+Hafner 2017</a> and <a href="6_Literature.html#schwamberger">Schwamberger 1991</a>).
+Consider that the model does not take into account any limitations of the refrigerant 
+or the controller (e.g. minimum evaporation temperature, maximum condensing 
+temperature, delays during start up). The linear characteristic is extrapolated 
+beyond the fitting data.<br>
+The defrost model <a href = "DefrostAirSourceHP.html">DefrostAirSourceHP </a> 
+is based on empirical data: Operation time and defrost time are 
+determined by 2-D lookup-tables. The inputs are the air temperature and the relative 
+humidity. The electric power consumption during defrost ist assumed to be constant. 
+During defrost no heating power is produced and the secondary side is not cooled 
+down. This corresponds to an electric defrost or hot gas bypass defrost by the 
+compressor.<br>
+See <a href = "hp_param.html"><tt>hp_param</tt></a> for the calculation 
+of the K1...K9 parameters.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBair </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the source (air) </td>
+    </tr>
+    <tr>
+    	<td> THBin </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the return line </td>
+    </tr>
+    <tr>
+    	<td> Tamb </td>
+        <td>:</td>
+        <td> ambient temperature of the heat pump (for thermal losses) in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Ctrl </td>
+        <td>:</td>
+        <td> control signal of the compressor speed in [0..1] </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB_air </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the air outlet </td>
+    </tr>
+    <tr>
+    	<td> THBout </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the flow line </td>
+    </tr>
+    <tr>
+    	<td> HPdat </td>
+        <td>:</td>
+        <td> heat pump data bus, see <a href="HeatPump_basic.html">HeatPump_basic</a> </td>
+    </tr>
+    <tr>
+    	<td> Sensors </td>
+        <td>:</td>
+        <td> data bus with the sensor values: primary and secondary inlet and 
+		outlet temperatures, control and defrost signals </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/HeatPumpAirSourceMask1.jpg" /></p>
+<p><img src="Figures/HeatPumpAirSourceMask2.jpg" /></p>
+<p><img src="Figures/HeatPumpAirSourceMask3.jpg" /></p>
+<p><img src="Figures/HeatPumpAirSourceMask4.jpg" /></p>
+<p> You may directly choose predefined parameter sets.
+For details see chapter 
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a>
+</p>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> Example_HeatPumpAirSource </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Schwamberger, K. (1991): Modellbildung und Regelung von Gebäudeheizungsanlagen 
+mit Wärmepumpen, Fortschrittsberichte VDI Reihe 6, Nr. 263, VDI Verlag Düsseldorf<br>
+Allen, J.J., Hamilton J.F. (1983): Steady-state reciprocating water chiller 
+models; ASHRAE Transactions 89(2A): pp. 398-407<br>
+Hafner (2017): 
+<a href="pdf/CARNOT_Nutzertreffen2017_Viessmann_Hafner_Modellierung_LuftWasserWP.pdf">
+Modellierung Luft-Wasser-Wärmepumpen</a>, CARNOT_Nutzertreffen<br>
+Gocht: <a href="pdf/Gocht_Erweiterung_CARNOTmodell_AirSourceHP_2018.pdf">
+Erweiterung_CARNOTmodell_AirSourceHP_2018</a>
+</p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+The secondary mass flow must be given by external pumps, 
+the air mass flow is set by the heat pump model.
+</p>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

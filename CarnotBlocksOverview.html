@@ -1,0 +1,658 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Carnot  Blocks</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="CarnotBlocksOverview.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Carnot  Blocks</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Basic / DataOutput</a></li><li><a href="#2">Basic / Electric</a></li><li><a href="#3">Basic / Heat_Transfer</a></li><li><a href="#4">Basic / Hydraulics</a></li><li><a href="#5">Basic / Material_Properties</a></li><li><a href="#6">Basic / Pressure_Drop</a></li><li><a href="#7">Basic / Thermal_Models</a></li><li><a href="#8">Basic / Weather_and_Sun</a></li><li><a href="#9">Control</a></li><li><a href="#10">Hydraulics</a></li><li><a href="#11">Load / General</a></li><li><a href="#12">Load / Hot_Water_Tapping</a></li><li><a href="#13">Load / Houses</a></li><li><a href="#14">Outputs / Comfort</a></li><li><a href="#15">Outputs / Debugging</a></li><li><a href="#16">Outputs / Logger</a></li><li><a href="#17">Outputs / Selectors</a></li><li><a href="#18">Source / Boiler</a></li><li><a href="#19">Source / Chiller</a></li><li><a href="#20">Source / Cogeneration</a></li><li><a href="#21">Source / Electric_Generator</a></li><li><a href="#22">Source / Energy</a></li><li><a href="#23">Source / Heat_Exchanger</a></li><li><a href="#24">Source / Heat_Pump</a></li><li><a href="#25">Source / Simple</a></li><li><a href="#26">Source / Solar_Thermal</a></li><li><a href="#27">Source / Solar_Thermal / IncidenceAngleModifier</a></li><li><a href="#28">Source / Solar_Thermal</a></li><li><a href="#29">Source / Ventilation</a></li><li><a href="#30">Storage / Electric</a></li><li><a href="#31">Storage / Thermal</a></li><li><a href="#32">Storage / Thermal / Storage_Ports</a></li><li><a href="#33">Storage / Thermal</a></li><li><a href="#34">Storage / Thermal / detailed_storage_models</a></li><li><a href="#35">Storage / Thermal / surface_models</a></li><li><a href="#36">Toolbox</a></li><li><a href="#37">Weather</a></li></ul></div><h2 id="1">Basic / DataOutput</h2><p><a href="CreateSdat.html">CreateSdat</a></p><p><a href="createCdat.html">createCdat</a></p><h2 id="2">Basic / Electric</h2><p><a href="EBCreator.html">EBCreator</a></p><p><a href="basic_EB.html">basic_EB</a></p><p><a href="basic_create_EB.html">basic_create_EB</a></p><h2 id="3">Basic / Heat_Transfer</h2><p><a href="Heattransfer2GroundISO.html">Heattransfer2GroundISO</a></p><p><a href="Heattransfer2GroundSimple.html">Heattransfer2GroundSimple</a></p><p><a href="alfa_ceiling.html">alfa_ceiling</a></p><p><a href="alfa_floor.html">alfa_floor</a></p><p><a href="alfa_wall_in.html">alfa_wall_in</a></p><p><a href="alfa_wall_out.html">alfa_wall_out</a></p><p><a href="alfa_window_in.html">alfa_window_in</a></p><p><a href="alfa_window_out.html">alfa_window_out</a></p><p><a href="createSbus.html">createSbus</a></p><p><a href="wall_out_IR_radiation.html">wall_out_IR_radiation</a></p><h2 id="4">Basic / Hydraulics</h2><p><a href="Flow_Mixer_basic.html">Flow_Mixer_basic</a></p><p><a href="Grashof_mdl.html">Grashof_mdl</a></p><p><a href="Mix_T_Mdot.html">Mix_T_Mdot</a></p><p><a href="Prandtl_mdl.html">Prandtl_mdl</a></p><p><a href="ReynoldsTHB.html">ReynoldsTHB</a></p><p><a href="Reynolds_mdl.html">Reynolds_mdl</a></p><p><a href="THBCreator.html">THBCreator</a></p><p><a href="Velocity_mdl.html">Velocity_mdl</a></p><p><a href="basic_THB.html">basic_THB</a></p><p><a href="basic_create_THB.html">basic_create_THB</a></p><p><a href="createAIB.html">createAIB</a></p><h2 id="5">Basic / Material_Properties</h2><p><a href="AIV_Wet_BulbTemperature.html">AIV_Wet_BulbTemperature</a></p><p><a href="density_mdl.html">density_mdl</a></p><p><a href="enthalpy2temperature_mdl.html">enthalpy2temperature_mdl</a></p><p><a href="enthalpy_mdl.html">enthalpy_mdl</a></p><p><a href="entropy_mdl.html">entropy_mdl</a></p><p><a href="evaporation_enthalpy_mdl.html">evaporation_enthalpy_mdl</a></p><p><a href="heat_capacity_mdl.html">heat_capacity_mdl</a></p><p><a href="input_material.html">input_material</a></p><p><a href="kinematic_viscosity_mdl.html">kinematic_viscosity_mdl</a></p><p><a href="PhaseCheck.html">PhaseCheck</a></p><p><a href="RelHum2x.html">RelHum2x</a></p><p><a href="Saturation_Property.html">Saturation_Property</a></p><p><a href="saturation_temperature.html">saturation_temperature</a></p><p><a href="Saturation_Value_Water.html">Saturation_Value_Water</a></p><p><a href="Specific_Volume_mdl.html">Specific_Volume_mdl</a></p><p><a href="THB_Wet_BulbTemperature.html">THB_Wet_BulbTemperature</a></p><p><a href="Temperature_Conductivity_mdl.html">Temperature_Conductivity_mdl</a></p><p><a href="Thermal_Conductivity_mdl.html">Thermal_Conductivity_mdl</a></p><p><a href="Vapour_Content.html">Vapour_Content</a></p><p><a href="Vapour_Pressure.html">Vapour_Pressure</a></p><p><a href="x2RelHum.html">x2RelHum</a></p><h2 id="6">Basic / Pressure_Drop</h2><p><a href="Pressure_Drop.html">Pressure_Drop</a></p><p><a href="Pressure_Drop_Ceta.html">Pressure_Drop_Ceta</a></p><p><a href="Pressure_Drop_Collector.html">Pressure_Drop_Collector</a></p><p><a href="Pressure_Drop_Fix.html">Pressure_Drop_Fix</a></p><p><a href="Pressure_Drop_PipeTheory.html">Pressure_Drop_PipeTheory</a></p><p><a href="Pressure_Drop_StorageHX.html">Pressure_Drop_StorageHX</a></p><p><a href="Pressure_Drop_StoragePipe.html">Pressure_Drop_StoragePipe</a></p><p><a href="Pressure_Drop_changeD.html">Pressure_Drop_changeD</a></p><p><a href="Pressure_Drop_staticHeight.html">Pressure_Drop_staticHeight</a></p><p><a href="Pressuredrop.html">Pressuredrop</a></p><p><a href="frictionCoefficient.html">frictionCoefficient</a></p><p><a href="clq2pressuredropcoeff.html">clq2pressuredropcoeff</a></p><p><a href="pressure_drop_calculated_for_header_riser_water.html">pressure_drop_calculated_for_header_riser_water</a></p><p><a href="pressure_drop_for_measured_data_water.html">pressure_drop_for_measured_data_water</a></p><p><a href="pressure_drop_quadratic_fitted_data.html">pressure_drop_quadratic_fitted_data</a></p><p><a href="pressure_drop_quadratic_fitted_data_water.html">pressure_drop_quadratic_fitted_data_water</a></p><p><a href="pressuredropcoeff2clq.html">pressuredropcoeff2clq</a></p><p><a href="relFlowCoeff2qua.html">relFlowCoeff2qua</a></p><h2 id="7">Basic / Thermal_Models</h2><p><a href="Cogeneration_Motor_Basic.html">Cogeneration_Motor_Basic</a></p><p><a href="Combustion_Calculation.html">Combustion_Calculation</a></p><p><a href="Floor_in.html">Floor_in</a></p><p><a href="HeatPump_basic.html">HeatPump_basic</a></p><p><a href="HouseOneNodeModel.html">HouseOneNodeModel</a></p><p><a href="Pipe_basic.html">Pipe_basic</a></p><p><a href="Roof.html">Roof</a></p><p><a href="RoomAirComposition.html">RoomAirComposition</a></p><p><a href="Room_Node.html">Room_Node</a></p><p><a href="Solar_Collector_basic.html">Solar_Collector_basic</a></p><p><a href="T_Ground_Undisturbed.html">T_Ground_Undisturbed</a></p><p><a href="Thermal_Node.html">Thermal_Node</a></p><p><a href="Wall_basic.html">Wall_basic</a></p><p><a href="Wall_in.html">Wall_in</a></p><p><a href="Wall_out.html">Wall_out</a></p><p><a href="Wall_with_Window.html">Wall_with_Window</a></p><p><a href="Window.html">Window</a></p><p><a href="sfun_storageTnodes.html">sfun_storageTnodes</a></p><p><a href="StoragePorts_HeatExchangerModels.html">StoragePorts_HeatExchangerModels</a></p><h2 id="8">Basic / Weather_and_Sun</h2><p><a href="Cloudage.html">Cloudage</a></p><p><a href="Radiation_Divison.html">Radiation_Divison</a></p><p><a href="Sky_Temperature.html">Sky_Temperature</a></p><p><a href="Solar_Declination_Angle.html">Solar_Declination_Angle</a></p><p><a href="Solar_Extraterrestrial_Radiation.html">Solar_Extraterrestrial_Radiation</a></p><p><a href="Solar_Hour_Angle.html">Solar_Hour_Angle</a></p><p><a href="Solar_Position.html">Solar_Position</a></p><p><a href="Solar_Time.html">Solar_Time</a></p><p><a href="WDB_Creator.html">WDB_Creator</a></p><h2 id="9">Control</h2><p><a href="Controller_Bang_Bang.html">Controller_Bang_Bang</a></p><p><a href="DefrostAirSourceHP.html">DefrostAirSourceHP</a></p><p><a href="ElectricMeter.html">ElectricMeter</a></p><p><a href="EnergyMeter.html">EnergyMeter</a></p><p><a href="EnergyMeter_HC.html">EnergyMeter_HC</a></p><p><a href="Limit_Control_Range.html">Limit_Control_Range</a></p><p><a href="LimitPowerChange.html">LimitPowerChange</a></p><p><a href="Massflow_Sensor.html">Massflow_Sensor</a></p><p><a href="Max_Run_Time.html">Max_Run_Time</a></p><p><a href="Min_Run_Min_Stop.html">Min_Run_Min_Stop</a></p><p><a href="Min_Run_Time.html">Min_Run_Time</a></p><p><a href="Min_Stop_Time.html">Min_Stop_Time</a></p><p><a href="OnOff_switch.html">OnOff_switch</a></p><p><a href="PowerMeter.html">PowerMeter</a></p><p><a href="ShadingControl.html">ShadingControl</a></p><p><a href="Solar_Radiation_Sensor.html">Solar_Radiation_Sensor</a></p><p><a href="Start_Delay.html">Start_Delay</a></p><p><a href="Stop_Delay.html">Stop_Delay</a></p><p><a href="T_Sensor.html">T_Sensor</a></p><p><a href="T_Sensor_Surface.html">T_Sensor_Surface</a></p><p><a href="Temperatures_Limits_CHP.html">Temperatures_Limits_CHP</a></p><p><a href="Temperatures_Limits_HP.html">Temperatures_Limits_HP</a></p><p><a href="Thermostat_Proportional.html">Thermostat_Proportional</a></p><p><a href="Window_Control.html">Window_Control</a></p><h2 id="10">Hydraulics</h2><p><a href="Fan_Const.html">Fan_Const</a></p><p><a href="Fan_Main.html">Fan_Main</a></p><p><a href="Flow_Diverter.html">Flow_Diverter</a></p><p><a href="Flow_Mixer.html">Flow_Mixer</a></p><p><a href="Flow_Mixer_Ideal.html">Flow_Mixer_Ideal</a></p><p><a href="Flow_Mixer_NoDpCalc.html">Flow_Mixer_NoDpCalc</a></p><p><a href="Flow_Mixer_Thermostatic.html">Flow_Mixer_Thermostatic</a></p><p><a href="Mixing_Valve.html">Mixing_Valve</a></p><p><a href="Pipe.html">Pipe</a></p><p><a href="PipeBiflow.html">PipeBiflow</a></p><p><a href="Pipe_Geometry.html">Pipe_Geometry</a></p><p><a href="Pipe_Isolation.html">Pipe_Isolation</a></p><p><a href="Pdat.html">Pdat</a></p><p><a href="Pump_Const.html">Pump_Const</a></p><p><a href="Pump_Main.html">Pump_Main</a></p><p><a href="Pump_basic.html">Pump_basic</a></p><p><a href="Thermosyphon.html">Thermosyphon</a></p><p><a href="Valve.html">Valve</a></p><p><a href="Valve_Thermostatic.html">Valve_Thermostatic</a></p><p><a href="Valve_table.html">Valve_table</a></p><h2 id="11">Load / General</h2><p><a href="Data_from_File.html">Data_from_File</a></p><p><a href="Repeating_Profile.html">Repeating_Profile</a></p><h2 id="12">Load / Hot_Water_Tapping</h2><p><a href="DHWenergyTapping.html">DHWenergyTapping</a></p><p><a href="EuTappingCycle.html">EuTappingCycle</a></p><p><a href="HotWaterDatafile.html">HotWaterDatafile</a></p><p><a href="HotWaterEuTappingCycle.html">HotWaterEuTappingCycle</a></p><p><a href="HotWaterEnergyProfile.html">HotWaterEnergyProfile</a></p><p><a href="HotWaterTmdotProfile.html">HotWaterTmdotProfile</a></p><p><a href="T_cold_Water_Location.html">T_cold_Water_Location</a></p><p><a href="T_cold_Water_Season.html">T_cold_Water_Season</a></p><p><a href="T_cold_Water_Sine.html">T_cold_Water_Sine</a></p><p><a href="Water_Tap.html">Water_Tap</a></p><p><a href="mdot_annual_profile.html">mdot_annual_profile</a></p><p><a href="mdotRepSeq.html">mdotRepSeq</a></p><h2 id="13">Load / Houses</h2><p><a href="houseSimple.html">houseSimple</a></p><p><a href="ResidentData.html">ResidentData</a></p><p><a href="ResidentTask44.html">ResidentTask44</a></p><p><a href="Room_Floor_Heating.html">Room_Floor_Heating</a></p><p><a href="Room_Radiator.html">Room_Radiator</a></p><h2 id="14">Outputs / Comfort</h2><p><a href="DraughtRating.html">DraughtRating</a></p><p><a href="PMV_PPD.html">PMV_PPD</a></p><p><a href="RadiantAsymmetryWall.html">RadiantAsymmetryWall</a></p><p><a href="Sensitive_room_temperature.html">Sensitive_room_temperature</a></p><p><a href="VerticalAirTemperatureDifference.html">VerticalAirTemperatureDifference</a></p><p><a href="WarmAndCoolFloor.html">WarmAndCoolFloor</a></p><h2 id="15">Outputs / Debugging</h2><p><a href="printer.html">printer</a></p><h2 id="16">Outputs / Logger</h2><p><a href="Logger_Battery.html">Logger_Battery</a></p><p><a href="Logger_Boiler.html">Logger_Boiler</a></p><p><a href="Logger_CoGen.html">Logger_CoGen</a></p><p><a href="Logger_ElectricHeaterCtrl.html">Logger_ElectricHeaterCtrl</a></p><p><a href="Logger_EnergyMeter.html">Logger_EnergyMeter</a></p><p><a href="Logger_Heat_Pump.html">Logger_Heat_Pump</a></p><p><a href="Logger_House.html">Logger_House</a></p><p><a href="Logger_PvGenerator.html">Logger_PvGenerator</a></p><p><a href="Logger_SolarThermalCollector.html">Logger_SolarThermalCollector</a></p><p><a href="Logger_Storage.html">Logger_Storage</a></p><h2 id="17">Outputs / Selectors</h2><p><a href="AIV_selector.html">AIV_selector</a></p><p><a href="Display_THB.html">Display_THB</a></p><p><a href="S_selector.html">S_selector</a></p><p><a href="display_weather.html">display_weather</a></p><h2 id="18">Source / Boiler</h2><p><a href="Condensing_Boiler.html">Condensing_Boiler</a></p><p><a href="Electric_Heater.html">Electric_Heater</a></p><p><a href="Electric_Heater_Ctrl.html">Electric_Heater_Ctrl</a></p><h2 id="19">Source / Chiller</h2><p><a href="absorption_chiller_lookup.html">absorption_chiller_lookup</a></p><p><a href="absorption_chiller_ddt.html">absorption_chiller_ddt</a></p><p><a href="Compression_Chiller.html">Compression_Chiller</a></p><p><a href="Cooling_Tower.html">Cooling_Tower</a></p><h2 id="20">Source / Cogeneration</h2><p><a href="Cogeneration_Motor.html">Cogeneration_Motor</a></p><p><a href="microCHP_constant.html">microCHP_constant</a></p><p><a href="microCHP_modulating.html">microCHP_modulating</a></p><h2 id="21">Source / Electric_Generator</h2><p><a href="GridConnection.html">GridConnection</a></p><p><a href="Inverter.html">Inverter</a></p><p><a href="Inverter_SPI.html">Inverter_SPI</a></p><p><a href="PV_Generator.html">PV_Generator</a></p><h2 id="22">Source / Energy</h2><p><a href="ElectricityPrice.html">ElectricityPrice</a></p><p><a href="Fuel.html">Fuel</a></p><h2 id="23">Source / Heat_Exchanger</h2><p><a href="FHB_TABS.html">FHB_TABS</a></p><p><a href="Ground_Source_Heat_Exchanger.html">Ground_Source_Heat_Exchanger</a></p><p><a href="HeatExchanger.html">HeatExchanger</a></p><p><a href="Radiator.html">Radiator</a></p><p><a href="RadiatorAIV.html">RadiatorAIV</a></p><p><a href="THB_P_adapter.html">THB_P_adapter</a></p><p><a href="VDIHeatExchanger.html">VDIHeatExchanger</a></p><h2 id="24">Source / Heat_Pump</h2><p><a href="HeatPump.html">HeatPump</a></p><p><a href="HeatPumpAirSource.html">HeatPumpAirSource</a></p><h2 id="25">Source / Simple</h2><p><a href="Constant_EB.html">Constant_EB</a></p><p><a href="Constant_THB.html">Constant_THB</a></p><p><a href="EB_set_power.html">EB_set_power</a></p><p><a href="EB_set_voltage.html">EB_set_voltage</a></p><p><a href="THB_fixed_T.html">THB_fixed_T</a></p><p><a href="THB_fixed_mdot.html">THB_fixed_mdot</a></p><p><a href="THB_set_T.html">THB_set_T</a></p><p><a href="THB_set_mdot.html">THB_set_mdot</a></p><p><a href="create_EB.html">create_EB</a></p><p><a href="createTHB.html">createTHB</a></p><h2 id="26">Source / Solar_Thermal</h2><p><a href="Collector_1xN.html">Collector_1xN</a></p><p><a href="Collector_Unglazed.html">Collector_Unglazed</a></p><p><a href="Collector_Unglazed_ISO9806.html">Collector_Unglazed_ISO9806</a></p><p><a href="Collector_Unglazed_ISO_2node.html">Collector_Unglazed_ISO_2node</a></p><h2 id="27">Source / Solar_Thermal / IncidenceAngleModifier</h2><p><a href="IAM_Table.html">IAM_Table</a></p><p><a href="IAM_Table_KbL_KbT.html">IAM_Table_KbL_KbT</a></p><p><a href="IAM_b0.html">IAM_b0</a></p><p><a href="Theoretical_Collector_Optics.html">Theoretical_Collector_Optics</a></p><h2 id="28">Source / Solar_Thermal</h2><p><a href="PVT_Collector_Unglazed_ISO_2node.html">PVT_Collector_Unglazed_ISO_2node</a></p><p><a href="Collector_EN12975.html">Collector_EN12975</a></p><p><a href="Collector_ISO_2node.html">Collector_ISO_2node</a></p><h2 id="29">Source / Ventilation</h2><p><a href="Constant_AIB.html">Constant_AIB</a></p><p><a href="Constant_AIV.html">Constant_AIV</a></p><p><a href="Ventilation.html">Ventilation</a></p><p><a href="Ventilation_AIV.html">Ventilation_AIV</a></p><p><a href="WDB2THB.html">WDB2THB</a></p><p><a href="WDB2THBventCtrl.html">WDB2THBventCtrl</a></p><p><a href="WDB2THBvent.html">WDB2THBvent</a></p><p><a href="Window_Ventilation.html">Window_Ventilation</a></p><h2 id="30">Storage / Electric</h2><p><a href="Battery.html">Battery</a></p><h2 id="31">Storage / Thermal</h2><p><a href="Ground_Storage.html">Ground_Storage</a></p><p><a href="ice_storage.html">ice_storage</a></p><h2 id="32">Storage / Thermal / Storage_Ports</h2><p><a href="Electric_Heating.html">Electric_Heating</a></p><p><a href="StoragePorts_PipeConnections.html">StoragePorts_PipeConnections</a></p><h2 id="33">Storage / Thermal</h2><p><a href="Storage_Type_0.html">Storage_Type_0</a></p><p><a href="Storage_Type_11.html">Storage_Type_11</a></p><p><a href="Storage_Type_12.html">Storage_Type_12</a></p><p><a href="Storage_Type_1.html">Storage_Type_1</a></p><p><a href="Storage_Type_N.html">Storage_Type_N</a></p><p><a href="Storage_Type_2.html">Storage_Type_2</a></p><p><a href="Storage_Type_3.html">Storage_Type_3</a></p><p><a href="Storage_Type_4.html">Storage_Type_4</a></p><p><a href="Storage_Type_5.html">Storage_Type_5</a></p><h2 id="34">Storage / Thermal / detailed_storage_models</h2><p><a href="heat_exchanger_storage.html">heat_exchanger_storage</a></p><h2 id="35">Storage / Thermal / surface_models</h2><p><a href="Isolated_Cover.html">Isolated_Cover</a></p><p><a href="Open_Surface.html">Open_Surface</a></p><h2 id="36">Toolbox</h2><p><a href="Average.html">Average</a></p><p><a href="Count_Working_Time.html">Count_Working_Time</a></p><p><a href="Date2Sec_mdl.html">Date2Sec_mdl</a></p><p><a href="Economy_Ecology.html">Economy_Ecology</a></p><p><a href="GlobalMessageLevel.html">GlobalMessageLevel</a></p><p><a href="RealDate.html">RealDate</a></p><p><a href="RealTimePulse.html">RealTimePulse</a></p><p><a href="RealTime.html">RealTime</a></p><p><a href="SumTime_mdl.html">SumTime_mdl</a></p><p><a href="SystemPulse.html">SystemPulse</a></p><p><a href="THB2THV.html">THB2THV</a></p><p><a href="THBMemory.html">THBMemory</a></p><p><a href="THV2THB.html">THV2THB</a></p><p><a href="UnitConv.html">UnitConv</a></p><p><a href="UnitConv_Temperature_mdl.html">UnitConv_Temperature_mdl</a></p><p><a href="Wait.html">Wait</a></p><p><a href="write_txt_file.html">write_txt_file</a></p><h2 id="37">Weather</h2><p><a href="Solar_Position.html">Solar_Position</a></p><p><a href="DWD_TRY_Radiation_Filter.html">DWD_TRY_Radiation_Filter</a></p><p><a href="Fixed_Surface.html">Fixed_Surface</a></p><p><a href="Radiation_on_Inclined_Surface.html">Radiation_on_Inclined_Surface</a></p><p><a href="Tracked_Surface.html">Tracked_Surface</a></p><p><a href="WeatherDatafile.html">WeatherDatafile</a></p><p><a href="Weather_Simple_Model.html">Weather_Simple_Model</a></p><p><a href="Weather_from_Workspace.html">Weather_from_Workspace</a></p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Carnot  Blocks 
+%% Basic / DataOutput
+% <CreateSdat.html CreateSdat>
+% 
+% <createCdat.html createCdat>
+% 
+%% Basic / Electric
+% <EBCreator.html EBCreator>
+% 
+% <basic_EB.html basic_EB>
+% 
+% <basic_create_EB.html basic_create_EB>
+% 
+%% Basic / Heat_Transfer
+% <Heattransfer2GroundISO.html Heattransfer2GroundISO>
+% 
+% <Heattransfer2GroundSimple.html Heattransfer2GroundSimple>
+% 
+% <alfa_ceiling.html alfa_ceiling>
+% 
+% <alfa_floor.html alfa_floor>
+% 
+% <alfa_wall_in.html alfa_wall_in>
+% 
+% <alfa_wall_out.html alfa_wall_out>
+% 
+% <alfa_window_in.html alfa_window_in>
+% 
+% <alfa_window_out.html alfa_window_out>
+% 
+% <createSbus.html createSbus>
+% 
+% <wall_out_IR_radiation.html wall_out_IR_radiation>
+% 
+%% Basic / Hydraulics
+% <Flow_Mixer_basic.html Flow_Mixer_basic>
+% 
+% <Grashof_mdl.html Grashof_mdl>
+% 
+% <Mix_T_Mdot.html Mix_T_Mdot>
+% 
+% <Prandtl_mdl.html Prandtl_mdl>
+% 
+% <ReynoldsTHB.html ReynoldsTHB>
+% 
+% <Reynolds_mdl.html Reynolds_mdl>
+% 
+% <THBCreator.html THBCreator>
+% 
+% <Velocity_mdl.html Velocity_mdl>
+% 
+% <basic_THB.html basic_THB>
+% 
+% <basic_create_THB.html basic_create_THB>
+% 
+% <createAIB.html createAIB>
+% 
+%% Basic / Material_Properties
+% <AIV_Wet_BulbTemperature.html AIV_Wet_BulbTemperature>
+% 
+% <density_mdl.html density_mdl>
+% 
+% <enthalpy2temperature_mdl.html enthalpy2temperature_mdl>
+% 
+% <enthalpy_mdl.html enthalpy_mdl>
+% 
+% <entropy_mdl.html entropy_mdl>
+% 
+% <evaporation_enthalpy_mdl.html evaporation_enthalpy_mdl>
+% 
+% <heat_capacity_mdl.html heat_capacity_mdl>
+% 
+% <input_material.html input_material>
+% 
+% <kinematic_viscosity_mdl.html kinematic_viscosity_mdl>
+% 
+% <PhaseCheck.html PhaseCheck>
+% 
+% <RelHum2x.html RelHum2x>
+% 
+% <Saturation_Property.html Saturation_Property>
+% 
+% <saturation_temperature.html saturation_temperature>
+% 
+% <Saturation_Value_Water.html Saturation_Value_Water>
+% 
+% <Specific_Volume_mdl.html Specific_Volume_mdl>
+% 
+% <THB_Wet_BulbTemperature.html THB_Wet_BulbTemperature>
+% 
+% <Temperature_Conductivity_mdl.html Temperature_Conductivity_mdl>
+% 
+% <Thermal_Conductivity_mdl.html Thermal_Conductivity_mdl>
+% 
+% <Vapour_Content.html Vapour_Content>
+% 
+% <Vapour_Pressure.html Vapour_Pressure>
+% 
+% <x2RelHum.html x2RelHum>
+% 
+%% Basic / Pressure_Drop
+% <Pressure_Drop.html Pressure_Drop>
+% 
+% <Pressure_Drop_Ceta.html Pressure_Drop_Ceta>
+% 
+% <Pressure_Drop_Collector.html Pressure_Drop_Collector>
+% 
+% <Pressure_Drop_Fix.html Pressure_Drop_Fix>
+% 
+% <Pressure_Drop_PipeTheory.html Pressure_Drop_PipeTheory>
+% 
+% <Pressure_Drop_StorageHX.html Pressure_Drop_StorageHX>
+% 
+% <Pressure_Drop_StoragePipe.html Pressure_Drop_StoragePipe>
+% 
+% <Pressure_Drop_changeD.html Pressure_Drop_changeD>
+% 
+% <Pressure_Drop_staticHeight.html Pressure_Drop_staticHeight>
+% 
+% <Pressuredrop.html Pressuredrop>
+% 
+% <frictionCoefficient.html frictionCoefficient>
+% 
+% <clq2pressuredropcoeff.html clq2pressuredropcoeff>
+% 
+% <pressure_drop_calculated_for_header_riser_water.html pressure_drop_calculated_for_header_riser_water>
+% 
+% <pressure_drop_for_measured_data_water.html pressure_drop_for_measured_data_water>
+% 
+% <pressure_drop_quadratic_fitted_data.html pressure_drop_quadratic_fitted_data>
+% 
+% <pressure_drop_quadratic_fitted_data_water.html pressure_drop_quadratic_fitted_data_water>
+% 
+% <pressuredropcoeff2clq.html pressuredropcoeff2clq>
+% 
+% <relFlowCoeff2qua.html relFlowCoeff2qua>
+% 
+%% Basic / Thermal_Models
+% <Cogeneration_Motor_Basic.html Cogeneration_Motor_Basic>
+% 
+% <Combustion_Calculation.html Combustion_Calculation>
+% 
+% <Floor_in.html Floor_in>
+% 
+% <HeatPump_basic.html HeatPump_basic>
+% 
+% <HouseOneNodeModel.html HouseOneNodeModel>
+% 
+% <Pipe_basic.html Pipe_basic>
+% 
+% <Roof.html Roof>
+% 
+% <RoomAirComposition.html RoomAirComposition>
+% 
+% <Room_Node.html Room_Node>
+% 
+% <Solar_Collector_basic.html Solar_Collector_basic>
+% 
+% <T_Ground_Undisturbed.html T_Ground_Undisturbed>
+% 
+% <Thermal_Node.html Thermal_Node>
+% 
+% <Wall_basic.html Wall_basic>
+% 
+% <Wall_in.html Wall_in>
+% 
+% <Wall_out.html Wall_out>
+% 
+% <Wall_with_Window.html Wall_with_Window>
+% 
+% <Window.html Window>
+% 
+% <sfun_storageTnodes.html sfun_storageTnodes>
+% 
+% <StoragePorts_HeatExchangerModels.html StoragePorts_HeatExchangerModels>
+% 
+%% Basic / Weather_and_Sun
+% <Cloudage.html Cloudage>
+% 
+% <Radiation_Divison.html Radiation_Divison>
+% 
+% <Sky_Temperature.html Sky_Temperature>
+% 
+% <Solar_Declination_Angle.html Solar_Declination_Angle>
+% 
+% <Solar_Extraterrestrial_Radiation.html Solar_Extraterrestrial_Radiation>
+% 
+% <Solar_Hour_Angle.html Solar_Hour_Angle>
+% 
+% <Solar_Position.html Solar_Position>
+% 
+% <Solar_Time.html Solar_Time>
+% 
+% <WDB_Creator.html WDB_Creator>
+% 
+%% Control
+% <Controller_Bang_Bang.html Controller_Bang_Bang>
+% 
+% <DefrostAirSourceHP.html DefrostAirSourceHP>
+% 
+% <ElectricMeter.html ElectricMeter>
+% 
+% <EnergyMeter.html EnergyMeter>
+% 
+% <EnergyMeter_HC.html EnergyMeter_HC>
+% 
+% <Limit_Control_Range.html Limit_Control_Range>
+% 
+% <LimitPowerChange.html LimitPowerChange>
+% 
+% <Massflow_Sensor.html Massflow_Sensor>
+% 
+% <Max_Run_Time.html Max_Run_Time>
+% 
+% <Min_Run_Min_Stop.html Min_Run_Min_Stop>
+% 
+% <Min_Run_Time.html Min_Run_Time>
+% 
+% <Min_Stop_Time.html Min_Stop_Time>
+% 
+% <OnOff_switch.html OnOff_switch>
+% 
+% <PowerMeter.html PowerMeter>
+% 
+% <ShadingControl.html ShadingControl>
+% 
+% <Solar_Radiation_Sensor.html Solar_Radiation_Sensor>
+% 
+% <Start_Delay.html Start_Delay>
+% 
+% <Stop_Delay.html Stop_Delay>
+% 
+% <T_Sensor.html T_Sensor>
+% 
+% <T_Sensor_Surface.html T_Sensor_Surface>
+% 
+% <Temperatures_Limits_CHP.html Temperatures_Limits_CHP>
+% 
+% <Temperatures_Limits_HP.html Temperatures_Limits_HP>
+% 
+% <Thermostat_Proportional.html Thermostat_Proportional>
+% 
+% <Window_Control.html Window_Control>
+% 
+%% Hydraulics
+% <Fan_Const.html Fan_Const>
+% 
+% <Fan_Main.html Fan_Main>
+% 
+% <Flow_Diverter.html Flow_Diverter>
+% 
+% <Flow_Mixer.html Flow_Mixer>
+% 
+% <Flow_Mixer_Ideal.html Flow_Mixer_Ideal>
+% 
+% <Flow_Mixer_NoDpCalc.html Flow_Mixer_NoDpCalc>
+% 
+% <Flow_Mixer_Thermostatic.html Flow_Mixer_Thermostatic>
+% 
+% <Mixing_Valve.html Mixing_Valve>
+% 
+% <Pipe.html Pipe>
+% 
+% <PipeBiflow.html PipeBiflow>
+% 
+% <Pipe_Geometry.html Pipe_Geometry>
+% 
+% <Pipe_Isolation.html Pipe_Isolation>
+% 
+% <Pdat.html Pdat>
+% 
+% <Pump_Const.html Pump_Const>
+% 
+% <Pump_Main.html Pump_Main>
+% 
+% <Pump_basic.html Pump_basic>
+% 
+% <Thermosyphon.html Thermosyphon>
+% 
+% <Valve.html Valve>
+% 
+% <Valve_Thermostatic.html Valve_Thermostatic>
+% 
+% <Valve_table.html Valve_table>
+% 
+%% Load / General
+% <Data_from_File.html Data_from_File>
+% 
+% <Repeating_Profile.html Repeating_Profile>
+% 
+%% Load / Hot_Water_Tapping
+% <DHWenergyTapping.html DHWenergyTapping>
+% 
+% <EuTappingCycle.html EuTappingCycle>
+% 
+% <HotWaterDatafile.html HotWaterDatafile>
+% 
+% <HotWaterEuTappingCycle.html HotWaterEuTappingCycle>
+% 
+% <HotWaterEnergyProfile.html HotWaterEnergyProfile>
+% 
+% <HotWaterTmdotProfile.html HotWaterTmdotProfile>
+% 
+% <T_cold_Water_Location.html T_cold_Water_Location>
+% 
+% <T_cold_Water_Season.html T_cold_Water_Season>
+% 
+% <T_cold_Water_Sine.html T_cold_Water_Sine>
+% 
+% <Water_Tap.html Water_Tap>
+% 
+% <mdot_annual_profile.html mdot_annual_profile>
+% 
+% <mdotRepSeq.html mdotRepSeq>
+% 
+%% Load / Houses
+% <houseSimple.html houseSimple>
+% 
+% <ResidentData.html ResidentData>
+% 
+% <ResidentTask44.html ResidentTask44>
+% 
+% <Room_Floor_Heating.html Room_Floor_Heating>
+% 
+% <Room_Radiator.html Room_Radiator>
+% 
+%% Outputs / Comfort
+% <DraughtRating.html DraughtRating>
+% 
+% <PMV_PPD.html PMV_PPD>
+% 
+% <RadiantAsymmetryWall.html RadiantAsymmetryWall>
+% 
+% <Sensitive_room_temperature.html Sensitive_room_temperature>
+% 
+% <VerticalAirTemperatureDifference.html VerticalAirTemperatureDifference>
+% 
+% <WarmAndCoolFloor.html WarmAndCoolFloor>
+% 
+%% Outputs / Debugging
+% <printer.html printer>
+% 
+%% Outputs / Logger
+% <Logger_Battery.html Logger_Battery>
+% 
+% <Logger_Boiler.html Logger_Boiler>
+% 
+% <Logger_CoGen.html Logger_CoGen>
+% 
+% <Logger_ElectricHeaterCtrl.html Logger_ElectricHeaterCtrl>
+% 
+% <Logger_EnergyMeter.html Logger_EnergyMeter>
+% 
+% <Logger_Heat_Pump.html Logger_Heat_Pump>
+% 
+% <Logger_House.html Logger_House>
+% 
+% <Logger_PvGenerator.html Logger_PvGenerator>
+% 
+% <Logger_SolarThermalCollector.html Logger_SolarThermalCollector>
+% 
+% <Logger_Storage.html Logger_Storage>
+% 
+%% Outputs / Selectors
+% <AIV_selector.html AIV_selector>
+% 
+% <Display_THB.html Display_THB>
+% 
+% <S_selector.html S_selector>
+% 
+% <display_weather.html display_weather>
+% 
+%% Source / Boiler
+% <Condensing_Boiler.html Condensing_Boiler>
+% 
+% <Electric_Heater.html Electric_Heater>
+% 
+% <Electric_Heater_Ctrl.html Electric_Heater_Ctrl>
+% 
+%% Source / Chiller
+% <absorption_chiller_lookup.html absorption_chiller_lookup>
+% 
+% <absorption_chiller_ddt.html absorption_chiller_ddt>
+% 
+% <Compression_Chiller.html Compression_Chiller>
+% 
+% <Cooling_Tower.html Cooling_Tower>
+% 
+%% Source / Cogeneration
+% <Cogeneration_Motor.html Cogeneration_Motor>
+% 
+% <microCHP_constant.html microCHP_constant>
+% 
+% <microCHP_modulating.html microCHP_modulating>
+% 
+%% Source / Electric_Generator
+% <GridConnection.html GridConnection>
+% 
+% <Inverter.html Inverter>
+% 
+% <Inverter_SPI.html Inverter_SPI>
+% 
+% <PV_Generator.html PV_Generator>
+% 
+%% Source / Energy
+% <ElectricityPrice.html ElectricityPrice>
+% 
+% <Fuel.html Fuel>
+% 
+%% Source / Heat_Exchanger
+% <FHB_TABS.html FHB_TABS>
+% 
+% <Ground_Source_Heat_Exchanger.html Ground_Source_Heat_Exchanger>
+% 
+% <HeatExchanger.html HeatExchanger>
+% 
+% <Radiator.html Radiator>
+% 
+% <RadiatorAIV.html RadiatorAIV>
+% 
+% <THB_P_adapter.html THB_P_adapter>
+% 
+% <VDIHeatExchanger.html VDIHeatExchanger>
+% 
+%% Source / Heat_Pump
+% <HeatPump.html HeatPump>
+% 
+% <HeatPumpAirSource.html HeatPumpAirSource>
+% 
+%% Source / Simple
+% <Constant_EB.html Constant_EB>
+% 
+% <Constant_THB.html Constant_THB>
+% 
+% <EB_set_power.html EB_set_power>
+% 
+% <EB_set_voltage.html EB_set_voltage>
+% 
+% <THB_fixed_T.html THB_fixed_T>
+% 
+% <THB_fixed_mdot.html THB_fixed_mdot>
+% 
+% <THB_set_T.html THB_set_T>
+% 
+% <THB_set_mdot.html THB_set_mdot>
+% 
+% <create_EB.html create_EB>
+% 
+% <createTHB.html createTHB>
+% 
+%% Source / Solar_Thermal
+% <Collector_1xN.html Collector_1xN>
+% 
+% <Collector_Unglazed.html Collector_Unglazed>
+% 
+% <Collector_Unglazed_ISO9806.html Collector_Unglazed_ISO9806>
+% 
+% <Collector_Unglazed_ISO_2node.html Collector_Unglazed_ISO_2node>
+% 
+%% Source / Solar_Thermal / IncidenceAngleModifier
+% <IAM_Table.html IAM_Table>
+% 
+% <IAM_Table_KbL_KbT.html IAM_Table_KbL_KbT>
+% 
+% <IAM_b0.html IAM_b0>
+% 
+% <Theoretical_Collector_Optics.html Theoretical_Collector_Optics>
+% 
+%% Source / Solar_Thermal
+% <PVT_Collector_Unglazed_ISO_2node.html PVT_Collector_Unglazed_ISO_2node>
+% 
+% <Collector_EN12975.html Collector_EN12975>
+% 
+% <Collector_ISO_2node.html Collector_ISO_2node>
+% 
+%% Source / Ventilation
+% <Constant_AIB.html Constant_AIB>
+% 
+% <Constant_AIV.html Constant_AIV>
+% 
+% <Ventilation.html Ventilation>
+% 
+% <Ventilation_AIV.html Ventilation_AIV>
+% 
+% <WDB2THB.html WDB2THB>
+% 
+% <WDB2THBventCtrl.html WDB2THBventCtrl>
+% 
+% <WDB2THBvent.html WDB2THBvent>
+% 
+% <Window_Ventilation.html Window_Ventilation>
+% 
+%% Storage / Electric
+% <Battery.html Battery>
+% 
+%% Storage / Thermal
+% <Ground_Storage.html Ground_Storage>
+% 
+% <ice_storage.html ice_storage>
+% 
+%% Storage / Thermal / Storage_Ports
+% <Electric_Heating.html Electric_Heating>
+% 
+% <StoragePorts_PipeConnections.html StoragePorts_PipeConnections>
+% 
+%% Storage / Thermal
+% <Storage_Type_0.html Storage_Type_0>
+% 
+% <Storage_Type_11.html Storage_Type_11>
+% 
+% <Storage_Type_12.html Storage_Type_12>
+% 
+% <Storage_Type_1.html Storage_Type_1>
+% 
+% <Storage_Type_N.html Storage_Type_N>
+% 
+% <Storage_Type_2.html Storage_Type_2>
+% 
+% <Storage_Type_3.html Storage_Type_3>
+% 
+% <Storage_Type_4.html Storage_Type_4>
+% 
+% <Storage_Type_5.html Storage_Type_5>
+% 
+%% Storage / Thermal / detailed_storage_models
+% <heat_exchanger_storage.html heat_exchanger_storage>
+% 
+%% Storage / Thermal / surface_models
+% <Isolated_Cover.html Isolated_Cover>
+% 
+% <Open_Surface.html Open_Surface>
+% 
+%% Toolbox
+% <Average.html Average>
+% 
+% <Count_Working_Time.html Count_Working_Time>
+% 
+% <Date2Sec_mdl.html Date2Sec_mdl>
+% 
+% <Economy_Ecology.html Economy_Ecology>
+% 
+% <GlobalMessageLevel.html GlobalMessageLevel>
+% 
+% <RealDate.html RealDate>
+% 
+% <RealTimePulse.html RealTimePulse>
+% 
+% <RealTime.html RealTime>
+% 
+% <SumTime_mdl.html SumTime_mdl>
+% 
+% <SystemPulse.html SystemPulse>
+% 
+% <THB2THV.html THB2THV>
+% 
+% <THBMemory.html THBMemory>
+% 
+% <THV2THB.html THV2THB>
+% 
+% <UnitConv.html UnitConv>
+% 
+% <UnitConv_Temperature_mdl.html UnitConv_Temperature_mdl>
+% 
+% <Wait.html Wait>
+% 
+% <write_txt_file.html write_txt_file>
+% 
+%% Weather
+% <Solar_Position.html Solar_Position>
+% 
+% <DWD_TRY_Radiation_Filter.html DWD_TRY_Radiation_Filter>
+% 
+% <Fixed_Surface.html Fixed_Surface>
+% 
+% <Radiation_on_Inclined_Surface.html Radiation_on_Inclined_Surface>
+% 
+% <Tracked_Surface.html Tracked_Surface>
+% 
+% <WeatherDatafile.html WeatherDatafile>
+% 
+% <Weather_Simple_Model.html Weather_Simple_Model>
+% 
+% <Weather_from_Workspace.html Weather_from_Workspace>
+% 
+
+##### SOURCE END #####
+--></body></html>

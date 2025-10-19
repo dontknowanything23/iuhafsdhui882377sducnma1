@@ -1,0 +1,137 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - EU_Tapping_Cycle</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img width=105 height=68 src="Figures/EuTappingCycle.gif" align=right>
+<p class="blockname">EU_Tapping_Cycle</p>
+<p style="margin-top:0px; margin-bottom:20px">
+Path: CARNOT/Load/Hot_Water_Tapping<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Hot water consumption with an energy profile according to the european 
+tapping cycles.
+</p>
+<p><b>Description:</b><br>
+Domestic hot water consumption defined by the European Tapping Cycles, 
+given for example in the 
+[<a href="pdf/CELEX_32013R0814_EN_TXT.pdf">European Commission reglulation 
+(EU) No 814/2013 of 2 August 2013</a>]. The cycles were originally developped 
+for the Mandate 324 in 2002 [European Commission 2002]. The tapping cycles 
+apply to different water heater systems [European Commission 2018].
+</p>
+<p> The block uses the <a href="DHWenergyTapping.html">DHW_Energy_Tapping</a> 
+block since the tapping cycles are mainly based on the tapped energy. 
+The different tappings in the cycle define a mean temperature (Tm) or a peak 
+temperature (Tp) to be reached during the tapping. <strong>The check 
+of Tm and Tp must be done in a post treatment of the simulation data.</strong><br />
+A bias on the setpoint temperature can be defined. This assures that the tapping 
+temperature is above the (minimum) setpoint given by the tapping cycle. 
+</p>
+<p>Tapping cycles can vary from 3XS to 4XL. </p>
+<p><img alt="" src="Figures/EuTappingCycle_Fig1.jpg" /></p>
+<p>Table : Presentation of the typical usage of a declared load 
+profile as a pictogram on the product label of a dedicated water heater 
+(source: QAIST 2012)</p>
+<p>A description of the model and the EU tapping cycles can be found in 
+the presentation of <a href="pdf/Carnot2021_Hafner_EuTappingCycles.pdf">
+[Hafner 2021]</a> at the Carnot User Meeting 2021.<br />
+More informations are available, see chapter Literature below.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tc</td>
+		<td style="width: 10px;">:</td>
+        <td> cold water temperature in &deg;C </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">mdot</td>
+		<td style="width: 10px;">:</td>
+        <td> mass flow of tapped water in kg/s </td>
+    </tr>
+    <tr>
+    	<td> Tset </td>
+        <td>:</td>
+        <td> temperature set point in &deg;C </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/EuTappingCycleMASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_EU_Tapping </li>
+</ul>
+
+<p><b>Literature:</b><br />
+<a href="pdf/CELEX_32013R0814_EN_TXT.pdf">European Commission reglulation 
+(EU) No 814/2013 of 2 August 2013</a></p>
+<p><a href="pdf/QAiST%20D3.6-7%20HWC%20Method.pdf">QAIST : Methodology for 
+the Assessment of the Hot Water Comfort of Factory Made Systems 
+and Custom Built Systems, ITW University of Stuttgart, 2012 </a></p>
+<p><a href="pdf/guidelinesspacewaterheaters_final.pdf">European 
+Commission 2018: Guidelines accompanying EU regluations 811/2013,812/2013, 
+813/2013, 814/2013, 2015/1187 and 2015/1189</a><br />
+&nbsp;&nbsp;&nbsp; dowload (09/02/2020) from
+<a href="https://ec.europa.eu/energy/sites/ener/files/documents/guidelinesspacewaterheaters_final.pdf">
+https://ec.europa.eu/energy/sites/ener/files/documents/guidelinesspacewaterheaters_final.pdf</a></p>
+<p>European Commission 2002: M 324, Mandate to CEN and CENELEC for the 
+elaboration and adoption of measurement standards for household appliances<br />
+download (09/02/2020) from <a href="https://law.resource.org/pub/eu/mandates/m324.pdf">
+https://law.resource.org/pub/eu/mandates/m324.pdf</a></p>
+<p><a href="pdf/Carnot2021_Hafner_EuTappingCycles.pdf">Hafner: EU 
+Tapping Cycles for Energy Labelling of Water Heaters, Carnot User Meeting 
+Ingolstadt, 16/09/2021</a></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

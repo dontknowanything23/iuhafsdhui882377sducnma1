@@ -1,0 +1,309 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Collector_Unglazed</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/collector_unglazed.jpg" align=right>
+<p class="blockname">Collector_Unglazed</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Source/Solar_Thermal <br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Model for an unglazed solar thermal collectors including condensation 
+effects for temperatures below dewpoint.
+</p>
+<p><b>Description:</b><br>
+The collector model is a 2 x N multinode model for thermal collectors. 
+The model is based on parameters obtained from measurement, i.e. 
+collector test results. The energy balance for every node is a differential 
+equation, that is calculated in the S-function solarcollector_unglazed.<br>
+For the absorber the energy balance is:
+</p>
+<p>&nbsp;&nbsp; c_abs * dTp/dt = qdot_solar - qdot_conv - qdot_cond 
+- qdot_sky - qdot_fluid</p>
+<p>&nbsp;&nbsp; qdot_solar = absorbed_solar_radiation - uc1_eta0*Iglb*vwind</p>
+<p>&nbsp;&nbsp; qdot_conv = qdot_conv_gain + qdot_conv_loss</p>
+<p>&nbsp;&nbsp; qdot_conv_gain = fconv * (Uc0_gain + Uc1_gain * vwind) 
+* (Tplast + fconv * (Tp - Tplast) - Tamb)</p>
+<p>&nbsp;&nbsp; qdot_conv_loss = (1 - fconv) * (Uc0_loss + Uc1_loss * vwind) 
+* (Tpo + fconv * (Tp - Tpo) - Tamb)</p>
+<p>&nbsp;&nbsp; qdot_cond = fcond * (Uc0_cond + Uc1_cond * vwind) * Ccond 
+* (ps(Tdew) - ps(Tp_cond))</p>
+<p>&nbsp;&nbsp; qdot_sky = epsilon * sigma * (Tp<sup>4</sup> - Tsky<sup>4</sup>)
+</p>
+<p>&nbsp;&nbsp; qdot_fluid = hi * (Tp - Tf)
+</p>
+<p>where :<br />
+&nbsp;&nbsp; fconv = ( min( Tpo , max(Tamb,Tplast) ) - Tplast ) / ( Tpo - Tplast )<br>
+&nbsp;&nbsp; fcond = ( min( Tpo , max(Tdew,Tplast) ) - Tplast ) / (Tpo - Tplast )<br />
+&nbsp;&nbsp; Tp_cond = Tplast + fcond * ( Tp - Tplast )<br />
+&nbsp;&nbsp; Tpo = 2*Tp - Tplast
+</p>
+<p>The fluid's node is devided into "NODES" nodes. The energy-balance for 
+every node is a differential equation:</p>
+<p>&nbsp;&nbsp;c_fluid * dTf/dt = hi * (Tp - Tf)+ mdot * cp / Acoll 
+* (Tlastnode - Tnode)
+</p>
+<p> with </p>
+
+<table class="inputtable">
+ <tr>
+  <td style="width: 120px;"><b>Symbol</b></td>
+  <td style='width: 640px;'><b>used for</b></td>
+  <td style='width: 140px;'><b>unit</b></td>
+ </tr>
+ <tr>
+  <td>Acoll</td>
+  <td>absorber surface area</td>
+  <td>m<sup>2</sup></td>
+ </tr>
+ <tr>
+  <td>Ccond</td>
+  <td>coefficient for pression in temperature conversion</td>
+  <td>K/Pa</td>
+ </tr>
+ <tr>
+  <td>cp</td>
+  <td>heat capacity of fluid </td>
+  <td>J/(kg*K)</td>
+ </tr>
+ <tr>
+  <td>c_abs </td>
+  <td>heat capacity of absorber per surface </td>
+  <td>J/(m<sup>2</sup>*K)</td>
+ </tr>
+ <tr>
+  <td>c_fluid </td>
+  <td>heat capacity of fluid per surface</td>
+  <td>J/(m<sup>2</sup>*K)</td>
+ </tr>
+ <tr>
+  <td>epsilon </td>
+  <td>effective emission coefficient of the absorber surface</td>
+  <td>-</td>
+ </tr>
+ <tr>
+  <td>fcond </td>
+  <td>share of the collector aperture area where condensation takes place</td>
+  <td>-</td>
+ </tr>
+ <tr>
+  <td>fconv </td>
+  <td>share of the collector aperture area where convection takes place</td>
+  <td>-</td>
+ </tr>
+ <tr>
+  <td>hi </td>
+  <td>heat transfer coefficent between absorber and fluid </td>
+  <td>W/(m<sup>2</sup>*K)</td>
+ </tr>
+ <tr>
+  <td>mdot </td>
+  <td>mass flow rate </td>
+  <td>kg/s</td>
+ </tr>
+ <tr>
+  <td>ps </td>
+  <td>satured vapour pressure of water</td>
+  <td>Pa</td>
+ </tr>
+ <tr>
+  <td>qdot_solar </td>
+  <td>power input per surface from sun</td>
+  <td>W/m<sup>2</sup></td>
+ </tr>
+ <tr>
+  <td>sigma </td>
+  <td>Stefan-Boltzmann constant </td>
+  <td>W/(m<sup>2</sup>*K<sup>4</sup>)</td>
+ </tr>
+ <tr>
+  <td>Tamb</td>
+  <td>ambient temperature</td>
+  <td>K</td>
+ </tr>
+ <tr>
+  <td>Tdew</td>
+  <td>dew point temperature</td>
+  <td>K</td>
+ </tr>
+ <tr>
+  <td>Tf</td>
+  <td>fluid temperature</td>
+  <td>K</td>
+ </tr>
+ <tr>
+  <td>Tp</td>
+  <td>absorber plate temperature</td>
+  <td>K</td>
+ </tr>
+ <tr>
+  <td>t</td>
+  <td>time</td>
+  <td>s</td>
+ </tr>
+ <tr>
+  <td>uc1_eta0 </td>
+  <td>wind dependance in optical efficiency </td>
+  <td>W/(m<sup>2</sup>*m/s)</td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td>Uc0_cond </td>
+  <td>wind speed independant part of the condensation 
+  heat transfer coefficient</td>
+  <td>W/(m<sup>2</sup>*Pa)</td>
+ </tr>
+ <tr>
+  <td>
+  Uc1_cond </td>
+  <td>
+  wind speed dependant part of the convection 
+  heat transfer coefficient </td>
+  <td>W/((m/s)*m<sup>2</sup>*Pa)</td>
+ </tr>
+ <tr>
+  <td>Uc0_gain </td>
+  <td>wind speed independant part of the heat transfer coefficientfor 
+  the convective gains</td>
+  <td>W/(m<sup>2</sup>*K)</td>
+ </tr>
+ <tr>
+  <td>Uc1_gain </td>
+  <td>wind speed dependant part of the heat transfer coefficientfor 
+  the convective gains</td>
+  <td>W/((m/s)*m<sup>2</sup>*K)</td>
+ </tr>
+ <tr>
+  <td>Uc0_loss </td>
+  <td>wind speed independant part of the heat transfer coefficientfor 
+  the convective losses </td>
+  <td>W/(m<sup>2</sup>*K)</td>
+ </tr>
+ <tr>
+  <td>Uc1_loss </td>
+  <td>wind speed dependant part of the heat transfer coefficientfor 
+  the convective losses </td>
+  <td>W/((m/s)*m<sup>2</sup>*K)</td>
+ </tr>
+ <tr>
+  <td>vwind </td>
+  <td>wind speed</td>
+  <td>m/s</td>
+ </tr>
+</table>
+
+<p>The collector calculates friction losses in the massflow. This may be 
+specified in the subsystem <a href="Pressure_Drop_Collector.html">
+Pressure_Drop_Collector</a> of the collector. Static pressure is calculated 
+if necessary, i.e. for thermosyphon systems. <br />
+See chapter<a href="2_Basic_Concepts.html#pressure_calc"> 2.4.1 Pressure Drop 
+and Massflow Calculations </a> 
+<a href="2_Basic_Concepts.html">of the manual 2_Basic_Concepts</a>. 
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html"> Weather Data bus </a> </td>
+    </tr>
+    <tr>
+    	<td> position</td>
+        <td>:</td>
+        <td> collector position defined by the <a href="Fixed_Surface.html">
+		Fixed_Surface</a> or <a href="Tracked_Surface.html">Tracked_Surface</a>
+		block</td>
+    </tr>
+    <tr>
+    	<td> THBr</td>
+        <td>:</td>
+        <td> return line (inlet) <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the collector </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Cdat</td>
+		<td style="width: 10px;">:</td>
+        <td> Collector Data Bus for logging and display, see
+		<a href="createCdat.html">create_Cdat</a></td>
+    </tr>
+    <tr>
+    	<td> Tsol </td>
+        <td>:</td>
+        <td> collector temperature in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THBs</td>
+        <td>:</td>
+        <td> flow line (outlet) <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the collector </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/collector_unglazedMASK1.jpg" /></p>
+<p><img src="Figures/collector_unglazedMASK2.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_CollectorUnglazed </li>
+ <li> example_CollectorUnglazedinSubsystem </li>
+ <li> example_CollectorUnglazedVariables </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Frank, Elimar: Modellierung unabgedeckter Kollektoren, Dissertation, 
+Uni Kassel, 2007<br />
+Vajen, Klaus; Frank, Elimar: Unverglaste Kollektoren, OTTI Solarthermie, 
+2009
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

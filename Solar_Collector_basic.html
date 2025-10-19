@@ -1,0 +1,258 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Solar_Collector_basic</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/SolarCollectorBasic.GIF" align=right>
+<p class="blockname">Solar_Collector_basic</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Collector model according to ISO 22975 (former EN 12975).
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The 1-node model solves the energy balance of a solar thermal collector:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+mdot*cp*(Tout-Tin)/A = F'*TauAlfa*Kdir*Idir + F'*TauAlfa*Kdfu*Idfu <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+- c1*(Tm-Tamb) - c2*(Tm-Tamb)<sup>2</sup> - c3*v_wind*(Tm-Ta) - c6*v_wind Iglb <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
++ c4*(ELongwave - sigmaSB*(Tamb+273.15)<sup>4</sup>) - c5*dTm/dt <br><br>
+with<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; Tm = (Tin+Tout)/2
+<br><br>
+Often in test reports the optical efficiency or conversion factor eta0 is given.
+The correlation for F'*TauAlfa is: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; eta0 = F'*TauAlfa * (Kdir(15°)*0.85 + Kdfu*0.15) <br>
+or <br>
+&nbsp;&nbsp;&nbsp;&nbsp; F'*TauAlfa = eta0 / (Kdir(15°)*0.85 + Kdfu*0.15) <br><br>
+The incidence angle modifier Kdir is dependant on the angle teta(L) and teta(T).
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; Kdir = Kb(L)*Kb(T) <br><br>
+where Kb(L) and Kb(T) are given in lookup-tables in dependancy of
+teta(L) and teta(T).
+</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>Symbol</b></td>
+		<td style="width: 400px;"><b>Used for</b></td>
+        <td> <b>Unit</b> </td>
+    </tr>
+    <tr>
+    	<td>A</td>
+        <td>collector aperture area (or absorber area, depending 
+		on the referenced parameters c1...c6)</td>
+        <td>m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td>c1</td>
+        <td>linear heat loss coefficient (at Tm-Ta = 0) </td>
+        <td>W/m<sup>2</sup>/K</td>
+    </tr>
+    <tr>
+    	<td>c2</td>
+        <td>temperature dependence of the heat loss coefficient </td>
+        <td>W/m<sup>2</sup>/K<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td>c3</td>
+        <td>wind speed dependence of the heat loss coefficient</td>
+        <td>J/m<sup>3</sup>/K</td>
+    </tr>
+    <tr>
+    	<td>c4</td>
+        <td>sky temperature dependence of the heat loss coefficient</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>c5</td>
+        <td>effective thermal capacity</td>
+        <td>J/m<sup>2</sup>/K</td>
+    </tr>
+    <tr>
+    	<td>c6</td>
+        <td>wind dependence in the zero loss efficiency</td>
+        <td>s/m</td>
+    </tr>
+    <tr>
+    	<td>eta0</td>
+        <td>optical collector efficiency</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>F'</td>
+        <td>collector fin efficiency factor</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>TauAlfa</td>
+        <td>effective transmittance-absorptance product for
+		direct solar radiation at normal incidence</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>teta</td>
+        <td>incidence angle of the direct radiation on the collector</td>
+        <td>&deg;</td>
+    </tr>
+    <tr>
+    	<td>teta(L)</td>
+        <td>incidence angle for direct solar radiation, incidence angle 
+		in the longitudinal plane (vertical to collector header, parallel 
+		to collector riser)</td>
+        <td>&deg;</td>
+    </tr>
+    <tr>
+    	<td>teta(T)</td>
+        <td>incidence angle for direct solar radiation, incidence angle 
+		in the transversal plane (parallel to collector header, vertical 
+		to collector riser)</td>
+        <td>&deg;</td>
+    </tr>
+    <tr>
+    	<td>Tm</td>
+        <td>mean collector node temperature</td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>Tamb</td>
+        <td>ambient temperature</td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>v_wind</td>
+        <td>wind velocity</td>
+        <td>m/s</td>
+    </tr>
+    <tr>
+    	<td>ELongwave</td>
+        <td>longwave irradiance with wave length &gt; 3000 nm 
+		(set to -100 W/m²)</td>
+        <td>W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td>Iglb</td>
+        <td>global solar radiation on the collector plane</td>
+        <td>W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td>Idfu</td>
+        <td>diffuse solar radiation on the collector plane</td>
+        <td>W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td>Idir</td>
+        <td>direct solar radiation on the collector plane</td>
+        <td>W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td>Kb(L)</td>
+        <td>incidence angle modifier for direct solar radiation, incidence 
+		angle in the longitudinal plane (vertical to collector header, parallel 
+		to collector riser)</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>Kb(T)</td>
+        <td>incidence angle modifier for direct solar radiation, incidence 
+		angle in the transversal plane (parallel to collector header, vertical 
+		to collector riser)</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>Kdir</td>
+        <td>incidence angle modifier for direct solar radiation</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>Kdfu</td>
+        <td>incidence angle modifier for diffuse solar radiation</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>sigmaSB</td>
+        <td>Stefan-Boltzmann constant (= 5.67e-8 W/m<sup>2</sup>/K<sup>4</sup>) </td>
+        <td>W/m<sup>2</sup>/K<sup>4</sup></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> solar </td>
+		<td style="width: 10px;">:</td>
+        <td> vector with: [absorbed solar radiation, global radiation, ambient 
+		temperature, wind velocity, sky temperature for longwave radiation]</td>
+    </tr>
+    <tr>
+    	<td> THB </td>
+        <td>:</td>
+        <td> entering <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Tout </td>
+		<td style="width: 10px;">:</td>
+        <td> outlet temperature in &deg;C </a> </td>
+    </tr>
+    <tr>
+    	<td> Tm </td>
+        <td>:</td>
+        <td> mean collector temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Qdot </td>
+        <td>:</td>
+        <td> thermal power of the collector in W </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/imgSolarCollectorBasicMask.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

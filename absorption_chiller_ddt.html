@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Absorption_Chiller_ddT</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/absorptionchillerddt.jpg" align=right>
+<p class="blockname">Absorption_Chiller_ddT</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Chiller
+<br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+This block calculates the capacities and cop of the absorption chiller with the 
+delta-delta-T model.
+</p>
+<p><b>Description</b> <br>
+Empirical model of an absorption chiller based on the fitted deltadelta_t' 
+model of [Kuehn, 2005].
+</p>
+<p>Linear model:</p>
+<p>&nbsp;&nbsp; deltadelta_t'=t_G - A*t_AC + E*t_E</p>
+<p>&nbsp;&nbsp; Qdot_E = s_e * deltadelta_t' + r_e</p>
+<p>&nbsp;&nbsp; Qdot_G = s_g * deltadelta_t' + r_g</p>
+<p>Use acm_param.m to determine A, E, s_e, r_e, s_g and r_g with 
+characterisitics of the absorption chiller.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBload_in</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the load (return of the cooling circuit) </td>
+    </tr>
+    <tr>
+    	<td> THBhot_in</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the driving source (high temperature side)</td>
+    </tr>
+    <tr>
+    	<td> THBcool_in</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the waste heat (return pipe from air convector)</td>
+    </tr>
+    <tr>
+    	<td> on </td>
+        <td>:</td>
+        <td> control signal 0 = off, 1 = on </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBload</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the load (flow line of the cooling circuit)</td>
+    </tr>
+    <tr>
+    	<td> THBhot</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the driving source (high temperature side)</td>
+    </tr>
+    <tr>
+    	<td> THBcool</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the waste heat (flow line to the air convector)</td>
+    </tr>
+    <tr>
+    	<td> Pel_Pump</td>
+        <td>:</td>
+        <td> electrical power of the pumps in W </td>
+    </tr>
+    <tr>
+    	<td> Qdot </td>
+        <td>:</td>
+        <td> thermal power in W</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/absorptionchillerddt_MASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Absorption_Chiller_ddT </li>
+</ul>
+
+<p><b>Literature:</b><br />
+A. Kuehn, F. Ziegler. Operational results of a 10 kW absorption chiller 
+and adaptation of the characteristic equation, 
+Proc. of the 1st Int. Conf. Solar Air Conditioning, 6-7 October 2005, 
+Bad Staffelstein, Germany<br>
+F. Ziegler, H.-M. Hellmann, C. Schweigler: An approximative method for 
+modeling the operating characteristics of advanced absorption chillers, 
+20th International Congress of Refrigeration, IIR/IIF, Sydney, 1999</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

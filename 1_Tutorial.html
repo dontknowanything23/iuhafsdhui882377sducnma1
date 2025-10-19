@@ -1,0 +1,424 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>Tutorial</title>
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr>
+<h1 style="margin-top:0.5em"><b>1 Tutorial</b></h1>
+<hr>
+
+<h2><a name="getting_started"><b>1.1 Getting Started </span></b></a></h2>
+
+<p><b>System Requirements</b><br>
+MATLAB and Simulink R2021b or newer</p>
+
+<p><b>Installation of CARNOT Toolbox</b></p>
+
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp; Download the Carnot Zip file.</p>
+
+<p>2.&nbsp;&nbsp;&nbsp;&nbsp; Extract the contents of the zip file to 
+[Path_to_Carnot], where </p>
+
+<p>3.&nbsp;&nbsp;&nbsp;&nbsp; [Path_to_Carnot] can be any directory.</p>
+
+<p>4.&nbsp;&nbsp;&nbsp;&nbsp; Run the file 
+"init_carnot" or "init_carnot_savepath.m" from the 
+[Path_to_Carnot]\carnot folder to automatically add folders to the Matlab path.</p>
+
+	<p>5.&nbsp;&nbsp;&nbsp;&nbsp; Carnot is installed and ready to run, type 
+"carnot" in the command window to open it. </p>
+
+<p>&nbsp;</p>
+
+<p><strong>NOTE</strong> :&nbsp; The included S-functions have been compiled with 
+<a href="http://mingw-w64.org">MinGW64</a> GCC-Version 6.3 as available through the Matlab AddOn Explorer<br>
+If you change something in the C-file or expand the 
+Library with another compiler problems may arise.</p>
+<p>Warning: Please do not mix two compilers; this will cause unexpected results.
+So if you want to use other compilers (or versions), please re-compile Carnot before running your simulations.</p>
+
+<h2><a name="starting_carnot"><b>1.2 Starting Carnot</b></a> </h2>
+
+<p>To start-up the <a href="#carnot">CARNOT Library</a> open MATLAB and enter </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#carnot"><tt>carnot</tt></a> </p>
+
+<p>in the command line. The CARNOT Library pops up. To build a 
+new system, open a new model and copy the desired components from the Library to 
+your model by dragging and dropping, or by the using the commands in the context 
+menu. </p>
+
+<p>To see the CARNOT demonstrations, double click on the “Load 
+Examples” Block in the Library. Choose a demonstration by selecting it from the 
+Pop-up menu. </p>
+
+<p>For HTML-help type </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+helpcarnot</p>
+
+<p>in the MATLAB command window or </p>
+
+<p>double click on the </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>"?"</tt></p>
+
+<p>block in the <a
+href="#carnot">CARNOT Library</a>. <br>
+For more information on the <a href="#online_manual">
+manual</a> consult the next chapter. </p>
+
+<h2><b>1.3 <a name="online_manual">The Online-Manual</a></b> </h2>
+
+<p>This chapter explains the options concerning the use of 
+online help, written in HTML format. <br>
+There are different possibilities to create a link to the manual, depending on 
+the active window: </p>
+
+<ul type=disc>
+ <li>from the <a href="#command_line">MATLAB command line</a> </li>
+ <li>from the <a href="#Carnot_library_from">CARNOT Library</a> </li>
+ <li>from the <a href="#block_mask_from">block mask</a> </li>
+ <li>from the <a href="#browser_from">browser</a> </li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><a name="command_line"><b>Accessing the Online Help from the 
+MATLAB Command Window</b></a></p>
+
+<p>As the CARNOT Toolbox is written for the MATLAB/SIMULINK 
+environment, MATLAB is always active. So you can change to the MATLAB Command 
+Window at any time. To access the manual from the command window, there are two 
+possibilities that are controlled and executed by the M-file </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt>helpcarnot.m</tt> </p>
+
+<p>which is found in your CARNOT directory: </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt>[CARNOT]\public\src_m\</tt></p>
+
+<p>Typing the command </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt>helpcarnot</tt> </p>
+
+<p>in the MATLAB command window opens the Online help manual. </p>
+
+<p>Typing the command &nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a name="Carnot_library_from"><b>Accessing the Online Help 
+from the CARNOT Library</b></a> </p>
+
+<p>From the CARNOT Library you have direct access to the Online 
+help. You just have to double click on the "?" block and the Online help 
+commences. </p>
+
+<p><a name="block_mask_from"><b>&nbsp;</b></a></p>
+
+<p><b>Accessing the Manual from Block Masks</b> </p>
+
+<p>If you are in a CARNOT model window and you need information 
+about a specific CARNOT block, you can open the Block Reference from the block’s 
+mask. <br>
+Double click on the block and click on the Help button in the mask. The manual 
+will open at the corresponding page. However this will only function in the case 
+of masked blocks. For information on unmasked blocks you have to access the help 
+window differently (s. above).<a name="browser_from"></a></p>
+
+<p><b>Accessing the Manual from the Browser</b> </p>
+
+<p>Another possibility is to open the manual directly in the 
+browser without launching MATLAB. <br>
+The files of the manual are located in the directory </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt>[CARNOT]\public\tutorial\doc\manual.html</tt></p>
+
+
+<h2><a name="carnot_blockset"><b>1.4 The CARNOT Toolbox</b></a> </h2>
+
+<p>The CARNOT <a
+href="#carnot">Toolbox</a> is a library for MATLAB/SIMULINK. It contains elements that are 
+required for the simulation and calculation of conventional and renewable energy 
+systems. <br>
+The CARNOT Toolbox provides tools for the easy design, analysis and simulation 
+of energy systems for use both in the conventional field as well as the field of 
+regenerative systems, with components like solar collectors. Because of the 
+mathematical features of MATLAB and the simplicity of the SIMULINK block diagram 
+interface, it is a powerful tool for all engineers involved in the field of 
+domestic heating and similar areas. </p>
+
+<p>The structure of the CARNOT Toolbox is similar to SIMULINK 
+itself. The elements are organized in blocksets that contain the blocks of one 
+subject. There are blocksets that contain the models of the components of energy 
+systems (like pumps, storage tanks etc.) and other blocksets to observe and 
+display the simulation results. </p>
+
+<p>The toolbox has the following features that bring some 
+advantages to actual simulations in the field of energy systems: </p>
+
+<ul type=disc>
+ <li>Simulation of <a href="#Hydraulics">hydraulics</a> and 
+ <a href="#heat_source">heat transfer</a>  at the same time </li>
+ <li>Easy modification of the models and integration of custom 
+ models because of the standards of MATLAB/SIMULINK. </li>
+ <li>Utilization of the <a href="#rtw"> Simulink Coder</a> (Hardware-in-the-Loop 
+ testing, Software-in-the-Loop testing, predictive control, 
+ online system identification) </li>
+ <li>Guaranteed support and development of MATLAB by The MathWorks and thus 
+ regular updates of the underlying mathematical algorithms, 
+ solvers and functions </li>
+</ul>
+
+<h3><a name=carnot><b>1.4.1 The CARNOT Library </b></a></h3>
+
+<p>The CARNOT Library contains the fundamental blocksets for 
+heating system components. The blocks available in the CARNOT Library allow for 
+sophisticated modelling, as the parameters of the blocks can be customized by 
+the user. </p>
+
+<p>Blocks for the calculation of <a href="#materials">material properties</a> 
+and <a href="#basics">basic</a> functions are included 
+which are useful tools for simulating thermal processes. <br>
+The CARNOT Library was developed for advanced application in complex models. 
+There are several options to build up systems and define parameters. </p>
+
+<p>The CARNOT library consists of the following blocksets: </p>
+
+<p>
+<a name="figure_1_2"></a><a></a>
+<img alt="" src="Figures/CarnotLib.jpg" /><br>
+Figure 1.1 : The CARNOT Library </p>
+
+<p>In the following section, an overview of the included 
+blocksets is given. For a more detailed description of the blocks’ features 
+consult the <a href="#block_reference">
+Block Reference</a> at the end of this <a
+href="#online_manual">manual</a>. </p>
+
+<p><b>Basic</b> </p>
+
+<p>The “Basic” blockset contains some useful function for the 
+calculation of fluid dynamic values and characteristic numbers, e.g. the <a href="#reynolds">
+Reynolds</a>- or Prandtl number, and the <a
+href="#velocity">velocity</a> or <a
+href="#pressuredrop">pressure_drop</a>. </p>
+
+<p><b><u>Basic\<a href="#materials">Material_Properties</a> </u></b></p>
+
+<p>In this subsection of the “Basic” blockset the material 
+properties of the basic heating fluids are calculated in functions that are 
+collected in the <a href="#carlib_library">
+Carlib Library</a>. <br>
+The Library actually contains functions for the calculation of the following <a href="#fluid_ID">fluids:</a> </p>
+
+<ul type=disc>
+ <li>Water </li>
+ <li>(Humid) air </li>
+ <li>Cotton oil </li>
+ <li>Silicone oil </li>
+ <li>Mixture of water and glycol (percentage 0..1) </li>
+ <li>Water and propylen-glycol mixture with fixed percentage 
+ <br />
+ </li>
+</ul>
+
+<p><a href="#outputs"><b>Outputs</b></a> </p>
+
+<p>Visualization blocks for displaying the mass flow rate, the 
+temperature and the pressure included in the
+<a href="#thv">THB (Thermo-Hydraulic-Bus)</a>
+which contains all the information about the actual state of the fluid and is 
+passed from block to block, during the simulation. <br />
+</p>
+
+<p><a href="#weather"><b>Weather</b></a> </p>
+
+<p>In this blockset the models for weather simulation can be 
+found. <a
+href="#weather_data_vector">Weather data</a> 
+is required for the input values for a large number of blocks, for example as 
+input values to the collector in the form of radiation data. Weather data is 
+processed for different time periods, from monthly average values to hourly 
+values. The pre-processing weather generator includes discrete models for the 
+weather variables radiation, temperature, relative humidity and wind speed. <br>
+Blocks for the processing and adaptation of <a
+href="#weather_data_vector">weather data</a> 
+are included, e.g. recalculation of radiation data on inclined surfaces and 
+adding azimuth and zenith angle of the sun for a specified location. <br />
+</p>
+
+<p>&nbsp;<a href="#heat_source"><b>Sources</b></a> </p>
+
+<p>The part in Sources/Simple corresponds to the SIMULINK Sources Blockset. The 
+Blockset "Sources"  contains models of 
+various heat sources for energy systems, for example heat exchangers, heat Pumps 
+and electric heating. Renewable components are included, with a solar flat plate 
+collector and a parabolic trough collector. You may adapt the collector model to 
+other collector-types (see "<a href="#specifying_components">specifying the collector from the subsystem</a>").<br />
+&nbsp;</p>
+
+<p><a href="#hydraulics"><b>Hydraulics</b></a> </p>
+
+<p>This blockset sports elementary hydraulic elements which are 
+found in house heating systems used to build hydraulic circuits. The common 
+hydraulic elements such as valves, Tee-pieces and pipe connections are 
+contained. The hydraulic sources can be found here (e. g. pump and thermosyphon 
+blocks). <br>
+The pumps differ in the way they calculate the mass flow rate. Different models 
+for the pump characteristics include pumps with constant mass flow rate, pumps 
+with customizable characteristic, pumps with manufacturer fitted characteristics 
+and as mentioned above pumps with a thermosyphon. 
+<br>
+</p>
+
+<p><a href="#storage_tank"><b>Storage</b></a> </p>
+
+<p>This blockset is consists of different kinds of water and 
+ground storage tanks. Various models are included from a simple water storage 
+system to storages with heat exchangers and water supply at <a href="#multiport_storage">
+user definable positions</a>, as well as two ground storage models. <br />
+</p>
+
+<p><a href="#loads"><b>Loads</b></a> </p>
+
+<p>This blockset contains some hydraulic and thermal loads, 
+like houses, rooms and water taps.<br />
+Note: Radiators are to be found under Source\Heat_Exchanger<br />
+</p>
+
+<p><a href="#control"><b>Control</b></a> </p>
+
+<p>The blockset contains blocks from the measuring and control 
+domain. Sensor blocks are included for temperature, mass flow and climatic 
+conditions. The temperature sensors come without a time delay to model the real 
+behaviour of measurement cycles. <br />
+</p>
+
+<p><a href="#electricity"><b>Electric_Generator</b></a> </p>
+
+<p>This Blockset contains a PV generator and an inverter model.<br />
+</p>
+
+<h2><a name="building_a_system"><b>1.5 Building a System</b></a> </h2>
+
+<p>Use the library in the same way as you would use SIMULINK. 
+If you are not familiar with building models in SIMULINK have a look at the 
+SIMULINK help. </p>
+
+<p>Open the <a
+href="#carnot">CARNOT Library</a> by typing </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#carnot"><tt>carnot</tt></a> </p>
+
+<p>in the MATLAB command window. Open a new model from the file 
+menu. Drag and drop the <a
+href="#blocks">blocks</a> from the library into your system. </p>
+
+<p>Components are connected with a <a href="#THV">Thermo-Hydraulic Bus</a> (THB), the common data structure to represent a fluid in the CARNOT 
+Toolbox. This vector contains all necessary information about the flow and the 
+energy transfer associated with it. <br>
+To compute and display a specific physical value using the bus, special blocks 
+have been built that extract the desired physical value from the THB 
+automatically, e.g. there are displays that extract only the temperature from 
+the THB input (contained in the blockset <a href="#outputs">
+Outputs</a>). </p>
+
+<p>As CARNOT performs calculations of hydraulics and heat 
+transfer simultaneously, you have to ensure that both aspects of the flow are 
+considered. Thus a cycle has to contain a <a href="#pumps">hydraulic source</a> 
+in every case, i.e. a pump or the water tap, otherwise an error message of an 
+erroneous feedback connection will appear. <br>
+If you would like to simulate thermal systems, a 
+<a href="#heat_source">thermal source</a>, e. g. a collector or a 
+heat exchanger has to be included in your model. The hydraulic and 
+thermal state of the flow is calculated in every block. The hydraulic 
+side is a somehow simplified model (see the different models of the
+<a href="Pump_Main.html">pumps</a>). The 
+<a href="#heat_source">heat_source</a> blocks are not essential 
+for the function of the calculation, but if you want to analyse 
+thermal systems, heat sources have to be included. </p>
+
+<p><br>
+<b>Take care, that you connect the right input ports to the corresponding output 
+port of the preceding block, since there is no checking for consistency.</b>
+<br>
+If you feed, for example, the power consumption of a pump to the temperature 
+setpoint "Tset" inlet port of a thermostatic valve, no error message appears as 
+long as the number of expected input arguments of this port corresponds to the 
+number of values fed to this inlet port. </p>
+
+<p>The systems built with CARNOT are prone to algebraic loops 
+and stiff differential equations. In general, the use of a stiff solver will 
+help to get faster convergence. Check your results using a different solver 
+(Dormand-Prince should be reference). </p>
+
+<p>In order to split the fluid stream, it is necessary to use a 
+diverting component such as one of the <a href="#flow_diverter_fixed_rate">flow diverters</a>
+and downstream a mixing block, e. g. the flow mixer which are both contained in 
+the <a href="#hydraulics">Hydraulics</a> 
+blockset. Pay particular attention to the block ports, because in cycles with 
+flow diversion there is often a feedback of information, for example the 
+diverting factor (in fixed rate components) or the pressure drop (in components 
+with variable diversion factor) from the mixing component to the diverting 
+component. </p>
+
+<p>To learn more about the calculation system of circuits with 
+flow distribution over two or more branches read the paragraph on <a href="#pressure_calc">
+pressure drop</a> in the next chapter. </p>
+
+<div align=center>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<p><b>NOTE</b> If you do long-running simulations with CARNOT, do not forget to 
+switch-off saving Workspace Variables, since these options take up a lot of 
+memory space under these circumstances (typical simulated time period in the 
+order of a year) </p>
+
+<div align=center>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><a name="examples"><b>1.6 Examples</b></a> </h2>
+
+	<p>The CARNOT Toolbox contains examples or demonstrations 
+	to give a first impression of how a model could look, and demonstrate how 
+	components are connected and how the output is displayed. To run a demonstration double-click on the "Load Examples" 
+Block in the <a href="#carnot">CARNOT Library</a>. 
+Choose an example from the Explorer Window that opens. </p>
+	<p>
+	<img alt="" src="Figures/CarnotExamples.jpg" /><br />
+	Figure 1.3: Choice of
+	CARNOT examples</p>
+
+	<p>Another possibility to 
+choose a demonstration is to go the path </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt>&lt;matlabroot\toolbox\carnot\tutorial\examples</tt> </p>
+
+<p>and type<tt><br />
+&nbsp;&nbsp; ls *.slx</tt> <br />
+in the MATLAB command window. <br>
+A list of the models included will appear and the demonstration can be opened by 
+typing the name in the workspace. </p>
+	<p></p>
+
+</div>
+
+</body>
+
+</html>

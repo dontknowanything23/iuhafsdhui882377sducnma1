@@ -1,0 +1,79 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - mdot_annual_profile</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/mdot_annual_profile.gif" align=right>
+<p class="blockname">mdot_annual_profile</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Load/Hot_Water_Tapping<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Create a mass flow depending on a user defined load profile.
+</p>
+<p><b>Description:</b><br>
+In the mask of the block, you can specify how much the massflow varies 
+during the year and during a day. It's possible to set different load 
+profile for weekdays and weekend.
+</p>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> mdot </td>
+		<td style="width: 10px;">:</td>
+        <td> mass flow in kg/s </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img src="Figures/mdot_annual_profileMASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_mdot_annual_profile">
+	example_mdot_annual_profile</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td> tapping events </td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No </td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Saturation_Value_Water</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/saturationvalue_water.jpg" align=right>
+<p class="blockname">Saturation_Value_Water</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Block for the calculation of the saturation properties for water.
+</p>
+
+<p><b>Description:</b><br>
+The block returns the saturation properties for water. The desired values can
+be chosen from a check box in the mask. A vector for the value of boiling fluid
+and saturated steam is returned.<br>
+The block calls up the function satuprop in the CARNOT 
+<a href="carlib.html">Carlib Library</a> where the calculation is carried out. 
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature (scalar or vector) in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid types</a> </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid mixtures</a></td>
+    </tr>
+    <tr>
+    	<td> property_id </td>
+        <td>:</td>
+        <td> identifier of the property, see below </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">saturation_vapour</td>
+		<td style="width: 10px;">:</td>
+        <td> property value in vapourous phase </td>
+    </tr>
+    <tr>
+    	<td> saturation_liquid </td>
+        <td>:</td>
+        <td> property value in liquid phase </td>
+    </tr>
+</table>
+
+<p>Defintion of the property identifier</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">property_id</td>
+		<td style="width: 100px;">property</td>
+        <td> unit </td>
+    </tr>
+    <tr>
+    	<td> 1 </td>
+        <td> density</td>
+        <td> kg/m<sup>3</sup></td>
+    </tr>
+    <tr>
+    	<td> 2 </td>
+        <td> heat capacity </td>
+        <td> J/kg/K </td>
+    </tr>
+    <tr>
+    	<td> 3 </td>
+        <td> thermal conductivity</td>
+        <td> W/m/K </td>
+    </tr>
+    <tr>
+    	<td> 4 </td>
+        <td> kinematic viscosity </td>
+        <td> m<sup>2</sup>/s </td>
+    </tr>
+    <tr>
+    	<td> 5 </td>
+        <td> enthalpy </td>
+        <td> J/kg </td>
+    </tr>
+    <tr>
+    	<td> 6 </td>
+        <td> entropy </td>
+        <td> J/kg/K </td>
+    </tr>
+    <tr>
+    	<td> 7 </td>
+        <td> prandtl </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> 8 </td>
+        <td> specific volume </td>
+        <td> m<sup>3</sup>/kg </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/SaturationValWaterMaskA.jpg" /></p>
+
+<p> You can choose the inputs to be the : </p>
+<ul>
+ <li> state variables (temperature, pressure, fluid type 
+ and mix have separate input ports)</li>
+ <li> the Thermo Hydraulic Bus (THB) </li>
+ <li> or, for compatibility with older versions, 
+ the Thermo Hydraulic Vector (THV) </li>
+</ul>
+
+<p><img src="Figures/SaturationValWaterMaskB.jpg" /></p>
+
+<p>Use the <a href="GlobalMessageLevel.html">GlobalMessageLevel</a> 
+block to handle the debugging messages.</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> exampleSaturationProperty </li>
+</ul>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+The saturation_property block is only available for water.
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+style='mso-bookmark:room_radiator'><b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Parameters and Dialog Box</span></b></span></span></span></p>
+<p><img alt="" src="Figures/SaturationValWaterMaskA.jpg" /></p>
+
+<p><span style='mso-bookmark:schwamberger'>
+<span style='mso-bookmark:literature'><span
+class=GramE><span style='font-size:13.5pt;line-height:120%'>You 
+can choose the inputs to be the : </span></span></span></span></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l211 level1 lfo82;tab-stops:list 36.0pt'>
+ <span style='mso-bookmark:schwamberger'>
+ <span style='mso-bookmark:literature'><span
+class=GramE><span style='font-size:13.5pt;line-height:120%'>state variables 
+ (temperature, pressure, fluid type and mix have separate input ports)</span></span></span></span><span
+     style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+     </span><span lang=EN-US
+     style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l211 level1 lfo82;tab-stops:list 36.0pt'>
+ <span style='mso-bookmark:schwamberger'>
+ <span style='mso-bookmark:literature'><span
+class=GramE><span style='font-size:13.5pt;line-height:120%'>the Thermo Hydraulic 
+ Bus (THB)</span></span></span></span><span
+     style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'> </span><span lang=EN-US style='mso-fareast-font-family:
+     "Times New Roman"'><o:p></o:p></span></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l198 level1 lfo71;tab-stops:list 36.0pt'>
+ <span style='mso-bookmark:schwamberger'>
+ <span style='mso-bookmark:literature'><span
+class=GramE><span style='font-size:13.5pt;line-height:120%'>or, for 
+ compatibility with older versions, the Thermo Hydraulic Vector (THV)</span></span></span></span><span
+     style='mso-bookmark:literature'><span
+     lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+     "Times New Roman"'> </span><span lang=EN-US style='mso-fareast-font-family:
+     "Times New Roman"'><o:p></o:p></span></span></li>
+</ul>
+
+<p><span style='mso-bookmark:schwamberger'>
+<span style='mso-bookmark:literature'><span
+class=GramE><span style='font-size:13.5pt;line-height:120%'>&nbsp;</span></span></span></span></p>
+<p><img alt="" src="Figures/SaturationValWaterMaskB.jpg" /></p>
+<p><font size="4">Use the <a href="GlobalMessageLevel.html">GlobalMessageLevel</a> 
+block to handle the debugging messages.</font></p>
+<p>&nbsp;</p>
+
+<p><span style='mso-bookmark:literature'><span style='mso-bookmark:schwamberger'><span
+style='mso-bookmark:room_radiator'><b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Characteristics</span></b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample
+time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> Inherited
+from driving block <br>
+States
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> corresponding
+to the number of nodes <br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> No
+</span></span></span></span></p>
+
+</body>
+
+</html>

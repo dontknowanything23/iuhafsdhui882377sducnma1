@@ -1,0 +1,240 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - House_OneNodeModel</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/HouseOneNodeModel.jpg" align=right>
+<p class="blockname">House_OneNodeModel</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/ThermalModels
+<br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+One node / one zone model of a house with 4 ouside walls with windows.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Simple and fast one node / one zone model of a house with 4 ouside walls 
+with windows. Neighbour building(s) or room(s) may be modelled by using 
+the same block or just as a constant temperature zone.
+</p>
+<p>The mathematical description of the house is the differential equation:
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;(m*cp)<sub>house</sub> * dT<sub>house </sub>/ dt = <br>
+&nbsp;&nbsp;&nbsp;&nbsp; (UA)<sub>wall,roof</sub> * (T<sub>amb</sub> - T<sub>house</sub>)
++ (UA)<sub>ground </sub>(T<sub>ground</sub> - T<sub>house</sub>) 
++ (UA)<sub>neighbour</sub>(T<sub>neighbour</sub> - T<sub>house</sub>) <br>
+&nbsp;&nbsp;&nbsp;&nbsp; + (1 - Sunshade) * 
+[ G<sub>window1</sub>*A<sub>window1</sub>*I<sub>glb,window1</sub>
++ G<sub>window2</sub>*A<sub>window2</sub>*I<sub>glb,window2</sub> 
++ G<sub>window3</sub>*A<sub>window3</sub>*I<sub>glb,window3</sub>
++ G<sub>window4</sub>*A<sub>window4</sub>*I<sub>glb,window4</sub> ] 
++ Qdot<sub>vent</sub> + Qdot<sub>int</sub> + Qdot<sub>heating</sub>
+</p>
+
+<p> with <br>
+Sunshade : Windows have a shading for solar radiation (no shading = 0) 
+- scalar (for all windows) or vector with 4 elements (one for each window) <br>
+Qdot<sub>int</sub> : internal gain in W (typical value is 2.3 W/m² * A) <br>
+Qdot<sub>heating</sub> : power of the heating system in W 
+(positive for heating, negative for cooling )<br>
+Qdot<sub>vent</sub> : ventilation losses, typically Qdot<sub>vent</sub> 
+= V<sub>house</sub> * n<sub>air</sub> * (T<sub>amb</sub> - T<sub>house</sub>)<br>
+Tamb : ambient outdoor temperature in &deg;C (taken from WDB) <br>
+Tn : temperature of neighbour rooms in °C (scalar or vector of 
+length((UA)<sub>neighbour</sub>)) 
+</p>
+<p>Solar gains are calculated from the solar radiation on the window surface 
+(A<sub>window</sub>), the energetic solar light transmittance of the glass 
+(G<sub>window</sub>) and the Sunshade. </p>
+<p>The maximum change of room temperature can be limited by a parameter
+(see example_House_Ideal.slx).<br />
+Set parameter  "Max. change room temperature" to :
+</p>
+<ul>
+ <li> zero to calculate idealized heating behaviour. The power balance 
+ (Qdot_all) is the theoretical heating demand </li>
+ <li> inf to model a realistic behaviour of the house </li>
+</ul>
+<p>
+Detailed descriptions of building simulation models have been presented by 
+<a href="pdf/OCHS_fabian_CARNOT_User_Meeting_2022.pdf">
+Ochs: BES Simulation, 2022 </a> and 
+<a href="pdf/Ochs_Carnot_Gebaeudemodelle_UserMeeting2013.pdf">
+Ochs: Überblick der Aktivitäten an der UIBK, 2013 </a>
+at the Carnot User Meetings.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tneighbour</td>
+		<td style="width: 10px;">:</td>
+        <td> Temperature of the neighbour zone in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> WDB</td>
+        <td>:</td>
+        <td> <a href="WDB_format.html">weather data bus</a> </td>
+    </tr>
+    <tr>
+    	<td> Sunshade </td>
+        <td>:</td>
+        <td> shading control (0 = no shading, 1 = full shading)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_ground</td>
+        <td>:</td>
+        <td> transmission losses to the ground in W 
+		(negative for losses of the room to the ground)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_internal</td>
+        <td>:</td>
+        <td> internal gains in W </td>
+    </tr>
+    <tr>
+    	<td> Qdot_heating </td>
+        <td>:</td>
+        <td> energy flow from or to the heating/cooling system in W 
+		(positive for flow from the heating system to the room)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_vent</td>
+        <td>:</td>
+        <td> ventilation losses in W (negative for losses)</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Troom</td>
+		<td style="width: 10px;">:</td>
+        <td> room temperature in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> Qdot_all </td>
+        <td>:</td>
+        <td> Bus with energy flows (see below)</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;">Definition of the bus Qdot_all :</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Qdot_neighbour</td>
+		<td style="width: 10px;">:</td>
+        <td> energy flow to the neighbour zone in W 
+		(= 0 W for the house simple model)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_trans_wall</td>
+        <td>:</td>
+        <td> transmission losses through the wall in W 
+		(negative for losses)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_trans_window</td>
+        <td>:</td>
+        <td> transmission losses through the windows in W 
+		(negative for losses)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_solar</td>
+        <td>:</td>
+        <td> solar gains in W</td>
+    </tr>
+    <tr>
+    	<td> Qdot_ground</td>
+        <td>:</td>
+        <td> energy flow to the ground in W (negative for losses)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_internal</td>
+        <td>:</td>
+        <td> internal gains in W</td>
+    </tr>
+    <tr>
+    	<td> Qdot_h</td>
+        <td>:</td>
+        <td> energy flow from or to the heating/cooling system in W 
+		(positive for flow from the heating system to the room)</td>
+    </tr>
+    <tr>
+    	<td> Qdot_vent</td>
+        <td>:</td>
+        <td> ventilation losses in W (negative for losses) </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img alt="" src="Figures/HouseOneNodeModelMASK1.jpg" /></p>
+<p><img alt="" src="Figures/HouseOneNodeModelMASK2.jpg" /></p>
+<p><img alt="" src="Figures/HouseOneNodeModelMASK3.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_House_Simple </li>
+</ul>
+
+<p><b>Literature:</b><br />
+<a href="pdf/OCHS_fabian_CARNOT_User_Meeting_2022.pdf">
+Ochs, Breuss, Jenewein, Magni, Venturi: BES Performance Matlab vs. Simulink, 
+Carnot User Meeting, Innsbruck, 2022 </a> <br> also available on 
+<a href = "https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2022_Innsbruck">
+https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2022_Innsbruck </a>
+</p>
+<p><a href="pdf/Ochs_Carnot_Gebaeudemodelle_UserMeeting2013.pdf">
+Fabian Ochs: Überblick der Aktivitäten an der UIBK, Carnot User Meeting, Basel/Muttenz, 2013 </a> 
+<br> also available on 
+<a href = "https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2013_Basel"> 
+https://fh-aachen.sciebo.de/index.php/s/0hxub0iIJrui3ED?path=%2FNutzertreffen%2F2013_Basel </a>
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No (for the room temperature Troom), 
+		Yes (for the power output Qdot_all) </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

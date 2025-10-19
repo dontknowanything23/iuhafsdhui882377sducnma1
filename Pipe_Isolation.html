@@ -1,0 +1,135 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pipe_Isolation</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Pipe_Isolation.png" align=right>
+<p class="blockname">Pipe_Isolation</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Pipe model to connect two components and calculate the thermal losses of the pipe.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+For all thermal calculations see block <a href = "Pipe_basic.html">Pipe_basic</a>.<br> 
+In the Pipe block the pressure drop is a quadratic function of the massflow 
+with constant coefficients. The dependance of the quadratic term on the 
+Reynolds number is neglected. The pressure drop is:</p>
+<p><img src="Formulas/formel_pipe_2.jpg" /></p>
+<p>
+where lin and qua are fixed parameters defined in the mask.<br>
+The constant pressure drop or pressure increase due to the static height is 
+not a constant parameter but it is calculated according to the static height 
+and the density of the fluid in the pipe. The model uses the blocks
+<a href = "Pressure_Drop_staticHeight.html">Pressure_Drop_staticHeight</a>, 
+<a href = "Pressure_Drop_Fix.html">Pressure_Drop_Fix</a> and 
+<a href = "Pressure_Drop_changeD.html">Pressure_Drop_changeD</a> 
+for the pressure drop calculations. </p>
+<p>
+In the Pipe_Isolation model the thickness of the isolation is set as a percentage 
+of the pipe diameter (as it is done in many building and HVAC standards). </p>
+<p>
+Simular pipe models also based on <a href="Pipe_basic.html">Pipe_basic</a> 
+but with different approaches for the pressure drop 
+(<a href="Pipe_Geometry.html">Pipe_Geometry</a>) and the thermal losses 
+(<a href="Pipe.html">Pipe</a>) are available.</p>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td>ambient temperature in &deg;C for thermal losses </td>
+    </tr>
+    <tr>
+    	<td>THBin</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		at the inlet of the pipe </td>
+    </tr>
+</table>
+</p>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		at the outlet of the pipe</td>
+    </tr>
+</table>
+</p>
+
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/pipe_1SHOT.jpg" /></p>
+<p> Some remarks regarding the parameters:
+</p>
+<ul type=disc class="auto-style1">
+	<li>heat loss coefficient in W/(m<sup>2</sup>K): 
+	the reference is inner pipe surface</li>
+	<li>effective axial heat conduction in W/m/K: 
+	axcond = Cross-section area of wall / 
+	(PI*(d<sup>2</sup>/4)*lambda<sub>Wall</sub>)</li>
+	<li>capacity of pipe wall per length in J/m/K :  
+	heat_capacity = c<sub>Wall</sub>*m<sub>Wall</sub>/length </li>
+	<li>number of nodes : for numerical calculations a reasonable 
+	value is one node per meter of pipe length</li>
+	<li>height between pipe inlet and pipe outlet : outlet above 
+	inlet is positive. For simplification you may set height to zero 
+	in pumped systems when thermosyphon flow is not significant.</li>
+</ul>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_PipeIsolation </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

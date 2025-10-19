@@ -1,0 +1,249 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - VDIHeatExchanger</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/vdiheatexchanger.jpg" align=right>
+<p class="blockname">VDIHeatExchanger</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Source/Heat_Exchanger <br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Calculates the output <a href="2_Basic_Concepts.html#THB">
+Thermo-Hydraulic Bus</a> of the hot and cold fluid of a heat exchanger. 
+Cross-flow heatexchangers are calculated with the equation for 
+approximation and standardized calculation described in VDI-Wärmeatlas. 
+For this purpose the four parameters a,b,c and d are used.
+</p>
+
+<p><b>Description:</b><br>
+The heat exchanger is characterised by the number of transfer units (NTU).
+Input temperatures are delayed by the heat capacity of the exchanger. 
+Parallel, cross and counter flow are possible.</p>
+
+<p>The delay for the inlet temperature on primary an secondary side is: </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+(0.5*m*cp)*dTin/dt = mdot*cp*(Tin-T) - UAloss/2*(Tamb-T)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+Tout<sub>pri</sub> = Tin<sub>pri</sub> - 
+psi * (Tin<sub>pri</sub> - Tin<sub>sec</sub>)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+W = mdot * cp</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+Tout<sub>sec</sub> = Tin<sub>sec</sub> - W<sub>pri</sub>/W<sub>sec</sub> 
+* (Tin<sub>pri</sub> - Tout<sub>pri</sub>) </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;UA = UA0 * ( (mdot_pri/mdot_nom_pri)^ua_exp_pri 
++ (mdot_sec/mdot_nom_sec)^ua_exp_sec ) </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;NTU = UA/W<sub>pri</sub> </p>
+
+<p>For flowtype == 1 or flowtype == 0: </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+psi1 = exp(-NTU*(1 + min(W<sub>pri</sub>,W<sub>sec</sub>)
+/max(W<sub>pri</sub>,W<sub>sec</sub>)*(1 - 2*flowtype))) </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+psi = (1-psi) / (1+min(W<sub>pri</sub>,W<sub>sec</sub>)
+/max(W<sub>pri</sub>,W<sub>sec</sub>)*(1-flowtype*(1+ psi))) </p>
+
+<p>For 0 &lt; flowtype &lt; 1 : </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; psi1 = exp((W<sub>pri</sub>/W<sub>sec</sub>-1)*NTU*F) </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;for W<sub>pri</sub>/W<sub>sec</sub> &ne; 1 : 
+&nbsp;&nbsp;&nbsp;&nbsp; psi = (1-psi) / (1-(W<sub>pri</sub>/W<sub>sec</sub>)*psi) </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;for W<sub>pri</sub>/W<sub>sec</sub> == 1 : 
+&nbsp;&nbsp;&nbsp;&nbsp; psi = NTU*F / 1+NTU*F </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+F = 1 / (1+a*(W<sub>pri</sub>/W<sub>sec</sub>)&circ;db *NTU&circ;b)&circ;c</p>
+
+<p>The equation is correct only for 1 &ge; F &ge; 0.25 relative Error for F is less than 
+5 % and relative error for dimension less temperature change is less than 3 %. In the 
+important range of F &gt; 0,7 it is less than 1 %.
+</p>
+
+<table>
+ <tr>
+  <td style="width: 100px;"><b>symbol </b></td>
+  <td><b>used for</b></td>
+  <td><b>units</b></td>
+ </tr>
+ <tr>
+  <td>cp</td>
+  <td>specific heat capacity</td>
+  <td>J/kg/K</td>
+ </tr>
+ <tr>
+  <td>m</td>
+  <td>mass of the heat exchanger </td>
+  <td>kg</td>
+ </tr>
+ <tr>
+  <td>flowtype</td>
+  <td>type of heat exchanger (0=parallel,0.5=cross,1=counter) </td>
+  <td></td>
+ </tr>
+ <tr>
+  <td>mdot</td>
+  <td>mass flow</td>
+  <td>kg/s</td>
+ </tr>
+ <tr>
+  <td>psi</td>
+  <td>dimensionless temperature change </td>
+  <td>-</td>
+ </tr>
+ <tr>
+  <td>pri</td>
+  <td>index for primary side</td>
+  <td>-</td>
+ </tr>
+ <tr>
+  <td>sec</td>
+  <td>index for secondary side</td>
+  <td>-</td>
+ </tr>
+ <tr>
+  <td>Tin</td>
+  <td>temperature at inlet</td>
+  <td>&deg;C</td>
+ </tr>
+ <tr>
+  <td>Tout</td>
+  <td>temperature at outlet</td>
+  <td>&deg;C</td>
+ </tr>
+ <tr>
+  <td>Tamb</td>
+  <td>ambient temperature</td>
+  <td>&deg;C</td>
+ </tr>
+ <tr>
+  <td>t</td>
+  <td>time</td>
+  <td>s</td>
+ </tr>
+ <tr>
+  <td>UA<sub>loss</sub></td>
+  <td>heat loss coefficient</td>
+  <td>W/K</td>
+ </tr>
+ <tr>
+  <td>W</td>
+  <td>capacity flow </td>
+  <td>W/K</td>
+ </tr>
+ <tr>
+</table>
+<p>The parameters a,b,c,d for different heatexchangers are described in 
+C1 Table 1 of VDI-Wärmeatlas. You may use the function </p>
+<p><tt>VDIHeatExchanger_findabcd.m </tt></p>
+<p>in the folder </p>
+<p><tt>
+carnot\public\library_simulink\Source\Heat_Exchanger\VDIHeatExchanger\scripts
+</tt></p>
+<p>to identify the parameters for your application.</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THBpri </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the primary inlet </td>
+    </tr>
+    <tr>
+    	<td> THBsec </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the secondary inlet </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBpri </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the primary outlet </td>
+    </tr>
+    <tr>
+    	<td> THBsec </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the secondary outlet </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/VdiHeatExchangerMask1.jpg" /></p>
+<p><img src="Figures/VdiHeatExchangerMask2.jpg" /></p>
+<p><img src="Figures/VdiHeatExchangerMask3.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_VDIHeatExchanger">
+	example_VDIHeatExchanger</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+VDI-Wärmeatlas, Verein Deutscher Ingenieure, Springer 2019</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

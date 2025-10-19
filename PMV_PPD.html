@@ -1,0 +1,235 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - PPD_PMV</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/pmv_ppd.gif" align=right>
+<p class="blockname">PPD_PMV</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Outputs/Comfort
+<br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+This block calculates from it's inputs the thermal comfort rating PMV 
+(pedicted mean vote) and PPD (predicted percentage of dissatisfied).
+</p>
+<p><b>Description:</b><br>
+This block calculates from it's inputs the thermal comfort rating PMV 
+(pedicted mean vote) and PPD (predicted percentage of dissatisfied) 
+according to ISO 7730. For details see <a href="calculate_ppd.html">
+calculate_ppd.m</a> and <a href="calculate_pmv.html">calculate_pmv.m</a>
+</p>
+
+<p>Metabolic rates from ISO 7730 : The metabolic rate is the thermal power 
+emission per surface with 1 met = 58,2 W/m<sup>2</sup>.
+</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 280px;">standing / leaned</td>
+		<td style="width: 10px;">:</td>
+        <td> 46 W/m<sup>2</sup> = 0.8 met </td>
+    </tr>
+    <tr>
+    	<td>sitting relaxed</td>
+        <td>:</td>
+        <td> 58.2 W/m<sup>2</sup> = 1.0 met </td>
+    </tr>
+    <tr>
+    	<td> sitting activity (office, school) </td>
+        <td>:</td>
+        <td> 70 W/m<sup>2</sup> = 1.2 met </td>
+    </tr>
+    <tr>
+    	<td> standing, light activity <br>(shopping, lab, light work)</td>
+        <td>:</td>
+        <td> 93 W/m<sup>2</sup> = 1.6 met </td>
+    </tr>
+    <tr>
+    	<td> standing, average activity <br>
+		(sales, household, machine operator)</td>
+        <td>:</td>
+        <td> 116 W/m<sup>2</sup> = 2.0 met </td>
+    </tr>
+    <tr>
+    	<td> walking (horizontal plane)</td>
+        <td>:</td>
+        <td> 2 km/h : 110 W/m<sup>2</sup> = 1.9 met <br>
+		3 km/h : 140 W/m<sup>2</sup> = 2.4 met	<br>
+		4 km/h : 165 W/m<sup>2</sup> = 2.8 met <br>
+		5 km/h : 200 W/m<sup>2</sup> = 3.4 met</td>
+    </tr>
+</table>
+
+<p>The clothing isolation is defined as a thermal resistance with 
+1 clo = 0.155 m<sup>2</sup>*K/W <br>. 
+See ISO 7730 and [Smallcombe et.al. 2021] for details.</p>
+<p>The result of the PMV is in 7 categories : </p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 20px;">+3 </td>
+		<td style="width: 10px;">:</td>
+        <td> hot </td>
+    </tr>
+    <tr>
+    	<td>+2</td>
+        <td>:</td>
+        <td> warm </td>
+    </tr>
+    <tr>
+    	<td>+1</td>
+        <td>:</td>
+        <td> slightly warm </td>
+    </tr>
+    <tr>
+    	<td>0</td>
+        <td>:</td>
+        <td> neutral </td>
+    </tr>
+    <tr>
+    	<td>-1</td>
+        <td>:</td>
+        <td> slightly cool </td>
+    </tr>
+    <tr>
+    	<td>-2</td>
+        <td>:</td>
+        <td> cool </td>
+    </tr>
+    <tr>
+    	<td>-3</td>
+        <td>:</td>
+        <td> cold </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">LoadPerPerson</td>
+		<td style="width: 10px;">:</td>
+        <td> metabolic rate [W/m<sup>2</sup>], valid range 
+		46 W/m<sup>2</sup> to 232 W/m<sup>2</sup> (0,8 met bis 4 met) </td>
+    </tr>
+    <tr>
+    	<td> MechanicalLoad </td>
+        <td>:</td>
+        <td> work = effective mechanical power [W/m<sup>2</sup>] </td>
+    </tr>
+    <tr>
+    	<td> ClothingIsolation</td>
+        <td>:</td>
+        <td> clothing isolation in [m<sup>2</sup>*K/W], valid range 
+		0 m<sup>2</sup>*K/W to 0,310 m<sup>2</sup>*K/W (0 clo bis 2 clo)</td>
+    </tr>
+    <tr>
+    	<td> AirTemperature </td>
+        <td>:</td>
+        <td> air temperature [&deg;C], valid range 10 &deg;C to 30 &deg;C</td>
+    </tr>
+    <tr>
+    	<td> RadiationTemperature</td>
+        <td>:</td>
+        <td> mean radiation temperature [&deg;C]; 10 &deg;C to 40 &deg;C</td>
+    </tr>
+    <tr>
+    	<td> AirVelocity</td>
+        <td>:</td>
+        <td> air velocity [m/s]; valid range 0 m/s to 1 m/s </td>
+    </tr>
+    <tr>
+    	<td> PartialPressureVapour</td>
+        <td>:</td>
+        <td> partial pressure of water vapour [Pa], valid range 0 Pa to 2700 Pa </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> PMV </td>
+		<td style="width: 10px;">:</td>
+        <td> Predicted Mean Vote (-3 .. +3) </td>
+    </tr>
+    <tr>
+    	<td> PPD </td>
+        <td>:</td>
+        <td> Percentage of People Dissatiesfied in % </td>
+    </tr>
+    <tr>
+    	<td> ClothingTemperature </td>
+        <td>:</td>
+        <td> clothing temperature (surface) in &deg;C </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/pmv_ppd_MASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_PMV_PPD">example_PMV_PPD</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+ISO 7730 : Ergonomics of the thermal environment – Analytical determination 
+and interpretation of thermal comfort using calculation of the PMV and PPD 
+indices and local thermal comfort criteria (ISO 7730:2005)<br>
+<a href="https://www.researchgate.net/publication/363877234_Updated_Database_of_Clothing_Thermal_Insulation_and_Vapor_Permeability_Values_of_Western_Ensembles_for_Use_in_ASHRAE_Standard_55_ISO_7730_and_ISO_9920">
+James W. Smallcombe, Simon Hodder, Kalev Kuklane, Magdalena Młynarczyk, Dennis 
+Loveday, Jakob Petersson, Amitava Halder, George Havenith : Updated Database 
+of Clothing Thermal Insulation and Vapor Permeability Values of Western 
+Ensembles for Use in ASHRAE Standard 55, ISO 7730, and ISO 9920, 
+ASHRAE Transactions, Volume 127, Part 1, 2021</a>
+</p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+The room and building models of Carnot are not able to deliver all necessary data 
+for this block. Use the block only in combination with other data sources. The 
+detailed room model of Carnot doesn't have the air velocity. A valid choice for 
+this value is required. </p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

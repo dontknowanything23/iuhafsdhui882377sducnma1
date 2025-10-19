@@ -1,0 +1,226 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Wall_basic</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/wall_basic.jpg" align=right>
+<p class="blockname">Wall_basic</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Basic thermal model of a wall, floor or ceiling of a house.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The heat conduction of a wall can be assessed with the Beuken-model as 
+shown in Figure.
+</p>
+<p><img src="Figures/wallBasic_fig1.jpg" /></p>
+<p>The underlying assumption is a one-dimensional heat flow. Each wall-layer 
+is separated into two equal partial capacities, to be seen as on both surfaces 
+of the wall-layer. Should the wall consist of multiple partial layers, their 
+partial capacities of adjoining layers are combined in a single capacity c<sub>i</sub>.
+Thermal conductivity through a wall layer is modelled with resistance ki which
+combines both partial capacities. The transition from one layer to the next is
+described with node i to which capacity ci and resistances ki-1 and ki are
+attached.<br>
+Transformig the figure of the Beuken model to a matrix equation given when 
+keeping the resistance values:</p>
+<p><img src="Figures/wallBasic_fig2.jpg" /></p>
+<p>with</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>Symbol</b></td>
+		<td style="width: 400px;"><b>Used for</b></td>
+        <td> <b>Unit</b> </td>
+    </tr>
+    <tr>
+    	<td>T<sub>i</sub></td>
+        <td>temperature of node i</td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>C<sub>i</sub></td>
+        <td>specific heat capacity of node i</td>
+        <td>J/kg/K</td>
+    </tr>
+    <tr>
+    	<td>R<sub>i</sub></td>
+        <td>specific heat resistance between node i and node i+1</td>
+        <td>m<sup>2</sup>*K/W</td>
+    </tr>
+    <tr>
+    	<td>q1, q3 </td>
+        <td>thermal power at the outer / inner surface of the wall </td>
+        <td>W/m<sup>2</sup></td>
+    </tr>
+</table>
+
+<p>The composition of a wall in j layers is thus described in Beuken with j+nodes
+via j+1 differential equations. The equation system for a two-layered wall as
+in Figure goes as follows on matrix convention: 
+</p>
+<p><img src="Formulas/formel_wall_out_a.jpg" /></p>
+<p>with</p>
+<p><img src="Formulas/formel_wall_out_b.jpg" /></p>
+<p>Attached to the first and last node (wall-surfaces) are thermal transfer 
+resistances ar and ac. <br>
+The number of nodes depends on the time-constant given in the dialog box. A minimum 
+of two nodes per layer is taken. The condition for the number of sublayers in one 
+layer is (adapted from [Feist 1994]):<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+N_sublayers = ceil(sqrt(rho*C / (2.0*cond*TAU)) * dnode[j]) + 0.1) <br><br>
+with </p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>Symbol</b></td>
+		<td style="width: 400px;"><b>Used for</b></td>
+        <td> <b>Unit</b> </td>
+    </tr>
+    <tr>
+    	<td>cond</td>
+        <td>thermal conductivity</td>
+        <td>&W/m/K</td>
+    </tr>
+    <tr>
+    	<td>dnode</td>
+        <td>thickness of layer</td>
+        <td>m</td>
+    </tr>
+    <tr>
+    	<td>n</td>
+        <td>number of sublayers</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>rho</td>
+        <td>density</td>
+        <td> kg/m<sup>3</sup> </td>
+    </tr>
+    <tr>
+    	<td>TAU</td>
+        <td>timeconstant defined for the model</td>
+        <td>s</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">qdot_in</td>
+		<td style="width: 10px;">:</td>
+        <td> thermal power at the inner surface of the wall in W/m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> QdotActive</td>
+        <td>:</td>
+        <td> thermal power injected to the active layer in W/m<sup>2</sup> </td>
+    </tr>
+	<tr>
+		<td style="width: 100px;">qdot_out</td>
+		<td style="width: 10px;">:</td>
+        <td> thermal power at the outer surface of the wall in W/m<sup>2</sup> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tin</td>
+		<td style="width: 10px;">:</td>
+        <td> inner surface temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Tactive </td>
+        <td>:</td>
+        <td> temperature of the active layer in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> Tout </td>
+        <td>:</td>
+        <td> outer surface temperature in &deg;C</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/wallBasicMASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_room_radiator </li>
+ <li> example_room_floor_heating </li>
+</ul>
+
+<p><b>Validation</b> <br>
+The model has not yet been tested under all conditions. It has been compared to
+the results given by Feist (Feist 1994) and to the measured and calculated data
+of the SOPASIM-project (Balters 1995). Comparison to measurements has also been
+done with data from a project in Argentina (Mueller 1999).
+</p>
+
+<p><b>Literature:</b><br />
+Balters, E., Lehmann, H., Schaub, A.: SOPASIM - Test weit verbreiteter
+Solar-Passiv- Simulationssysteme für Architekten, <br>
+Abschlussbericht, UHL Data, Herzogstr. 27, Aachen, Arbeitsgemeinschaft Solar 
+Nordrhein-Westfalen, 1995 <br>
+Feist, W.: Thermische Gebäudesimulation - Kritische Prüfung unterschiedlicher
+Modellansätze, Verlag C.F.Müller, Heidelberg, 1994 <br>
+Kasten, F. Strahlungsaustausch zwischen Oberflächen und Atmosphäre,
+VDI-Bericht, Nr. 721, 131-158, Düsseldorf, 1989 <br>
+Mueller, C.: Diplomarbeit University of Karlsruhe, 1999 <br>
+Recknagel-Sprenger-Schramek: Taschenbuch für Heizung + Klimatechnik, R.
+Oldenbourg Verlag München Wien, 1995 <br>
+VDI-Wärmeatlas, Berechnungsblätter für den Wärmeübergang, 7. Auflage, VDI
+Verlag GmbH, Düsseldorf, 1994 <br>
+Wimmer: Thermisch-Energetische Gebäudesimulation, Dissertation Universität 
+Kassel, 2004
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

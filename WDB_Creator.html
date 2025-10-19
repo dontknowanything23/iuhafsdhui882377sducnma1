@@ -1,0 +1,176 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - WDB_Creator</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/WDB_Creator.gif" align=right>
+<p class="blockname">WDB_Creator</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Weather_and_Sun
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Create a <a href="WDB_format.html">Weather Data Bus</a>.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block creates a constant <a href="WDB_format.html">Weather Data Bus (WDB)</a> 
+and assign the names to the elements of the bus. 
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">TimeValueComment</td>
+		<td style="width: 10px;">:</td>
+        <td> timevalue (comment line) format YYYYMMDDHHMM<br>
+		Y is the year, M the month, D the day, H the hour </td>
+    </tr>
+    <tr>
+    	<td> Zenith_Angle </td>
+        <td>:</td>
+        <td> zenith angle of sun (at time, not averaged) in &deg;<br>
+		continue at night with values above 90&deg; to get time of 
+		sunrise or sunset by linear interpolation</td>
+    </tr>
+    <tr>
+    	<td> Azimuth_Angle</td>
+        <td>:</td>
+        <td> azimuth angle of sun in &deg; (at time, not averaged)<br>
+		(0°=south, east negative) </td>
+    </tr>
+    <tr>
+    	<td> Solar_Radiation_Beam_normal </td>
+        <td>:</td>
+        <td> direct or beam solar radiation on a normal surface in W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> Solar_Radiation_diffuse_horizontal</td>
+        <td>:</td>
+        <td> diffuse solar radiation on horizontal surface in W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> Temperature_Ambient</td>
+        <td>:</td>
+        <td> ambient temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td> Temperature_Sky_Radiation</td>
+        <td>:</td>
+        <td> radiation temperature of sky in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td> Relative_Humidity</td>
+        <td>:</td>
+        <td> relative humidity of the air in percent [0..100]</td>
+    </tr>
+    <tr>
+    	<td> Precipitation </td>
+        <td>:</td>
+        <td> precipitation or rainfall in m/s (water column per timestep)</td>
+    </tr>
+    <tr>
+    	<td> Cloud_Index </td>
+        <td>:</td>
+        <td> part of the sky covered by clouds (0=no cloud, 1=covered sky) </td>
+    </tr>
+    <tr>
+    	<td> Station_Pressure </td>
+        <td>:</td>
+        <td> air pressure in Pa </td>
+    </tr>
+    <tr>
+    	<td> Wind_Speed </td>
+        <td>:</td>
+        <td> mean wind speed in m/s </td>
+    </tr>
+    <tr>
+    	<td> Wind_Direction </td>
+        <td>:</td>
+        <td> wind direction in &deg; (north=0&deg; west=270&deg;) </td>
+    </tr>
+    <tr>
+    	<td> Incidence_Angle_sun</td>
+        <td>:</td>
+        <td> incidence angle of the direct solar radiation on surface 
+		in &deg; (0&deg; = vertical) </td>
+    </tr>
+    <tr>
+    	<td> Incidence_Angle_longitudinal </td>
+        <td>:</td>
+        <td> incidence angle in a vertical plane on the collecor in &deg;<br>
+        the orientation of the plane is parallel to the risers,
+        referred as longitudinal plane in EN 12975<br>
+		(= -9999, if surface orientation is unknown)</td>
+    </tr>
+    <tr>
+    	<td> Incidence_Angle_transversal </td>
+        <td>:</td>
+        <td> incidence angle in a vertical plane on the collecor in &deg;<br>
+        the orientation of the plane is parallel to the header,
+        referred as transversal plane in EN 12975<br>
+		(= -9999, if surface orientation is unknown)</td>
+    </tr>
+    <tr>
+    	<td> Solar_Radiation_direct_surface </td>
+        <td>:</td>
+        <td> direct solar radiation on horizontal surface in W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> Solar_Radiation_diffuse_surface</td>
+        <td>:</td>
+        <td> diffuse solar radiation on horizontal surface in W/m<sup>2</sup></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">Weather Data Bus</a></td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/WDBcreatorMask.png" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td>Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

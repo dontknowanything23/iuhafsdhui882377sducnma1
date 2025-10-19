@@ -1,0 +1,87 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - GlobalMessageLevel</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/GlobalMessageLevel.gif" align=right>
+<p class="blockname">GlobalMessageLevel</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Toolbox
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Handle the error messages of the fluid property blocks.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block handles the warning messages in the background via the 
+<a href = "CarnotCallbacks_GlobalMessageLevel.html">CarnotCallbacks_GlobalMessageLevel</a> 
+and the <a href = "MessageLevelEnum.html">MessageLevelEnum</a>. Messages and warnings 
+can be saved in a text-file. The message settings can be : </p>
+<ul>
+ <li> local = each block determines its error handling 
+ (the parameters are only accessible by the fluid property blocks) </li>
+ <li> global = the GlobalMessageLevel block determines the error 
+ handling for all blocks in a model (parameters are set by the 
+ GlobalMessageLevelBlock) </li>
+</ul>
+<p>You can parameterize the warnings and error messages 
+of the fluid property blocks:
+</p>
+<ul>
+ <li> Density </li>
+ <li> Enthalpy </li>
+ <li> Heat_Capacity</li>
+ <li> Thermal_Conductivity </li>
+</ul>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/GlobalMessageLevelMaskA.jpg" /></p>
+<p><img src="Figures/GlobalMessageLevelMaskB.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_GlobalMessageLevel </li>
+</ul>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td> none </td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

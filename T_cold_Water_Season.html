@@ -1,0 +1,83 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - T_cold_Water_Season</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/TcoldWaterSeason.jpg" align=right>
+<p class="blockname">T_cold_Water_Season</p>
+<p style="margin-top:0px; margin-bottom:20px">
+Path: CARNOT/Load/Hot_Water_Tapping<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Create a seasonally varying cold water temperature.
+</p>
+<p><b>Description:</b><br>
+The block creates a cold water temperature over the year. The uses a linear 
+curve between minimum and maximum or an approximation with a sine curve. 
+The minimum and maximum values are set to the 15th of the selected month. 
+Both linear and since curve can have the asymmetric times for minimum and 
+maximum (e.g. lowest temperature in March and highest in July). <br />
+Two different parameter sets are used for the short and the long intervall.
+</p>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tc</td>
+		<td style="width: 10px;">:</td>
+        <td> cold water temperature in &deg;C</td>
+    </tr>
+
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/TcoldWaterSeasonMASK.jpg" />
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> <a href="matlab:open_system example_T_cold_Water_Season">example_T_cold_Water_Season</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

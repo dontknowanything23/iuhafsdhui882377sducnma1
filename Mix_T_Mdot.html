@@ -1,0 +1,120 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Mix_T_Mdot</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/mix_T_mdot.jpg" align=right>
+<p class="blockname">Mix_T_Mdot</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Hydraulics
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculation of mixed values of temperature and mass flow after a Tee-piece.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block calculates the values of temperature and mass flow rate after the
+reassembly of two flows streams in a Tee-piece. The mass flows are added. 
+According to the selected calculation method the temperature is weighted 
+according to the mass flows: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; Tmix = (T1*mdot1 + T2*mdot2)/(mdot1+mdot2)
+<br><br>
+or determined by the enthalpy balance:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; h = (h1*mdot1 + h2*mdot2)/(mdot1+mdot2)<br><br>
+The enthalpy (h1, h2) is calculated by the function "enthalpy" in the 
+<a href = "carlib.html">CARLIB</a> and transformed to a temperature by an iteration 
+method in the function "enthalpy2temperature". 
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T1</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature of the flow 1 in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> mdot1 </td>
+        <td>:</td>
+        <td> mass flow of the flow 1 in kg/s </td>
+    </tr>
+    <tr>
+    	<td> T2 </td>
+        <td>:</td>
+        <td> temperature of the flow 2 in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> mdot2 </td>
+        <td>:</td>
+        <td> mass flow of the flow 2 in kg/s </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature of the mixed flow in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> mdot </td>
+        <td>:</td>
+        <td> mass flow of the mixed flow in kg/s </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/mixTmdot_mask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Mix_T_Mdot </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

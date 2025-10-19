@@ -1,0 +1,177 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Entropy</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/entropy.jpg" align=right>
+<p class="blockname">Entropy</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+This block calculates the entropy [J/kg/K] of the specified material.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block calculates the specific enthalpy in [J/kg/K] according to the inputs. 
+The block calls up the function <a href="entropy.html">entropy</a> 
+in the CARNOT <a href="carlib.html">Carlib Library</a> 
+where the calculation is carried out. The material properties functions can also 
+be called directly from the command window by typing <br>
+<tt>entropy(<em>temperature, pressure, fluid_type, fluid_mix</em>)</tt><br>
+in the Matlab Command Window. Instead of the italic variables the actual value 
+of the respective property has to be entered. <br>
+For more information about the function type:<br>
+<tt>help entropy</tt><br>
+For the calculation of steam, the properties are calculated according to 
+E.Schmidt: Properties of water and steam [Schmidt, 1982]. The steam
+properties can be calculated for a temperature range up to 800°C and a pressure
+range up to 49.055 MPa. The calculations of the saturation states are performed
+with the polynomials fitted from [Schmidt, 1982]. The valid temperature range 
+is from the triple temperature 0.01°C up to the critical temperature 
+Tk = 374.15 &deg;C and the pressure range respectively from the triple
+pressure 612 Pa up to 22.1287 MPa. The entropy values for the liquid phase are
+not yet implemented.<br>
+The enthalpy is only available for the fluids water (fluid type 1) and air 
+(fluid type 2).</p>
+<p>The valid range is for the respective value is:</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">fluid_ID</td>
+		<td style="width: 100px;">fluid</td>
+		<td style="width: 100px;">phase</td>
+		<td style="width: 200px;">temperature</td>
+        <td> pressure </td>
+    </tr>
+    <tr>
+    	<td> 1 </td>
+        <td> water </td>
+        <td> vaporous </td>
+        <td> 0.01 &deg;C &lt; T &lt; 800 &deg;C </td>
+        <td> p &lt; 49 MPa </td>
+    </tr>
+    <tr>
+    	<td> 1 </td>
+        <td> water </td>
+        <td> liquid</td>
+        <td> 0.01 &deg;C &lt; T &lt; 374.15 &deg;C </td>
+        <td> 612 Pa &lt; p &lt; 22.1287 MPa </td>
+    </tr>
+    <tr>
+    	<td> 2 </td>
+        <td> air </td>
+        <td> gaseaous </td>
+        <td> 0 &deg;C &lt; T &lt; 1000 &deg;C </td>
+        <td> 0.1 MPa &lt; p &lt; 2 MPa </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid types</a> </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid mixtures</a></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">entropy</td>
+		<td style="width: 10px;">:</td>
+        <td> entropy of the fluid in J/kg/K </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/EntropyMaskA.jpg" /></p>
+
+<p> You can choose the inputs to be the : </p>
+<ul>
+ <li> state variables (temperature, pressure, fluid type 
+ and mix have separate input ports)</li>
+ <li> the Thermo Hydraulic Bus (THB) </li>
+ <li> or, for compatibility with older versions, 
+ the Thermo Hydraulic Vector (THV) </li>
+</ul>
+
+<p><img src="Figures/EntropyMaskB.jpg" /></p>
+
+<p>Use the <a href="GlobalMessageLevel.html">GlobalMessageLevel</a> 
+block to handle the debugging messages.</p>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_FluidProp_Entropy </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Schmidt, E.: Properties of Water and Steam in SI Units, ed. by U. Grigull, 
+Berlin, Springer und München, Oldenbourg 1982
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

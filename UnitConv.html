@@ -1,0 +1,421 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - UnitConv</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/unitconv.jpg" align=right>
+<p class="blockname">UnitConv</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Toolbox
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Converts a value from a specified unit to another unit.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The symbols in a specified unit have to be separated by * or /. 
+So kWh has to be written as kW*h. The common signs are allowed, 
+e.g. kW, mm, µJ. Beside the units this functions knows some constants, 
+e.g. when using the "unit" c, you get the lightspeed.<br>
+The known units and constants are:
+</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>unit</b></td>
+		<td style="width: 200px;"><b>meaning</b></td>
+		<td><b>used for</b></td>
+	</tr>
+	<tr>
+		<td>m</td>
+		<td>meter</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>kg</td>
+		<td>kilogramm</td>
+		<td>mass</td>
+	</tr>
+	<tr>
+		<td>s</td>
+		<td>second</td>
+		<td>time</td>
+	</tr>
+	<tr>
+		<td>A</td>
+		<td>ampere</td>
+		<td>current</td>
+	</tr>
+	<tr>
+		<td>K</td>
+		<td>Kelvin</td>
+		<td>temperature</td>
+	</tr>
+	<tr>
+		<td>mol</td>
+		<td>mole</td>
+		<td>amount of subcstance</td>
+	</tr>
+	<tr>
+		<td>cd</td>
+		<td>candela</td>
+		<td>luminous intensity</td>
+	</tr>
+	<tr>
+		<td>a</td>
+		<td>anno</td>
+		<td>standard year (365 days)</td>
+	</tr>
+	<tr>
+		<td>b</td>
+		<td>barn</td>
+		<td>area</td>
+	</tr>
+	<tr>
+		<td>c</td>
+		<td>&nbsp;</td>
+		<td>ligthspeed</td>
+	</tr>
+	<tr>
+		<td>g</td>
+		<td>gramm</td>
+		<td>mass</td>
+	</tr>
+	<tr>
+		<td>l</td>
+		<td>liter</td>
+		<td>volume</td>
+	</tr>
+	<tr>
+		<td>t</td>
+		<td>ton</td>
+		<td>mass</td>
+	</tr>
+	<tr>
+		<td>d</td>
+		<td>day</td>
+		<td>time</td>
+	</tr>
+	<tr>
+		<td>V</td>
+		<td>volt</td>
+		<td>voltage</td>
+	</tr>
+	<tr>
+		<td>F</td>
+		<td>farad</td>
+		<td>capacity</td>
+	</tr>
+	<tr>
+		<td>C</td>
+		<td>coulomb</td>
+		<td>electric charge</td>
+	</tr>
+	<tr>
+		<td>T</td>
+		<td>tesla</td>
+		<td>magnetic flux density</td>
+	</tr>
+	<tr>
+		<td>S</td>
+		<td>siemens</td>
+		<td>electric conductance</td>
+	</tr>
+	<tr>
+		<td>G</td>
+		<td>&nbsp;</td>
+		<td>gravitational constant</td>
+	</tr>
+	<tr>
+		<td>e</td>
+		<td>&nbsp;</td>
+		<td>elementary charge</td>
+	</tr>
+	<tr>
+		<td>N</td>
+		<td>newton</td>
+		<td>force</td>
+	</tr>
+	<tr>
+		<td>W</td>
+		<td>watt</td>
+		<td>power</td>
+	</tr>
+	<tr>
+		<td>u</td>
+		<td>unified atomic mass</td>
+		<td>mass</td>
+	</tr>
+	<tr>
+		<td>J</td>
+		<td>joule</td>
+		<td>energy</td>
+	</tr>
+	<tr>
+		<td>h</td>
+		<td>hour</td>
+		<td>time</td>
+	</tr>
+	<tr>
+		<td>Pa</td>
+		<td>pascal</td>
+		<td>pressure</td>
+	</tr>
+	<tr>
+		<td>AE</td>
+		<td>astronomical unit</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>lj</td>
+		<td>lightyear</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>pc</td>
+		<td>parsec</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>Hz</td>
+		<td>hertz</td>
+		<td>frequency</td>
+	</tr>
+	<tr>
+		<td>Wb</td>
+		<td>weber</td>
+		<td>magnetic flux</td>
+	</tr>
+	<tr>
+		<td>lb</td>
+		<td>pound</td>
+		<td>mass</td>
+	</tr>
+	<tr>
+		<td>Bq</td>
+		<td>becquerel</td>
+		<td>radioactivity</td>
+	</tr>
+	<tr>
+		<td>yd</td>
+		<td>yards</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>sm</td>
+		<td>squaremeter</td>
+		<td>area</td>
+	</tr>
+	<tr>
+		<td>gr</td>
+		<td>grain</td>
+		<td>mass</td>
+	</tr>
+	<tr>
+		<td>ha</td>
+		<td>hectar</td>
+		<td>area</td>
+	</tr>
+	<tr>
+		<td>NA</td>
+		<td>&nbsp;</td>
+		<td>avogadro's number</td>
+	</tr>
+	<tr>
+		<td>Rm</td>
+		<td>&nbsp;</td>
+		<td>ideal gas constant</td>
+	</tr>
+	<tr>
+		<td>µ0</td>
+		<td></td>
+		<td>permeability constant</td>
+	</tr>
+	<tr>
+		<td>hp</td>
+		<td>brake horse power</td>
+		<td>power</td>
+	</tr>
+	<tr>
+		<td>kb</td>
+		<td>&nbsp;</td>
+		<td>boltzman constant</td>
+	</tr>
+	<tr>
+		<td>eV</td>
+		<td>electronvolt</td>
+		<td>electric charge</td>
+	</tr>
+	<tr>
+		<td>Btu</td>
+		<td>british thermal unit</td>
+		<td>energy</td>
+	</tr>
+	<tr>
+		<td>bar</td>
+		<td>bar</td>
+		<td>pressure</td>
+	</tr>
+	<tr>
+		<td>dpt</td>
+		<td>dioptr</td>
+		<td>reciprocal focal length</td>
+	</tr>
+	<tr>
+		<td>erg</td>
+		<td>ergon</td>
+		<td>energy</td>
+	</tr>
+	<tr>
+		<td>Ohm</td>
+		<td>ohm</td>
+		<td>electric resistance</td>
+	</tr>
+	<tr>
+		<td>oz</td>
+		<td>ounce</td>
+		<td>mass</td>
+	</tr>
+	<tr>
+		<td>PS</td>
+		<td>DIN - horsepower</td>
+		<td>power</td>
+	</tr>
+	<tr>
+		<td>ft</td>
+		<td>feet</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>in</td>
+		<td>inch</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>mi</td>
+		<td>mile</td>
+		<td>length</td>
+	</tr>
+	<tr>
+		<td>galUK</td>
+		<td>gallon in UK</td>
+		<td>Volume</td>
+	</tr>
+	<tr>
+		<td>galUS</td>
+		<td>gallon in US</td>
+		<td>Volume</td>
+	</tr>
+	<tr>
+		<td>mmHg</td>
+		<td>millimeters of mercury</td>
+		<td>pressure</td>
+	</tr>
+	<tr>
+		<td>knot</td>
+		<td>knots</td>
+		<td>speed</td>
+	</tr>
+	<tr>
+		<td>torr</td>
+		<td>torr</td>
+		<td>pressure</td>
+	</tr>
+	<tr>
+		<td>eps0</td>
+		<td>&nbsp;</td>
+		<td>dielectric constant</td>
+	</tr>
+	<tr>
+		<td>cal</td>
+		<td>calories</td>
+		<td>energy</td>
+	</tr>
+	<tr>
+		<td>min</td>
+		<td>minute</td>
+		<td>time</td>
+	</tr>
+	<tr>
+		<td>bbl</td>
+		<td>barrel</td>
+		<td>volume</td>
+	</tr>
+	<tr>
+		<td>atm</td>
+		<td>atmosphere</td>
+		<td>pressure</td>
+	</tr>
+</table>
+
+<p> The Block <a href = "UnitConv_Temperature_mdl.html">
+UnitConv_Temperature</a> is a special case of unitconv, 
+witch convert only temperatures between the three units: 
+&deg;C, &deg;F and K. 
+This calculation is also available as a Matlab function: 
+<a href = "unitconv_temperature.html">unitconv_temperature</a>.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">In</td>
+		<td style="width: 10px;">:</td>
+        <td> value in old unit </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Out </td>
+		<td style="width: 10px;">:</td>
+        <td> value in new unit</td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/unitconvSHOT.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>

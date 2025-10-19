@@ -1,0 +1,129 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pump_Const</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/pump_const.jpg" align=right>
+<p class="blockname">Pump_Const</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics 
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Simple pump model with a pressure independant flow rate.
+</p>
+
+<p><b>Description:</b><br>
+This is  a simple pump model :  The mass flow is set to the maximum mass 
+flow rate specified in the mask. In addition to the 
+<a href="Pump_basic.html">Pump_basic</a> the model has a thermal node 
+for thermal losses (and to break algebraic loops in the temperature signal). 
+<br>
+The mass flow is set to the maximum mass flow rate specified in the 
+mask multiplied with the control signal. 
+</p>
+<p>&nbsp;&nbsp; mdot = mdotmax * Ctrl </p>
+<p>Define a minimum and a maximum Ctrl signal for the operation 
+range of the pump, e.g. 0.2 as minimum and 1 as maximum. The pump starts 
+operation as soon as the Ctrl input is equal or above 0.2. If the Ctrl 
+signal is above 1, the applied control signal is limited to 1. If a 
+minimum of 0 is given, the pump start operation with any value above 0.
+</p>
+<p> The electric power consumption of the pump is given by a quadradic 
+polynom: </p>
+<p>&nbsp;&nbsp; Pel = e0 + e1*mdot + e2*mdot<sup>2</sup> 
+</p>
+<p>The fluid type and fluid mixture is defined in the Pump_Const. Any 
+other values for the fluid type or the mixture which might be defined by 
+the incomming THB are discarded. The outgoing THB has the fluid type and 
+the fluid mixture parameters given by the mask of the Pump_Const.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the incomming flow </td>
+    </tr>
+    <tr>
+    	<td> Ctrl</td>
+        <td>:</td>
+        <td> control signal </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the leaving flow </td>
+    </tr>
+    <tr>
+    	<td> Pdat </td>
+        <td>:</td>
+        <td> <a href="Pdat.html">Pdat bus containing operation 
+		informations of the fan</a></td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img alt="" src="Figures/PumpConstMask1.jpg" /></p>
+<p> The <a href="carnot_manual.htm#fluid_id">fluid mix</a> is 
+only considered for mixtures like water - glycol or humid air.</p>
+<p><img alt="" src="Figures/PumpConstMask2.jpg" /></p>
+<p><img alt="" src="Figures/PumpConstMask3.jpg" /></p>
+<p><img alt="" src="Figures/PumpConstMask4.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hydraulic_PumpConst </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

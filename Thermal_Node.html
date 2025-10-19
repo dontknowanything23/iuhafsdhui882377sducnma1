@@ -1,0 +1,158 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Thermal_Node</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/ThermalNode.gif" align=right>
+<p class="blockname">Thermal_Node</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+One node model of a thermal capacity with entering massflow and losses to ambient.<br>
+The block breaks the direct feedthrough of any incoming temperature.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block integrates an incomming temperature and mass flow according to: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+mcap * dTnode/dt = UA_loss * (Tamb - Tnode) + mdot * cp * (Tin- Tnode) +  Qdot <br><br>
+where
+</p>
+
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>Symbol</b></td>
+		<td style="width: 400px;"><b>Used for</b></td>
+        <td> <b>Unit</b> </td>
+    </tr>
+    <tr>
+    	<td>cp</td>
+        <td>heat capacity </td>
+        <td>J/kg/K</td>
+    </tr>
+    <tr>
+    	<td>m</td>
+        <td>mass of the node </td>
+        <td>kg </td>
+    </tr>
+    <tr>
+    	<td>mcap</td>
+        <td>is the thermal capacity = m * cp </td>
+        <td>J/K</td>
+    </tr>
+    <tr>
+    	<td>mdot</td>
+        <td>mass flow entering the node </td>
+        <td>kg/s</td>
+    </tr>
+    <tr>
+    	<td>t</td>
+        <td>time</td>
+        <td>s</td>
+    </tr>
+    <tr>
+    	<td>Tamb</td>
+        <td>ambient temperature (for losses)</td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>Tnode</td>
+        <td>node temperature </td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>UA_loss </td>
+        <td>loss coefficient to the ambient </td>
+        <td>W/K </td>
+    </tr>
+    <tr>
+    	<td>Qdot</td>
+        <td>additional thermal power to the node </td>
+        <td>W</td>
+    </tr>
+</table>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td>Tin</td>
+        <td>:</td>
+        <td>inlet temperature in &deg;C</td>
+    </tr>
+    <tr>
+    	<td>mdot</td>
+        <td>:</td>
+        <td>entering mass flow in kg/s</td>
+    </tr>
+    <tr>
+    	<td>Qdot</td>
+        <td>:</td>
+        <td>additional power to the node in W</td>
+    </tr>
+    <tr>
+    	<td>cp</td>
+        <td>:</td>
+        <td>heat capacity of the fluid in J/kg/K </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tout</td>
+		<td style="width: 10px;">:</td>
+        <td>node and outlet temperature in &deg;C</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/ThermalNode_MASK.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

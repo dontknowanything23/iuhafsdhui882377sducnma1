@@ -1,0 +1,91 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Display_THB</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/DisplayTHB.gif" align=right>
+<p class="blockname">Display_THB</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Outputs/Selectors<br><br><br><br>
+</p>
+
+<hr>
+
+<p><b>Purpose:</b><br>
+The block shows the elements in the 
+<a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>.
+</p>
+<p><b>Description:</b><br>
+The block shows the temperature, mass flow rate, pressure, fluid type, 
+fluid mixture or diameter of up to six  
+<a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Buses</a>. 
+In the parameter block the physical value can be chosen. The number of 
+inputs can be changed by changing the blocks in the subsystem. 
+Be sure to short all unconnected outputs to the Terminator block to avoid 
+a warning in the MATLAB command window.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> to_scope </td>
+		<td style="width: 10px;">:</td>
+        <td> selected value in the 
+		<a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a></td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/DisplayTHBMask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_Display_THB1">example_Display_THB1</a> </li>
+	<li> <a href="matlab:open_system example_Display_THB2">example_Display_THB2</a> </li>
+	<li> <a href="matlab:open_system example_Display_THB3">example_Display_THB3</a> </li>
+	<li> <a href="matlab:open_system example_Display_THB4">example_Display_THB4</a> </li>
+	<li> <a href="matlab:open_system example_Display_THB5">example_Display_THB5</a> </li>
+	<li> <a href="matlab:open_system example_Display_THB6">example_Display_THB6</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Thermosyphon</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/thermosyphon.jpg" align=right>
+<p class="blockname">Thermosyphon</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics 
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Characteristic of a system that works with thermosyphon effect to pump the
+fluid.
+</p>
+
+<p><b>Description:</b><br>
+Characteristic of system that works with the thermosyphon effect,
+that means the pump effect is achieved by differences in density. These
+differences in density exist because of the temperature differences of the
+fluid at different positions in the cycle. The physical effect in which the
+hotter fluid rises to the top and the colder one sinks to the bottom is used to
+build up a natural pumping cycle that is maintained by the temperature and
+accordingly the density differences of the fluid. The input of the thermosyphon
+block is just the THV. The temperature is adapted according to the heat
+capacity of the block and the pressure is calculated as in any other pump
+block.<br>
+As the thermosyphon cycle has no pump, it has to be a closed cycle, and you 
+have to guarantee in every case that the heights of the system are equal.
+In the model a check of the height is implemented. The sum of the height 
+in the <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> has to 
+be zero.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the incomming flow </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the leaving flow </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/thermosyphonSHOT.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hydraulic_Thermosyphon </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

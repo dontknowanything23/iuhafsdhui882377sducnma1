@@ -1,0 +1,112 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pressure_Drop_PipeTheory</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/PressureDropPipeTheory.gif" align=right>
+<p class="blockname">Pressure_Drop_PipeTheory</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Pressure_Drop
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculate the pressure drop in a pipe according to theoretical values.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Calculate the pressure drop of a fluid flow in a pipe with a theoretical approach. 
+The equation is based on the hydraulic diameter (in m) of the pipe or duct:
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; D_hydr = 4 * Crosssection-Area / Circumference
+<br><br>
+The difference in static height dp between inlet and outlet is also taken 
+into account. Outlet above inlet has a positive height and a decrease 
+in static pressure.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; dp = height/N_nodes*grav*density(Tnodes)
+<br><br>
+Laminar flow is assumed for Reynolds numbers Re &lt; 2050. In ths case the 
+friction coefficient is <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; fh = 64.0/Re <br><br>
+The equivalent length l_eq in this case is [Lencastre, 1996] <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+l_eq = D_hydr * (1.6 - Re/2000) / fh * number_of_90&deg;_bends
+<br><br>
+For Renolds number between 2050 and 3000 a transition zone is considered: 
+The friction coefficient is a linear interpolation between laminar and tubulent 
+value.<br>
+For fully turbulent flow with Re &gt; 2050 the coefficient is calculated with 
+the Blasius and Nikuradse correlation [Bohl, 2014]. A developing flow correction 
+according to Lencastre is applied.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Tnodes </td>
+		<td style="width: 10px;">:</td>
+        <td> node temperature or temperatures of the pipe in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THBin </td>
+        <td>:</td>
+        <td> incomming <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB </td>
+		<td style="width: 10px;">:</td>
+        <td> leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/PressureDropPipeTheory_MASK.jpg" /></p>
+
+<p><b>Literature:</b><br />
+Lencastre, A.: Hydraulique generale, Eyrolles Safege, 1996<br>
+Bohl, W.; Elmendorf., W.:  Technische Strömungslehre, Vogel Verlag, 2014
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

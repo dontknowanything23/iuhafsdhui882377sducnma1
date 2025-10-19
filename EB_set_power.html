@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - EB_set_power</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img width=110 height=68 src="Figures/EB_set_power.png" align=right>
+<p class="blockname">EB_set_power</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Simple</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Set power in the <a href="2_Basic_Concepts.html#electric_bus">Electric Bus</a>.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block sets the active power of all three lines in the 
+<a href="2_Basic_Concepts.html#electric_bus">Electric Bus</a>. The Block 
+overwrites existing values of the active power in the incomming bus.
+Feed in a vector with three elements to adress each line individually.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">EB_in</td>
+		<td style="width: 10px;">:</td>
+        <td> incomming 
+		<a href="2_Basic_Concepts.html#electric_bus">Electric Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> act_power </td>
+        <td>:</td>
+        <td> active power of the lines (vector with 3 elements)</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">EB</td>
+		<td style="width: 10px;">:</td>
+        <td> leaving <a href="2_Basic_Concepts.html#electric_bus">
+		Electric Bus</a> with the new values for the active power </td>
+    </tr>
+</table>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_EB_set_power </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

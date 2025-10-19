@@ -1,0 +1,521 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Heat Exchanger Models</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/imgStoragePorts.gif" align=right>
+<p class="blockname">Heat Exchanger Models for Storage_Type_N</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Storage/Thermal/Storage_Ports</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">HX_data_fit</td>
+		<td style="width: 10px;">:</td>
+        <td> heat exchanger model for linear data fit </td>
+    </tr>
+    <tr>
+    	<td> HX_data_fit_stratified</td>
+        <td>:</td>
+        <td> as above, but for stratified charging</td>
+    </tr>
+    <tr>
+    	<td> &nbsp; </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+    	<td> HX_EN12977</td>
+        <td>:</td>
+        <td> heat exchanger model for data fit according to TRNSYS Type 340 model</td>
+    </tr>
+    <tr>
+    	<td> HX_EN12977_stratified</td>
+        <td>:</td>
+        <td> as above, but for stratified charging</td>
+    </tr>
+    <tr>
+    	<td> &nbsp; </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+    	<td> HX_tube</td>
+        <td>:</td>
+        <td> theoretical model of a smooth tube heat exchanger</td>
+    </tr>
+    <tr>
+    	<td> HX_tube_stratified</td>
+        <td>:</td>
+        <td> as above, but for stratified charging</td>
+    </tr>
+    <tr>
+    	<td> &nbsp; </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+    	<td> HX_finned_tube</td>
+        <td>:</td>
+        <td> theoretical model of a finned tube heat exchanger</td>
+    </tr>
+    <tr>
+    	<td> HX_finned_tube_stratified</td>
+        <td>:</td>
+        <td> as above, but for stratified charging</td>
+    </tr>
+    <tr>
+    	<td> &nbsp; </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+</table>
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Heat exchanger models for the thermal storage model 
+"Storage_Tnode" used in the Storage_Type_N blocks.
+</p>
+<p><b>Description</b><br>
+The incoming THB is transformed to a vector giving the heating power to each node of the storage.
+The relative height of the inlet and outlet are connected to the corresponing nodes
+of the storage model. <br>
+For example of a model with 10 nodes, the connection is as follows:
+</p>
+
+<table>
+	<tr>
+		<td style="width: 70px;">Node</td>
+        <td>Relative height inlet or outlet</td>
+    </tr>
+    <tr>
+    	<td>10</td>
+        <td>&gt; 0.9</td>
+    </tr>
+    <tr>
+    	<td>9</td>
+        <td> &gt; 0.8 .. &lt;= 0.9</td>
+    </tr>
+    <tr>
+    	<td>8</td>
+        <td> &gt; 0.7 .. &lt;= 0.8</td>
+    </tr>
+    <tr>
+    	<td>7</td>
+        <td> &gt; 0.6 .. &lt;= 0.7</td>
+    </tr>
+    <tr>
+    	<td>6</td>
+        <td> &gt; 0.5 .. &lt;= 0.6</td>
+    </tr>
+    <tr>
+    	<td>5</td>
+        <td> &gt; 0.4 .. &lt;= 0.5</td>
+    </tr>
+    <tr>
+    	<td>4</td>
+        <td> &gt; 0.3 .. &lt;= 0.4</td>
+    </tr>
+    <tr>
+    	<td>3</td>
+        <td> &gt; 0.2 .. &lt;= 0.3</td>
+    </tr>
+    <tr>
+    	<td>2</td>
+        <td> &gt; 0.1 .. &lt;= 0.2</td>
+    </tr>
+    <tr>
+    	<td>1</td>
+        <td> &lt;= 0.1</td>
+    </tr>
+</table>
+
+<p> The heat exchanger models use the basic block 
+&quot;sfun_storage_heatexchanger&quot; in 
+CARNOT\Basic\Thermal_Models. In this block the s-function 
+&quot;storage_heatexchanger&quot; solves the different 
+equations for the heat transfer. <br />
+</p>
+
+<p><b> Heat transfer calculation</b><br>
+The power of the heat exchange per node is calculated 
+by the mathematical function derived from <br>
+&nbsp;&nbsp;&nbsp;&nbsp; mdot * cp * dThx = U * dA * (Tnode - Thx)<br><br>
+Replace (Tnode-Thx) by teta, than dThx is -dteta <br>
+&nbsp;&nbsp;&nbsp;&nbsp; mdot * cp * dteta = - U * dA * teta <br>
+&nbsp;&nbsp;&nbsp;&nbsp; dteta / teta = - U * dA / (mdot * cp) <br><br>
+Integrate from inlet position to outlet position. 
+The equation uses the upwind scheme from Patankar [Patankar 1981] 
+so the inlet temperature of the heat exchanger node is the 
+temperature of the node upwards in flow direction.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; ln(teta(out)/teta(in)) = -U*A/(mdot*cp)<br><br>
+Exponentiate and solve for teta(out)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; teta(out) = teta(in) * exp(-U*A/(mdot*cp))<br><br>
+Replace teta by (Tnode - Thx) and solve for Thx(out), the outlet 
+temperature of the heat exchanger in one node<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Thx(out) = Tnode(out) + ((Thx(in) - Tnode(in)) * exp(-U*A/(mdot*cp))<br>
+The power of the node is calculated (Tnode(in) and Tnode(out) 
+are the same since nodes are fully mixed)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; QdotHX(node) = UA*(Thx(in)-Thx(node)) 
+/ log((Thx(in)-Tstore(node)/(Thx(node)-Tstore(node))) <br><br>
+with</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 50px;">cp</td>
+		<td style="width: 350px;">specific heat capacity</td>
+        <td> J/(kg*K) </td>
+    </tr>
+    <tr>
+    	<td> Thx(in)</td>
+        <td> inlet temperature of heat exchanger node</td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Thx(node)</td>
+        <td> temperature of heat exchanger node</td>
+        <td> &deg;C</td>
+    </tr>
+    <tr>
+    	<td> Tstore</td>
+        <td> temperature of the storage node</td>
+        <td> &deg;C</td>
+    </tr>
+</table>
+
+<p>
+The heat transfer calculation is done by an s-function in the underlying model
+<a href="#S-function_sfun_storage_heatexchanger">sfun_storage_heatexchanger</a>.
+</p>
+
+<p><b>Stratified Charging</b><br>
+For this stratified charging heat exchanger the heat transfer is set to zero if
+the temperature in the storage is above the heat exchanger temperature. If you
+specify a inlet above the outlet, the flow in the heat
+exchanger is going down in the storage until it reaches a node where the
+temperature is lower than the flow temperature. At this node it starts charging
+the storage. To model a complete stratified charging heat exchanger, set
+inlet-position to 1 and outlet- position to 0. <br>
+The ports  also model stratified discharging for inlet below outlet. In this
+case the port starts discharging the storage if the flow temperature reaches a
+node where the temperature is higher.<br>
+In case of no mass-flow (Mass-flow smaller than the predefined constant 
+“NO_MASSFLOW” in carlib.h) the node temperature of the 
+heat exchanger is set to the node temperature of the storage. The power output 
+is zero<br>
+For undefined heat exchangers (Port_ID not listed below) the model 
+takes a default value of 500 W/K for the heat transfer.<br>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">from_StoreT</td>
+		<td style="width: 10px;">:</td>
+        <td>the node temperatures (output &quot;Tnodes&quot; of the 
+		<a href="sfun_storageTnodes.html">sfun_storageTnodes</a> </td>
+    </tr>
+    <tr>
+    	<td>THBin</td>
+        <td>:</td>
+        <td>the <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		as input of the system to the store</td>
+    </tr>
+</table>
+</p>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">to_StoreT</td>
+		<td style="width: 10px;">:</td>
+        <td>input (input to the portN of the 
+		<a href="sfun_storageTnodes.html">sfun_storageTnodes</a></td>
+    </tr>
+    <tr>
+    	<td>THBout</td>
+        <td>:</td>
+        <td>the <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		as output of the store to the system</td>
+    </tr>
+</table>
+</p>
+
+<p><b>Parameters and Dialog Box</b><br>
+All parameter are non- tunable parameters (values are initialized at 
+simulation start and cannot change during the simulation).<br>
+The heat exchanger model knows different types of heat exchangers. 
+The type is defined by the PORT_ID (see below)
+</p>
+<p><b>Parameters HX_tube: Smooth tube heat exchanger (theoretical model)</b><br>
+portID = 201, portID = 301 (stratified charging)<br>
+<img src="Figures/imgParaHxTube.jpg">
+</p>
+<p><b>Parameters HX_finned_tube: Finned tube heat exchanger (theoretical model)</b><br>
+portID = 202, portID = 302 (stratified charging)<br>
+<img src="Figures/imgParaHxFinTube.jpg"><br><br>
+Heat transfer calculation [Wagner 1991]:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; Nu(outside) = 0.5 * (Gr * Pr)^0.25 <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; Nu(inside) = 0.0235*(Re^0.8 - 230)*Pr^0.48 <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; U(outside) = Nu(outside)*condFluid / (Dpipe * PI/2)<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; U(inside) = Nu(inside)*condFluid / Dpipe<br><br>
+with</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 50px;">Ahx</td>
+		<td style="width: 350px;"> heat exchanger surface </td>
+        <td> m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> condFluid</td>
+        <td> thermal_conductivity of fluid</td>
+        <td>  W/m/K</td>
+    </tr>
+    <tr>
+    	<td> Gr </td>
+        <td> Grashof number of the fluid for the inlet temperature 
+		of heat exchanger node and the storage node temperature.</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> Nu</td>
+        <td> Nusselt number for the heat transfer inside or outside of the pipe.</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> Pr </td>
+        <td> Prandtl number of the fluid at mean temperature 
+		(average between heat exchanger inlet and storage node).</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> Re </td>
+        <td>  Renolds number of the fluid flow inside of the pipe.</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> U </td>
+        <td> heat transfer coefficient </td>
+        <td> W/m<sup>2</sup>/K </td>
+    </tr>
+    <tr>
+    	<td> UA </td>
+        <td> integral heat transfer </td>
+        <td> W/K </td>
+    </tr>
+</table>
+<p> The functions Grashof, Prandtl and Reynolds are available in carlib library.</p>
+
+<p>Finned tube additionally have the fin heat transfer [Wagner 1991] which means 
+a correction of the smooth tube heat transfer:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; m = (2*U/(Condwall*Sfin))^0.5<br><br>
+The heat transfer from the pipe is reduced by the place occupied by the fins.
+The heat transfer of the fins is added:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; U(outside_fin) = U(outside)*(1.0 - Sfin*XNfin) + Sfin*XNfin * m * 
+condWall*tanh(m*0.5*(Dfin-Dpipe))<br><br>
+For smooth tube heat exchangers this gives:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; U(tube) = 1 / (1/U(outside) + Swall/condWall + 1/U(inside))<br><br>
+And for finned tubes the heat transfer is:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; U(finnedtube) = 
+1 / (1/U(outside_fin) + Swall/condWall + 1/U(inside))<br><br>
+For the integral heat transfer the exchanger surface has to be integrated:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; UA = U*Ahx<br><br>
+with </p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 50px;">Dpipe</td>
+		<td style="width: 350px;">outer diameter of heat exchanger pipe</td>
+        <td style="width: 50px;"> m </td>
+        <td> (P1)</td>
+    </tr>
+    <tr>
+    	<td> Swall</td>
+        <td> wall thickness</td>
+        <td> m</td>
+        <td> (P2)</td>
+    </tr>
+    <tr>
+    	<td> Lpipe </td>
+        <td> length of pipe</td>
+        <td> m </td>
+        <td> (P3)</td>
+    </tr>
+    <tr>
+    	<td> condWall </td>
+        <td> thermal conductivity of heat exchanger wall </td>
+        <td> W/(m*K) </td>
+        <td> (P4)</td>
+    </tr>
+    <tr>
+    	<td> Dfin</td>
+        <td> total diameter of pipe with fins </td>
+        <td> m </td>
+        <td> (P5)</td>
+    </tr>
+    <tr>
+    	<td> Sfin </td>
+        <td> wallthickness fin </td>
+        <td> m </td>
+        <td> (P6)</td>
+    </tr>
+    <tr>
+    	<td> XNfin </td>
+        <td> number of fins per length </td>
+        <td> 1/m </td>
+        <td> (P7)</td>
+    </tr>
+</table>
+
+<p><b>Heat exchanger with a heat transfer fitted to measurement</b><br>
+portID = 203, portID = 303 (stratified charging)<br>
+<img src="Figures/imgHxDataFit.jpg"><br><br>
+Equation for the heat transfer :<br>
+&nbsp;&nbsp;&nbsp; UA = UAC + mdot*UAM + (Theatexchanger-Tstorage)*UAT <br><br>
+with</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 50px;">UAC</td>
+		<td style="width: 350px;"> constant heat transfer coefficient </td>
+        <td style="width: 150px;"> W/K </td>
+        <td> (P1)</td>
+    </tr>
+    <tr>
+    	<td> UAM</td>
+        <td> mass-flow dependent heat transfer </td>
+        <td> (W/K) * (s/kg)</td>
+        <td> (P2)</td>
+    </tr>
+    <tr>
+    	<td> UAT </td>
+        <td> temperature dependent heat transfer </td>
+        <td> W/K/&deg;C </td>
+        <td> (P3)</td>
+    </tr>
+</table>
+
+<p><b>Heat exchanger with a heat transfer from EN 12977 test reports / 
+TRNSYS Type 340 </b><br>
+portID = 204, portID = 304 (stratified charging) <br><br>
+<img src="Figures/StgPortsHXmodels2.png"><br><br>
+Equation for the heat transfer (from 
+<a href="https://www.trnsys.de/static/788c19e80e1b4e690b35e44b05c8b164/ts_type_340_de.pdf">TRNSYS Type 340</a> and  
+<a href="https://www.igte.uni-stuttgart.de/veroeffentlichungen/publikationen-forschungs-und-testzentrum-fuer-solaranlagen-00001/"> 
+ITW Test reports</a>):<br>
+&nbsp;&nbsp;&nbsp;&nbsp; UA = UAC * mdot^UAM * ((Theatexchanger+Tstorage)/2)^UAT * abs(Theatexchanger-Tstorage)^UAT2<br><br>
+with</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 50px;">UAC</td>
+		<td style="width: 350px;"> constant heat transfer coefficient </td>
+        <td style="width: 150px;"> W/K </td>
+        <td> (P1)</td>
+    </tr>
+    <tr>
+    	<td> UAM</td>
+        <td> mass-flow dependent mass-flow dependent exponent of the heat transfer </td>
+        <td> - </td>
+        <td> (P2)</td>
+    </tr>
+    <tr>
+    	<td> UAT </td>
+        <td> temperature dependent exponent of the heat transfer </td>
+        <td> - </td>
+        <td> (P3)</td>
+    </tr>
+    <tr>
+    	<td> UAT2 </td>
+        <td> temperature difference dependent exponent of the heat transfer </td>
+        <td> - </td>
+        <td> (P4)</td>
+    </tr>
+</table>
+
+<p>To avoid numerical conflicts the power of the average temperature ((Theatexchanger+Tstorage)/2)^UAT 
+is only calculated for an average temperature above 1 °C. The result is set to 1 for values below.<br>
+</p>
+
+<p><a name="S-function_sfun_storage_heatexchanger">
+<b>S-function sfun_storage_heatexchanger</a></b><br>
+As mentioned above the heat transfer calculation of the different heat 
+exchanger models is done in an s-function. <br><br>
+<b>Parameters for the s-function  </b><br>
+<img alt="" src="Figures/sfunStorageHxMASK.jpg"><br><br>
+PORT_ID &nbsp;Heat Exchanger Type <br>
+201 : smooth tube heat exchanger theoretical model <br>
+301 : smooth tube heat exchanger theoretical model stratified charging <br>
+202 : finned tube heat exchanger theoretical model <br>
+302 : finned tube heat exchanger theoretical model stratified charging <br>
+203 : heat transfer fitted to measurement <br>
+303 : heat transfer fitted to measurement model stratified charging<br><br>
+The number of nodes, the start node and the node in the storage must be 
+known by the model. These values are determined by the general mask for the storage tank 
+(see <a href="Storage_Type_N.html">Storage_Type_N</a> for details).
+The heat transfer is divided by the number of nodes concerned by the heat exchanger. The calculation of the 
+temperatures and transferred power is done in a loop from inlet node to outlet 
+node.<br><br>
+NODES : number of nodes in the storage concerned by the heat exchanger<br>
+START_NODE : start node of the heat exchanger in the storage<br>
+END_NODE : end node of the heat exchanger in the storage<br>
+Parameter 1..7 : parameters of the different heat exchanger equations <br><br>
+</p>
+
+
+<p><strong>Verification</strong><br>
+<a href="pdf/Faure_exchangerEN12977_Validation_Report.pdf">
+Faure: Heat Exchanger EN 12977 Validation, 2012</a><br>
+</p>
+
+<p><b>Literature</b><br>
+<a href="https://www.igte.uni-stuttgart.de/veroeffentlichungen/publikationen-forschungs-und-testzentrum-fuer-solaranlagen-00001/">
+ITW Test reports</a><br>
+<a href="https://www.trnsys.de/static/788c19e80e1b4e690b35e44b05c8b164/ts_type_340_de.pdf">
+TRNSYS Type 340, 2006</a><br>
+<a href="https://www.shaker.de/de/content/catalogue/index.asp?lang=de&amp;ID=8&amp;ISBN=978-3-8322-6215-0">
+Drück, Harald : Mathematische Modellierung und experimentelle Prüfung von 
+Warmwasserspeichern für Solaranlagen, ISBN 978-3-8322-6215-0, Shaker Verlag, 
+Mai 2007</a><br>
+EN 12977-3: Thermal solar systems and components - Custom built systems - 
+Part 3: Performance test methods for solar water heater stores; 2018 <br>
+Wagner: Waermeuebertragung, Vogel-Verlag, 1991<br>
+VDI Wärmeatlas, VDI Verlag 2008<br>
+Patankar: Numerical Heat Transfer and Fluid Flow, 1981<br>
+</p>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>States</td>
+        <td>:</td>
+        <td>None</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+</p>
+
+</body>
+
+</html>

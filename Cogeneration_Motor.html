@@ -1,0 +1,142 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Cogeneration_Motor</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/CogenerationMotor.jpg" align=right>
+<p class="blockname">Cogeneration_Motor</p>
+<p style="margin-top:0px; margin-bottom:20px">
+Path: CARNOT/Source/Cogeneration<br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Model of a cogeneration unit with a gas motor.
+</p>
+<p><b>Description:</b><br>
+The model uses the <a href="Cogeneration_Motor.html">Cogeneration_Basic</a> 
+for the thermal and electrical model. Limit Control Range blocks are used 
+to supervise the envelope conditions.
+</p>
+<p><img src="Figures/CogenerationMotorFig.gif" /></p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature of the surrounding in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> THB </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the return line </td>
+    </tr>
+    <tr>
+    	<td> Ctrl </td>
+        <td>:</td>
+        <td> Control signal setpoint (0 = off ... 1 = full power)</td>
+    </tr>
+    <tr>
+    	<td> Fuel </td>
+        <td>:</td>
+        <td> Fuel bus</a>, use <a href="Fuel.html">Fuel</a> block 
+		to create the bus </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBout </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the flow line </td>
+    </tr>
+    <tr>
+    	<td> CoDat </td>
+        <td>:</td>
+        <td> Data bus of cogeneration unit, see 
+		<a href="Cogeneration_Motor.html">Cogeneration_Basic</a> for details. </td>
+    </tr>
+    <tr>
+    	<td> Pel </td>
+        <td>:</td>
+        <td> electric power output in W </td>
+    </tr>
+    <tr>
+    	<td> Sensors </td>
+        <td>:</td>
+        <td> Sensor data bus.</td>
+    </tr>
+</table>
+
+<p> The sensor data bus "Sensors" has the data points:<br>
+Control_CoGen - current control signal<br>
+Toutlet_ConGen - outlet (flow line) temperature in &deg;C<br>
+Tinlet_ConGen- inlet (return line) temperature in &deg;C
+</p>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/CogenerationMotorMask1.jpg" /></p>
+<p><img alt="" src="Figures/CogenerationMotorMask2.jpg" /></p>
+<p><img alt="" src="Figures/CogenerationMotorMask3.jpg" /></p>
+<p>Choose the boiler parameter set in the mask from carnot public data files, 
+internal data files or any other selected path. You may edit a parameter 
+set and save it under a new name. Typically these new parameter sets are 
+stored in the carnot internal data path or your project path.<br>
+For details see chapter 
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a>
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_CogenerationMotor">
+	example_CogenerationMotor</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Controller_Bang_Bang</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/controller_bang_bang.jpg" align=right>
+<p class="blockname">Controller_Bang_Bang</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Control</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Hysteresis controller for thermal systems.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block is a simple hysteresis controller. The outlet is set to: 
+</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">1</td>
+		<td style="width: 10px;">:</td>
+        <td> if (T<sub>hot</sub> - T<sub>cold</sub>) 
+		&gt; deltaT<sub>on</sub></td>
+    </tr>
+    <tr>
+    	<td> 0 </td>
+        <td>:</td>
+        <td> if (T<sub>hot</sub> - T<sub>cold</sub>) 
+		&lt; deltaT<sub>off</sub></td>
+    </tr>
+</table>
+<p>The output is always set to zero if 
+T<sub>hot</sub> or T<sub>cold</sub> &gt; T<sub>max</sub></p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T<sub>hot</sub></td>
+		<td style="width: 10px;">:</td>
+        <td> temperature e.g. of the solar thermal collector 
+		in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> T<sub>cold</sub></td>
+        <td>:</td>
+        <td> temperature e.g. of the thermal store in &deg;C</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">control</td>
+		<td style="width: 10px;">:</td>
+        <td> control signal (0 or 1) </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/controller_bang_bangSHOT.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Systems_SolarThermalDHW </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - PV_Generator</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/PV_generator.jpg" align=right>
+<p class="blockname">PV_Generator</p>
+<p style="margin-top:0px; margin-bottom:20px">
+Path: CARNOT/Source/Electric_Generator<br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Model of a photovoltaic generator (= array of several PV modules).
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block simultes a PV genertor and calculates the output of the module 
+in W based on the module characteristic parameters:
+</p>
+<ul>
+ <li> Pmax: Peak Power  (Wp) at Standard Test Conditions (STC) in W </li>
+ <li> delta_Wp_K: Temperature coefficient for power drop from of Pmax in 1/K </li>
+</ul>
+<p>The power of the generator is calculated by:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+P = Solar_Radiation/(1000 W/m<sup>2</sup>) * Incidence_Angle_Modifier 
+* Pmax * delta_Wp_K * (25 &deg;C - Tamb - (40 K)*Solar_Radiation/(1000 W/m<sup>2</sup>))
+<br><br>
+The temperature model of the module has the following assumptions:</p>
+<ul>
+ <li> 25 &deg;C module temperature at standard test conditions (STC) </li>
+ <li> 40 K temperature difference to ambient at solar radiation of 1000 W/m<sup>2</sup> </li>
+</ul>
+<p>
+The Incidence_Angle_Modifier is 1 for vertical direct solar radiation. 
+It follows the reflection law of Fresnel.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href = "WDB_format.html"> Weather Data Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> position</td>
+        <td>:</td>
+        <td> vector with the orientation of the PV modules, 
+		see <a href = "Fixed_Surface.html">Fixed_Surface</a> 
+		for the definition of the angles</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">EB_power</td>
+		<td style="width: 10px;">:</td>
+        <td> Electric bus EB with the power of the PV generator in W<br>
+		the block <a href = "EBCreator.html">EBCreator</a> is used, the power 
+		is fed to line 1 only.</td>
+    </tr>
+    <tr>
+    	<td> PVdat</td>
+        <td>:</td>
+        <td> data bus for the evaluation of the PV generator</td>
+    </tr>
+</table>
+
+<p>The evaluation data bus contains:</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 250px;"> P_DC </td>
+		<td style="width: 450px;"> direct current power </td>
+        <td> W </td>
+    </tr>
+    <tr>
+    	<td> SolarRadiation_global_surface</td>
+        <td> global solar radiation on the surface of the PV modules </td>
+        <td> W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> Tcell</td>
+        <td> cell temperature of the modules </td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> P_peak_PV </td>
+        <td> peak power of the PV generator (power at STC) </td>
+        <td> W</td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/PV_generator_SHOT.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_PVGenerator </li>
+</ul>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

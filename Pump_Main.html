@@ -1,0 +1,189 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pump_Main and Pump_Additional</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/pump.jpg" align=right>
+<p class="blockname">Pump_Main and Pump_Additional</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics 
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Pump models which use pump characteristics for the pressure calculation.
+</p>
+
+<p><b>Description:</b><br>
+Pump_Main and Pump_Additional are the pump models calculating the massflow 
+based on the pressure drop equation. Every circuit must have exactly ONE 
+Pump_Main or <a href="Thermosyphon.html">Thermosyphon</a> block but it may 
+have several Pump_Additional blocks in series or in parallel. <br />
+See examples 'Example_Hydraulic*.slx in the folder carnot\tutorial\examples 
+(or use the 'double click to load examples' button in the Carnot library).
+</p>
+<p>The electric power consumption of the pump is given by a quadradic polynom: 
+</p>
+<p>&nbsp;&nbsp;  Pel = e0 + e1*mdot + e2*mdot<sup>2</sup> 
+</p>
+<p>Control signal range: <br>
+Be aware that different pumps react differently on the control signal 
+input. Typically a 0 to 10 V signal is the input . The translation of the 
+signal can be:<br />
+&nbsp;&nbsp; 0 V is interpreted as pump off, 2 V is the minimum speed 
+and 10 V the maximum speed <br />
+&nbsp;&nbsp; 0 V is interpreted as minimum speed and 10 V the maximum speed<br>
+&nbsp;&nbsp; 0 V is interpreted as maximum speed and 10 V is minumum speed<br>
+Typically the signal values between minimum and maximum have a linear 
+interpolation to the min and max speed.<br>
+When simulating one specific pump you should refer to the data sheet how the 
+specific model is reacting.<br>
+Define a minimum and a maximum for the operation range 
+of the pump, e.g. 0.2 as minimum and 1 as maximum. The pump starts operation as 
+soon as the Ctrl input is equal or above 0.2. If the Ctrl signal is above 1, 
+the applied control signal is limited to 1. If a minimum of 0 is given, the 
+pump start operation with any value above 0.</p>
+<p>Fluid Type and Mixture: <br>
+The fluid type and fluid mixture is defined in the Pump_Main. Any other values 
+for the fluid type or the mixture which might be defined by the incomming THB 
+are discarded. The outgoing THB has the fluid type and the fluid mixture 
+parameters given by the mask of the Pump_Main.
+</p>
+
+<p><b>Correlation of pump speed and mass flow in real pumps</b><br>
+For a most real pumps the control signal Ctrl is (more or less) linear to the 
+rotation speed n.<br>
+Physically the rotation speed has a quadratic influence on the pump head since 
+</p>
+<p>&nbsp;&nbsp; h1 / h2 = (n1 / n2)<sup>2</sup> </p>
+<p>and a linear influence on the linear coefficient since </p>
+<p>&nbsp;&nbsp;&nbsp; V1 / V2 = n1 / n2</p>
+<p><b>Correlation of pump speed and mass flow in Pump_Main</b> <br>
+In the pump model this correlation is simplified by a stricly 
+linear approach: The model calculates massflow by setting pressure drop in 
+the circuit (dp_circuit) equal to the pressure increase of the pump (dp_pump) 
+and solving the equation analytically.</p>
+<p>&nbsp;&nbsp; dp_circuit = c + l*mdot + q*mdot </p>
+<p>&nbsp;&nbsp; dp_pump_ = a0*Ctrl + a1*mdot +a2*mdot² </p>
+<p>with <br>
+&nbsp;&nbsp; mdot : massflow in kg/s<br>
+&nbsp;&nbsp; Ctrl : Control signal input [0..1] <br>
+&nbsp;&nbsp; a0   : constant pump coefficient in Pa<br>
+&nbsp;&nbsp; a1   : linear pump coefficient in Pa/(kg/s)<br>
+&nbsp;&nbsp; a0   : quadratic pump coefficient in Pa/(kg/s)<sup>2</sup><br>
+&nbsp;&nbsp; c    : constant coefficient in Pa (DPConstant in the THB)<br>
+&nbsp;&nbsp; l    : constant coefficient in Pa*s/kg (DPLinear  in the THB)<br>
+&nbsp;&nbsp; q    : quadratic coefficient in Pa*(s/kg)<sup>2</sup> 
+(DPQuadratic in the THB)</p>
+<p><b>Correlation of pump speed and mass flow in Pump_Additional</b><br>
+The model calculates no massflow but the pump characteric coefficients are 
+substracted from the pressure drop of the circuit.</p>
+<p>&nbsp;&nbsp; dp_total = dp_circuit - dp_pump_additional </p>
+<p>&nbsp;&nbsp; dp_total = (c - a0*Ctrl) + (l - a1)*mdot + (q - a2)*mdot<sup>2</sup>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the incomming flow </td>
+    </tr>
+    <tr>
+    	<td> Ctrl</td>
+        <td>:</td>
+        <td> control signal </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the leaving flow </td>
+    </tr>
+    <tr>
+    	<td> Pdat </td>
+        <td>:</td>
+        <td> <a href="Pdat.html">Pdat bus containing operation 
+		informations of the pump</a></td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img alt="" src="Figures/PumpMainMASK.jpg" /></p>
+<p><img alt="" src="Figures/PumpAdditionlMASK.jpg" /></p>
+<p><img alt="" src="Figures/PumpMainMask2.jpg" /></p>
+
+<p>Select a parameter set from the public data, the internal data 
+or the selected path with the buttons. <br>
+Pump_Additional and Pump_Main use the same parameter sets. They 
+are stored in the Pump_Main\parameter_set folder.<br>
+You may specify your own pump specifications by activating the 
+'user parameters' checkbox. For details see chapter 
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a>. <br>
+Different parameter sets are available. See
+<!--Command line input should be presented like this-->
+<a href="Figures/data_fit_pump_characteristic.html">
+data_fit_pump_characteristic</a> for details. Or type <br>
+<tt>help data_fit_pump_characteristic</tt>
+<br> 
+on the command line for more information. 
+</p>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hydraulic_PumpMain </li>
+ <li> example_Hydraulic_PumpAdditional </li>
+ <li> example_Hydraulic_PumpAdditional2 </li>
+ <li> example_HeatingCircuit </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

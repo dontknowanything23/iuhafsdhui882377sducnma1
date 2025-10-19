@@ -1,0 +1,125 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Combustion_Calculation</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/CombustionCalculation.gif" align=right>
+<p class="blockname">Combustion_Calculation</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Basic/ThermalModels<br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Calculation of exhaust gas compostion, fuel consumption and fuel costs 
+of a boiler.
+</p>
+<p><b>Description:</b><br>
+Calculates the exhaust gas composition using the mass fractions of 
+hydrogen, carbon, oxygen, sulfur, nitrogen and water in the fuel air 
+mixture at the inlet of the burner. These values are defines by the
+<a href="Fuel.html">Fuel</a> block.<br>
+The fuel mass flow is calculated by the calorific value of the fuel 
+without and with condensation.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Enable</td>
+		<td style="width: 10px;">:</td>
+        <td> input to activate the combustion calculation, this 
+		value is set by the <a href="Fuel.html">Fuel</a> block </td>
+    </tr>
+    <tr>
+    	<td> Qdot_fuel </td>
+        <td>:</td>
+        <td> Fuel power in W </td>
+    </tr>
+    <tr>
+    	<td> efficiency </td>
+        <td>:</td>
+        <td> efficiency = Thermal power / Fuel power, this value 
+		must be calculated by the boiler model </td>
+    </tr>
+    <tr>
+    	<td> Pelec </td>
+        <td>:</td>
+        <td> electric power consumption in W </td>
+    </tr>
+    <tr>
+    	<td> Tm </td>
+        <td>:</td>
+        <td> mean temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> fuel </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#fuel_vector">Fuel bus</a>
+		creted by <a href="Fuel.html">Fuel</a> block </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> eco </td>
+		<td style="width: 10px;">:</td>
+        <td> Eco-bus, see <a href="2_Basic_Concepts.html#eco_vector">
+		2.1.5 Eco bus in 2_Basic_Concepts </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/CombustionCalculationMask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_CondensingBoiler">
+	example_CondensingBoiler</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

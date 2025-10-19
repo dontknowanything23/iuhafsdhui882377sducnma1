@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Temperature Conductivity</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/TemperatureConductivity.gif" align=right>
+<p class="blockname">Temperature_Conductivity</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculates the temperature conductivity of the specified material.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Calculates the temperature conductivity in [m²/s] according to the inputs. 
+The block calls the function &quot;temperature_conductivity&quot; in the CARNOT 
+<a href="carnot_manual.htm#carlib"> Carlib Library</a> where the calculation 
+is carried out. <br>
+The material properties functions can also be called directly from the 
+command window by typing <br>
+<tt>temperature_conductivity(<i>temperature, pressure, fluidtype, fluidmix</i>)</tt>
+<br> 
+Instead of the <i>italic</i> variables the actual value of the respective property 
+has to be entered. This is possible for the Carlib functions density, 
+thermal_conductivity, heat_capacity, kinematic_viscosity, prandtl, vapourpressure,
+saturationtemperature, enthalpy, entropy, evaporation_enthalpy and specific_volume.<br>
+For more information about the function type <br>
+<tt>help temperature_conductivity </tt>
+<br> 
+to the command windows as for any other MATLAB function. <br>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature of the fluid in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa</td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> fluid type, see <a href = 'FluidEnum.html'> FluidEnum </a> for the definition </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix</td>
+        <td>:</td>
+        <td> fluid mixture, see <a href = 'FluidEnum.html'> FluidEnum </a> for the definition </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tcond</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature conductivity in m<sup>2</sup>/s</td>
+    </tr>
+</table>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Wall_with_Window</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/wall_with_window.PNG" align=right>
+<p class="blockname">Wall_with_Window</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Basic/Thermal_Models<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Outer wall model with a window for houses.
+</p>
+<p><b>Description:</b><br>
+<a href="Wall_out.html">See wall_out</a> and 
+<a href="Window.html">window</a> for the model description.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">Weather Data Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> AIB </td>
+        <td>:</td>
+        <td> <a href="AIB_format.html">Air Infiltration Bus</a> 
+		from the room node </td>
+    </tr>
+    <tr>
+    	<td> shading </td>
+        <td>:</td>
+        <td> shading control of the window (0 = no shading, 1 = full shading) </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> SbusWall </td>
+		<td style="width: 10px;">:</td> 
+        <td> <a href="Sbus_format.html">S-bus</a> 
+		of the wall to the room node </td>
+    </tr>
+    <tr>
+    	<td> SbusWindow </td>
+        <td>:</td>
+        <td> <a href="Sbus_format.html">S-bus</a> 
+		of the window to the room node </td>
+    </tr>
+    <tr>
+    	<td> TnWall </td>
+        <td>:</td>
+        <td> temperature of the nodes in the wall in &deg;C </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/wall_with_windowMASK.jpg" /></p>
+<p>Load the parameter sets of the wall and the window in this mask.<br />
+Use the <a href="Wall_out.html">Wall</a> and the <a href="Window.html">
+Window</a> model to create new parameter sets.</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_House_RoomFloorHeating">
+	example_House_RoomFloorHeating</a> </li>
+	<li> <a href="matlab:open_system example_House_RoomRadiator">
+	example_House_RoomRadiator</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

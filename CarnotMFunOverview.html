@@ -1,0 +1,247 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Carnot  m-Functions Overview</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="CarnotMFunOverview.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Carnot  m-Functions Overview</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">carnot_library_tools</a></li><li><a href="#2">comfort</a></li><li><a href="#3">data_input</a></li><li><a href="#4">economy</a></li><li><a href="#5">evaluation</a></li><li><a href="#6">hydraulics</a></li><li><a href="#7">material_properties</a></li><li><a href="#8">mathematics</a></li><li><a href="#9">physical_units</a></li><li><a href="#10">sensor_conversion</a></li><li><a href="#11">time_functions</a></li><li><a href="#12">weather_and_sun</a></li></ul></div><h2 id="1">carnot_library_tools</h2><p><a href="BlockIsInCarnotLibrary.html">BlockIsInCarnotLibrary</a></p><p><a href="BDB_format.html">BDB_format</a></p><p><a href="CarnotCallbacks_CONFblocks.html">CarnotCallbacks_CONFblocks</a></p><p><a href="CarnotCallbacks_CONFblocksMain.html">CarnotCallbacks_CONFblocksMain</a></p><p><a href="CarnotCallbacks_GetFiles.html">CarnotCallbacks_GetFiles</a></p><p><a href="CarnotCallbacks_LoadExamples.html">CarnotCallbacks_LoadExamples</a></p><p><a href="CarnotCallbacks_Logger.html">CarnotCallbacks_Logger</a></p><p><a href="ExampleBrowser.html">ExampleBrowser</a></p><p><a href="helpcarnot.html">helpcarnot</a></p><p><a href="ManageCarnotToolbox.html">ManageCarnotToolbox</a></p><p><a href="mexCarnotModel.html">mexCarnotModel</a></p><p><a href="calculate_verification_error.html">calculate_verification_error</a></p><p><a href="display_verification_error.html">display_verification_error</a></p><p><a href="link_breaker.html">link_breaker</a></p><p><a href="root_carnot.html">root_carnot</a></p><p><a href="slblocks.html">slblocks</a></p><h2 id="2">comfort</h2><p><a href="calculate_pmv.html">calculate_pmv</a></p><p><a href="calculate_ppd.html">calculate_ppd</a></p><h2 id="3">data_input</h2><p><a href="txt2mat.html">txt2mat</a></p><h2 id="4">economy</h2><p><a href="annualcosts.html">annualcosts</a></p><h2 id="5">evaluation</h2><p><a href="inputfiles4cs_energy.html">inputfiles4cs_energy</a></p><p><a href="get_timeclass_limits.html">get_timeclass_limits</a></p><h2 id="6">hydraulics</h2><p><a href="colpdrop.html">colpdrop</a></p><p><a href="grashof.html">grashof</a></p><p><a href="reynolds.html">reynolds</a></p><p><a href="velocity.html">velocity</a></p><h2 id="7">material_properties</h2><p><a href="CarnotCallbacks_Material.html">CarnotCallbacks_Material</a></p><p><a href="density.html">density</a></p><p><a href="enthalpy.html">enthalpy</a></p><p><a href="enthalpy2temperature.html">enthalpy2temperature</a></p><p><a href="entropy.html">entropy</a></p><p><a href="evaporation_enthalpy.html">evaporation_enthalpy</a></p><p><a href="fluidprop.html">fluidprop</a></p><p><a href="heat_capacity.html">heat_capacity</a></p><p><a href="kinematic_viscosity.html">kinematic_viscosity</a></p><p><a href="prandtl.html">prandtl</a></p><p><a href="saturationtemperature.html">saturationtemperature</a></p><p><a href="specific_volume.html">specific_volume</a></p><p><a href="temperature_conductivity.html">temperature_conductivity</a></p><p><a href="thermal_conductivity.html">thermal_conductivity</a></p><p><a href="vapourpressure.html">vapourpressure</a></p><p><a href="rel_hum2x.html">rel_hum2x</a></p><p><a href="x2rel_hum.html">x2rel_hum</a></p><h2 id="8">mathematics</h2><p><a href="fit_quadratic.html">fit_quadratic</a></p><h2 id="9">physical_units</h2><p><a href="unitconv_temperature.html">unitconv_temperature</a></p><h2 id="10">sensor_conversion</h2><p><a href="Pt_TemperatureSensor.html">Pt_TemperatureSensor</a></p><h2 id="11">time_functions</h2><p><a href="angles2time.html">angles2time</a></p><p><a href="year_average.html">year_average</a></p><p><a href="year_sum.html">year_sum</a></p><p><a href="date2sec.html">date2sec</a></p><p><a href="sec2date.html">sec2date</a></p><p><a href="legaltime2solartime.html">legaltime2solartime</a></p><p><a href="repeat_timeseries.html">repeat_timeseries</a></p><p><a href="hourangle2time.html">hourangle2time</a></p><p><a href="time2hourangle.html">time2hourangle</a></p><p><a href="solartime2legaltime.html">solartime2legaltime</a></p><p><a href="sumtime.html">sumtime</a></p><p><a href="tvalue.html">tvalue</a></p><h2 id="12">weather_and_sun</h2><p><a href="Meteonorm2wformat.html">Meteonorm2wformat</a></p><p><a href="MeteonormMinute2wformat.html">MeteonormMinute2wformat</a></p><p><a href="airmass.html">airmass</a></p><p><a href="solar_declination.html">solar_declination</a></p><p><a href="solar_extraterrestrial.html">solar_extraterrestrial</a></p><p><a href="cloudindex.html">cloudindex</a></p><p><a href="collectorIncidenceAngle.html">collectorIncidenceAngle</a></p><p><a href="convert_weather.html">convert_weather</a></p><p><a href="epw2wdb.html">epw2wdb</a></p><p><a href="radiationdivision.html">radiationdivision</a></p><p><a href="ratiograph.html">ratiograph</a></p><p><a href="skytemperature.html">skytemperature</a></p><p><a href="solarExtraterrestrialRadiation.html">solarExtraterrestrialRadiation</a></p><p><a href="solar_angles.html">solar_angles</a></p><p><a href="sungraph.html">sungraph</a></p><p><a href="sunset.html">sunset</a></p><p><a href="surfrad_m.html">surfrad_m</a></p><p><a href="tmy2wdb.html">tmy2wdb</a></p><p><a href="tmy2wformat.html">tmy2wformat</a></p><p><a href="dwd2wdb.html">dwd2wdb</a></p><p><a href="try2wdb.html">try2wdb</a></p><p><a href="try2wformat.html">try2wformat</a></p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Carnot  m-Functions Overview 
+%% carnot_library_tools
+% <BlockIsInCarnotLibrary.html BlockIsInCarnotLibrary>
+% 
+% <BDB_format.html BDB_format>
+% 
+% <CarnotCallbacks_CONFblocks.html CarnotCallbacks_CONFblocks>
+% 
+% <CarnotCallbacks_CONFblocksMain.html CarnotCallbacks_CONFblocksMain>
+% 
+% <CarnotCallbacks_GetFiles.html CarnotCallbacks_GetFiles>
+% 
+% <CarnotCallbacks_LoadExamples.html CarnotCallbacks_LoadExamples>
+% 
+% <CarnotCallbacks_Logger.html CarnotCallbacks_Logger>
+% 
+% <ExampleBrowser.html ExampleBrowser>
+% 
+% <helpcarnot.html helpcarnot>
+% 
+% <ManageCarnotToolbox.html ManageCarnotToolbox>
+% 
+% <mexCarnotModel.html mexCarnotModel>
+% 
+% <calculate_verification_error.html calculate_verification_error>
+% 
+% <display_verification_error.html display_verification_error>
+% 
+% <link_breaker.html link_breaker>
+% 
+% <root_carnot.html root_carnot>
+% 
+% <slblocks.html slblocks>
+% 
+%% comfort
+% <calculate_pmv.html calculate_pmv>
+% 
+% <calculate_ppd.html calculate_ppd>
+% 
+%% data_input
+% <txt2mat.html txt2mat>
+% 
+%% economy
+% <annualcosts.html annualcosts>
+% 
+%% evaluation
+% <inputfiles4cs_energy.html inputfiles4cs_energy>
+% 
+% <get_timeclass_limits.html get_timeclass_limits>
+% 
+%% hydraulics
+% <colpdrop.html colpdrop>
+% 
+% <grashof.html grashof>
+% 
+% <reynolds.html reynolds>
+% 
+% <velocity.html velocity>
+% 
+%% material_properties
+% <CarnotCallbacks_Material.html CarnotCallbacks_Material>
+% 
+% <density.html density>
+% 
+% <enthalpy.html enthalpy>
+% 
+% <enthalpy2temperature.html enthalpy2temperature>
+% 
+% <entropy.html entropy>
+% 
+% <evaporation_enthalpy.html evaporation_enthalpy>
+% 
+% <fluidprop.html fluidprop>
+% 
+% <heat_capacity.html heat_capacity>
+% 
+% <kinematic_viscosity.html kinematic_viscosity>
+% 
+% <prandtl.html prandtl>
+% 
+% <saturationtemperature.html saturationtemperature>
+% 
+% <specific_volume.html specific_volume>
+% 
+% <temperature_conductivity.html temperature_conductivity>
+% 
+% <thermal_conductivity.html thermal_conductivity>
+% 
+% <vapourpressure.html vapourpressure>
+% 
+% <rel_hum2x.html rel_hum2x>
+% 
+% <x2rel_hum.html x2rel_hum>
+% 
+%% mathematics
+% <fit_quadratic.html fit_quadratic>
+% 
+%% physical_units
+% <unitconv_temperature.html unitconv_temperature>
+% 
+%% sensor_conversion
+% <Pt_TemperatureSensor.html Pt_TemperatureSensor>
+% 
+%% time_functions
+% <angles2time.html angles2time>
+% 
+% <year_average.html year_average>
+% 
+% <year_sum.html year_sum>
+% 
+% <date2sec.html date2sec>
+% 
+% <sec2date.html sec2date>
+% 
+% <legaltime2solartime.html legaltime2solartime>
+% 
+% <repeat_timeseries.html repeat_timeseries>
+% 
+% <hourangle2time.html hourangle2time>
+% 
+% <time2hourangle.html time2hourangle>
+% 
+% <solartime2legaltime.html solartime2legaltime>
+% 
+% <sumtime.html sumtime>
+% 
+% <tvalue.html tvalue>
+% 
+%% weather_and_sun
+% <Meteonorm2wformat.html Meteonorm2wformat>
+% 
+% <MeteonormMinute2wformat.html MeteonormMinute2wformat>
+% 
+% <airmass.html airmass>
+% 
+% <solar_declination.html solar_declination>
+% 
+% <solar_extraterrestrial.html solar_extraterrestrial>
+% 
+% <cloudindex.html cloudindex>
+% 
+% <collectorIncidenceAngle.html collectorIncidenceAngle>
+% 
+% <convert_weather.html convert_weather>
+% 
+% <epw2wdb.html epw2wdb>
+% 
+% <radiationdivision.html radiationdivision>
+% 
+% <ratiograph.html ratiograph>
+% 
+% <skytemperature.html skytemperature>
+% 
+% <solarExtraterrestrialRadiation.html solarExtraterrestrialRadiation>
+% 
+% <solar_angles.html solar_angles>
+% 
+% <sungraph.html sungraph>
+% 
+% <sunset.html sunset>
+% 
+% <surfrad_m.html surfrad_m>
+% 
+% <tmy2wdb.html tmy2wdb>
+% 
+% <tmy2wformat.html tmy2wformat>
+% 
+% <dwd2wdb.html dwd2wdb>
+% 
+% <try2wdb.html try2wdb>
+% 
+% <try2wformat.html try2wformat>
+% 
+
+##### SOURCE END #####
+--></body></html>

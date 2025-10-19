@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Solar_Extraterrestrial_Radiation</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/solar_extraterrestrial.jpg" align=right>
+<p class="blockname">Solar_Extraterrestrial_Radiation</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Weather_and_Sun</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculates the solar extraterrestrial radiation on a normal plane in W/m<sup>2</sup>.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block calls the function &quot;extraterrestrial_radiation&quot; in the CARNOT
+Carlib Library where the calculation is effectuated. The equation was taken
+from Duffie, Beckmann: Solar Engineering of Thermal Processes, 2006. Originally
+the equation was derived by Spencer (1971). The accuracy is +- 0.01 %.<br>
+The function is also available as Matlab-function <br>
+<tt><a href = "solarExtraterrestrialRadiation.html">
+solarExtraterrestrialRadiation(time)</a></tt><br> 
+and may be used in m-files.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">time</td>
+		<td style="width: 10px;">:</td>
+        <td> time of the year in s <br>
+		January 1st 00:00:00 = 0 s, 
+		December 31st 24:00:00 = 365*24*3600 s </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Iextra</td>
+		<td style="width: 10px;">:</td>
+        <td> solar extraterrestrial radiation on a normal plane in W/m<sup>2</sup></td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/solar_extraterrestrialSHOT.jpg" /></p>
+
+
+<p><b>Literature:</b><br />
+Duffie, J., Beckman, W.: Solar Engineering of thermal processes, 
+John Wiley &amp; Sons, Inc. 2020<br>
+Spencer: Fourier Series Representation of the Position of the Sun, 
+Search Vol.2(5), page 172, 1971
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

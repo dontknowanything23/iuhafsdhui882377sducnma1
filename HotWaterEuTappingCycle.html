@@ -1,0 +1,174 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Hot_Water_EU_TappingCycle</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/HotWaterEuTappingCycle.jpg" align=right>
+<p class="blockname">Hot_Water_EU_TappingCycle</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Load/Hot_Water_Tapping <br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Hot water consumption with an energy profile.
+</p>
+
+<p><b>Description</b><br>
+There are different methods to evaluate the hot water comfort (see QAIST 2012).<br>
+To create a tapping massflow in the THB the hot water of the cylinder entering 
+the block is mixed with the cold water to reach the temperature setpoint. 
+The necessary massflow through the cylinder is calculated by this block and 
+set in the outport to the cylinder. <br>
+In this model the domestic hot water consumption defined by the European Tapping 
+Cycles as specified by <a href="pdf/CELEX_32013R0814_EN_TXT.pdf">European 
+Commission reglulation (EU) No 814/2013 of 2 August 2013</a>.
+</p>
+<p>This block uses the 
+<a href="EuTappingCycle.html">EU_Tapping_Cycle</a> and the 
+<a href="DHWenergyTapping.html">DHW_Energy_Tapping</a> block.
+</p>
+<p>More details about the model and the EU tapping cycles can be 
+found in the presentation of <a href="pdf/Carnot2021_Hafner_EuTappingCycles.pdf">
+[Hafner 2021]</a> at the Carnot User Meeting 2021.</p>
+<p>Hint: The tapping cycles define a massflow. In this block the 
+massflow is interpreted to be the outlet massflow at the water tap. Typically 
+when testing a hot water cylinder the test institute applies the massflow to the 
+cylinder. If the temperature of the water outlet of the cylinder is higher than 
+the setpoint, the resulting flowrate at setpoint is higher than the massflow of 
+the tapping cycle.<br />
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBcylinder</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a> 
+		of the hot water flow from the dhw cylinder </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_cylinder</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the cold water flow to the dhw cylinder </td>
+    </tr>
+    <tr>
+    	<td> THB_tap </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the mixed water flow to the tap </td>
+    </tr>
+    <tr>
+    	<td> Tset </td>
+        <td>:</td>
+        <td> setpoint temperature in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> DHWdat</td>
+        <td>:</td>
+        <td> data output of the block</td>
+    </tr>
+</table>
+
+<p> The data output of the block DHWdat can be used for data logging during 
+a simulation.</p>
+
+<p style="margin-bottom:0;"><b>DHWdat:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBcylinder</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a> 
+		of the hot water flow from the dhw cylinder </td>
+    </tr>
+	<tr>
+		<td>THB_cylinder</td>
+		<td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the cold water flow to the dhw cylinder </td>
+    </tr>
+    <tr>
+    	<td> THB_tap </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the mixed water flow to the tap </td>
+    </tr>
+    <tr>
+    	<td> Tset </td>
+        <td>:</td>
+        <td> setpoint temperature in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> Tc </td>
+        <td>:</td>
+        <td> cold water temperature in &deg;C</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img src="Figures/HotWaterEuTappingCycleMASK.JPG">
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hot_Water_EU_TappingCycle </li>
+</ul>
+
+<p><b>Literature:</b></p>
+<p>
+<a href="pdf/CELEX_32013R0814_EN_TXT.pdf">COMMISSION REGULATION (EU) No 814/2013 of 2 August 2013</a></p>
+<p><a href="pdf/Carnot2021_Hafner_EuTappingCycles.pdf">Hafner: EU 
+Tapping Cycles for Energy Labelling of Water Heaters, Carnot User Meeting 
+Ingolstadt, 16/09/2021</a></p>
+<p>	
+<a href="../../library_simulink/Load/Hot_Water_Tapping/DHW_Energy_Tapping/doc/pdf/QAiST%20D3.6-7%20HWC%20Method.pdf">
+QAIST : Methodology for the Assessment of the Hot Water Comfort of Factory Made Systems 
+and Custom Built Systems, ITW University of Stuttgart, 2012 </a>
+</p>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>

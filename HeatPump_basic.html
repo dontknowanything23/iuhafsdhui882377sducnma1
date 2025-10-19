@@ -1,0 +1,197 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - HeatPump_basic</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/HeatPumpbasic.jpg" align=right>
+<p class="blockname">HeatPump_basic</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Linear model for the calculation of a heat pump.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Pragraph Block description
+</p>
+
+<p><b>Description</b> <br>
+The dynamic behaviour of the heat pump is calculated using an empirical model 
+of Schwamberger [Schwamberger, 1991]. The base is the static characteristics 
+of the heat pump according to the Allen-Hamilton model [Allen, Hamilton 1983]. 
+In the two-dimensional diagram the heating, source and electric powers are 
+given for different temperatures in the primary and secondary cycles. The 
+characteristics are approximated by linear equations: <br>
+<br> &nbsp;&nbsp;&nbsp;&nbsp; 
+heating_power = Ctrl * (K1 * T<sub>primary,in</sub> 
++ K2 * T<sub>secondary,out</sub> + K3)
+<br> &nbsp;&nbsp;&nbsp;&nbsp;
+electric_power = Ctrl * (K4 * T<sub>primary,in</sub> 
++ K5 * T<sub>secondary,out</sub> + K6)
+<br> &nbsp;&nbsp;&nbsp;&nbsp;
+source_power = Ctrl * (-K7 * T<sub>primary,in</sub> 
+- K8 * T<sub>secondary,out</sub> - K9)
+<br><br> 
+The outlet temperatures of the hot (h) and cold (c) branches are calculated by the 
+differential equations:<br> 
+<br> &nbsp;&nbsp;&nbsp;&nbsp;
+cap<sub>h</sub> * dT<sub>h</sub>/dt = Qdot<sub>heating</sub> 
++ mdot * cp * (T<sub>in,h</sub>-T) + UA * (Tamb-T<sub>h</sub>)
+<br> &nbsp;&nbsp;&nbsp;&nbsp;
+cap<sub>c</sub> * dT<sub>c</sub>/dt = Qdot<sub>source</sub> 
++ mdot * cp * (T<sub>in,c</sub>-T) + UA * (Tamb-T<sub>c</sub>)
+<br>
+<br>
+with:
+<br> &nbsp;&nbsp;&nbsp;&nbsp;
+cap = mass * heat_capactiy<br>
+<br>
+As the thermal losses of the heat pump are already taken into account by the 
+test bench data (EN 14511, EN 14825), the thermal losses  UA * (Tamb-T) 
+are only calculated during standby (Ctrl = 0).<br>
+<br>
+The parameters K<sub>1</sub><span class=GramE>..K<sub>9</sub>
+can be determined from the measurement data by the M-file 
+<a href="hp_param.html">hp_param</a>: <br>
+<tt>K = hp_param(A)</tt>
+<br> 
+on the command line. For more information type  <br>
+<tt>help hp_param</tt>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBin_source </td>
+		<td style="width: 10px;">:</td>
+        <td> entering <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+		of the source (cold side) </td>
+    </tr>
+    <tr>
+    	<td> THBin_load </td>
+        <td>:</td>
+        <td> entering <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+		of the load (heating side, return line) </td>
+    </tr>
+    <tr>
+    	<td> Tamb </td>
+        <td>:</td>
+        <td> ambient temperature of the heat pump (for thermal losses 
+		during standby) in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Ctrl </td>
+        <td>:</td>
+        <td> control signal of the heat pump in [0..1] </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBsource </td>
+		<td style="width: 10px;">:</td>
+        <td> leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+		of the source (cold side) </td>
+    </tr>
+    <tr>
+    	<td> THBload </td>
+        <td>:</td>
+        <td> leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+		of the load (heating side, flow line) </td>
+    </tr>
+    <tr>
+    	<td> HPdat </td>
+        <td>:</td>
+        <td> heat pump data bus, can be connected to a 
+		<a href = "Logger_Heat_Pump.html"> Logger_HeatPump</a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Heat Pump Data Bus (HPdat):</b></p>
+<!--This is how we make lists-->
+<ul>
+ <li> THBin_cold - entering <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+	  of the source (cold side)  </li>
+ <li> THBout_cold - leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+	  of the source (cold side) </li>
+ <li> Qdot_cold - thermal power on the source (cold) side in W 
+	  (negaive values for cooling)</li>
+ <li> THBin_hot - entering <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+	  of the load (heating side)  </li>
+ <li> THBout_hot - leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> 
+	  of the load (heating side) </li>
+ <li> Qdot_hot - thermal power on the load (heating) side in W </li>
+ <li> P_elec - consumed electric power in W </li>
+</ul>
+
+<p><b>Parameters and Dialog Box:</b><br>
+<img src="Figures/HeatPumpbasicMask1.jpg" /></p>
+<p><img src="Figures/HeatPumpbasicMask2.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> <a href="HeatPump.html"> see HeatPump model</a> </li>
+</ul>
+
+<p><b>Literature:</b><br>
+Schwamberger, K.: Modellbildung und Regelung von Gebäudeheizungsanlagen mit
+Wärmepumpen, Fortschrittsberichte VDI Reihe 6, Nr. 263, VDI Verlag Düsseldorf,
+1991<br>
+Allen, J.J., Hamilton, J.F.: Steady State Reciprotating Water Chiller Models, 
+ASHRAE-D-DC-2786, 1983
+</p>
+
+<p><b>Validation:</b><br>
+see <a href="HeatPump.html">Heat_Pump Model</a></p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+The mass flows must be given by external pumps.
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

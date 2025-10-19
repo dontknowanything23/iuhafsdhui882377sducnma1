@@ -1,0 +1,123 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Saturation_Temperature</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Saturation_Temperature.gif" align=right>
+<p class="blockname">Saturation_Temperature</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculates the saturation temperature of the moist air at the specified conditions.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Calculates the saturation temperature of moist air 
+(<a href = 'FluidEnum.html'> fluid_ID = 2 </a>) or
+pure water (<a href = 'FluidEnum.html'> fluid_ID = 1 </a>)
+in [&deg;C] according to the inputs. <br>
+The block calls the function &quot;saturationtemperature&quot; in the CARNOT 
+<a href="CARLIB.html">Carlib Library</a> where the calculation 
+is carried out.<br><br>
+The material properties functions can also be called directly 
+from the command window by typing 
+<br><tt> saturationtemperature(<i>temperature, pressure, fluidtype, fluidmix</i>)</tt> 
+<br> 
+Instead of the <i>italic</i> variables the actual value of the
+respective property has to be entered. This is possible for the Carlib
+functions density, thermal_conductivity, heat_capacity, kinematic_viscosity,
+prandtl, vapourpressure, saturationtemperature, enthalpy, entropy,
+evaporation_enthalpy and specific_volume. For more information about the
+function type 
+<br><tt> help aturationtemperature</tt> 
+<br> 
+to the workspace as for any other MATLAB function. <br><br>
+In the case of pure water (fluid_ID = 1) the function saturationtemperature
+calculates the temperature of saturated steam at the specified pressure. <br>
+In the case of moist air (fluid_ID = 2) the function saturationtemperature
+calculates the dew point temperature of the water in the moist air. <br>
+See definition of the <a href="FluidEnum.html">fluid types</a> 
+above. <br>
+The valid range of the saturationtemperature is below the
+critical pressure (p &lt; p<sub>crit</sub>= 221.2 bar).
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature of the fluid in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa</td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> fluid type, see <a href = 'FluidEnum.html'> FluidEnum </a> for the definition </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix</td>
+        <td>:</td>
+        <td> fluid mixture, see <a href = 'FluidEnum.html'> FluidEnum </a> for the definition </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tcond</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature conductivity in m<sup>2</sup>/s</td>
+    </tr>
+</table>
+
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+The saturation temperature is only available for water and moist air.
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

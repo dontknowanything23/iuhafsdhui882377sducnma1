@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="de-at" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>ventilation</title>
+<style type="text/css">
+ div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+p
+	{margin-right:0cm;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ ul
+	{margin-bottom:0cm;}
+ li.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ .auto-style1 {
+	margin-left: 120px;
+}
+.auto-style3 {
+	font-size: 13.5pt;
+}
+</style>
+</head>
+
+<body>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:schwamberger'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=10 width="100%" noshade style='color:#A0A0A0' align=center>
+
+</span></span></span></div>
+
+<p><span class=GramE><span style='mso-bookmark:
+Ventilation'><span style='mso-bookmark:literature'><span style='mso-bookmark:
+schwamberger'><b><span style='font-size:18.0pt;line-height:120%'>
+<img alt="" src="Figures/Ventilation.jpg" style="float: right" />V</span><span lang=EN-US style='font-size:18.0pt;line-height:120%'>entilation</span></b></span></span></span></span><span
+style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+<b>Path: CARNOT/<span lang="de-at">Source/Ventilation</span></b> </span></span></span></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></span></div>
+
+<p><span style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Purpose</span></b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+Model the ventilation of a room</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp; for the <a href="houseSimple.html">House_simple</a> model.</span></span></span></span></p>
+
+<p><span style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Description</span></b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> </span></span></span></span></p>
+<p><span style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'>
+<span
+style='mso-bookmark:schwamberger'>
+<span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> The block is a model for </span>
+<span style='font-size:13.5pt;
+line-height:120%'> a ventilation of a room or buildung with mechanical and 
+window ventilation.&nbsp; The mechanical ventilation is working with a fixed air 
+exchange rate and a constant heat recovery.
+The volume flow of the windows enters the building at outdoor ambient 
+temperature. </span></span></span></span><font size="4">Properties of the 
+outdoor ambient are (temperature and humidity) are taken form the Weather Data 
+Bus. As the weather data files have no information on CO2 and VOC concentration 
+you have to set these parameters in the block.<br />
+Additionally a <a href="THB_format.html">Thermo-Hydraulic Bus</a> for an 
+external air supply of the building can be added. All three flow rates 
+(mechanical ventilation, windows and supply air) are added to the THB_vent 
+entering the building. The block <a href="Mix_T_Mdot.html">Mix_T_Mdot</a> with 
+the enthalpy mixing option is used to mix correctly the supply air and the 
+outdoor air in THB_vent.</font></p>
+<p><span style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'>
+<span
+style='mso-bookmark:schwamberger'><b>
+<span style='font-size:13.5pt;
+line-height:120%'>I</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>nputs</span></b>:</span></span></span></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l36 level1 lfo223;tab-stops:list 36.0pt'>
+ <font size="4">WDB - <a href="WDB_format.html">Weather Data Bus</a></font><span
+     style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+     style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'><a href="WDB_format.html">
+ </a> </span><span lang=EN-US style='mso-fareast-font-family:
+     "Times New Roman"'><o:p></o:p></span></span></span></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l36 level1 lfo223;tab-stops:list 36.0pt'>
+ <span
+     style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'>
+ <span
+     style='mso-bookmark:schwamberger'>
+ <span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Troom - room 
+ temperature in °C</span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'> </span><o:p></o:p>
+ </span></span></span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l36 level1 lfo223;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+    VdotWindow - V<o:p>olume flow rate by windows in m³/s</o:p></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l36 level1 lfo223;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+    <o:p>
+    <o:p>THBsupplyAir - <font size="4">&nbsp;<a href="THB_format.html">Thermo-Hydraulic 
+	Bus</a></font> of the fresh air entering the building</o:p></o:p></li>
+</ul>
+
+<p><span style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Output</span></b></span></span></span></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l208 level1 lfo224;tab-stops:list 36.0pt'>
+ <font size="4">Qdot_vent - thermal loss or gain of the building due to the ventilation</font><span
+     style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+     style='mso-bookmark:schwamberger'><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'> [</span><span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>W</span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>]</span><span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'> (negative 
+ values for losses)</span></span></span></span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l208 level1 lfo224;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+    <font size="4">THBvent - <a href="THB_format.html">Thermo-Hydraulic Bus</a></font><o:p> of the air </o:p>
+	to the room node of the <a href="houseSimple.html">House_simple</a>.</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><![if !vml]><span class="auto-style3"><strong>Parameters and dialog box</strong></span><![endif]></p>
+<p><![if !vml]><img alt="" src="Figures/ventilationMask.jpg" /><![endif]></p>
+<p><![if !vml]><![endif]><![if !vml]><![endif]><![if !vml]><![endif]><span style='mso-bookmark:
+Ventilation'><span style='mso-bookmark:literature'><span style='mso-bookmark:
+schwamberger'><span lang=EN-US style='font-size:13.5pt;line-height:120%'><br
+clear=all style='mso-special-character:line-break'></span></span></span></span>
+</p>
+
+<p><span style='mso-bookmark:Ventilation'><span style='mso-bookmark:literature'><span
+style='mso-bookmark:schwamberger'><b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Characteristics</span></b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample
+time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> Inherited
+from driving block <br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> No
+</span></span></span></span></p>
+
+</body>
+
+</html>

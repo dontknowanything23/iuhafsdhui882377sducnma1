@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>floor in</title>
+<style type="text/css">
+ div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+p
+	{margin-right:0cm;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+a:link
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;
+}
+ul
+	{margin-bottom:0cm;}
+ li.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ .auto-style1 {
+	font-size: large;
+}
+ </style>
+</head>
+
+<body>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+
+<hr size=10 width="100%" noshade style='color:#A0A0A0' align=center>
+
+</span></span></div>
+
+<p><!--[if gte vml 1]><v:shape id="Bild_x0020_75" o:spid="_x0000_s1570" type="#_x0000_t75"
+ style='position:absolute;left:0;text-align:left;margin-left:58.25pt;
+ margin-top:0;width:98.25pt;height:75.75pt;z-index:73;visibility:visible;
+ mso-wrap-style:square;mso-wrap-distance-left:0;mso-wrap-distance-top:0;
+ mso-wrap-distance-right:0;mso-wrap-distance-bottom:0;
+ mso-position-horizontal:right;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:line'
+ o:allowoverlap="f">
+ <v:imagedata src="Figures/floor_in.jpg" xmlns:v="urn:schemas-microsoft-com:vml"/>
+ <w:wrap type="square" anchory="line" xmlns:w="urn:schemas-microsoft-com:office:word"/>
+</v:shape><![endif]-->
+<img alt="" src="Figures/Floor_in.jpg" style="float: right" /><span class=GramE><span
+style='mso-bookmark:floor_in'><span style='mso-bookmark:literature'><b><span style='font-size:18.0pt;line-height:120%'>F</span><span
+lang=EN-US style='font-size:18.0pt;line-height:120%'>loor_in</span></b></span></span></span><span
+style='mso-bookmark:floor_in'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+<b>Path: CARNOT/Basic/Thermal_Models</b> <br clear=all
+style='mso-special-character:line-break'>
+<o:p></o:p></span></span></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:floor_in'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></div>
+
+<p><span style='mso-bookmark:literature'><span class=GramE><b><span lang=EN-US
+style='font-size:13.5pt;line-height:120%'>Purpose</span></b><span lang=EN-US
+style='font-size:13.5pt;line-height:120%'> <br>
+Model of an inner floor (or ceiling) of a room.</span></span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> </span><span
+lang=EN-US style='font-size:12.0pt;line-height:120%'><o:p></o:p></span></span></p>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Description</span></b><span lang=EN-US style='font-size:13.5pt;line-height:120%'> </span></span></p>
+
+<p><font size="4">The block uses the heat transfer models
+<a href="alfa_floor.html">alfa_floor</a> 
+	for heat transfer of the floor from and to the <a href="Room_Node.html">room 
+	node</a> and <a href="alfa_ceiling.html">
+	alfa_ceilingg</a>for heat transfer of the ceiling from and to thee
+	<a href="Room_Node.html">room noderoom node</a>.</font></p>
+
+<p><span style='mso-bookmark:schwamberger'>
+<span style='mso-bookmark:literature'>
+<span style='font-size:13.5pt;line-height:120%'>For the thermal </span><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'>conductio</span><span style='font-size:13.5pt;line-height:120%'>n 
+model see </span></span></span><font size="4"><a href="Wall_basic.html">Wall_basic</a> 
+for details.</font></p>
+<p class="auto-style1">An active layer for heating or cooling power input to the 
+component can be defined. The boundary for the energy balance of this power can 
+be defined as :<br />
+surface towards the room (floor/ceiling) : power exchange between the surface 
+and the room node is set as QdotHeating in the Sbus<br />
+input to the layer for floor heating/cooling : Qdot_node is set as QdotHeating 
+in SbusFloor (floor heating/cooling for the room above)<br />
+input to the layer for ceiling heating/cooling : Qdot_node is set as QdotHeating 
+in SbusCeiling (ceiling heating/cooling for the room below) <br />
+</p>
+<p class="auto-style1"><img alt="" src="Figures/Floor_in_fig1.jpg" /></p>
+<p class="auto-style1"></p>
+<p><span style='mso-bookmark:literature'><b>
+<span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Inputs</span></b></span></p>
+<p><a href="WDB_format.html"><span
+     style='mso-bookmark:literature'>
+<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+<span style='font-size:13.5pt;line-height:120%'>[WDB] :
+</span></span></span><font size="4">Weather Data Bus</font></a></p>
+<p><font size="4">AIBfloor : <a href="AIB_format.html">Air Infiltration Bus</a> 
+of the room above (component used as floor)</font></p>
+<p><font size="4">Qdot_node : power per active layer in W (remember to activate 
+the layer by defining a depth of the active layer)</font></p>
+<p><font size="4">AIBceiling : <a href="AIB_format.html">Air Infiltration Bus</a> 
+of the room above (component used as ceiling)</font></p>
+<p><font size="4">QdotSolar : thermal power of the solar radiation to the floor 
+in W (use element of <a href="Sbus_format.html">Sbus</a> comming from
+<a href="Room_Node.html">room node</a>)</font></p>
+
+<p><span style='mso-bookmark:literature'><b>
+<span style='font-size:
+13.5pt;line-height:120%'>Out</span><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>puts</span></b></span></p>
+<p><font size="4">SbusFloor : <a href="Sbus_format.html">Sbus</a> with the power balance for the room node 
+(component used as floor)</font></p>
+<p><font size="4">T(P) : temperature of acitve node(s) in °C</font></p>
+<p><font size="4">SbusCeiling : <a href="Sbus_format.html">Sbus</a> with the power balance for the room node 
+(component used as ceiling)</font></p>
+<p><font size="4">Tnodes - Vector with the surface temperature and the 
+temperature(s) of the active node(s) in °C</font></p>
+<p>&nbsp;</p>
+
+<p><span style='mso-bookmark:literature'><b>
+<span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Parameters and Dialog Box</span></b></span></p>
+<p><o:p><img alt="" src="Figures/Floor_in_Mask.jpg" /></o:p></p>
+<p><span style='mso-bookmark:literature'>
+<span lang=EN-US
+style='font-size:12.0pt;line-height:120%'>
+<o:p><span
+style='mso-bookmark:schwamberger'>
+<span style='font-size:13.5pt;line-height:120%'>You may directly choose 
+predefined parameter sets. For details see chapter
+<a href="file:///C:/Repos/CarnotSIJ/carnot/public/tutorial/doc/2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a>
+<br />
+</span></span></o:p>
+</span></span></p>
+
+<p><span style='mso-bookmark:schwamberger'>
+<span style='mso-bookmark:literature'>
+<span
+lang=EN-US style='font-size:13.5pt;line-height:120%'><strong>Validation</strong></span></span></span><font size="4"><br />
+See <a href="Wall_out.html">Wall_out</a> block.<br />
+</font></p>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Characteristics</span></b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample
+time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> Inherited
+from driving block <br>
+States &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> corresponding
+to the number of nodes <br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> No
+</span></span></p>
+
+</body>
+
+</html>

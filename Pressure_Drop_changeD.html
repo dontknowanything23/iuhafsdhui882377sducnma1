@@ -1,0 +1,84 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pressure_Drop_changeD</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/PressureDropChangeD.gif" align=right>
+<p class="blockname">Pressure_Drop_changeD</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Pressure_Drop 
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the pressure drop of a diameter change.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block calculates the pressure drop of a sudden diameter change at the inlet 
+of a pipe or hydraulic component. Effects of diffusers or nozzles are not taken
+into account. The pressure drop is included in the pressure of the THB. 
+The pressure coefficients clq are also adapted.<br>
+Calculation is done for Flow_ID &gt; 10000, see 
+<a href="2_Basic_Concepts.html#carnot_vectors">Basic Concepts</a> for details.<br>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBin </td>
+		<td style="width: 10px;">:</td>
+        <td> incomming <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB </td>
+		<td style="width: 10px;">:</td>
+        <td> leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/PressureDropChangeD_MASK.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

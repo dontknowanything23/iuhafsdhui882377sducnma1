@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Radiation_Divison</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/radiationdivision.jpg" align=right>
+<p class="blockname">Radiation_Divison</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Weather_and_Sun
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculates the direct and diffusive radiation on the horizontal surface 
+as parts of the global radiation and the sun position.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The direct and diffusive radiation are calculated by the formulas of 
+Duffie/Beckman, 2020. The model calculates the sun_position described by 
+the three sun-angles zenith-angle, azimuth-angle and the angle between 
+collector normal and the sun. The calculation is carried out based the
+Orgill and Hollands model (1977).<br>
+This block is also available as workspace function <br>
+<tt><a href="radiationdivision.html">radiationdivision</a></tt>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Time</td>
+		<td style="width: 10px;">:</td>
+        <td> time of the simulation in s (January 1st, 00:00:00 = 0 s) </td>
+    </tr>
+    <tr>
+    	<td> Iglb </td>
+        <td>:</td>
+        <td> global solar radiation on a horizontal surface in W/m<sup>2</sup></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Idir</td>
+		<td style="width: 10px;">:</td>
+        <td> direct solar radiation on a horizontal surface in W/m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> Idfu </td>
+        <td>:</td>
+        <td> diffuse solar radiation on a horizontal surface in W/m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> SunAngle</td>
+        <td>:</td>
+        <td> angle between the sun and the horizon in &deg;</td>
+    </tr>
+    <tr>
+    	<td> Zenith</td>
+        <td>:</td>
+        <td> angle between the sun and the zenith in &deg;</td>
+    </tr>
+    <tr>
+    	<td> Azimuth</td>
+        <td>:</td>
+        <td> angle between the sun and the south (east = -90&deg;, west = +90&deg;) 
+		in &deg;</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/radiationdivisionSHOT.jpg" /></p>
+
+<p><b>Literature:</b><br />
+Duffie, J., Beckman, W., Blair, N.: Solar Engineering of thermal processes, 
+John Wiley &amp; Sons, Inc. 2020<br>
+J.F. Orgill, K.G.T. Hollands: Correlation equation for hourly diffuse radiation 
+on a horizontal surface, Solar Energy, Vol, 19(4), 1977
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Radiator_AIV</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/RadiatorAIV.jpg" align=right>
+<p class="blockname">Radiator_AIV</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Source/Heat_Exchanger<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+This block models the radiators of a house heating system.
+</p>
+<p><b>Description:</b><br>
+The model adapts the <a href="Radiator.html">Radiator</a> model to the 
+<a href="2_Basic_Concepts.html#building_vector">AIB and S-Buses</a> 
+for the detailed room model, see <a href="Room_Radiator.html">
+Room_Radiator</a> and <a href="Room_Floor_Heating.html">
+Room_Floor_Heating</a>.<br />
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">AIB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#building_vector">
+		Air infiltration bus </a> </td>
+    </tr>
+    <tr>
+    	<td> THB_in </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the flow line </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> S </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#building_vector">
+		S-bus </a> </td>
+    </tr>
+    <tr>
+    	<td> THB_out </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the return line </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/RadiatorAIVmask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_RadiatorAIV_compareToEN442">
+	example_RadiatorAIV_compareToEN442</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+EN 442 Radiators and convectors, 2014</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

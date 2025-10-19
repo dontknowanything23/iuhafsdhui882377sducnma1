@@ -1,0 +1,90 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - AIV_Selector</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/AIV_Selector.jpg" align=right>
+<p class="blockname">AIV_Selector</p>
+<p style="margin-top:0px; margin-bottom:20px">
+Path: CARNOT/Outputs/Selectors/AIV_selector<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Selector for Components from the Air Infiltration Vector AIV.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block delivers a user specified vector with elements of the [AIV] vector.
+The sequence of elements in the output vector is identical to the sequence 
+of selected check boxes counted from to the top to the bottom.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">[AIV]</td>
+		<td style="width: 10px;">:</td>
+        <td> vector from Room-NODE block </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">[AIV]s</td>
+		<td style="width: 10px;">:</td>
+        <td> output vector with user selected elements from [AIV]</td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/AIV_SelectorSHOT.jpg" /></p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+The AIV is created by older version of the room node in CARNOT. 
+It has been replaced by the AIB, the Air Infiltration Bus.
+For the description see 
+<a href="2_Basic_Concepts.html#aiv_vector">AIB</a>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

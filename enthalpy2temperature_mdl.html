@@ -1,0 +1,196 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Enthalpy2Temperature</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/enthalpy2temperature.jpg" align=right>
+<p class="blockname">Enthalpy2Temperature</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+This block calculates the temperature from the specific enthalpy [J/kg] 
+of the specified material.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block calculates the temperature according to the inputs. The block calls 
+up the function <a href="enthalpy2temperature.html">enthalpy2temperature</a> 
+in the CARNOT <a href="carlib.html">Carlib Library</a> 
+where the calculation is carried out. The material properties functions can also 
+be called directly from the command window by typing <br>
+<tt>enthalpy2temperature(<em>enthalpy, pressure, fluid_type, fluid_mix</em>)</tt><br>
+in the Matlab Command Window. Instead of the italic variables the actual value 
+of the respective property has to be entered. <br>
+For more information about the function type:<br>
+<tt>help enthalpy2temperature</tt><br>
+For the calculation of steam, the properties are calculated according to 
+E.Schmidt: Properties of water and steam [Schmidt, 1982]. The steam
+properties can be calculated for a temperature range up to 800°C and a pressure
+range up to 49.055 MPa. The calculations of the liquid phase and the saturation 
+states are performed with the polynomials from B.Glück: Stoffwerte und 
+Zustandsgrößen [Glück, 1991]. The valid temperature range is up to 200°C and the 
+pressure range is up to 2 MPa. The enthalpy of the liquid phase considers only 
+the dependency of the temperature, the pressure dependency is neglected. <br>
+The enthalpy is only available for the fluids water (fluid type 1) and air 
+(fluid type 2).</p>
+<p>The valid range is for the respective value is:</p>
+
+ 
+Instead of the italic variables the actual value of
+the respective property has to be entered. This is possible for the Carlib
+functions density, thermal conductivity, heat capacity, kinematic viscosity,
+prandtl number, vapour-pressure, saturation-temperature, enthalpy, entropy,
+evaporation-enthalpy and specific volume. For more information about the
+function type </span></span></p>
+
+<p>The valid range is for the respective value is:</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">fluid_ID</td>
+		<td style="width: 100px;">fluid</td>
+		<td style="width: 100px;">phase</td>
+		<td style="width: 200px;">temperature</td>
+        <td> pressure </td>
+    </tr>
+    <tr>
+    	<td> 1 </td>
+        <td> water </td>
+        <td> vaporous </td>
+        <td> T &lt; 800 &deg;C </td>
+        <td> p &lt; 49 MPa </td>
+    </tr>
+    <tr>
+    	<td> 1 </td>
+        <td> water </td>
+        <td> liquid</td>
+        <td> 0 &deg;C &lt; T &lt; 200 &deg;C </td>
+        <td> 100 kPa &lt; p &lt; 10 MPa </td>
+    </tr>
+    <tr>
+    	<td> 2 </td>
+        <td> air </td>
+        <td> dry </td>
+        <td> -150 &deg;C &lt; T &lt; 1000 &deg;C </td>
+        <td> 0.1 MPa &lt; p &lt; 10 MPa </td>
+    </tr>
+    <tr>
+    	<td> 2 </td>
+        <td> air </td>
+        <td> moist </td>
+        <td> 0 &deg;C &lt; T &lt; 800 &deg;C</td>
+        <td> 0.1 MPa &lt; p &lt; 10 MPa </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">enthalpy</td>
+		<td style="width: 10px;">:</td>
+        <td> specific enthalpy in J/kg </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid types</a> </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid mixtures</a></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature in &deg;C </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/enthalpy2temperatureMask.jpg" /></p>
+
+<p> You can choose the inputs to be the : </p>
+<ul>
+ <li> state variables (temperature, pressure, fluid type 
+ and mix have separate input ports)</li>
+ <li> the Thermo Hydraulic Bus (THB) </li>
+ <li> or, for compatibility with older versions, 
+ the Thermo Hydraulic Vector (THV) </li>
+</ul>
+
+<p><img src="Figures/EnthalpyMask.jpg" /></p>
+
+<p>Use the <a href="GlobalMessageLevel.html">GlobalMessageLevel</a> 
+block to handle the debugging messages.</p>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_FluidProp_Enthalpy2Temp </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Schmidt, E.: Properties of Water and Steam in SI Units, ed. by U. Grigull, 
+Berlin, Springer und München, Oldenbourg 1982<br>
+Glück, Bernd: Zustands- und Stoffwerte, Wasser, Dampf, Luft, 
+Verbrennungsrechnung, Verlag für Bauwesen GmbH, Berlin 1991
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

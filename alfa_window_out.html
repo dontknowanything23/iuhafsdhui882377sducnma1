@@ -1,0 +1,113 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - alfa_window_out</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/alfa_window_out.jpg" align=right>
+<p class="blockname">alfa_window_out</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Basic/Heat_Transfer <br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculate the heat transfer of a window to the outdoor.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Convective and radiative heat transfer at the surface of a VERTICAL window 
+towards outdoor ambient. <br>
+The block is disigned to be used in the <a href="Window.html">Window</a> 
+block. It is also used in <a href="Wall_with_Window.html">Wall_with_Window</a> 
+block. <br>
+The model uses the <a href="2_Basic_Concepts.html#WDB">Weather Data Bus</a> 
+as input for the outdoor ambient conditions.<br>
+Convective heat transfer is calculated by the correlation:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; U = 2.8 + 3 * v_wind<br><br>
+with v_wind : wind velocity in m/s<br><br>
+Radiative heat transfer is calculated by the 
+<a href = "wall_out_IR_radiation.html">wall_out_IR_radiation</a> block.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">Weather Data Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> Ts</td>
+        <td>:</td>
+        <td> temperature of window surface (glass surface) to the outside 
+		in &deg;C </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">[sun_t]</td>
+		<td style="width: 10px;">:</td>
+        <td> vector with sun data: <br>
+		[incidence angle, direct and diffuse radiation at tilted window surface]</td>
+    </tr>
+    <tr>
+    	<td> qdots1</td>
+        <td>:</td>
+        <td> specific heat flow into wall construction in W/m<sup>2</sup></td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/alfa_window_outMASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> exampleAlphaWindowOut </li>
+ <li> example_Window_Uvalue </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes / No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>Yes / No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

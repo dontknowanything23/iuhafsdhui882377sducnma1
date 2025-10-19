@@ -1,0 +1,157 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Flow Mixer</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here-->
+<img src="Figures/flow_mixer.jpg" align=right>
+<p class="blockname">Flow_Mixer</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics<br><br><br><br><br>
+</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the mixture of two incoming flows and feed back the flow diversion to the Flow_Diverter.
+</p>
+
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block uses the <a href="Flow_Mixer_basic.html">Flow_Mixer_basic</a> 
+block to calculate the mixture of the fluids and the mass flow diversion.<br>
+The initial position of the flow mixer at simulation start can be set by the parameter "Initial position".<br>
+A Memory block or a Pt1 transfer function as a variant subsystem breaks the 
+algebraic loop of <a href="Flow_Diverter.html">Flow_Diverter</a> and Flow_Mixer. 
+For the variable-step solver ode15s or ode113 it is recommended to activate the Pt1 option.<br>
+To assure a correct calculation of the flow diversion in the two branches THB1 and THB2 
+according to the pressure drop in the branches, feed back fdiv of the Flow_Mixer to the corresponding
+<a href="Flow_Diverter.html">Flow_Diverter</a> upwards in flow direction.<br>
+See <a href="2_Basic_Concepts.html#flow_id">chapter 2: Basic Concepts</a>
+for more details of modelling parallel flow branches in CARNOT.<br>
+For external control of the flow diversion use one of the two options:
+</p>
+
+<!--This is how we make lists-->
+<ul>
+	<li>RECOMMENDED: Use <a href="Flow_Mixer_Ideal.html">Flow_Mixer_Ideal</a> or 
+	<a href="Mixing_Valve.html">Mixing_Valve</a> instead of the Flow_Mixer.</li>
+	<li>Use the Inport fdiv of the <a href="Flow_Diverter.html">Flow_Diverter</a> 
+	as control input, discard the fdiv output of the Flow_Mixer.<br>
+	ATTENTION: This version can only be used for calculations without pressure drop
+	in the all branches and the main flow with <a href="Pump_Const.html">Pump_Const</a>
+	or <a href="Fan_Const.html">Fan_Const</a> block.</li>
+ </ul>
+
+<p><b>Warnings:</b><br>
+If you have a hydraulic subcycle that contains sub cycles with flow diverters itself,
+you have to take care to build up the cycle in such a way, that the branch with
+more diverting elements is connected to the input THB2 of the mixer.
+This branch must also be connected to the output THB2 of the
+corresponding diverter upstream to feed back the right information.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB1</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> of branch 1 </td>
+    </tr>
+    <tr>
+    	<td>THB2</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> of branch 2 </td>
+    </tr>
+    <tr>
+    	<td>clq</td>
+        <td>:</td>
+        <td>Bus with massflow and pressure drop coefficients of the THB before it was separated 
+		in THB1 and THB2 by the <a href="Flow_Diverter.html">Flow_Diverter</a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> of the mixed fluid flow </td>
+    </tr>
+    <tr>
+    	<td>fdiv</td>
+        <td>:</td>
+        <td>massflow diversion factor fdiv used for mixing the entering two mass flows in one mass flow, 
+		connect to the <a href="Flow_Diverter.html">Flow_Diverter</a></td>
+    </tr>
+</table>
+
+<p>
+For a correct flow diversion according to the pressure drop in the branches THB1 and THB2 connect :
+</p>
+<ul>
+ <li> clq input to the output of the corresponding <a href="Flow_Diverter.html">Flow_Diverter</a> </li>
+ <li> THB1 of the <a href="Flow_Diverter.html">Flow_Diverter</a> to the THB1 input </li>
+ <li> THB2 of the <a href="Flow_Diverter.html">Flow_Diverter</a> to the THB2 input </li>
+</ul>
+
+<p><b>Mask Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/FlowMixerMask.JPG" /></p>
+
+
+<p><b>Examples:</b>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hydraulic_FlowMixer </li>
+ <li> example_TwoHeatingCircuits </li>
+ <li> example_HeatingCircuitWithMixer </li>
+ <li> example_HeatingCircuitWithMixer_NoPressureDrop </li>
+</ul>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+A Memory block or a Pt1 transfer function breaks the algebraic loop of diverter and mixer. 
+For the variable-step solver ode15s or ode113 it is recommended to activate the Pt1 option.
+</p>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

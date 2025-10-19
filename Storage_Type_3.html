@@ -1,0 +1,163 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Storage_Type_3</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/StorageType3.jpg" align=right>
+<p class="blockname">Storage_Type_3</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Storage/Thermal
+<br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Store with two immersed heat exchangers, two discharging pipe connections 
+and an electric heater.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Store with two immersed heat exchangers according to the 
+<a href="StoragePorts_HeatExchangerModels.html">EN12977</a> model.
+<br>
+Typical application: Domestic hot water storage with dhw circulation, 
+a heat exchanger for solar thermal collectors and a backup heater.<br>
+The model uses the multiport storage model, see 
+<a href="Storage_Type_N.html">Storage_TypeN</a> for details.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td>ambient temperature in &deg;C (for thermal losses) </td>
+    </tr>
+    <tr>
+    	<td> THB_HX_up</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		inlet of the upper heat exchanger</td>
+    </tr>
+    <tr>
+    	<td> THB_HX_low</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		inlet of the lower heat exchanger</td>
+    </tr>
+    <tr>
+    	<td> THB_dhw</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of the cold water inlet</td>
+    </tr>
+    <tr>
+    	<td> THB_circ</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of circulation return</td>
+    </tr>
+    <tr>
+    	<td> Pel </td>
+        <td>:</td>
+        <td>power of the electric heater in W</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Sdat</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="CreateSdat.html">Storage data bus</a> </td>
+    </tr>
+    <tr>
+    	<td> Tsensors</td>
+        <td>:</td>
+        <td>value of temperature sensors in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> THB_hx_up</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		outlet of the upper heat exchanger</td>
+    </tr>
+    <tr>
+    	<td> THB_hx_low</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		outlet of the lower heat exchanger</td>
+    </tr>
+    <tr>
+    	<td> THBdhw</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of the hot water oulet</td>
+    </tr>
+    <tr>
+    	<td> THBcirc</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of circulation outlet</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/StorageType3Mask1.jpg" /></p>
+<p><img src="Figures/StorageType3Mask2.jpg" /></p>
+<p><img src="Figures/StorageType3Mask3.jpg" /></p>
+<p><img src="Figures/StorageType3Mask4.jpg" /></p>
+<p><img src="Figures/StorageType3Mask5.jpg" /></p>
+
+<p>You may directly choose predefined parameter sets.<br />
+For details see chapter 
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Storage_type3 </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

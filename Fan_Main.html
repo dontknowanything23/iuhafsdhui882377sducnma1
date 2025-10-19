@@ -1,0 +1,146 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Fan_Main and Fan_Additional</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img alt="" src="Figures/FanAdditional.jpg" style="float: right" />
+<img alt="" src="Figures/FanMain.jpg" style="float: right" />
+<p class="blockname">Fan_Main and Fan_Additional</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics 
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Fan models for air ventilation systems with a defined characteristic for 
+the pressure drop and flow rate calculation.
+</p>
+
+<p><b>Description:</b><br>
+Fan_Main and Fan_Additional are the pump models calculating the massflow 
+based on the pressure drop equation. Every circuit must have exactly ONE 
+Fan_Main block but it may have several Fan_Additional blocks in series 
+or in parallel. <br />
+See examples 'Example_Fan*.slx in the folder carnot\tutorial\examples 
+(or use the 'double click to load examples' button in the Carnot library).
+</p>
+<p>The electric power consumption of the pump is given by a quadradic polynom: 
+</p>
+<p>&nbsp;&nbsp;  Pel = e0 + e1*mdot + e2*mdot<sup>2</sup> 
+</p>
+<p>Control signal range: <br>
+Be aware that different fans react differently on the control signal 
+input. See <a href="Pump_Main.html">Pump_Main</a> for details.</p>
+<p>Fluid Type and Mixture: <br>
+For the fan models the fluid type is fixed to Air. The fan models one other 
+major difference to the pump models: The pressure and the fluid mixture 
+coefficients, in case of air mainly the humidity, are taken from the incomming 
+THB. For a ventilation model of a house use the block 
+<a href="WDB2THBventilation.html">WDB2THBventilation</a> to access the conditions 
+of the outdoor ambient air and to get a proper feed back to the pressure drop 
+calculation via the exhaust air.</p>
+</p>
+
+<p><b>Correlation of speed and flow </b><br>
+The correlation of volume flow, mass flow and pressure head for fans 
+is rather complex. In CARNOT the calculation is simplified, see 
+<a href="Pump_Main.html">Pump_Main</a> for details of the 
+massflow calculation.</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the incomming flow </td>
+    </tr>
+    <tr>
+    	<td> Ctrl</td>
+        <td>:</td>
+        <td> control signal </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the leaving flow </td>
+    </tr>
+    <tr>
+    	<td> Pdat </td>
+        <td>:</td>
+        <td> <a href="Pdat.html">Pdat bus containing operation 
+		informations of the fan</a></td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img alt="" src="Figures/FanMainMask1.jpg" /></p>
+<p><img alt="" src="Figures/FanMainMask2.jpg" /></p>
+<p><img alt="" src="Figures/FanMainMask3.jpg" /></p>
+<p><img alt="" src="Figures/FanMainMask4.jpg" /></p>
+<p><img alt="" src="Figures/FanMainMask5.jpg" /></p>
+
+<p>Select a parameter set from the public data, the internal data 
+or the selected path with the buttons. <br>
+Fan_Additional and Fan_Main use the same parameter sets. They 
+are stored in the Fan_Main\parameter_set folder.<br>
+You may specify your own pump specifications by activating the 
+'user parameters' checkbox. For details see chapter 
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a>.
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_FanMain_recirculatingAir </li>
+ <li> example_FanMain_usingOutdoorAir </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

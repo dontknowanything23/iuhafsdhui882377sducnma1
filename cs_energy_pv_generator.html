@@ -1,0 +1,324 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>cs_energy_pv_generator - evaluation of data written by the Logger_Photovoltaik_Generator</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="cs_energy_pv_generator.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>cs_energy_pv_generator - evaluation of data written by the Logger_Photovoltaik_Generator</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Function Call</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Description</a></li><li><a href="#5">References</a></li><li><a href="#6">check the inputs</a></li><li><a href="#7">load the data</a></li><li><a href="#8">timerange</a></li><li><a href="#9">determine output</a></li><li><a href="#10">display some statistics</a></li><li><a href="#12">Copyright and Versions</a></li></ul></div><h2 id="1">Function Call</h2><pre>erg = cs_energy_pv_generator([timeclass], [file], [filedetail])</pre><h2 id="2">Inputs</h2><pre>timeclass - optional input parameter for the evaluation period
+ 1 : year (default)
+ 2 : month
+ 3 : week
+ 4 : day
+ 5 : hour</pre><pre>file - optional character string with the name of the .mat file
+ created by the data logger. If not given during function call, the
+ function itsself will open an input window for the choice of the file.
+ Files written by the Logger_Photovoltaik_Generator have the format
+ 'pvgeneratoroutput*.mat'</pre><pre>filedetail - optional character string with the name of the .mat file
+ created by the enabled data logger in the Logger_Photovoltaik_Generator block.
+ This file contain the same information as file but they are stored only
+ when there is a DC power generated.
+ Files written by the Logger_Photovoltaik_Generator have the format
+ 'pvgeneratordetailoutput*.mat'</pre><pre>file and, if given filedetail, must contain the following information in timeseries:
+ 1   pv.SolarEnergyGlobal    irradiated global solar energy in J/m&sup2;
+ 2   pv.Welec_PV             energy produced by the pv generator in J (DC side)
+ 3   pv.Tcell                cell temperature in degree Celsius
+ 4   pv.Cycles               number of on/off cycles
+ 5   pv.OpTime               operation time in s</pre><h2 id="3">Outputs</h2><pre>Matrix where for timeclass 1 the first row has the annual values.
+For timeclass 2 the 12 rows contain the monthly values.
+Columns:
+ 1   time of simulation or timeclass start
+ 2   time of simulation or timeclass end
+ 3   energy produced by the PV generator in J
+ 4   solar energy irradiated on the PV modules in J/m&sup2;
+ 5   number of cycles
+ 6   operation time in s
+ 7   average cell temperature during operation in degree Celsius *)
+*) if 'filedetail' is given, the values are evaluated at
+   the operation time of the module only</pre><h2 id="4">Description</h2><pre>Evaluation of data written by Logger_Photovoltaik_Generator. The result
+of the function is the energy in annual, monthly, ... values, depending
+on the timeclass. For timeclass 1 the first row has the annual values.
+For timeclass 2 the 12 rows contain the monthly values.
+The outputs are organized in groups: time, energy, efficiency,
+operation, average massflows, average temperatures, economics</pre><h2 id="5">References</h2><pre>see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m
+ cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m
+ cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m
+ cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m</pre><h2 id="6">check the inputs</h2><h2 id="7">load the data</h2><h2 id="8">timerange</h2><h2 id="9">determine output</h2><h2 id="10">display some statistics</h2><h2 id="12">Copyright and Versions</h2><pre>This file is part of the CARNOT Blockset.
+Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+Additional Copyright for this file see list auf authors.
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.</pre><pre>************************************************************************
+VERSIONS
+author list:     hf -&gt; Bernd Hafner
+version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Version  Author  Changes                                     Date
+8.1.0    hf      created                                     18mar2023
+8.1.1    hf      updated comments for publish and help       26mar2023
+************************************************************************</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% cs_energy_pv_generator - evaluation of data written by the Logger_Photovoltaik_Generator
+%% Function Call
+%  erg = cs_energy_pv_generator([timeclass], [file], [filedetail])
+%
+%% Inputs
+%  timeclass - optional input parameter for the evaluation period
+%   1 : year (default)
+%   2 : month
+%   3 : week
+%   4 : day
+%   5 : hour
+% 
+%  file - optional character string with the name of the .mat file 
+%   created by the data logger. If not given during function call, the  
+%   function itsself will open an input window for the choice of the file.
+%   Files written by the Logger_Photovoltaik_Generator have the format 
+%   'pvgeneratoroutput*.mat'
+% 
+%  filedetail - optional character string with the name of the .mat file 
+%   created by the enabled data logger in the Logger_Photovoltaik_Generator block.
+%   This file contain the same information as file but they are stored only 
+%   when there is a DC power generated.
+%   Files written by the Logger_Photovoltaik_Generator have the format 
+%   'pvgeneratordetailoutput*.mat'
+%
+%  file and, if given filedetail, must contain the following information in timeseries:
+%   1   pv.SolarEnergyGlobal    irradiated global solar energy in J/m²
+%   2   pv.Welec_PV             energy produced by the pv generator in J (DC side)
+%   3   pv.Tcell                cell temperature in degree Celsius
+%   4   pv.Cycles               number of on/off cycles
+%   5   pv.OpTime               operation time in s
+% 
+%% Outputs
+%  Matrix where for timeclass 1 the first row has the annual values.
+%  For timeclass 2 the 12 rows contain the monthly values.
+%  Columns:
+%   1   time of simulation or timeclass start
+%   2   time of simulation or timeclass end
+%   3   energy produced by the PV generator in J
+%   4   solar energy irradiated on the PV modules in J/m²
+%   5   number of cycles
+%   6   operation time in s
+%   7   average cell temperature during operation in degree Celsius *)
+%  *) if 'filedetail' is given, the values are evaluated at 
+%     the operation time of the module only
+%
+%% Description
+%  Evaluation of data written by Logger_Photovoltaik_Generator. The result
+%  of the function is the energy in annual, monthly, ... values, depending 
+%  on the timeclass. For timeclass 1 the first row has the annual values.
+%  For timeclass 2 the 12 rows contain the monthly values.
+%  The outputs are organized in groups: time, energy, efficiency, 
+%  operation, average massflows, average temperatures, economics
+% 
+%% References
+%  see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m 
+%   cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m 
+%   cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m 
+%   cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m
+
+function y = cs_energy_pv_generator(varargin)
+%% check the inputs
+[timeclass, file, filedetail, details, filter] = ...
+    inputfiles4cs_energy('pvgenerator', varargin{:});
+ncol = 7;
+if filter == 0
+    y = zeros(1,ncol);
+    return
+end
+%% load the data 
+D = importdata(file);               % import data from file to variable D
+if details                          % detailed data exists
+    DD = importdata(filedetail);    % import it to DD
+    if isempty(DD.SolarEnergyGlobal.Data) % if it's empty
+        details = false;                  % there are no details
+    end
+end
+%% timerange
+[classnumber, limit] = get_timeclass_limits(timeclass);
+if classnumber < 0
+    y = zeros(1,ncol);
+    help cs_energy_pv_generator
+    return
+end
+%% determine output
+y = zeros(classnumber,ncol);
+for class = 1:(length(limit)-1)
+    idxs = find(D.SolarEnergyGlobal.Time >= limit(class),1,'first');
+    idxe = find(D.SolarEnergyGlobal.Time <= limit(class+1),1,'last');
+    % if the simulation is not in the classlimit, the result matrix is zero
+    if ~isempty(idxs) ...                   % if the start is in the data
+            && (idxe > idxs)                % and start and end are not same
+        % 1   time of simulation or timeclass start
+        y(class,1) = D.SolarEnergyGlobal.Time(idxs);
+        % 2   time of simulation or timeclass end
+        y(class,2) = D.SolarEnergyGlobal.Time(idxe);
+        % 3   energy produced by the PV generator in J
+        y(class,3) = D.Welec_PV.Data(idxe)-D.Welec_PV.Data(idxs);
+        % 4   solar energy irradiated on the PV modules in J/m²
+        y(class,4) = D.SolarEnergyGlobal.Data(idxe)-D.SolarEnergyGlobal.Data(idxs);
+        % 5   number of cycles
+        y(class,5) = D.Cycles.Data(idxe)-D.Cycles.Data(idxs);
+        % 6   operation time in s
+        y(class,6) = D.OpTime.Data(idxe)-D.OpTime.Data(idxs);
+        if details
+            idxs = find(DD.SolarEnergyGlobal.Time >= limit(class),1,'first');
+            idxe = find(DD.SolarEnergyGlobal.Time <= limit(class+1),1,'last');
+            if ~isempty(idxs)                 % if the start is in the data
+                % 7   average cell temperature during operation in degree Celsius *)
+                y(class,7) = mean(DD.Tcell.Data(idxs:idxe));
+            end
+        end
+    end
+end
+%% display some statistics
+starttime = D.SolarEnergyGlobal.Time(1);   % time of simulation or timeclass start
+endtime = D.SolarEnergyGlobal.Time(end);   % time of simulation or timeclass end
+time = endtime-starttime;               % total simulation time
+startdate = sec2date(starttime);        % date of simulation start
+enddate = sec2date(endtime);            % date of simulation end
+fprintf('*** Evaluation of the PV generator ***\n');
+fprintf('* Simulation start\t%02.0f:%02.0f:%02.0f  %02.0f.%02.0f.%04.0f\n', ...
+    startdate(4),startdate(5),startdate(6), ...
+    startdate(3), startdate(2),startdate(1));
+fprintf('*            end\t%02.0f:%02.0f:%02.0f  %02.0f.%02.0f.%04.0f\n', ...
+    enddate(4),enddate(5),enddate(6),...
+    enddate(3), enddate(2),enddate(1));
+fprintf('*            duration in hours\t%.1f\n', time/3600);
+fprintf('*');
+fprintf('* Energy:    energy produced by the PV generator in kWh\t%.1f\n', ...
+    D.Welec_PV.Data(end)/3.6e6);
+fprintf('*            solar energy irradiated on the PV modules in kWh/m²\t%.1f\n', ...
+    D.SolarEnergyGlobal.Data(end)/3.6e6);
+fprintf('*');
+fprintf('* Operation: time of operation in h\t%.1f\n', D.OpTime.Data(end)/3600);
+fprintf('*            number of cycles \t%.0f\n', D.Cycles.Data(end));
+if details
+    fprintf('*            average operation cell temperature in °C \t%.1f\n', ...
+        mean(DD.Tcell.Data));
+end
+fprintf('*** End of pv generator evaluation ***\n\n');
+
+%% Copyright and Versions
+%  This file is part of the CARNOT Blockset.
+%  Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+%  Additional Copyright for this file see list auf authors.
+%  All rights reserved.
+%  Redistribution and use in source and binary forms, with or without 
+%  modification, are permitted provided that the following conditions are 
+%  met:
+%  1. Redistributions of source code must retain the above copyright notice, 
+%    this list of conditions and the following disclaimer.
+%  2. Redistributions in binary form must reproduce the above copyright 
+%    notice, this list of conditions and the following disclaimer in the 
+%    documentation and/or other materials provided with the distribution.
+%  3. Neither the name of the copyright holder nor the names of its 
+%    contributors may be used to endorse or promote products derived from 
+%    this software without specific prior written permission.
+%  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+%  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+%  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+%  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+%  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+%  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+%  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+%  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+%  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+%  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+%  THE POSSIBILITY OF SUCH DAMAGE.
+%  
+%  ************************************************************************
+%  VERSIONS
+%  author list:     hf -> Bernd Hafner
+%  version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+%  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+%  Version  Author  Changes                                     Date
+%  8.1.0    hf      created                                     18mar2023
+%  8.1.1    hf      updated comments for publish and help       26mar2023
+%  ************************************************************************
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Storage_Type_N</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/StorageTypeN.jpg" align=right>
+<p class="blockname">Storage_Type_N</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Storage/Thermal
+<br><br><br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Multiport model for storage with heat exchanger(s) and direct connections.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The basic concept is a multiport one-dimensional model. The storage is 
+connected to other CARNOT components by a variable number of port blocks.
+</p>
+
+<p><img src="Figures/StorageTypeN_fig1.jpg" /></p>
+
+<p>“Look under Mask” of the Storage_Type_3 model. The pipe connection and 
+the heat exchangers can be seen.<br>
+These ports "translate" the energy flow in the THB bus to the energy and mass 
+balance of the storage. The type of port can be a pipe ending at the storage 
+wall and releasing the fluid in the storage (see 
+<a href="StoragePorts_PipeConnections.html">Pipe</a>). Or it can be a heat 
+exchanger charging or discharging the storage with an energy flow (see
+<a href="StoragePorts_HeatExchangerModels.html">Heat_Exchangers</a>). 
+Pressure drop and pressure changes due to static height are calculated in 
+the ports.</p>
+<p><img src="Figures/PipeUnderMask.gif" /></p>
+<p>Figure: Principle of a port, example of a pipe connection</p>
+
+<p><b>Parameters and Dialog Box</b><p>
+<p>The parameters represent the geometric and thermodynamic data of the storage. 
+The top mask defines also the number of ports, the number of temperature 
+sensors and the number of nodes. </p>
+<p><img alt="" src="Figures/StorageTypeNMASK1.jpg" /><br />
+<img alt="" src="Figures/StorageTypeNMASK2.jpg" /></p>
+<p>The initial temperature can be a scalar value which means one temperature for 
+all nodes. It may also be a vector with the length “nodes”. In this case each 
+node is initialized with its individual temperature. The first element in the 
+vector is the temperature for the bottom node. <br />
+Geometric values, intial temperatures and the positions of the connections are 
+determined in the callback function 
+<a href = "CarnotCallbacks_StorageTypeN.html"> CarnotCallbacks_StorageTypeN. </a>
+</p>
+<p><b>Ports:</b> Parameters of the ports are described in the chapters of the ports:</p>
+<ul>
+ <li> <a href="StoragePorts_PipeConnections.html"><span class="auto-style20">Pipes</a> </li>
+ <li> <a href="StoragePorts_HeatExchangerModels.html">Heat_Exchangers</a> </li>
+</ul>
+
+<p><b>sfun_storageTnodes</b><br />
+<p>This s-function is the basic model of the storage. It divides the storage in N 
+nodes where node 1 is at the bottom and node N at the top. For details of the 
+mathematical model and the inputs and outputs see 
+<a href = "sfun_storageTnodes.html">sfun_storageTnodes.html</a>.</p>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_storage_Type*.slx </li>
+</ul>
+
+<p><b>Verification </b></p>
+<ul>
+	<li><a href="pdf/Lohmann_Speichermodell_CarnotMeeting_Juelich2014.pdf">
+	Lohmann: Speichermodell, Carnot User Meeting, Juelich 2014</a></li>
+	<li>verify_StorageTnodesEN12977losses.m - 
+	benchmark of storage losses according to EN 129777</li>
+	<li>verify_sfun_storage_heatexchanger.m
+	- benchmark of the heat exchanger according to EN 129777</li>
+	<li><span class="auto-style42">verify_sfun_storage_heatexchanger2.m</li>
+	<li>verify_StorageTnodesPipe.m - energy balance check of the pipe connections</li>
+</ul>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

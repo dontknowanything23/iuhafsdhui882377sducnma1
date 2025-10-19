@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+.auto-style1 {
+	font-family: Calibri;
+}
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerStorage.jpg" style="float: right"><a name="data_logging_house_heating"><font size="5"><b>Logger_Storage</b></font></a><br>
+<b>Path: carnot/Outputs/Logger</b> <br> <br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate a Storage_TypeN -model of Carnot by using
+<a href="cs_energy_storage.html">cs_energy_storage</a>&nbsp; 
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>Sdat : output data of storage model 
+    <li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the 
+	files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_s : displaying data of the storage model 
+    <li>files : &quot;storageoutput<i>_extension</i>.mat&quot; and &quot;storagedetailoutput<i>_extension</i>.mat&quot; where extension 
+    is a string you can choose in the parameters of the block.&nbsp;&nbsp; 
+    where extension is a string you can choose in the parameters of the block. 
+</ul>
+<p><strong>Description</strong><p>The file &quot;storagedetailoutput<i>_extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated.&nbsp; <br>Detailed outputs 
+are written only when the heating (or cooling) system massflow is above the 
+threshold value.<br>The files are saved in the 
+current working directory of Matlab unless you specify a complete pathname.</p>
+<p>The files contain the following informations in timeseries variables : </p>
+<ul>
+	<li>stg.storageType storage type number </li>
+	<li>stg.volume storage volume in m<sup><span class="auto-style1">3</span></sup>
+	</li>
+	<li>stg.energy structure with
+	<ul>
+		<li>stg.energy.internal change in energy between simulation start and 
+		end in Joule </li>
+		<li>stg.energy.losses thermal losses to ambient in Joule (negative for 
+		losses) </li>
+	</ul>
+	</li>
+	<li>stg.Welec_in energy input by the electric heater in Joule </li>
+	<li>stg.Tnodes storage node temperatures in degree Celsius </li>
+	<li>stg.Tamb ambient temperature in degree Celsius </li>
+	<li>stg.Pipe1 structure of pipe 1 with
+	<ul>
+		<li>stg.Pipe1.T_in inlet temperature of pipe 1 in degree Celsius </li>
+		<li>stg.Pipe1.T_out outlet temperature of pipe 1 in degree Celsius </li>
+		<li>stg.Pipe1.Mass mass (time intergal of massflow) through pipe 1 in kg
+		</li>
+		<li>stg.Pipe1.Cycles number of massflow on/off cycles in pipe 1 </li>
+		<li>stg.Pipe1.OpTime operation time (time with massflow) of pipe 1 in s
+		</li>
+		<li>stg.Pipe1.Q energy exchange from or to storage via pipe 1 in Joule
+		</li>
+	</ul>
+	</li>
+	<li>stg.Pipe2 structure of pipe 2
+	<ul>
+		<li>... (same information as pipe 1) </li>
+	</ul>
+	</li>
+	<li>stg.Pipe3 structure of pipe 3<ul>
+		<li>(same information as pipe 1) </li>
+	</ul>
+	</li>
+	<li>stg.Pipe4 structure of pipe 4
+	<ul>
+		<li>(same information as pipe 1) </li>
+	</ul>
+	</li>
+	<li>stg.Pipe5 structure of pipe 5
+	<ul>
+		<li>(same information as pipe 1) </li>
+	</ul>
+	</li>
+	<li>stg.HX1 structure of heat exchanger 1 with
+	<ul>
+		<li>stg.HX1.T_in inlet temperature of heat exchanger 1 in degree Celsius
+		</li>
+		<li>stg.HX1.T_out outlet temperature of heat exchanger 1 in degree 
+		Celsius </li>
+		<li>stg.HX1.Mass mass (time intergal of mass flow) through heat 
+		exchanger 1 in kg </li>
+		<li>stg.HX1.Cycles number of mass flow on/off cycles in heat exchanger 1
+		</li>
+		<li>stg.HX1.OpTime operation time (time with mass flow) of heat 
+		exchanger 1 in s </li>
+		<li>stg.HX1.Q energy exchange from or to storage via heat exchanger 1 in 
+		Joule </li>
+	</ul>
+	</li>
+	<li>stg.HX2 structure of heat exchanger 2<ul>
+		<li>(same information as HX1) </li>
+	</ul>
+	</li>
+	<li>stg.HX3 structure of heat exchanger 3<ul>
+		<li>(same information as HX1) </li>
+	</ul>
+	</li>
+</ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br></p>
+<p><b>Parameters and Dialog Box</b>
+<ul type="disc">
+    <li>sample time for data saving in s (standard value 3600 s)
+    <li>File extension: the text string replaces <i>&quot;extension&quot;</i> 
+    in the filename &quot;heatingoutput<i>_extension</i>.mat&quot;
+    <li>checkbox for additional detailed data file
+	(some evaluations in <a href="cs_energy_storage.html">cs_energy_storage</a> 
+	are only possible with the detailed file, e.g. mean operation temperature)<li>
+	sample time for detailed logging (default value of 60 s, be carefull when 
+	changing this value)<li>Threshold for the heating or cooling power to 
+	activate the detailed logging.</ul>
+<p><img alt="" src="Figures/LoggerStorageMask.jpg"></p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes 
+</p>
+</body>
+
+</html>

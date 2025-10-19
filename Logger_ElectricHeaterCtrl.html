@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+@import url('../../../../../tutorial/doc/Carnot_Style.css');
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerElectricHeaterCtrl.jpg" style="float: right"><a name="data_logging_furnace"><font size="5"><b>Logger_ElectricHeaterCtrl</b></font></a><p>
+<b>Path: Carnot/Outputs/Logger</b><br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate the
+<a href="Electric_Heater_Ctrl.html">Electric_Heater_Ctrl</a> model of the Carnot blockset by using
+<a href="cs_energy_battery.html">cs_energy_electric_heater_ctrl</a> 
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>EDat (data bus of the <a href="Electric_Heater_Ctrl.html">
+	Electric_Heater_Ctrl</a>)<li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the 
+	files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_e : displaying data of electric heater 
+    <li>files : &quot;electricheateroutput<i>_extension</i>.mat&quot; and &quot;electricheaterdetailoutput<i>_extension</i>.mat&quot;where 
+    extension is a string you can choose in the parameters of the block. 
+</ul>
+<p>The file contains the following information in timeseries. The timeseries 
+appear in a structure with the variable &quot;eh&quot;.</p>
+<ul>
+	<li>eh.Th_in : inlet temperature (heating) in degree Celsius </li>
+	<li>eh.Th_out : outlet temperature (heating) in degree Celsius
+	</li>
+	<li>eh.Cycles : number of on/off cycles</li>
+	<li>eh.OpTime : operation time of the boiler in s</li>
+	<li>eh.MassH : time integral of the mass flow on 
+	the heating side in kg</li>
+	<li>eh.Qh : thermal energy delivered to the system in J</li>
+	<li>eh.Welec_in : consumed electric energy in J</li>
+</ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br></p>
+<p><b>Parameters and Dialog Box</b>
+<p><img alt="" src="Figures/LoggerElectricHeaterCtrlMask.jpg"><p>The file &quot;electricheaterdetailoutput_<i>extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated. Detailed outputs 
+are written with a 60 s timestep only if the electric heater is in operation.</p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No 
+</p>
+</body>
+
+</html>

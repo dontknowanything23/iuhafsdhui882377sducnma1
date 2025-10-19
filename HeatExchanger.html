@@ -1,0 +1,182 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - HeatExchanger</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/HeatExchanger.jpg" align=right>
+<p class="blockname">HeatExchanger</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Heat_Exchanger
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculates the output of the hot and cold fluid of a heat exchanger.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The heat exchanger is characterised by the number of transfer units (NTU).
+Input temperatures are delayed by the heat capacity of the exchanger. 
+Parallel, cross and counter flow are possible.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+Thot_out = Thot_in - psi * (Thot_in - Tcold_in) <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+Tcold_out = Tcold_in - Whot/Wcold * (Thot_in - Thot_out) <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+ua = ua0 * ( (mdothot/mdot_nomhot)^ua_exphot + 
+(mdotcold/mdot_nomcold)^ua_expcold ) <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; NTU = ua/Whot <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+psi1 = exp(-NTU*(1 + min(w1,w2)/max(w1,w2)*(1 - 2*flow))) <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+psi = (1-psi1) / (1+min(w1,w2)/max(w1,w2)*(1-flow*(1+psi1)))<br><br>
+The delay for the inlet temperature is: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+(0.5*cap)*dT/dt = (Tin - T) - UAloss * (Tamb - T) <br><br>
+with
+</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>Symbol</b></td>
+		<td style="width: 400px;"><b>Used for</b></td>
+        <td> <b>Unit</b> </td>
+    </tr>
+    <tr>
+    	<td>cap</td>
+        <td>mass * heat capacity </td>
+        <td> J/K </td>
+    </tr>
+    <tr>
+    	<td>flow</td>
+        <td>type of flow (0=parallel, 0.5=cross, 1=counter) </td>
+        <td></td>
+    </tr>
+    <tr>
+    	<td>psi</td>
+        <td>dimensionless temperature change </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td>T</td>
+        <td>temperature</td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>Tamb</td>
+        <td>ambient temperature for thermal losses </td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>UA<sub>loss</sub></td>
+        <td>thermaol loss coefficient </td>
+        <td>W/K</td>
+    </tr>
+    <tr>
+    	<td>Whot</td>
+        <td>mass flow * heat capacity hot fluid</td>
+        <td>W/K</td>
+    </tr>
+    <tr>
+    	<td>Wcold</td>
+        <td>mass flow * heat capacity cold fluid</td>
+        <td>W/K</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Tamb </td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature for thermal losses &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THB_pri </td>
+        <td>:</td>
+        <td> entering primary (hot) <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> THB_sec </td>
+        <td>:</td>
+        <td> entering secondary (cold) <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBpri </td>
+		<td style="width: 10px;">:</td>
+        <td> leaving primary (hot) <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> THBsec </td>
+        <td>:</td>
+        <td> leaving secondary (cold) <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/HeatExchangerMask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_HeatExchanger </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Renz, U.: Kalorische Apparate, Vorlesungsskript zur gleichnamigen 
+Vorlesung an der RWTH Aachen, Aachen, Lehrstuhl fiir Warmeuebertragung 
+und Klimatechnik, 1987 </p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+Be carefull when using the model for crossflow heat exchangers. 
+It is correct for NTU &lt;= 2. For NTU = 4 the error is about 5 %.
+</p>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

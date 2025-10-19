@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>capacity</title>
+<style type="text/css">
+p
+	{margin-right:0cm;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ul
+	{margin-bottom:0cm;}
+ li.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+a:link
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;
+}
+.auto-style1 {
+	margin-left: 120px;
+}
+</style>
+</head>
+
+<body>
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+<hr size=10 width="100%" noshade style='color:#A0A0A0' align=center>
+</span></span></div>
+
+
+<p><span class=GramE><span style='mso-bookmark:capacity'>
+<span
+style='mso-bookmark:literature'>
+<span style='font-size:18.0pt;
+line-height:120%'><b>
+<img alt="" src="Figures/RoomAirComposition.gif" style="float: right" />RoomAirComposition</b></span></span></span></span><span
+style='mso-bookmark:capacity'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+<b>Path: CARNOT/<span lang="de">B</span>asic<span lang="de">/Thermal_Model</span>s</b> <br clear=all style='mso-special-character:line-break'>
+<o:p></o:p></span></span></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:capacity'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></div>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Purpose</span></b><span lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+</span><span style='font-size:13.5pt;line-height:120%'> Model for the 
+concentration of CO2 and VOC in the room air. Additionally the humidity in the 
+room is damped by a transfer function (NO full humidity model).</span></span></p>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Description</span></b><span lang=EN-US style='font-size:13.5pt;line-height:120%'> </span></span></p>
+<p><font size="4">Concentration of gases (CO2 and VOC) are calculated by </font>
+<span style='mso-bookmark:literature'>
+<span style='font-size:13.5pt;line-height:120%'> the differential equations used 
+to model mixing or dilution problems. <br />
+If y&nbsp;is the quantity of a gas in a room, then its rate of change with respect to 
+time&nbsp;t&nbsp;will be given by </span></span></p>
+<p><span style='mso-bookmark:literature'>
+<span style='font-size:13.5pt;line-height:120%'> &nbsp;&nbsp;&nbsp; dy/dt =&nbsp;flow 
+in&nbsp;−&nbsp;flow out</span></span></p>
+<p><font size="4">With <br />
+&nbsp;&nbsp; </font><span style='mso-bookmark:literature'>
+<span style='font-size:13.5pt;line-height:120%'> flow&nbsp;=&nbsp;concentration&nbsp;×&nbsp;velocity<br />
+and &nbsp;<br />
+&nbsp;&nbsp; concentration&nbsp;=&nbsp;quantity&nbsp;&nbsp;volume&nbsp; </span></span></p>
+<p><span style='mso-bookmark:literature'>
+<span style='font-size:13.5pt;line-height:120%'> We get </span></span></p>
+<p><span style='mso-bookmark:literature'>
+<span style='font-size:13.5pt;line-height:120%'> &nbsp;&nbsp; dy/dt = 
+y_coming_in/volume&nbsp;×&nbsp;velocity_in&nbsp;− y_going out/volume&nbsp;×&nbsp;velocity out</span></span></p>
+<p><font size="4">For constant boundary conditions the equation can be solved 
+analytically. As boundary conditions may vary, the model leaves this task to 
+Simulink.</font></p>
+<p><font size="4">Remark: The calculation can be disabled by the check-box 
+"Calculate air composition".<br />
+</font></p>
+<p><font size="4"><strong>Inputs</strong></font></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt'><span
+     style='mso-bookmark:literature'>
+ <span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>THBvent -
+ <a href="THB_format.html">Thermo-Hydraulic Bus</a> of all air flows entering 
+ the room (air gaps, window ventilation, ventilation system and external air 
+ supply)</span></span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt'>
+	<span
+     style='mso-bookmark:literature'>
+	<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Troom - room 
+	temperature in °C </span>
+	<span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>&nbsp;</span><span lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></span></li>
+    <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt'>
+	<span
+     style='mso-bookmark:literature'>
+	<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>RDB - Resident 
+	Data Bus, <font size="4">use <a href="ResidentData.html">Resident_Data</a> or
+<a href="ResidentTask44.html">Redident_Task44</a> to create the bus</font></span></span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+	<span
+     style='mso-bookmark:literature'>
+	<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>THBsupplyAir -
+	<a href="THB_format.html">Thermo-Hydraulic Bus</a> of an external 
+	ventilation system. The mass flow in this THB sets the mass flow in 
+	THBexhaustAir.</span></span></li>
+</ul>
+<p><strong>Ou</strong><font size="4"><strong>tputs</strong></font></p>
+<ul type=disc class="auto-style1">
+    <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+	<span
+     style='mso-bookmark:literature'>
+	<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>THBvent_out -
+	<a href="THB_format.html">Thermo-Hydraulic Bus</a> of the air leaging the 
+	room, the massflow is the total massflow of all air exchange as given in 
+	THBvent</span></span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+	xH2O - absolute humidity of the room air in kg of water per kg of dry air</li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+	CO2 - concentration of CO2 in ppm</li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+	VOC - concentration of VOC in ppm</li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l13 level1 lfo53;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+	<span
+     style='mso-bookmark:literature'>
+	<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>THBexhaustyAir 
+	- <a href="THB_format.html">Thermo-Hydraulic Bus</a> of the exhaust air to 
+	the external ventilation system. The mass flow in this THB is set by the 
+	mass flow in THBexhaustAir. All air properties are taken from the room air 
+	(temperature, humidity, concentration).</span></span></li>
+</ul>
+
+<p><br />
+</p>
+
+<p><span style='mso-bookmark:literature'><b>
+<span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Parameters and Dialog Box</span></b></span></p>
+<p><span style='mso-bookmark:literature'>
+<span lang=EN-US style='font-size:13.5pt;
+line-height:120%'><img alt="" src="Figures/RoomAirCompositionMask.jpg" /></span></span></p>
+
+<p>&nbsp;</p>
+<p><span style='mso-bookmark:literature'><b>
+<span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Characteristics </span></b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'><br>
+Direct Feedthrough</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp; Yes</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+Sample time</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Inherited from driving block <br>
+Vectorized</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>No</span></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style='mso-bookmark:literature'>
+<span
+lang=EN-US style='font-size:13.5pt;line-height:120%'><br clear=all
+style='mso-special-character:line-break'>
+</span></span></p>
+
+</body>
+
+</html>

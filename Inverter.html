@@ -1,0 +1,113 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Inverter</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Inverter.jpg" align=right>
+<p class="blockname">Inverter</p>
+<p style="margin-top:0px; margin-bottom:20px">
+Path: CARNOT/Source/Electric_Generator<br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Inverter for PV systems with an efficiency lookup table.
+</p>
+<p><b>Description:</b><br>
+The block is a model of a 1-phase or 3-phase inverter DC to AC. In the 
+3-phase mode the AC power is distributed equally to all three phases.<br>
+The model considers the efficiency of the inverter based on a lookup 
+table for different part-load and over-load conditions. The Input 
+P_max_set allows to limit the AC power to this setpoint.<br>
+The model of the inverter is typically used with a 
+<a href="PV_Generator.html">PV-generator model</a>
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">EB_DC</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#electric_bus">
+		Electric Bus</a> of the direct current from the PV-modules</td>
+    </tr>
+    <tr>
+    	<td> P_max_set </td>
+        <td>:</td>
+        <td> Setpoint for maximum AC power output in W</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">EB_AC</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#electric_bus">
+		Electric Bus</a> of the alternate current</td>
+    </tr>
+    <tr>
+    	<td> InvDat </td>
+        <td>:</td>
+        <td> Inverter data bus</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/InverterMask.jpg" /></p>
+<p>You may specify your own specifications by activating the 'user parameters' 
+checkbox.<br />
+Parameter sets can be loaded from a configuration file or can 
+be edited by the user. See <a href="2_Basic_Concepts.html#specifying_components">
+Basic Concepts - 2.2 Specifying Components from the Subsystem</a> 
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_PV_with_Inverter">
+	example_PV_with_Inverter</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

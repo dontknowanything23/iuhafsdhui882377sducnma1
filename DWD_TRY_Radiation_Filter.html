@@ -1,0 +1,100 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - DWD_TRY_Radiation_Filter</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/DwdRadiationFilter.gif" align=right>
+<p class="blockname">DWD_TRY_Radiation_Filter</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Weather</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Filter peaks in solar beam normal radiation in Test Reference Years.
+</p>
+<p><b>Description:</b><br>
+The peaks occur because the time comlumn in the DWD reference years is not 
+correct. For details see <a href="pdf/Hiller_TRY_Klimadatensaetze_OTTI_2015.pdf">
+Hiller 2015</a>. More details are described in 
+<a href="2_Basic_Concepts.html#weather_data_records">Chapter 2.6 Weather Data 
+Records - German TRY Dataset 2011 in 2. Basic Concepts</a>.<br>
+The filter sets the beam normal radiation reduces the solar beam radiation to 
+a filter parameter f (1..10) times the cosine of the solar zenith angle.
+</p>
+<p><img alt="" src="Figures/DwdRadiationFilterFig.gif" /></p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="WDB_format.html">Weather Data Bus</a></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> WDB_filter </td>
+		<td style="width: 10px;">:</td>
+        <td> Weather Data Bus with filtered beam radiation </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img src="Figures/DwdRadiationFilterMask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_TRYradiationFilter">
+	example_TRYradiationFilter</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+<a href="pdf/Hiller_TRY_Klimadatensaetze_OTTI_2015.pdf">Hiller, Schaefer: 
+TRY-Klimadatensaetze - offizielles Verbot für solarthermische Simulationen, 
+25. OTTI Symposium Thermische Solarenergie, 2015</a></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

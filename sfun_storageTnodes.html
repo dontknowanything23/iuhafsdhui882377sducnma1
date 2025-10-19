@@ -1,0 +1,464 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - sfun_storage_Tnodes</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/sfunStorageTnodes.gif" align=right>
+<p class="blockname">sfun_storage_Tnodes</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Basic model for the <a href="Storage_Type_N.html">multiport storage model</a>. 
+The concept is a multiport one-dimensional model. The storage is connected 
+to other CARNOT components by a variable number of port blocks.
+</p>
+
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+<strong>S-Function storage_Tnodes</strong><br />
+This s-function is the basic model of the storage. It divides the storage in N 
+nodes where node 1 is at the bottom and node N at the top.<br />
+The Port_to_Storage vector has the following elements :
+</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 400px;">[T_in_1, T_in_2, … T_in_N]</td>
+        <td> Vector with N elements: temperatures of mass flows entering the nodes </td>
+    </tr>
+    <tr>
+    	<td> [mdot_in_1, T_mdot_in_2, … mdot_in_N] </td>
+        <td> Vector with N elements: mass flows entering the nodes</td>
+    </tr>
+    <tr>
+    	<td> [mdot_up_1, mdot_up_2, … mdot_up _(N-1)] </td>
+        <td> Vector with N-1 elements: mass flows upwards in the store due 
+		to the pipe connections</td>
+    </tr>
+    <tr>
+    	<td> [mdot_down_1, mdot_down_2, … mdot_down_(N-1)] </td>
+        <td> Vector with N-1 elements: mass flows downwards in the store 
+		due to the pipe connections</td>
+    </tr>
+    <tr>
+    	<td> [Qdot_1, Qdot_2, … Qdot_N] </td>
+        <td> Vector with N elements: power entering node (negative for 
+		cooling) due to heat exchangers</td>
+    </tr>
+    <tr>
+    	<td> pressure </td>
+        <td> Pressure of fluid in Pa (relevant only for pipe connections, 
+		-9999 for heat exchangers)</td>
+    </tr>
+    <tr>
+    	<td> Fluid type </td>
+        <td> Fluid type (relevant only for pipe connections,
+		-9999 for heat exchangers). See <a href="2_Basic_Concepts.html#THB">
+		Basic_Concepts - THB</a> for details. </td>
+    </tr>
+    <tr>
+    	<td> Fluid mixture </td>
+        <td> Fluid mixture (relevant only for pipe connections, 
+		-9999 for heat exchangers). See <a href="2_Basic_Concepts.html#THB">
+		Basic_Concepts - THB</a> for details. </td>
+    </tr>
+</table>
+
+<p><b>Mathematical Model</b><br>
+The storage is divided into &quot;NODES&quot; nodes. An energy balance for
+every node is done using the following differential equation. 
+This equation is derived from the energy balance with the finite volume approach 
+[Patankar 1980]. For the massflow the upwards scheme is used (entering massflow 
+is evaluated with the temperature of the node above). For the thermal 
+conductivity central differences are used. <br><br>
+(rho*cp) * dT/dt = <br />
++ (U<sub>loss,wall</sub>*A<sub>wall</sub> + U<sub>loss,top</sub>*A<sub>top</sub> 
++ U<sub>loss,bot</sub> * A<sub>bot</sub>) / V<sub>node</sub> * (T<sub>amb</sub> 
+- T<sub>node</sub>)<br />
++ cond / d<sub>h</sub><sup>2</sup> * (T<sub>node_above</sub> - T<sub>node</sub>) 
++ cond / d<sub>h</sub><sup>2</sup> * (T<sub>node_below</sub> - T<sub>node</sub>) <br />
++ m<sub>dot_up</sub> * c<sub>p</sub> / V<sub>node</sub> * (T<sub>node_below</sub> 
+- T<sub>node</sub>) <br />
++ m<sub>dot_down</sub> * c<sub>p</sub> / V<sub>node</sub> 
+* (T<sub>node_above</sub> - T<sub>node</sub>)<br />
++ U<sub>hx</sub> * A<sub>hx</sub> / V<sub>node</sub> * (T<sub>hx_node</sub> - T<sub>node</sub>)  
++ heat_transport<br><br>
+</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> <b>symbol</b> </td>
+		<td style="width: 400px;"> <b>used for</b> </td>
+        <td> <b>unit</b> </td>
+    </tr>
+    <tr>
+    	<td> A<sub>hx</sub> </td>
+        <td> surface area of heat exchanger per node</td>
+        <td> m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> A<sub>bot</sub> </td>
+        <td> surface for thermal losses of bottom node, 
+		must be set to zero for all nodes except bottom node</td>
+        <td> m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> A<sub>top</sub></td>
+        <td> surface for losses of top node, must be set +
+		to zero for all nodes except top node</td>
+        <td> m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> A<sub>wall</sub></td>
+        <td> wall surface or losses of one node</td>
+        <td> m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> cond</td>
+        <td> effective axial thermal conductivity </td>
+        <td> W/m/K</td>
+    </tr>
+    <tr>
+    	<td> c<sub>p</sub> </td>
+        <td> heat capacity</td>
+        <td> J/kg/K </td>
+    </tr>
+    <tr>
+    	<td> d<sub>h</sub> </td>
+        <td> distance between two nodes</td>
+        <td> m</td>
+    </tr>
+    <tr>
+    	<td> heat_transport </td>
+        <td> heat transport due to an inversed thermocline</td>
+        <td> W/m<sup>3</sup></td>
+    </tr>
+    <tr>
+    	<td> m<sub>dot</sub> </td>
+        <td> mass flow rate (&quot;up&quot; or &quot;down&quot; is zero according to sum of flowrates)</td>
+        <td> kg/s </td>
+    </tr>
+    <tr>
+    	<td> rho </td>
+        <td> density</td>
+        <td> kg/m<sup>3</sup> </td>
+    </tr>
+    <tr>
+    	<td> T </td>
+        <td> temperature </td>
+        <td> &deg;C</td>
+    </tr>
+    <tr>
+    	<td> t </td>
+        <td> time </td>
+        <td> s </td>
+    </tr>
+    <tr>
+    	<td> U<sub>loss,bot</sub> </td>
+        <td> heat loss coefficient of the cylinder bottom surface</td>
+        <td> W/m<sup>2</sup>/K </td>
+    </tr>
+    <tr>
+    	<td> U<sub>loss,top</sub> </td>
+        <td> heat loss coefficient of cylinder top surface</td>
+        <td> W/m<sup>2</sup>/K </td>
+    </tr>
+    <tr>
+    	<td> U<sub>loss,wall </td>
+        <td> heat loss coefficient of cylinder wall surface</td>
+        <td> W/m<sup>2</sup>/K </td>
+    </tr>
+    <tr>
+    	<td> U<sub>hx</sub> </td>
+        <td> heat transfer coefficient of heat exchanger </td>
+        <td> W/m<sup>2</sup>/K </td>
+    </tr>
+    <tr>
+    	<td> V<sub>node</sub> </td>
+        <td> node volume </td>
+        <td> m<sup>3</sup></td>
+    </tr>
+</table>
+
+<p> The number of nodes is variable and can be set as a parameter of the 
+S-function from SIMULINK. For fast calculations a number of 10 nodes is 
+normaly sufficient. An accurate representation of the storage tank is 
+achieved with 50 to 100 nodes.<br>
+For this node-scheme you have to obey the following boundary condition 
+for the Courant number c when using fixed timestep solvers. Adapt the 
+timestep dt accordingly:<br><br>
+&nbsp;&nbsp;&nbsp; c = dt * v / dh &lt;= 1<br><br>
+with the velocity v<br><br>
+&nbsp;&nbsp;&nbsp; v = m<sub>dot</sub> / rho / A<sub>c_storage</sub><br><br>
+For most exact results with variable timestep solvers the maximum time 
+step dt should be 300 seconds.<br><br>
+The effective axial thermal conductivity in W/m/K is calculated 
+by means of the equation:<br><br>
+cond = (l_wall*A<sub>c_wall</sub> + l_fluid*A<sub>c_storage</sub> + 
+l_heatex*A<sub>c_heatex</sub>) / 
+(A<sub>wall</sub> + A<sub>storage</sub> + A<sub>heatex</sub>)</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> <b>symbol</b> </td>
+		<td style="width: 400px;"> <b>used for</b> </td>
+        <td> <b>unit</b> </td>
+    </tr>
+    <tr>
+    	<td> A<sub>c_wall</sub> </td>
+        <td> cross-section area of wall </td>
+        <td> m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> A<sub>c_storage</sub> </td>
+        <td> cross-section area of store </td>
+        <td> m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> A<sub>c_heatex </sub></td>
+        <td> cross-section area of heat exchanger </td>
+        <td> m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> l_wall </td>
+        <td> thermal conductivity of wall material</td>
+        <td> W/m/K </td>
+    </tr>
+    <tr>
+    	<td> l_fluid </td>
+        <td> thermal conductivity of fluid in storage </td>
+        <td> W/m/K </td>
+    </tr>
+    <tr>
+    	<td> l_heatex </td>
+        <td> thermal conductivity of heat exchanger material </td>
+        <td> W/m/K </td>
+    </tr>
+</table>
+
+<p><strong>Pipe connections and internal massflow</strong><br><br>
+<img src="Figures/imgStoragePipeConnections.gif" /><br />
+<br />
+Pipes are connected to the nodes of the model. They are defined by the inlet and 
+outlet position. In the exampel above the direct charging pipe and the direct 
+discharing pipe are connected to node 1 and 3.<br />
+In the massflow balance in the storage model flows upwards and downwards are 
+seperated. The index n of the massflows upwards and downwards refer to volume 
+segment n below. </p>
+<p> <img src="Figures/imgStorageNodeScheme.gif" /> </p>
+
+<p> The s-function storage_Tnodes.c checks for all nodes except the top one if there 
+is a massflow downwards entering from the node above. Additionally for all nodes 
+execept the bottom node (index 1) the s-function checks if there is a massflow 
+upwards from the node below..<br />
+Entering massflows, the massflows upwards and downwards are defined by the pipe 
+connections. The s-function sums up all massflow downwards and upwards to 
+determine the resulting massflow (upwards or downwards)..<br />
+</p>
+
+<p><strong>Inversed Thermocline</strong><br />
+From the differential equation it may occur that some lower nodes have a higher 
+temperature than the upper nodes. This is a typical situation when heating the 
+storage with an immersed heat exchanger at the lower part. To avoid this 
+unrealistic situation, an algorithm for the elimination of the inversed 
+thermocline is included in the model. The elimination method can be selected: </p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 40px;">0</td>
+		<td style="width: 10px;">:</td>
+        <td> inversed thermocline is not eliminated </td>
+    </tr>
+    <tr>
+    	<td>1</td>
+        <td>:</td>
+        <td>temperature based</td>
+    </tr>
+    <tr>
+    	<td>2</td>
+        <td>:</td>
+        <td> Density based </td>
+    </tr>
+</table>
+
+<p><b>WARNING:</b> MODE 1 IS NOT SUPPORTED BY CURRENT MATLAB VERSIONS !!! </p>
+
+<p>Temperature based: An inversed thermocline exists if the temperature of 
+the lower node is more than LIMIT_T_INVERSED (1e-4 &deg;C) above the upper node. 
+The model adds an additional heat transport towards the upper node.<br>
+heat_transport = COND_ITC * temperature_difference / Vnode <br>
+A typical range for COND_ITC is 5e3...5e4 [W/K].<br><br>
+Density based : An inversed thermocline exists, if the density of the 
+lower node is less than the density of the upper node. The model adds 
+an additional heat transport towards the upper node. <br />
+heat transport = COND_ITC * density_difference / Vnode <br />
+A typical range for COND_ITC is 1e4...1e5 [W*m³/kg].<br />
+</p>
+
+<p><font size="4"><strong>Measurement Points</strong><br />
+As we want to know the temperature at fixed places inside the storage, a number 
+of measurement points are placed at equidistant locations inside the storage, 
+no matter how many nodes are used for the calculation. The first temperature in 
+the output vector &quot;Tnode&quot; corresponds to the lowest measurement 
+point, rising numbers in upwards.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Tamb </td>
+		<td style="width: 10px;">:</td>
+        <td> Ambient temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Port 1 </td>
+        <td>:</td>
+        <td> Port_to_Storage Vector 1</td>
+    </tr>
+    <tr>
+    	<td> Port 2 </td>
+        <td>:</td>
+        <td> Port_to_Storage Vector 2</td>
+    </tr>
+    <tr>
+    	<td> ... </td>
+        <td>:</td>
+        <td> ... </td>
+    </tr>
+    <tr>
+    	<td> Port N </td>
+        <td>:</td>
+        <td> Port_to_Storage Vector N </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Energy</td>
+		<td style="width: 10px;">:</td>
+        <td> Energy balance of the storage:<br>
+		1 - internal change of energy in J<br>
+		2 - thermal losses in J</td>
+    </tr>
+    <tr>
+    	<td> Tnodes </td>
+        <td>:</td>
+        <td> Vector with the node temperatures (first temperature is bottom node, 
+		last temperature is the top node). This temperature vector is given back 
+		to the port block where the original THB is reassembled with the new 
+		values for the temperature.</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p>
+The parameters represent the geometric and thermodynamic data of the storage. 
+The top mask defines also the number of ports, the number of temperature 
+sensors and the number of nodes.</p>
+<p><img src="Figures/sfun_storage_Tnodes_Mask1.jpg" /></p>
+<p><img src="Figures/sfun_storage_Tnodes_Mask2.jpg" /></p>
+<p><img src="Figures/sfun_storage_Tnodes_Mask3.jpg" /></p>
+<p><img src="Figures/sfun_storage_Tnodes_Mask4.jpg" /></p>
+
+
+<p><b>Using the block in your store model</b><br />
+If the block sfun_storage_Tnodes is located inside another block and this block
+changes the number of ports by an own mask parameter, the original callback 
+does not become executed immediately. This is a Simulink safety measure to 
+prevent infinite loops. However, this may lead to a strange behaviour of the 
+block sfun_storage_Tnodes during starting (initialisation) of a simulation model. 
+To prevent this, Simulink must be told that the mask parameter of the block 
+containing sfun_storage_Tnodes and the block sfun_storage_Tnodes are actually 
+the same. This is called &quot; promotion &quot; in Simulink. To promote a mask 
+parameter right click on you block, select mask and edit mask. This dialog box 
+appears. </p>
+<p><img src="Figures/sfun_storage_Tnodes_MaskPic3.png" /></p>
+<p>Now select &quot; Promote underlying block Parameter(s)to this mask parameter &quot; as indicated in the figure by the red circle.
+As the next step select the &quot; number of ports &quot; parameter of sfun_storage_Tnodes and click &quot; Ok &quot;.
+</p>
+<p><img src="Figures/sfun_storage_Tnodes_MaskPic4.png" /></p>
+<p> If you now open the mask of sfun_storage_Tnodes, the parameter &quot; number of ports &quot; will be shown grayed. 
+This indicates that the parameter is promoted to the mask above.</p>
+<p> <img src="Figures/sfun_storage_Tnodes_MaskPic5.png" /></p>
+<p>&nbsp;</p>
+<br />
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_storage_TypeN </li>
+ <li> example_StorageTnodes </li>
+</ul>
+
+<p><b>Verification</b></p>
+<ul>
+	<li> verify_StorageTnodesEN12977lossess.m : benchmark of storage losses according to EN 12977</li>
+	<li> verify_sfun_storage_heatexchanger.m : benchmark of the heat exchanger according to EN 12977</li>
+	<li> validate_sfun_storage_heatexchanger2.m : checks of all the heat exchanger types</li>
+	<li> verify_StorageTnodesPipe.m : energy balance check of the pipe connections</li>
+</ul>
+
+<p><b>Literature:</b><br />
+Patankar: Numerical Heat Tansfer and Fluid Flow, 1980</p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+You may use this storage with MAX_PORT ports of any type (pipes, heat
+exchangers). The inlet and outlet of the ports may be at the same height or at
+different heights..  The maximum 
+number of ports (MAX_PORT) is defined in the s-function storage_Tnodes.c.. 
+The maximum number of
+ports MAX_PORT is limited to 10 in the acual version of CARNOT. You may change
+the number by editing the c-code and compiling the file. See &quot;Advanced
+Topics: Creating S-Functions as c-mex Files&quot;.
+</p>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

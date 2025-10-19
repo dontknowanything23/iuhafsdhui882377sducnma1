@@ -1,0 +1,190 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Prandtl</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/prandtl.jpg" align=right>
+<p class="blockname">Prandtl</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Hydraulics
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculate the Prandtl number.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Calculates the Prandtl Pr number according to the inputs.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; Pr = c<sub>p</sub>*h/l <br><br>
+with<br>
+&nbsp;&nbsp;&nbsp;&nbsp; c<sub>p</sub> - heat capacity in J/kg/K <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <span style='font-family:Symbol'>h</span> - 
+dynamic viscosity in kg/m/s <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <span style='font-family:Symbol'>l</span> - 
+thermal conductivity in W/m/K <br><br>
+
+The calculation is carried out in the S-function prandtl which is part of the <a
+href="carlib.html">Carlib Library</a> depending on the 
+<a href = "2_Basic_Concepts.html#Fluid_ID">fluid_type, fluid_mix</a>, 
+temperature T and pressure p. The material properties functions can also be 
+called directly from the command window by typing:<br>
+<tt>prandtl(<em>temperature, pressure, fluid_type, fluid_mix</em>)</tt><br>
+Instead of the italic variables the actual value of the respective property 
+has to be entered. <br>
+For more information about the function type:<br>
+<tt>help prandtl</tt><br>
+Validated temperature and pressure range is:</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">fluid_ID</td>
+		<td style="width: 100px;">fluid</td>
+		<td style="width: 100px;">phase</td>
+		<td style="width: 200px;">temperature</td>
+        <td> pressure </td>
+    </tr>
+    <tr>
+    	<td> 1 </td>
+        <td> water </td>
+        <td> vaporous </td>
+        <td> 0 &deg;C &lt; T &lt; 800 &deg;C </td>
+        <td> p &lt; 49 MPa </td>
+    </tr>
+    <tr>
+    	<td> 1 </td>
+        <td> water </td>
+        <td> liquid</td>
+        <td> 0 &deg;C &lt; T &lt; 160 &deg;C </td>
+        <td> </td>
+    </tr>
+    <tr>
+    	<td> 2 </td>
+        <td> air </td>
+        <td> gaseaous </td>
+        <td> 0 &deg;C &lt; T &lt; 400 &deg;C </td>
+        <td> 900 hPa &lt; p &lt; 1100 hPa </td>
+    </tr>
+    <tr>
+    	<td> 3 </td>
+        <td> cotton oil </td>
+        <td> liquid </td>
+        <td> 0 &deg;C &lt; T &lt; 200 &deg;C </td>
+        <td> p = 1013 hPa </td>
+    </tr>
+    <tr>
+    	<td> 4 </td>
+        <td> silicone oil </td>
+        <td> liquid </td>
+        <td> 0 &deg;C &lt; T &lt; 200 &deg;C </td>
+        <td> p = 1013 hPa </td>
+    </tr>
+    <tr>
+    	<td> 5 </td>
+        <td> water-gylcol </td>
+        <td> liquid </td>
+        <td> 0 &deg;C &lt; T &lt; 100 &deg;C </td>
+        <td> p = 1013 hPa </td>
+    </tr>
+</table>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature (scalar or vector) in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid types</a> </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid mixtures</a></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Pr</td>
+		<td style="width: 10px;">:</td>
+        <td> Prandtl number </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/Prandtl_mask.jpg" /></p>
+
+<p> You can choose the inputs to be the : </p>
+<ul>
+ <li> state variables (temperature, pressure, fluid type 
+ and mix have separate input ports)</li>
+ <li> the Thermo Hydraulic Bus (THB) </li>
+ <li> or, for compatibility with older versions, 
+ the Thermo Hydraulic Vector (THV) </li>
+</ul>
+
+<p><img src="Figures/EntropyMaskB.jpg" /></p>
+
+<p>Use the <a href="GlobalMessageLevel.html">GlobalMessageLevel</a> 
+block to handle the debugging messages.</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Prandtl </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

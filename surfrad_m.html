@@ -1,0 +1,223 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>surfrad_m - cacluates the radiation on an inclined surface</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="surfrad_m.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>surfrad_m - cacluates the radiation on an inclined surface</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">function call</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Literature</a></li><li><a href="#5">initialisation of variables</a></li><li><a href="#6">calculations</a></li></ul></div><h2 id="1">function call</h2><pre>[idir_t, idfu_t, teta, tetatrans, tetalong] = ...
+   surfrad_m(idir_sun_n, idfu_sun_h, iextra_n, zen, azi, cangle,cazi,crot, skymodel, grfl)</pre><h2 id="2">Inputs</h2><pre>idir_sun_n : direct solar radiation on normal surface in W/m&sup2;
+idfu_sun_h : diffuse solar radiation on horizontal surface in W/m&sup2;
+iextra_n   : extraterrestrial direct solar radiaton on normal surface in W/m&sup2;
+zen        : zenith angle of the sun in degree
+azi        : azimuth angle of the sun in degree (0&deg; = south, east negative)
+cangle     : collector inclination angle in degree
+cazi       : collector azimuth angle in degree (0&deg; = south, east negative)
+crot       : collector rotation angle in degree
+skymodel   : 1 = isotropic, 2 = Hay Davies, 3 = Perez
+grfl       : ground reflectance in 0..1</pre><h2 id="3">Outputs</h2><pre>idir_t     : direct solar radiation on collector in W/m&sup2;
+idfu_t     : diffuse solar radiation on collector in W/m&sup2;
+teta       : incidence angle on collector in degree (0&deg; = vertical)
+tetatrans  : transversaal incidence angle in degree
+tetalong   : longitudinal incidence angle in degree</pre><h2 id="4">Literature</h2><pre>Duffie, Beckman: Solar Engineering of Thermal Processes, 2006
+ISO 9806:2017 : Solar thermal collectors &#8211; Test methods
+see also solar_extraterrestrial, radiation_on_inclined_surface block</pre><h2 id="5">initialisation of variables</h2><h2 id="6">calculations</h2><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% surfrad_m - cacluates the radiation on an inclined surface
+%% function call
+%  [idir_t, idfu_t, teta, tetatrans, tetalong] = ...
+%     surfrad_m(idir_sun_n, idfu_sun_h, iextra_n, zen, azi, cangle,cazi,crot, skymodel, grfl)
+% 
+%% Inputs
+%  idir_sun_n : direct solar radiation on normal surface in W/m²
+%  idfu_sun_h : diffuse solar radiation on horizontal surface in W/m²
+%  iextra_n   : extraterrestrial direct solar radiaton on normal surface in W/m²
+%  zen        : zenith angle of the sun in degree
+%  azi        : azimuth angle of the sun in degree (0° = south, east negative)
+%  cangle     : collector inclination angle in degree
+%  cazi       : collector azimuth angle in degree (0° = south, east negative)
+%  crot       : collector rotation angle in degree
+%  skymodel   : 1 = isotropic, 2 = Hay Davies, 3 = Perez
+%  grfl       : ground reflectance in 0..1 
+% 
+%% Outputs
+%  idir_t     : direct solar radiation on collector in W/m²
+%  idfu_t     : diffuse solar radiation on collector in W/m²
+%  teta       : incidence angle on collector in degree (0° = vertical)
+%  tetatrans  : transversaal incidence angle in degree
+%  tetalong   : longitudinal incidence angle in degree
+% 
+%% Literature
+%  Duffie, Beckman: Solar Engineering of Thermal Processes, 2006
+%  ISO 9806:2017 : Solar thermal collectors – Test methods
+%  see also solar_extraterrestrial, radiation_on_inclined_surface block
+
+function [idir_t, idfu_t, teta, tetatrans, tetalong] = ...
+    surfrad_m(idir_sun_n, idfu_sun_h, iextra_n, zen, azi, cangle,cazi,crot, skymodel, grfl)
+%% initialisation of variables
+deg2rad = pi/180;
+rad2deg = 180/pi;
+tetatrans = deg2rad * 90.0; % incidence angle transversal coll. plane
+tetalong  = deg2rad * 90.0; % incidence angle longitudinal coll. plane
+teta      = deg2rad * 90.0; % incidence angle
+eps       = 0.00000001;
+idir_t    = 0.0;            % direct radiation on surface
+idfu_t    = 0.0;            % diffuse radiation on surface
+as = deg2rad * azi;
+zs = deg2rad * zen;
+zc = deg2rad * cangle;
+ac = deg2rad * cazi;
+rc = deg2rad * crot;
+%% calculations
+szs = sin(zs);      % sine ZENITH angle of sun
+czs = cos(zs);      % cosine ZENITH angle of sun
+sas = sin(as);      % sine AZIMUTH angle of sun
+cas = cos(as);      % cosine AZIMUTH angle of sun
+szc = sin(zc);      % sine ZENITH angle of collector (inclination)
+czc = cos(zc);      % cosine ZENITH angle of collector (inclination)
+sac = sin(ac);      % sine AZIMUTH angle of collector
+cac = cos(ac);      % cosine AZIMUTH angle of collector
+src = sin(rc);      % sine rotation angle of collector
+crc = cos(rc);      % cosine rotation angle of collector
+if (czs >= 1.0e-4)  % sun is there
+    % incidence angle on surface, equations based on vector rotations
+    sun0x=szs*cas;
+    sun0y=-szs*sas;
+    sun0z=czs;
+    % sun vector after first rotation around z axis
+    sun1x = cac*sun0x - sac*sun0y;
+    sun1y = sac*sun0x + cac*sun0y;
+    sun1z = sun0z;
+    % sun vector after second rotation around rotated y axis
+    sun2x = czc*sun1x -szc*sun1z;
+    sun2y = sun1y;
+    sun2z = szc*sun1x + czc*sun1z;
+    % sun vector after third rotation around (tilted) x axis
+    sun3x = sun2x;
+    sun3y = crc*sun2y + src*sun2z;
+    sun3z = -src*sun2y + crc*sun2z;
+    costeta = sun3z;
+    %   costeta = czs*czc + szs*szc*cda;
+    if (costeta >= 1.0e-5)  % sun is on the collector surface
+        teta = min(acos(costeta),pi/2-eps);
+        tetalong = atan(sun3x/sun3z);  %       projection on x-z plane
+        tetatrans = -atan(sun3y/sun3z);       % projection on y-z plane
+        % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH radiation on tilted surface REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+        rb = costeta/czs;                                           % ratio of direct radiation
+        idir_sun_h = idir_sun_n*czs;                                % direct radiation on horizontal
+        idfu_t = (idfu_sun_h + idir_sun_h)*0.5*grfl*(1.0-czc);  % reflected from ground
+        switch (skymodel)       % diffuse radiation on surface depends on sky model
+            case 1              % isotropic sky model
+                idfu_t = idfu_t+0.5*idfu_sun_h*(1.0+czc);
+            case 2              % Hay Davies sky model
+                idfu_t = idfu_t+idfu_sun_h*((1.0-idir_sun_n/iextra_n)*0.5*(1.0+czc) + rb*idir_sun_n/iextra_n);
+            case 3              % Perez sky model
+                a = max(0.0,costeta);
+                b = max(cos(deg2rad*85),cos(zs));
+                z3 = zen*zen*zen;
+                clearness = ((idfu_sun_h + idir_sun_n)/idfu_sun_h + 5.535*1e-6*z3)/(1+5.535*1e-6*z3);
+                % determination of brightness coefficients from Duffie-Beckman (2006) referring to Perez (1990)
+                if (clearness <= 1.065)
+                    f11 = -0.008; f12 =  0.588; f13 = -0.062; f21 = -0.060; f22 = 0.072; f23 = -0.022;
+                elseif (clearness <= 1.23)
+                    f11 =  0.130; f12 =  0.683; f13 = -0.151; f21 = -0.019; f22 = 0.066; f23 = -0.029;
+                elseif (clearness <= 1.5)
+                    f11 =  0.330; f12 =  0.487; f13 = -0.221; f21 =  0.055; f22 =-0.064; f23 = -0.026;
+                elseif (clearness <= 1.95)
+                    f11 =  0.568; f12 =  0.187; f13 = -0.295; f21 =  0.109; f22 =-0.152; f23 =  0.014;
+                elseif (clearness < 2.8)
+                    f11 =  0.873; f12 = -0.392; f13 = -0.362; f21 =  0.226; f22 =-0.462; f23 =  0.001;
+                elseif (clearness < 4.5)
+                    f11 =  1.132; f12 = -1.237; f13 = -0.412; f21 =  0.288; f22 =-0.823; f23 =  0.056;
+                elseif (clearness < 6.2)
+                    f11 =  1.060; f12 = -1.600; f13 = -0.359; f21 =  0.264; f22 =-1.127; f23 =  0.131;
+                else
+                    f11 =  0.678; f12 = -0.327; f13 = -0.250; f21 =  0.156; f22 =-1.377; f23 =  0.251;
+                end
+                brightness = 1.0/czs * idfu_sun_h/iextra_n;
+                F1 = max(0.0,(f11 + f12*brightness + f13*zs));
+                F2 = (f21 + f22*brightness + f23*zs);
+                % calculation of diffuse
+                idfu_t = idfu_t+idfu_sun_h*((1.0-F1)*0.5*(1.0+czc) + F1*a/b + F2*szc);
+            otherwise % no sky model
+                idfu_t = idfu_t+idfu_sun_h;
+        end
+        % limited to iextra_n to avoid peaks at high zen angles of sun
+        idfu_t = min(iextra_n, idfu_t);  % diffuse radiation on surface
+        % direct radiation on surface
+        idir_t = min(iextra_n, idir_sun_n*costeta);
+        % end if csz, check for sunset
+        % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- set outputs REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+        idir_t = max(0.0, idir_t);                  % 17   direct solar radiation on surface                   W/m^2
+        idfu_t = max(0.0, idfu_t);                  % 18   diffuse solar radiation on surface                  W/m^2
+    end
+end
+teta = teta*rad2deg;
+tetalong = tetalong*rad2deg;
+tetatrans = tetatrans*rad2deg;
+        
+
+##### SOURCE END #####
+--></body></html>

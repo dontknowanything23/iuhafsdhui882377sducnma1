@@ -1,0 +1,159 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Valve</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/valve.jpg" align=right>
+<p class="blockname">Valve</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics
+<br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculate the pressure drop of a valve with different flow coefficient 
+characteristics.
+</p>
+<p><b>Description:</b><br>
+The valve increases its pressure drop according to the control input 
+(opening). The calculation is based on the flow coefficient Kv and its 
+characteristics (model from [Volkmer, 2018]). 
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Kv = Vdot * sqrt(1e5Pa/dp * density/1000kg/m³) 
+</p>
+<p>Vdot is the volumetric flow rate in m<sup>3</sup>/h.
+</p>
+<p>Resolving the equation for the pressure drop dp gives: 
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; (Kv/Vdot)<sup>2</sup>² 
+= 1e5Pa/dp * density/1000kg/m<sup>3</sup> 
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; dp = (100 Pa*m<sup>3</sup>/kg) 
+* density * (Vdot/Kv)<sup>2</sup> 
+</p>
+<p>and with Vdot = mdot/density the pressure drop becomes</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; dp = (100 Pa*m<sup>3</sup>/kg)/density 
+* (mdot/Kv)<sup>2</sup> 
+</p>
+<p>change unit of mdot from kg/h to kg/s: 1 kg/h = 1 kg/(3600s) 
+we finally have</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; dp = (100 Pa*m<sup>3</sup>/kg) 
+* (3600 s/h)<sup>2</sup> / density * (mdot/Kv)<sup>2</sup> 
+</p>
+<p>The Carnot equation for the pressure drop is: 
+dp = qua * mdot<sup>2</sup>
+</p>
+<p>Comparing the two equations for the pressure drop we get:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; qua = (100 Pa*m<sup>3</sup>/kg) 
+* (3600 s/h)<sup>2</sup> / (density*Kv<sup>2</sup>)
+</p>
+<p> Kvs is defined as the flow coefficient of the fully opened valve. 
+The relative flow coefficient psi is: </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; psi = Kv/Kvs</p>
+<p>Two characteristics of the relative flow coefficient are 
+modelled:</p>
+<ol>
+ <li> Linear characteristic :  psi = psi_0 + (1-psi_0)*h </li>
+ <li> Equal percentage characteristic :  psi = psi_0 * (1/psi_0)^h)</li>
+</ol>
+
+<p>with </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; h = H/H100 relative opening </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; psi_0 relative flow coefficient of the 
+closed valve (h = 0) </p>
+<p>
+<img alt="" src="Figures/Valve_Fig1.jpg"><br />
+Figure: Relative flow coefficient Kv/Kvs as a function of the 
+relative opening H/H100 [VDMA 2015]
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		at the inlet of the valve </td>
+    </tr>
+    <tr>
+    	<td> Ctrl </td>
+        <td>:</td>
+        <td> valve position (0..1) 0 = closed, 0.5 = half way open, 1 = open</td>
+    </tr>
+</table>
+</p>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		at the outlet of the valve</td>
+    </tr>
+    <tr>
+    	<td> pos </td>
+        <td>:</td>
+        <td> current valve postion (0..1)</td>
+    </tr>
+</table>
+</p>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/valveMASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hydraulic_Valve </li>
+</ul>
+
+<p><b>Literature:</b><br />
+<a href="pdf/CARNOT_Nutzertreffen2018_HSBiberach_Volkmer_Hydraulik.pdf">
+Volkmer: Presentation of the FH Biberach Thamo_6x2 Library, 
+Carnot User Meeting Darmstadt 2018</a><br>
+VDMA-Einheitsblatt 24199, 2015
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

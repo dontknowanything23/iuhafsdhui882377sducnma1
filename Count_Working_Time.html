@@ -1,0 +1,111 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Count_Working_Time</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/count_working_time.jpg" align=right>
+<p class="blockname">Count_Working_Time</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Toolbox</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block counts the operatin time and cycles of the input.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block gives the actual operation time (= time when input is above zero), 
+the total working time (= integral working time since start of the simulation) 
+and the number of on cycles (= number of events when input changes from 0 
+to a value above 0).
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">input</td>
+		<td style="width: 10px;">:</td>
+        <td> signal to be evaluated </td>
+    </tr>
+    <tr>
+    	<td> - - -</td>
+        <td>:</td>
+        <td> - - -</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">flank</td>
+		<td style="width: 10px;">:</td>
+        <td> flank is set to 1 when the input rises from 0 to a 
+		value above 0, flank is 0 otherwise </td>
+    </tr>
+    <tr>
+    	<td> cycles </td>
+        <td>:</td>
+        <td> number of on cycles since start of the simulation </td>
+    </tr>
+    <tr>
+    	<td> actual worktime</td>
+        <td>:</td>
+        <td> operation time of the current "on-event" in s </td>
+    </tr>
+    <tr>
+    	<td> total worktime  </td>
+        <td>:</td>
+        <td> operation time since since start of the simulation in s </td>
+    </tr>
+</table>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_WorkingTime </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>Yes</td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>

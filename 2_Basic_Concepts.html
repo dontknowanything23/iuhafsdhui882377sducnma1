@@ -1,0 +1,2105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>Basic concepts</title>
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<p><font size="5">2<a href="#Basic_concepts"> Basic concepts </font> </a> </p>
+<hr>
+
+<p> 2.1 <a href="#carnot_vectors"> CARNOT Vector Definitions</a><br>
+&nbsp;&nbsp;2.1.1 <a href="#THB"> Thermo Hydraulic Bus (THB)</a> <br>
+&nbsp;&nbsp;2.1.2 <a href="#electric_bus"> Electric Bus (EB)</a> <br>
+&nbsp;&nbsp;2.1.3 <a href="#WDB"> Weather Data Bus (WDB) </a> <br>
+&nbsp;&nbsp;2.1.4 <a href="#fuel_vector"> Fuel Vector </a> <br>
+&nbsp;&nbsp;2.1.5 <a href="#eco_vector"> The Eco Vector </a> <br>
+&nbsp;&nbsp;2.1.6 <a href="#building_vector"> The Building Vectors </a> </p>
+
+<p> 2.2 <a href="#specifying_components"> Specifying Components from the Subsystem</a> </p>
+
+<p> 2.3  <a href="#utility_functions"> Utility Functions </a>  <br>
+&nbsp;&nbsp;2.3.1 <a href="#material_property_functions"> Material property functions </a> <br>
+&nbsp;&nbsp;2.3.2 <a href="#other_utility_functions"> Other utility functions </a></p>
+
+<p> 2.4  <a href="#pressure_calc"> Pressure Drop and Massflow Calculation </a><br>
+&nbsp;&nbsp;2.4.1 <a href="#pressure_calc"> Basic equation </a><br>
+&nbsp;&nbsp;2.4.2 <a href="#pressure_calc"> Calculations without pressure drop </a><br>
+&nbsp;&nbsp;2.4.3 <a href="#pressure_calc"> Pumps and components with pressure drops in a cycle </a><br>
+&nbsp;&nbsp;2.4.4 <a href="#pressure_calc"> Cycles with influence of static height </a><br>
+&nbsp;&nbsp;2.4.5 <a href="#pressure_calc"> Pressure drop for components in series </a><br>
+&nbsp;&nbsp;2.4.6 <a href="#pressure_calc"> Pressure drop for components in parallel </a></p>
+
+ <p> 2.5  <a href="#other_tools"> List of useful open source tools </a><br>
+&nbsp;&nbsp;2.5.1 <a href="#other_tools"> PVLIB Toolbox </a><br>
+&nbsp;&nbsp;2.4.1 <a href="#coolprop"> Coolprop (refrigerant properties) </a>
+</p>
+<p> 2.6<a href="#weather_data_records"> Weather Data Records</a></p>
+
+<p> <a href="#data_logging">2.7 Data Logging</a></p>
+<hr>
+
+<h1><a name="Basic_concepts"><b>2 Basic concepts</b> </a></h1>
+<p> In this chapter some important changes to the conventional 
+use of Libraries for MATLAB SIMULINK are presented. At the same time some of 
+the model concepts and calculation methods are explained, because they also 
+have an effect of the creation of the models.  </p>
+<a name="carnot_vectors"> <h2>2.1 CARNOT vector definitions</h2><!-- --></a><a
+ name="carnot_vectors">   </a>
+<h3> <b>2.1.1 <a name="THB">Thermo-Hydraulic Bus (THB)</a></b>  
+</h3>
+<p> The Thermo-Hydraulic Bus (THB) is the common data structure 
+of the CARNOT Toolbox. In old versions of Carnot, the Thermo-Hydraulic Vector (THV) was used.
+In spite of the fact that it should not be used any more, it is described here, because it might be found in old models.<br>
+The THB contains all the necessary information about the flow and the energy 
+transfer associated with it. In the blocks where the Thermo-Hydraulic Bus 
+is split up, the calculations are carried out in the block and afterwards, the 
+THB is reassembled with the processed values. <br>
+Each THB corresponds to a physical pipe connection between components. The information 
+is only transported by the vector, whereas the calculation is performed inside 
+the blocks. <br>
+Components are connected using the THB. Each block must have at least one entry 
+for a THB, otherwise the block would not have any effect on the state of the 
+flow. <br>
+The THB is defined in the file THB.mat. It has 12 components. The advantage compared to a vector is that each bus
+element has it's own name. In Simulink the single data can be accessed via a bus selector block, in Matlab
+the bus can be used as a structure.<br>
+
+<p> The structure of the Thermo-Hydraulic Bus is shown in the 
+following table.  </p>
+
+<p style="margin-bottom:0;"><b>THB - bus definition</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 30px;"><b>No.</b></td>
+		<td style="width: 150px;"><b>name in the bus</b></td>
+        <td style="width: 250px;"><b>description</b></td>
+        <td style="width: 150px;"><b>abbreviation</b></td>
+        <td style="width: 200px;"><b>physical unit</b></td>
+        <td style="width: 200px;"><b>remarks</b></td>
+    </tr>
+    <tr>
+        <td> 1</td>
+		<td>ID</td>
+        <td><a href="#flow_ID">flow identifier</a></td>
+        <td>ID</td>
+        <td>none</td>
+        <td>is set by the simulation, not by the user</td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+		<td>Temperature </td>
+        <td>temperature </td>
+        <td>T </td>
+        <td>&deg;C</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+		<td>MassFlow </td>
+        <td>massflow </td>
+        <td>m  <sub>dot</sub> </td>
+        <td>kg/s </span> </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+		<td>Pressure </td>
+        <td>pressure </td>
+        <td>p </td>
+        <td>Pa</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+		<td>FluidType </td>
+        <td>fluid type </a></td>
+        <td><a href="#Fluid_ID">Fluid_ID </a> </td>
+        <td>none </td>
+        <td>is set in the pump </td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+		<td>FluidMix </td>
+        <td>mixture of fluid (fraction of 2nd mixture component</td>
+        <td><a href="#Fluid_ID">fluid_mix </a></td>
+        <td>depends on fluid_type</td>
+        <td>is set in the pump </span> </td>
+    </tr>
+    <tr>
+        <td> 7</td>
+		<td>FluidMix2</td>
+        <td>mixture of fluid (3rd mixture component)</td>
+        <td>fluid_mix2</td>
+        <td>depends on fluid type</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 8</td>
+		<td>FluidMix3</td>
+        <td>mixture of fluid (4rd mixture component)</td>
+        <td>fluid_mix3</td>
+        <td>depends on fluid type</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 9 </td>
+		<td>DiameterLastPiece </td>
+        <td>diameter last piece </td>
+        <td>d_last </td>
+        <td>m</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 10</td>
+		<td>DPConstant </td>
+        <td><a href="#pressure_calc">constant coefficient of pressure drop </a></td>
+        <td></td>
+        <td>Pa</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 11</td>
+		<td>DPLinear </td>
+        <td><a href="#pressure_calc">linear coefficient of pressure drop </a></td>
+        <td></td>
+        <td>[Pa s/kg]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 10 </td>
+		<td>DPQuadratic </td>
+        <td><a href="#pressure_calc">quadratic coefficient of pressure drop </a></td>
+        <td></td>
+        <td>[Pa s<sup>2</sup> /kg<sup>2</sup>] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 11 </td>
+        <td>HydraulicInductance </td>
+        <td>hydraulic inductance</td>
+        <td></td>
+        <td>1/m</span></td>
+		<td></td>
+    </tr>
+	<tr>
+        <td> 12 </td>
+        <td>GeodeticHeight </td>
+        <td>geodetic height</td>
+        <td></td>
+        <td>m</td>
+		<td></td>
+    </tr>
+</table>
+<br>
+
+<p>The structure of the old THV is described in the following table. The vector consists of the first 10 elements of the THB
+and additional 10 elements, which were designated for enhancements. Normally, the last 10 elements were set to zero.
+</p>
+
+<p style="margin-bottom:0;"><b>THV - thermo hydraulic vector definition</b></p>
+<table class="inputtable">
+    <tr>
+        <td style="width: 30px;"><b>No.</b></td>
+        <td style="width: 200px;"><b>description</b></td>
+        <td style="width: 80px;"><b>abbreviation</b></td>
+        <td style="width: 120px;"><b>physical unit</b></td>
+        <td style="width: 200px;"><b>remarks</b></td>
+    </tr>
+    <tr>
+        <td> 1</td>
+        <td><a href="#flow_ID">flow identifier</a></td>
+        <td>ID</td>
+        <td>none</td>
+        <td>is set by the simulation, not by the user</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>temperature</td>
+        <td>T</td>
+        <td>[&deg;C]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>massflow</td>
+        <td>m<sub>dot</sub></td>
+        <td>[kg/s]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>pressure</td>
+        <td>p</td>
+        <td>[Pa]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td><a href="#fluid ID">fluid type</a></td>
+        <td>fluid_ID</td>
+        <td>none</td>
+        <td>is set in the pump</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>mixture of fluid</td>
+        <td><a href="#fluid ID">fluid_mix</a></td>
+        <td>[0..1]</td>
+        <td>is set in the pump</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>diameter last piece</td>
+        <td>d_last</td>
+        <td>[m]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td><a href="#pressure_calc">constant coefficient of pressure drop</a></td>
+        <td>c</td>
+        <td>[Pa]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td><a href="#pressure_calc">linear coefficient of pressure drop</a></td>
+        <td>l</td>
+        <td>[Pa s/kg]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td><a href="#pressure_calc">quadratic coefficient of pressure drop</a></td>
+        <td>q</td>
+        <td>[Pa s<sup>2</sup>/kg<sup>2</sup>]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>not used</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>to</td>
+        <td>...</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>not used</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<br>
+<hr>
+
+<p><b>NOTE:</b>
+Physical units in CARNOT are <span class="GramE">conform</span> to SI, the 
+international standard. (One small difference is the temperature, which is given 
+in degree Celsius and not in Kelvin.)
+</p>
+
+<p><b>NOTE:</b>
+Since the THB can be changed in the file THB.mat, a THB should not be created by a Simulink bus creator block.
+Please use a bus assignment block to change values of a THB or the THBCreator block to create a THB.
+If the THB is changed, there is no need to alter almost every block in Carnot.
+</p>
+<hr>
+
+<br>
+<p> Connected to the THB other definitions are made for the description of the fluid characteristics :</p>
+<p><a name="flow_id"> <b>flow_ID</b> </a><a name="flow_id"></a></p>
+<p> The flow_id is used for the hydraulic calculation of the fluid. 
+For example, in the case of a closed valve, the flow_ID is set to a negative 
+value, so that the calculating element (e.g. the mixer) knows that there is 
+no mass flow through this branch (see &quot; <a href="#pressure_calc">
+pressure drop calculation </a> &quot;). 
+Another use of the flow_ID is to control the pressure drop calculation. So  
+<table class="inputtable">
+    <tr>
+        <td style="width: 200px"><u><b>if</u> </td>
+        <td style="width: 600px"><u><b>then</u></b> </td>
+    </tr>
+    <tr>
+        <td> flow_ID &lt; 0 </td>
+        <td> no massflow through the branch (e.g a closed valve is contained in the branch) </td>
+    </tr>
+    <tr>
+        <td> 0 &lt; flow_ID &lt; 10000 </td>
+        <td> no pressure calculation is carried out </td>
+    </tr>
+    <tr>
+        <td> 10000 &lt; flow_ID &lt; 20000 </td>
+        <td> only pressure drop is calculated </td>
+    </tr>
+    <tr>
+        <td> 20000 &lt; flow_ID </td>
+        <td> pressure drop and static pressure are calculated </td>
+    </tr>
+</table>
+<br>
+ 
+<p><a name="Fluid_ID"> <b>Fluid_ID</b> </a><a name="flow_id"></a></p>
+<table class="inputtable">
+    <tr>
+        <td style="width: 100px"><b><u>fluid_ID</u></b> </td>
+        <td style="width: 100px"><b><u>fluid</u></b> </td>
+		<td style="width: 150px"><b><u>in FluidEnum</u></b> </td>
+		<td style="width: 150px"><b><u>in carlib.h</u></b> </td>
+        <td style="width: 500px"><b><u>remarks</u></b> </td>
+    </tr>
+    <tr>
+        <td>1 </td>
+        <td>water </td>
+		<td>WATER </td>
+		<td>WATER </td>
+		<td>water, fluid mix is the vapour content in the 2-phase region</td>
+    </tr>
+    <tr>
+        <td>2 </td>
+        <td>air </td>
+		<td>AIR </td>
+		<td>AIR </td>
+        <td>fluid mix gives the kg  <sub>water</sub> /kg  <sub>air</sub>, i.e. the absolute fraction of water </td>
+    </tr>
+    <tr>
+        <td>3 </td>
+        <td>cotton oil </td>
+		<td>COTOIL </td>
+		<td>COTOIL </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4 </td>
+        <td>silicon oil </td>
+		<td>SILOIL </td>
+		<td>SILOIL </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5 </td>
+        <td>water-glycol </td>
+		<td>WATERGLYCOL </td>
+		<td>WATERGLYCOL </td>
+        <td>fluid mix gives the volume percentage of propylen glycol<br>the properties are for Tyfocor L, Tyforop Hamburg </td>
+    </tr>
+    <tr>
+        <td>6 </td>
+        <td>Tyfocor LS </td>
+		<td>TYFOCOR_LS </td>
+		<td>TYFOCOR_LS </td>
+        <td>fluid mix is the vapour content </td>
+    </tr>
+	<tr>
+        <td>7 </td>
+        <td>water </td>
+		<td>WATER_CONSTANT </td>
+		<td>WATER_CONSTANT </td>
+        <td>constant properties for liquid water at 20°C </td>
+    </tr>
+	<tr>
+        <td>8 </td>
+        <td>air </td>
+		<td>AIR_CONSTANT </td>
+		<td>AIR_CONSTANT </td>
+        <td>constant properties for air at 20°C </td>
+    </tr>
+</table>
+<br>
+
+<p> Utilisation of the fluid_ID in the material property functions : <br>
+Some fluid functions calculate different things depending on the fluid_ID specified, 
+in particular the functions vapourpressure and saturationtemperature. In the 
+case of water (fluid_ID 1) the function  
+<ul type="disc">
+    <li> vapourpressure - calculates the pressure of saturated steam.  
+    <li> saturationtemperature - calculates the temperature of saturated steam at 
+    the specified pressure, i. e. it is the inverse function of vapourpressure.  
+</ul>
+<p> In the case of air (fluid_ID = 2 &quot;air&quot;) the function :
+<ul type="disc">
+    <li> vapourpressure - calculates the partial pressure of steam in the moist air.  
+    <li> saturationtemperature - calculates the dew point temperature of saturated steam 
+    at the specified pressure, i. e. it is the inverse function to vapourpressure.  
+</ul>
+<br>
+
+<p> The fluid_ID can be accessed via enumerations in Matlab/Simulink and C. They 
+are defined in FluidEnum.m and carlib.h, respectively. Please consider that 
+enumerations are of type integer, whereas in Carnot double types are used.  </p>
+<p> To output and visualise a specific physical value from the 
+Thermo-Hydraulic-Bus use a Simulink bus selector or the 
+<a href="Display_THB.html">Display_THB</a> blocks in CARNOT.
+</p>
+<br>
+
+<p><a name="property_id"> <b>Definition of the property types</b></a></p>
+
+<p> In some functions concerning the fluid properties, for example 
+the saturationproperty, a property for which the calculation is performed, has 
+to be defined. This is done by specifying the <a href="#property_id">property_ID</a> according to the following table.
+</p>
+
+<table border="0">
+    <tr>
+        <td style="width: 120px"> <b><u>Property_ID</u></b> </td>
+        <td style="width: 180px"> <b><u>Property</u></b> </td>
+		<td style="width: 180px"> <b><u>in PropertyEnum</u></b> </td>
+		<td style="width: 150px"> <b><u>in carlib.h</u></b> </td>
+    </tr>
+    <tr>
+        <td> 1 </td>
+        <td> density </td>
+		<td> DENSITY </td>
+		<td> DENSITY </td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> heat_capacity </td>
+		<td> HEAT_CAPACITY </td>
+		<td> HEAT_CAPACITY </td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> thermal_conductivity </td>
+		<td> THERMAL_CONDUCTIVITY </td>
+		<td> THERMAL_CONDUCTIVITY </td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td> kinematic_viscosity </td>
+		<td> KINEMATIC_VISCOSITY </td>
+		<td> KINEMATIC_VISCOSITY </td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td> enthalpy </td>
+		<td> ENTHALPY </td>
+		<td> ENTHALPY </td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+        <td> entropy </td>
+		<td> ENTROPY </td>
+		<td> ENTROPY </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> prandtl </td>
+		<td> PRANDTL </td>
+		<td> PRANDTL </td>
+    </tr>
+    <tr>
+        <td> 8 </td>
+        <td> specific_volume </td>
+		<td> SPECIFIC_VOLUME </td>
+		<td> SPECIFIC_VOLUME </td>
+    </tr>
+    <tr>
+        <td> 9 </td>
+        <td> evaporation_enthalpy </td>
+		<td> EVAPORATION_ENTHALPY </td>
+		<td> EVAPORATION_ENTHALPY </td>
+    </tr>
+    <tr>
+        <td> 10 </td>
+        <td> vapourpressure </td>
+		<td> VAPOURPRESSURE </td>
+		<td> VAPOURPRESSURE </td>
+    </tr>
+    <tr>
+        <td> 11 </td>
+        <td> saturationtemperature </td>
+		<td> SATURATIONTEMPERATURE </td>
+		<td> SATURATIONTEMPERATURE </td>
+    </tr>
+	<tr>
+        <td> 12 </td>
+        <td> saturationproperty </td>
+		<td> SATURATIONPROPERTY </td>
+		<td> SATURATIONPROPERTY </td>
+    </tr>
+	<tr>
+        <td> 13 </td>
+        <td> temperature conductivity </td>
+		<td> TEMPERATURE_CONDUCTIVITY </td>
+		<td> TEMPERATURE_CONDUCTIVITY </td>
+    </tr>
+	<tr>
+        <td> 14 </td>
+        <td> enthalpy2temperature </td>
+		<td> ENTHALPY2TEMPERATURE </td>
+		<td> ENTHALPY2TEMPERATURE </td>
+    </tr>
+	<tr>
+        <td> 15 </td>
+        <td> grashof </td>
+		<td> GRASHOFNUMBER </td>
+		<td> GRASHOFNUMBER </td>
+    </tr>
+	<tr>
+        <td> 16 </td>
+        <td> prandtl </td>
+		<td> PRANDTLNUMBER </td>
+		<td> PRANDTLNUMBER </td>
+    </tr>
+	<tr>
+        <td> 17 </td>
+        <td> vapourcontent </td>
+		<td> VAPOURCONTENT </td>
+		<td> VAPOURCONTENT </td>
+    </tr>
+</table>
+
+<p> Moreover in the case of the saturation value of the respective 
+property, the fluid phase has to be set as well. This is done by defining the 
+phase_ID according to the following table.  </p>
+<br>
+
+<p><a name="phase_id"> <b>Definition of the phase ID </b> </a>
+<table border="0">
+    <tr>
+        <td style="width: 100px"> <b><u>phase_ID</u></b> </td>
+        <td style="width: 100px"> <b><u>phase</u></b> </td>
+		<td style="width: 150px"> <b><u>in PhaseEnum</u></b> </td>
+		<td style="width: 100px"> <b><u>in carlib.h</u></b> </td>
+    </tr>
+    <tr>
+        <td> 1 </td>
+        <td> vaporous </td>
+		<td> VAPOROUS </td>
+		<td> VAPOROUS </td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> liquid </td>
+		<td> LIQUID </td>
+		<td> LIQUID </td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> solid </td>
+		<td> SOLID </td>
+		<td> SOLID </td>
+    </tr>
+</table>
+
+<p> The phase_ID is specified in the same way as the other IDs like the
+<a href="#fluid ID">fluid type </a> or the <a href="#property_ID"> property_ID </a>.
+</p>
+<br>
+
+<h3> <b>2.1.2 The <a name="electric_bus">Electric Bus</b> </a>   </h3>
+<p>
+The Electric Bus (EB) is the common data structur for electric systems. It can be used to calculate energy demand, controller design and detailed modelling of 
+electric sources and loads.<br />
+The ID of the EB can be used to eliminate errors due to conenections with imcompatible electric energy types
+(f.e. AC sources driving DC devices). This kind of error handling is no automatic process, instead has to considered by the designer of a new model.<br/>
+Since the Bus structure won't be modified by the electric ID, the user is responsible to select the correct bus signals according to the electric ID
+(f.e. there is no physical interpretation for Voltage2 in DC-Signals).  
+</p>
+<p>
+The structure of the Electric Bus is shown in the following table:
+</p>
+<p><b>Electric Bus definition</b></p>
+<table border="0">    
+    <tr>
+        <td style="width: 50px" ><b><u>No.</u></b></td>
+        <td style="width: 200px;"><b><u>description</u></b></td>
+        <td style="width: 126px;"><b><u>abbreviation</u></b></td>
+        <td style="width: 126px;" ><b><u>physical unit</u></b></td>
+        <td style="width: 300px;"><b><u>remarks</u></b></td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>electric identifier</td>
+        <td>ID</td>
+        <td>none</td>
+        <td></td>
+    </tr>  
+ <tr>
+        <td >2</td>
+        <td>frequency</td>
+		<td>Freq</td>
+ 	    <td>[Hz]</td>
+		<td></td>
+    </tr>
+	<tr>
+        <td>3</td>
+        <td>voltage line 1</td>
+        <td>Voltage1</td>
+        <td>[V]</td>
+        <td >voltage line 1 to ground</td>
+    </tr>	
+    <tr>
+        <td >4</td>
+        <td>active power line 1</td>
+        <td>ActPower1</td>
+        <td>[W]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td >5</td>
+        <td>power factor line 1</td>
+        <td>PowerFactor1</td>
+        <td>[1]</td>
+        <td></td>
+    </tr>   
+    <tr>
+        <td>6</td>
+        <td>voltage line 2</td>
+        <td>Voltage2</td>
+        <td>[V]</td>
+        <td>voltage line 2 to ground</td>
+    </tr>
+    <tr>
+        <td >7</td>
+        <td>active power line 2</td>
+        <td>ActPower2</td>
+        <td>[W]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td >8</td>
+        <td>power factor line 2</td>
+        <td>PowerFactor2</td>
+        <td>[1]</td>
+        <td></td>
+    </tr>    
+ 	<tr>
+        <td>9</td>
+        <td>voltage line 3</td>
+        <td>Voltage3</td>
+        <td >[V]</td>
+        <td >voltage line 3 to ground</td> 
+	</tr>
+    <tr>
+        <td >10</td>
+        <td>active power line 3</td>
+        <td>ActPower3</td>
+        <td>[W]</td>       
+    </tr>
+    <tr>
+        <td >11</td>
+        <td>power factor line 3</td>
+        <td>PowerFactor3</td>
+        <td>[1]</td>
+        <td></td>
+    </tr>    	
+</table>
+<p>All Voltages are assumed to be measured against ground.</p>
+<p><b>The electric_ID</b></p>
+<p>The Elecric ID is used to determine the type of electric energy transmission.</p>
+<table border="0"class="ms-column5-main">    
+    <tr>
+        <td style="width: 50px"><b><u>No.</u></b></td>
+        <td style="width: 200px;"><b><u>description</u></b></td>
+        <td style="width: 120px;"><b><u>abbreviation</u></b></td>
+        <td style="width: 450px;"><b><u>remarks</u></b></td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Power</td>
+        <td>ID</td>
+        <td>only power, no extra information</td>        
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>DC</td>
+        <td>DC</td>
+        <td>only data for Line 1 are used, Freq1 = 0</td>
+    </tr>
+    <tr>
+        <td >3</td>
+        <td>AC 1 phase</td>
+        <td>AC_1P</td>
+        <td>only data for Line 1 are used</td>
+    </tr>
+    <tr>
+        <td >4</td>
+        <td>AC 3 phase</td>
+        <td>AC_3P</td>
+        <td>all Bus elements are used</td>      
+    </tr>
+</table>
+
+<p>The electric_ID can be accessed via enumerations in Matlab/Simulink and C. They 
+are defined in ElectricEnum.m and carlib.h, respectively. Please consider that 
+enumerations are of type integer, whereas in Carnot double types are used.
+</p>
+<br>
+
+<h3> <b>2.1.3 The <a name="WDB">Weather Data Bus</b> </a> </h3>
+<p> The weather data bus contains the weather conditions for the calculation period. <br>
+It is calculated from measurements over a long period of time. Averaged data 
+of monthly measurements are pre-processed discretely to generate hourly values 
+of the relevant weather data. Correlations for the temperature, the radiation, 
+the relative humidity and the wind speed are used to generate the hourly values. 
+ </p>
+<p> The weather data is specified in a certain format (see also &quot;wformat.m&quot;)
+Each row contains a dataset for a specific time. Column limiter is a tabulator or a space. 
+<br></p>
+<p> Information on the dataset <br> station name: country: <br>
+geographical position: longitude: , latitude: <br>
+reference meridian for time (example: 0&deg; = Greenwich Mean Time): <br>
+mark type of data collection: measured/calculated/satellite  </p>
+
+<table border="0">
+    <tr>
+        <td style="width: 80px"><b><u>Column</u></b> </td>
+        <td style="width: 600px"><b><u>description</u></b> </td>
+        <td style="width: 100px"><b><u>units</u></b> </td>
+    </tr>
+    <tr>
+        <td> 1 </td>
+        <td> time </td>
+        <td> [s] </td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> timevalue (comment line) format YYYYMMDDHH Y is the year, 
+		M the month, D the day, H the hour</td>
+        <td> [-] </td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> zenith angle of sun (at time, not averaged) (continue at night to get 
+		time of sunrise by linear interpolation)</td>
+        <td> [degree] </td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td> azimuth angle of sun (0&deg;=south, east negative), 
+		value is at timestep, no average over timestep
+		</td>
+        <td> [degree] </td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td> direct beam solar radiation on a normal surface </td>
+        <td> [W/m&sup2;] </td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+        <td> diffuse solar radiation on a horizontal surface </td>
+        <td> [W/m&sup2;] </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> ambient temperature </td>
+        <td> [degree Celsius] </td>
+    </tr>
+    <tr>
+        <td> 8 </td>
+        <td> radiation temperature of sky </td>
+        <td> [degree Celsius] </td>
+    </tr>
+    <tr>
+        <td> 9 </td>
+        <td> relative humidity </td>
+        <td> [percent] </td>
+    </tr>
+    <tr>
+        <td> 10 </td>
+        <td> precipitation </td>
+        <td> [m/s] </td>
+    </tr>
+    <tr>
+        <td> 11 </td>
+        <td> cloud index (0=no cloud, 1=covered sky) </td>
+        <td> [-] </td>
+    </tr>
+    <tr>
+        <td> 12 </td>
+        <td> station pressure </td>
+        <td> [Pa] </td>
+    </tr>
+    <tr>
+        <td> 13 </td>
+        <td> mean wind speed </td>
+        <td> [m/s] </td>
+    </tr>
+    <tr>
+        <td> 14 </td>
+        <td> wind direction (north=0&deg; west=270&deg;) </td>
+        <td> [degree] </td>
+    </tr>
+    <tr>
+        <td> 15 </td>
+        <td> incidence angle on surface (0&deg; = vertical) </td>
+        <td> [degree] </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td> (= -9999, if surface orientation is unknown) </td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td> 16 </td>
+        <td> incidence angle in plane of vertical and main surface axis (the main axis is parallel to the main flow direction in 
+		a collector)
+		</td>
+        <td> [degree] </td>
+    </tr>
+    <tr>
+        <td> 17 </td>
+        <td> incidence angle in plane of vertical and second surface axis (the second axis is in the surface and a vertical on the 
+		main flow direction in a collector)
+		</td>
+        <td> [degree] </td>
+    </tr>
+    <tr>
+        <td> 18 </td>
+        <td> direct solar radiation on surface </td>
+        <td> [W/m&sup2;] </td>
+    </tr>
+    <tr>
+        <td> 19 </td>
+        <td> diffuse solar radiation on surface </td>
+        <td> [W/m&sup2;] </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td> UNKNOWN: set -9999 for unknown values </td>
+        <td></td>
+    </tr>
+</table>
+<br>
+
+<p> External Data, particularly the <a href="#WDB">weather data </a> in the 
+<a href="#CARNOT">CARNOT Library </a> , are stored in ASCII-datafiles.</p>
+<p> </p>
+<p> <br> 
+Load them to MATLAB Workspace with  <br>
+<tt>load &lt;filename&gt;.dat</tt>
+<br> where &lt;filename&gt; is the name of the external datafile, in the 
+MATLAB command window.<br>
+Use in Simulink with the &quot;from Workspace&quot; block (if previously load 
+in MATLAB Workspace) or the &quot;from File&quot; block.
+</p> 
+<p> <b><a name="weather_data_import_functions">Weather Data</a></b><p> 
+Import functions for different datasets like German TRY, Meteonorm or Energy Plus 
+are available. See <a href="Meteonorm2wformat.html">Meteonorm2wformat</a>, 
+<a href="MeteonormMinute2wformat.html">MeteonormMinute2wformat</a>, 
+<a href="tmy2wdb.html">tmy2wdb</a>, <a href="try2wdb.html">try2wdb</a>, 
+<a href="dwd2wdb.html">dwd2wdb</a> and <a href="epw2wdb.html">epw2wdb</a>. 
+For details see the help of the functions, example : <br>
+<tt>help dwd2wdb</tt> <br>
+More information on available data is given in chapter 
+<a href="#weather_data_records">2.6 Weather Data Records</a>. <br> 
+<br>
+
+<hr>
+<p><b>NOTE:</b><br>
+Physical units in CARNOT are conform to SI, the international standard.
+ (One small difference is the temperature, which is given in degree Celsius and not in Kelvin.)  
+</p>
+<p><b>NOTE:</b><br>
+The format of the weather data vector and weather 
+data file has been changed during the development of Carnot. <br>
+To convert your old data weather files, use  
+	<a href="4_Block_and_Function_Reference.html#convert_weather">convert_weather</a>.m.
+<hr>
+
+ <h3><a name="fuel_vector"> <b>2.1.4 The Fuel bus</b> </a></h3>
+<p> The fuel block is a collection of constants characterising the different types of fuel. <br>
+The fuel bus includes the characteristics of a fuel like stoichiometric air demand, 
+caloric value with and without condensation, condensation temperature,  
+<a href="#costs"> costs </a>, etc.</p>
+
+<p> Definition of the Fuel-vector </p>
+<table border="0">
+    <tr>
+        <td style="width: 50px"> <b><u>No.</u></b> </td>
+        <td style="width: 250px"> <b><u>description</u></b> </td>
+        <td style="width: 100px"> <b><u>abbreviation</u></b> </td>
+        <td style="width: 205px"> <b><u>physical unit</u></b> </td>
+        <td style="width: 205px"> <b><u>remark</u></b> </td>
+    </tr>
+    <tr>
+        <td> 1 </td>
+        <td> identifier fuel </td>
+        <td> ID </td>
+        <td> none </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> temperature </td>
+        <td> T </td>
+        <td> [&deg;C] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> stoichiometric air demand </td>
+        <td> ls </td>
+        <td> [kg air/kg fuel] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td> pressure </td>
+        <td> p </td>
+        <td> [Pa] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td> heat without condensation </td>
+        <td> hl </td>
+        <td> [J/kg] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+        <td> heat with condensation </td>
+        <td> hh </td>
+        <td> [J/kg] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> condensation temperature </td>
+        <td> Tc </td>
+        <td> [&deg;C] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 8 </td>
+        <td> price per kg </td>
+        <td> price </td>
+        <td> [1/kg] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 9 </td>
+        <td> massfraction H </td>
+        <td> mH </td>
+        <td> [kg H/kg fuel] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 10 </td>
+        <td> massfraction C </td>
+        <td> mC </td>
+        <td> [kg C/kg fuel] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 11 </td>
+        <td> massfraction O </td>
+        <td> mO </td>
+        <td> [kg O/kg fuel] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 12 </td>
+        <td> massfraction S </td>
+        <td> mS </td>
+        <td> [kg S/kg fuel] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 13 </td>
+        <td> massfraction N </td>
+        <td> mN </td>
+        <td> [kg N/kg fuel] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 14 </td>
+        <td> massfraction H<sub>2</sub>O</td>
+        <td> mH<sub>2</sub>O </td>
+        <td> [kg O/kg fuel] </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 15 </td>
+        <td> not used </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 16 </td>
+        <td> not used </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<br>
+
+<P><a name="Fuel-ID"> Definition of the Fuel-ID  </a>
+<table border="0">
+    <tr>
+        <td style="width: 80px"> <b><u>Fuel ID</u></b> </td>
+        <td style="width: 120px"> <b><u>description</u></b> </td>
+    </tr>
+    <tr>
+        <td> 0 </td>
+        <td> no calculation </td>
+    </tr>
+    <tr>
+        <td> 1</td>
+        <td> gaseous </td>
+    </tr>
+    <tr>
+        <td> 2</td>
+        <td> liquid </td>
+    </tr>
+    <tr>
+        <td> 3</td>
+        <td> solid</td>
+    </tr>
+    </table>
+<p>You may use the predefined parameter sets in the Fuel block.<br></p>
+
+<h3><a name="eco_vector"> <b>2.1.5 The Eco bus </b></a></h3></p>
+ 
+<p> The Eco (economy-ecology) bus defines the output of a fuel 
+consuming system component like massflow of  <a href="#Fuel-ID"> fuel </a>, thermal power, 
+electric power, exhaust gas etc.. As well the fuel costs are considered. 
+Thus the Eco-Bus is used for economic and ecologically bilancing of combustion systems.</p>
+
+<p> Definition of the Eco-Bus </p>
+
+<table border="0">
+    <tr>
+        <td style="width: 171px;"> <b><u>No.</u></b> </td>
+        <td style="width: 250px;"> <b><u>description</u></b> </td>
+        <td style="width: 240px;"> <b><u>abbreviation</u></b> </td>
+        <td style="width: 205px;"> <b><u>physical unit</u></b> </td>
+    </tr>
+    <tr>
+        <td> 1 </td>
+        <td> identifier of fuel </td>
+        <td> fuel-ID </td>
+        <td> [-] </td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> temperature </td>
+        <td> T </td>
+        <td> [&deg;C] </td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> massflow rate </td>
+        <td> m  <sub>dot</sub> </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td> pressure </td>
+        <td> p </td>
+        <td> [Pa] </td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td>thermal power </td>
+        <td> Qdot </td>
+        <td> [W] </td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+        <td> electric power </td>
+        <td> Pel </td>
+        <td> [W] </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> flow of money </td>
+        <td> flowmoney </td>
+        <td> [1/s] </td>
+    </tr>
+    <tr>
+        <td> 8 </td>
+        <td> massflow H<sub>2</sub> O </td>
+        <td> m  <sub>dot</sub> H<sub>2</sub>  O </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 9 </td>
+        <td> massflow CO  <sub>2</sub> </td>
+        <td> m  <sub>dot</sub> CO<sub>2</sub> </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 10 </td>
+        <td> massflow O  <sub>2</sub> </td>
+        <td> m  <sub>dot</sub> O  <sub>2</sub> </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 11 </td>
+        <td> massflow SO  <sub>2</sub> </td>
+        <td> m  <sub>dot</sub> SO  <sub>2</sub> </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 12 </td>
+        <td> massflow N  <sub>2</sub> </td>
+        <td> m  <sub>dot</sub> N  <sub>2</sub> </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 13 </td>
+        <td> massflow NO  <sub>x</sub> </td>
+        <td> m  <sub>dot</sub> NO  <sub>x</sub> </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 14 </td>
+        <td> massflow CO </td>
+        <td> m  <sub>dot</sub> CO </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 15 </td>
+        <td> massflow C  <sub>x</sub> H  <sub>y</sub> </td>
+        <td> m  <sub>dot</sub> C  <sub>x</sub>  H <sub>y</sub> </td>
+        <td> [kg/s] </td>
+    </tr>
+    <tr>
+        <td> 16 </td>
+        <td> free for further extensions </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 17 </td>
+        <td>  free for further extensions </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 18 </td>
+        <td>  free for further extensions </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> 19 </td>
+        <td>  free for further extensions </td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+<h3><a name="building_vector"> <b>2.1.6 Building-Buses</b> </a></h3>
+
+<p> In the Building model two further vectors are used.  </p>
+<p> The incoming energy flows are defined in the <b>SBus</b>. 
+The SBus describes the energy flows in the buidling, 
+e.g. the solar gain through the windows.  </p>
+<p><a name="s_vector"> Definition of the SBus  </a>
+<table border="0">
+    <tr>
+        <th width="50px" align="left"> <u>No.</u> </th>
+        <th width="220px" align="left"> <u>used for</u> </th>
+        <th width="80px" align="left"> <u>unit</u> </th>
+        <th width="450px" align="left">comment </th>
+    </tr>
+    <tr>
+        <td> 1 </td>
+        <td> incoming solar power </td>
+        <td> [W] </td>
+        <td> used to display the energy balance </td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> power input by equipment, i.e. computers  </td>
+        <td> [W] </td>
+        <td> used to display the energy balance </td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> power input by light sources </td>
+        <td> [W] </td>
+        <td> used to display the energy balance </td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td> power input by persons </td>
+        <td> [W] </td>
+        <td> used to display the energy balance </td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td> power input by heating, id. radiator </td>
+        <td> [W] </td>
+        <td> used to display the energy balance </td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+        <td> power input by ventilation </td>
+        <td> [W] </td>
+        <td> used to display the energy balance </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> convective power from walls </td>
+        <td> [W] </td>
+        <td> used in the room node for the energy balance </td>
+    </tr>
+    <tr>
+        <td> 8 </td>
+        <td> radiative power from walls </td>
+        <td> [W] </td>
+        <td> used in the room node for the energy balance </td>
+    </tr>
+    <tr>
+        <td> 9 </td>
+        <td> massflow of air </td>
+        <td> [kg/s] </td>
+        <td> used in the room node for the energy balance </td>
+    </tr>
+    <tr>
+        <td> 10 </td>
+        <td> massflow of water(part of moist air) </td>
+        <td> [kg/s] </td>
+        <td> used in the room node for the energy and water balance </td>
+    </tr>
+    <tr>
+        <td> 11 </td>
+        <td> massflow of CO  <sub>2</sub> </td>
+        <td> [kg/s] </td>
+        <td> used in the room node for the CO<sub>2</sub> balance </td>
+    </tr>
+    <tr>
+        <td> 12 </td>
+        <td> flowrate of air from outside into the room </td>
+        <td> [m  <sup>3</sup> /s] </td>
+        <td> used in the room node for the energy balance </td>
+    </tr>
+    <tr>
+        <td> 13 </td>
+        <td> flowrate of air from the room to the outside </td>
+        <td> [m  <sup>3</sup> /s] </td>
+        <td> used in the room node for the energy balance </td>
+    </tr>
+</table>
+<p>The SBus may be used to visualize to energy flows (see 
+<a href="#S_Selector">S_Selector </a>  in CARNOT/Outputs/Selectors):</p>
+<table border="0">
+    <tr>
+        <td width="120px"> Q<sub>dotsol</sub> </td>
+        <td width="200px"> solar power input </td>
+        <td width="350px"> has to be connected to the floor </td>
+    </tr>
+    <tr>
+        <td><p> V  <sub>air</sub> </td>
+        <td><p> volume of room </td>
+        <td><p> has to be connected to the ventilation block </td>
+    </tr>
+</table>
+
+
+<p> The outputs of the  <a href="#room_node"> room_node </a> 
+have to be connected carefully to the walls and other components of the room-zone. 
+</p>
+
+<hr>
+<p><b>NOTE:</b><br> Only one floor is allowed per room / zone.</p>
+<hr>
+
+<p> The <b>AIB (Air-Infiltration-Bus)</b> is the connection of a room-node 
+to the floor, the ceiling, the walls and the windows. <br>
+It contains all the necessary information about the actual air conditions in the room.<br>
+AIB is connected to walls, floor, ceiling, ventilation and radiator.</p>
+
+<p><a name="aiv_vector"> Definition of the AIB  </a></p>
+<table border="0">
+    <tr>
+        <td style="width: 50px"> <b><u>No.</u></b> </th>
+        <td style="width: 400px"> <b><u>used for</u></b> </th>
+        <td style="width: 50px"> <b><u>unit</u></b> </th>
+    </tr>
+    <tr>
+        <td> 1 </td>
+        <td> sensitive room temperature </td>
+        <td> [&deg;C] </td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> convective room temperature </td>
+        <td> [&deg;C] </td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> radiative room temperature </td>
+        <td> [&deg;C] </td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td> mass of water per mass of air </td>
+        <td> [kg/kg] </td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td> mass of CO  <sub>2</sub>  per mass of air </td>
+        <td> [kg/kg] </td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+        <td> density of air in the room </td>
+        <td> [kg/m  <sup>3</sup> ] </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> heat capacity of air in the room </td>
+        <td> [J/kgK] </td>
+    </tr>
+    <tr>
+        <td> 8 </td>
+        <td> air pressure in the room </td>
+        <td> [Pa] </td>
+    </tr>
+    <tr>
+        <td> 9 </td>
+        <td> air exchange rate (flow rate per room-volume) </td>
+        <td> [l/h](no SI-unit) </td>
+    </tr>
+</table>
+
+<h2><a name="specifying_components"> <b>2.2 Specifying Components in the Subsystem </b> </a></h2>
+
+<h3> <a name="Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a></h3>
+
+<p> Many models in Carnot use predefined parameter sets which you may edit or change.</p>
+<p> <img alt="" src="Figures/heatpumpSHOT.jpg"></p>
+
+<p> The button &quot;Carnot public data&quot; will open a user input window to select the 
+available parameter sets for this model from the public data path of the model. 
+This path is the result of the matlab command <br>
+<tt>fullfile(path_carnot('libsl'), 'Source','Heat_Pump','HeatPump','parameter_set')</tt><br>
+&quot;Carnot internal data&quot; will open a selection window with the internal path<br>
+<tt>fullfile(path_carnot('intlibsl'), 'Source','Heat_Pump','HeatPump','parameter_set').</tt><br>
+Selected path will open the window with the current string in the Path. Valid Pathnames are:<br>
+<tt>'c:\myFiles\'</tt> - a valid path on your computer<br>
+Matlab commands with a path as a result (e.g. 
+<tt>fullfile(path_carnot('libsl'), 'Source','Heat_Pump','HeatPump','parameter_set'))<br>
+'current' </tt> - selects the current working 
+directory as the path</p>
+<p> You may change the path and filename directly when activating the &quot;Edit path 
+and name of the parameter set&quot; option.</p>
+<p> Changing some parameter values is possible when acitivating the &quot;user 
+defined parameter&quot; option. User defined parameter may be saved in the current 
+path or in the Carnot internal path.<br><br></p>
+
+<p> <h3>2.2.2 Adapting models by using available subsystems</h3></p>
+<p> To enhance the possibility of adapting one block for different 
+types of the respective component, a kind of variable block has been introduced 
+in the subsystem. A sublibrary of blocks has been created from which a suitable 
+block can be chosen and copied into the subsystem in place of the actual block. 
+ </p>
+<p><a name="figure_2_1"> <img src="Figures/subsys.jpg" align="left" border="0"><br clear="all"><br>
+Figure 2.1:Open subset of the incidence Angle Modifier  </a></p>
+<p> An example is the flat plate collector. If you choose the 
+  <b>&quot;Look under Mask&quot;</b> command from the <b>Edit menu</b>, 
+the subsystem pops up and you see three coloured blocks, one called inclined 
+surface, one for the calculation of the  <a href="#iam"> incidence 
+angle modifier (IAM) </a>  and one for the pressure drop calculation of the collector.
+</p>
+<p> These blocks can be exchanged with blocks from the sublibraries 
+of the respective block. The incidence angle modifier can be specified for four 
+different kind of collector coverings, and a fifth is provided for modelling 
+the optical properties of a parabolic trough and another one for modelling a 
+tube collector , so you have a different type of collector. For the pressure 
+drop calculation there are three kinds of calculation methods available.  </p>
+<p><a name="figure_2_2"> <img src="Figures/collsub.jpg" align="left" border="0"><br clear="all"><br>
+Figure 2.2: Specifying components by changing blocks in the subsystem  </a></p>
+<p> Another example of this method of modifying block properties 
+from the subsystem is in the blockset storage where the surface model has to 
+be chosen and the storage itself can be modified with different supplementary 
+components, the so-called port blocs.  </p>
+<p> More information about the folder structure, s-functions and Carnot models 
+can be found here:</p>
+
+<ul type="disc">
+    <li>Filenames and folders : <a href="../guidelines/Carnot_Filenames_and_Folders.txt">Carnot_Filenames_and_Folders</a></li>
+	<li>Models : <a href="../guidelines/Carnot_Simulink_Models.txt">Carnot_Simulink_Models</a></li>
+	<li>Matlab-functions : <a href="../guidelines/Carnot_Matlab_Functions.txt">Carnot_Matlab_Functions</a></li>
+	<li>S-functions : <a href="../guidelines/Carnot_S_functions.txt">Carnot_S_functions</a></li>
+</ul>
+<br>
+
+<h2><a name="utility_functions"> <b>2.3 Utility Functions</b> </a></h2>
+<h3><a name="material_property_functions"> <b>2.3.1 Material property functions</b> </a></h3>
+<p> Some material property functions of the  <a href="#carlib_library">Carlib Library </a>
+can be used in Simulink and be called directly from the workspace as well, for example
+<ul type="disc">
+    <li><a href="#density"> density </a></li>
+    <li><a href="#enthalpy"> enthalpy </a></li> 
+    <li><a href="#heat_capacity"> heat_capacity</a></li>
+    <li><a href="#kinematic_viscosity"> kinematic_viscosity </a></li>
+    <li><a href="#thermal_conductivity"> thermal_conductivity </a></li>
+</ul>
+
+<p>For a full list of availible function see <a href="CarnotMFunOverview.html"> CarnotMFunOverview</a></p>
+<p> The function call is carried out like any other function call of MATLAB m-files by typing 
+the function name and the variables. In the case of the material properties, these variables are: </p>
+
+<ol>
+    <li> temperature  </li>
+    <li> pressure  </li>
+    <li><a href="#fluid ID"> fluid_ID </a> </li>
+    <li><a href="#fluid ID"> fluid_mix </a> </li>
+</ol>
+
+<p> The fluid_ID is the same as used in the CARNOT library. The variables are specified as follows: <br>
+<tt>density(temperature, pressure, fluid_id, fluid_mix))</tt> <br>
+For example to find the density of pure water at 1e5 Pascal and 20&deg;C, type: <br>
+<tt>density(20, 1e5,1,0)) </tt></br></br>
+To get the <b>saturationproperties</b>  of the respective property function, you have to call the function 
+fluidprop. In this case the function call contains five parameters, namely </p>
+<ol>
+    <li > temperature</li>
+    <li > pressure  </li>
+    <li > fluid_ID  </li>
+    <li > fluid_mix  </li>
+    <li > property type  </li>
+</ol>
+<p> If you call fluidprop with a positive property type, the function 
+will return the same value as the direct call with the function name of the 
+other utility function, e.g. the calls <br>
+<tt>density(temperature, presssure, fluid_id, fluid_mix))</tt><br>
+and<br>
+<tt>fluidprop(temperature, presssure, fluid_id, fluid_mix, property_type = 1))</tt><br>
+lead to the same value of the density. To learn more about the property type consult 
+the description of thee  <a href="#THB">THB </a>  in the paragraph 2.1.1..  </p>
+
+<p> If you call fluidprop with a <b>negative property type</b> the function returns thee 
+<b>saturationproperty</b>  of the respective property in vectorial form. The first component 
+is the value for saturated steam at the specified conditions, the second value 
+the one of boiling fluid. So to get the saturationproperty the function call 
+of fluidprop has to be effectuated in the following way: </br>
+<tt>fluidprop(temperature, presssure, fluid_id, fluid_mix, property_type = -1))</tt></br>
+<tt>density(20,1e5,1,0))</tt></p>
+<p> To get more information about the material property functions you can type </br>
+<tt>help &lt;functionname&gt;</tt> <br>
+in the workspace, as with any other MATLAB function.  </p>
+
+<p> Another way to get the saturation values of the respective 
+property is to call the m-file and to specify the pressure as vapourpressure 
+at the respective temperature<br>
+<tt>density(temp,vapourpressure(temp,pres,id,mix),fluid_id,fluid_mix))</tt> </p>
+
+<p> If you call the function with the fluid_mix = 0, the saturation value of the boiling fluid, <br>
+if you call it with the fluid_mix =1, the value of saturated steam is returned. <br>
+In case of a fluid_mix between 0 and 1, the fluid is in the two phase region, 
+i.e. a mixture of boiling fluid and saturated steam. </p>
+<p> All material functions are vectorised, they can be specified with more than one fluid 
+property, i.e. with a vector of temperatures. In this case either all input vectors must 
+be of the same length or they must be a scalar. A scalar is interpreted as a vector, 
+which contains the adequate number of components of the specified value.  </br></p>
+
+<p> <b>Validation::</b>  
+<ul type="disc">
+    <li> The fluid properties were compared to data in the literature 
+    ( <a href="#glueck"> Bernd Glueck </a><a href="#VDI"> VDI W&auml;rmeatlass</a>,  
+	<a href="#schmidt"> Schmidttabelle </a>,  <a href="#Tyforop"> Tyforop Data Tables </a>)
+	and agreed very well to the given values.. 
+</ul>
+</p>
+
+<h3><b>2.3.3 Characteristic Numbers</b></h3>
+<ul type="disc">
+	<li>reynolds - Calculate the Reynolds number of a fluid flow </li>
+	<li>prandtl - Prandtl number</li>
+	<li>grashoff - Grashof number</li>
+</ul>
+
+<h3><a name="other_utility_functions"><b>2.3.3 Other utility functionsOther utility functions</b> </a></h3>
+
+<p> Some more utility functions are provided to handle calculations. For a full 
+list of availible function see <a href="CarnotMFunOverview.html">
+CarnotMFunOverview</a>.<br>
+Other utility functions are linked to the function of a Carnot block. 
+A list model-related function can be found in 
+<a href="CarnotMFunBlockOverview.html">CarnotMFunBlockOverview</a>. <br>
+To get more information about the functions you can typee <br>
+<tt>help &lt;functionname&gt;</tt><br>
+in the command window.<br><br></p>
+ 
+<h2><a name="pressure_calc"><b> 2.4. Pressure Drop and Massflow Calculations</b></a></h2>
+<p> For an overview of the solutions for different applications see 
+example_CarnotHydaulics accessible via the<br>
+<tt>ExampleBrowser</tt>
+</p>
+<p><img src="Figures/example_CarnotHydraulics.png" ></p>
+<p>Figure: example_CarnotHydraulics</p>
+ 
+<h3><b>2.4.1 Basic equation</b></h3>
+<p>The pressure drop is described by a quadratic function of the mass flow rate with the equation</p>
+<p>dp = con + lin * mdot + qua * mdot^2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Eq 2.1)</p>
+<p> where con is a constant term (in Pa), lin in Pa/(kg/s) the coefficient of the linear and
+qua in Pa/(kg/s)^2 the coefficient of the quadratic term. If these three coefficients and 
+the actual mass flow rate are known, the pressure drop can be calculated for a whole circuit. <br>
+The use of the coefficients to describe the pressure drop 
+has great advantages concerning the calculation time. If the coefficients 
+are known, an iteration is no longer needed, since the pressure drop can be 
+calculated analytically. Thus a whole cycle and even branches (subcycles, see below) 
+can be calculated without iteration, so that the necessary 
+amount calculation is reduced significantly.. <br>
+</p>
+<h3><b>2.4.2 Calculations without pressure drop</b></h3>
+<p>If you are not interested in the pressure drop calclulation because you know 
+the mass flow in the system or you assume that the cycle and the pump will be correctely 
+dimensioned later, you can use a pump creating a constant massflow rate 
+(<a href="pump_const.html">Pump_Const</a> or <a href="pump_basic.html">Pump_Basic</a>).
+The whole pressure drop calculation is discarded and the mass flow depends only 
+on the pump and its controller signal.<br></p>
+
+<h3><b>2.4.3 Pumps and components with pressure drops in a cycle</b></h3>
+<p> For a complete hydraulic cycle the calculation starts with the pump 
+(<a href="pump.html">Pump_Main</a>). The coefficients [con lin qua] are set to [0 0 0] in the 
+<a href="#Thermo-Hydraulic_Bus">Thermo-Hydraulic Bus</a> exiting the pump. Each 
+following component in flow direction adds its pressure drop coefficients to the 
+coefficients in the bus (see below).<br>
+The pump is characterized by a quadratic polynom defining its pressure head. Typically the 
+pressure head is maximal without mass flow and becomes zero at a high mass flow 
+(a0 is positive, a1 and a2 are negative). </p>
+<p>dp_pump = a0 + a1*mdot + a2*mdot^2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Eq. 2.2) </p>
+<p> For any closed hydraulic cylce the pressure head created by the pump must be equal 
+to the pressure drop of the cycle. Combining Eq. 2.1 and Eq. 2.2 gives a quadratic 
+equation : </p>
+<p>dp_pump = dp</p>
+<p>a0 + a1*mdot + a2*mdot^2 = con + lin*mdot + qua*mdot^2 </p>
+<p> (con-a0) + (lin-a1)*mdot + (qua-a2)*mdot^2 = 0 </p>
+<p> This result can be solved analytically. Carnot uses the function 
+solve_quadratic_equation in the Carlib function library. This function avoids 
+the catastrophic cancellation by taking only the root further away from zero in</p>
+<p>x1 = (-b +/- sqrt(b^2-4ac))/(2a) </p>
+<p>and calculating the other root is by</p>
+<p> x2 = c/a/x1 </p>  
+
+<h3><b>2.4.4 Cycles with influence of static height</b></h3>
+<p>In open cycles the static pressure head of the cycle has an important 
+impact on the available pressure head of the pump. 
+In thermosiphon cycles the mass flow is created by the difference in 
+density of the fluid at different temperatures. Both cases can be modeled using 
+the constant coefficient "con" of the pressure drop equations. Additionaly Carnot 
+checks height difference the cycles by passing the information in the 
+Thermo-Hydraulic Bus. If the cycle has a dependency of the mass flow on the 
+static pressure in the different branches, you must set the corresponding 
+parameters in the pump model (<a href="Pump_Main.html">Pump_Main</a>,
+<a href="Fan_Main.html">Fan_Main</a> or
+<a href="thermosyphon.html">Thermosiphon</a>). </span> <br>
+
+<h3><b>2.4.5 Pressure drop for components in series</b></h3>
+<p> Two comonents in series simply add their coefficiencts since: </p>
+<p>dp_series = dp<sub>1</sub> + dp<sub>2</sub> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Eq. 2.3)</p>
+<p>dp_series = con<sub>1</sub> + lin<sub>1</sub> * mdot + qua<sub>1</sub> * mdot<sup>2</sup> 
++ con<sub>2</sub> + lin<sub>2</sub> * mdot + qua<sub>2</sub> * mdot<sup>2</sup> </p>
+<p>dp_series = (con<sub>1</sub>+con<sub>2</sub>) + 
+(lin<sub>1</sub>+lin<sub>2</sub>) * mdot + (qua<sub>1</sub>+qua<sub>2</sub>) * mdot<sup>2</sup> </p>
+<p>To enable the hydraulic calculation of arbitrary models, every 
+block performs the calculation of the three pressure drop coefficients [con lin qua] 
+that are added to the incoming coefficients during the calculation. In this 
+way the pressure drop can be calculated for every system that you specify by 
+means of the coefficients even prior to the simulation, if the coefficients 
+are known.<br>   
+The <a href="#Thermo-Hydraulic_Bus">Thermo-Hydraulic Bus</a> has the information of all 
+three coefficients. They are passed from block to block to the pump 
+(<a href="pump.html">Pump_Main</a>) for the hydraulic calculation.</p>
+
+<h3><b>2.4.6 Pressure drop for components in parallel</b></h3>
+<p> Hydraulic pathes or branches in parallel represend a hydraulic sub-cycle for 
+the calculation in CARNOT. The hydraulic subcycle start with a 
+<a href="Flow_Diverter.html">Flow_Diverter</a> and end with a
+<a href="Flow_Mixer.html">Flow_Mixer</a> (figure 2.3), the pressure drop and mass flow 
+is coupled. The diversion of the mass flow rates fdiv is physically done in a way that 
+the pressure drop in both branches 1 and 2 becomes the same.</p>
+
+<p><img src="Figures/Divers.jpg" ></p>
+<p><a name="figure_2_3"> Figure 2.3: 
+Hydraulic subcycle with a flowdiverter (D) and flowmixer (M)</a></p>
+
+<p>The method of calculating the pressure drop includes the following steps: </p>
+<ol>
+ <li>The coefficient vector [con lin qua]<sub>0</sub> of the main cycle and 
+ the total mass flow mdottotal are directly passed to the 
+ <a href="Flow_Mixer.html">Flow_Mixer</a> block.</li>
+ <li>In the <a href="Flow_Diverter.html">Flow_Diverter</a> block at the 
+ beginning two other vectors [con lin qua]<sub>1/2</sub> are initialized 
+ with zero and are passed from block to block within the 
+ <a href="#Thermo-Hydraulic_Bus">Thermo-Hydraulic Bus</a>. </li>
+ <li>The <a href="Flow_Diverter.html">Flow_Diverter</a> also creates a new, 
+ positve <a href="#flow_id"> flow_ID</a> based on the flow_ID of the entering 
+ <a href="#Thermo-Hydraulic_Bus">Thermo-Hydraulic Bus</a>.</li>
+ <li>In each branch 1 and branch 2 respectively, the pressure drop is added 
+ up by summing the coefficients [con lin qua] until the 
+ <a href="Flow_Mixer.html">Flow_Mixer</a> block is reached. </li>
+ <li>In the <a href="Flow_Mixer.html">Flow_Mixer</a> the flow diversion 
+ rate "fdiv" is calculated, so that the flow diversion can be carried out 
+ according to the flow resistance of the corresponding branch.</li>
+ <li>The diversion rate "fdiv" is then fed back to the initial diverter block. 
+ To avoid an algebraic loop in the feed back an transfer function or Memory 
+ block is used in the <a href="Flow_Mixer.html">Flow_Mixer</a> block.</li>
+</ol>
+
+<p> As well as the coefficients [con lin qua]<sub>1/2</sub>, the 
+<a href="flow_mixer.html">Flow_Mixer</a> also receives a <a href="#flow_id"> flow_ID</a> 
+in each branch. If the ID of the branch is negative, it symbolises a closed branch and the 
+mass flow is set to zero (for example in case of a closed valve in the branch).<br> 
+Using the information of the diverter, the mixer calculates the diversion of the two 
+branches, under the condition that the pressure drop in both branches must be the same: </p>
+<p> dp_parallel = dp<sub>1</sub> = dp<sub>2</sub> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Eq. 2.4) </p>
+<p> or by using the coefficients con, lin, qua : </p>
+<p> con<sub>1</sub> + lin<sub>1</sub> * mdot<sub>1</sub> + qua<sub>1</sub> * mdot<sub>1</sub><sup>2</sup>
+ = con<sub>2</sub> + lin<sub>2</sub> * mdot<sub>2</sub> + qua<sub>2</sub> * mdot<sub>2</sub><sup>2</sup> </p>
+<p> Furthermore, continuity has to be fulfilled  </p>
+<p> mdottotal = mdot<sub>1</sub> + mdot<sub>2</sub> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Eq. 2.5) </p>
+<p> With these equations the quadratic equation can be solved and the correct mass 
+flow can be calculated for both branches. Then the flow diversion rate is calculated as : </p>
+<p> fdiv = mdot<sub>1</sub>/mdottotal 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Eq. 2.6) </p>
+<p> The <a href="Flow_Mixer.html">Flow Mixer</a> also calculates the replacement pressure drop 
+coefficients for the parallel branches of the whole subcycle fullfilling equation 2.4 </p>
+<p>con<sub>1</sub> + lin<sub>1</sub> * mdot<sub>1</sub> + qua<sub>1</sub> * mdot<sub>1</sub><sup>2</sup> = 
+con<sub>rep</sub> + lin<sub>rep</sub> * mdottotal + qua<sub>rep</sub> * mdottotal<sup>2</sup></p>
+<p>
+The replacement pressure drop coefficients of the subcycle are added to the coefficients 
+[con lin qua]'<sub>0</sub> which arrive at the <a href="Flow_Diverter.html">Flow_Diverter</a>. 
+To determine the pressure drop of the whole subcycle, the pressure drop and the flow diversion 
+are calculated for an estimated mass flow, half of this mass flow and a quarter of it. 
+These three points define the pressure drop parabola of equation (Eq. 2.1), 
+and therefore the three coefficients [con lin qua]<sub>rep</sub> for the whole 
+subcycle can be found. These coefficients are added to the coefficients 
+[con lin qua]'<sub>0 </sub> passing the subcycle directely from the diverter to 
+the mixer and the result [con lin qua]''<sub>0</sub>is passed to the next block.</p>
+<hr>
+<p> NOTE: If you have hydraulic subcycles which contain subcycles themselves with flow diverters, 
+you have to take care to build up the cycle in a certain way. Each Flow_Diverter 
+must have its directely corresponding Flow_Mixer. Hydraulic schemes 
+like &quot;Tichelmann&quot; are not possible. (In a &quot;Tichelmann&quot; scheme diverter_A feeds 
+its mass_flow_1 in branch_1 and branch_2. In branch_1 a second diverter_B feeds 
+branch_3 and branch_4. Now the first mixer_A takes mass flow from branch_1 and 
+branch_3, the second mixer_B takes the mass flow from branch_4 and mixer_A.)</p>
+<hr>
+<p> NOTE: If you want to use an external control for the flow diversion rate "fdiv" of the 
+<a href="Flow_Diverter.html">Flow_Diverter</a>, you have to assure that the closed branch 
+is correctly marked by switching the <a href="#flow_id"> flow_ID</a> to a negative value. 
+The best way is to use a dedicated flow mixing block with a control input e.g the blocks 
+<a href="Mixing_Valve.html">Mixing_Valve</a> or 
+<a href="Flow_Mixer_Ideal.html">Flow_Mixer_Ideal</a>.</p>
+<hr>
+
+<h2><a name="other_tools"><b> 2.5 List of useful open source tools</b></a></h2>
+<h3><a name="pvlib"><b> 2.5.1 PVLib Toolbox</b></a></h3>
+<p> PVLib is a toolbox provided by Sandia National Laboratoriess <a href="https://pvpmc.sandia.gov/"> 
+( https://pvpmc.sandia.gov/ )) </a>as result of the PV Performance Modeling Corporative development group.
+It contains an extensive library of models and datasets of pv panels and inverters as well as 
+weather models. It's available as Matlab and Python Toolbox.<br>
+Since all models are available as m-file integration in Simulink is relatively straight forward by using 
+"Embedded Matlab Function". Although this is mainly for convenience
+because in most cases the results of the PV-Simulations could as well be used as input for the thermal 
+simulation in Carnot-Toolbox..</p>
+<p>GridPV Toolbox is a variant of the PVLib which comes with a COM interface to OpenDSS 
+(Power Distribution System Simulator, also open source) to simulate the integration of
+PV-Systems to the public power grid.</p>
+
+<h3><a name="coolprop"><b> 2.5.2 Coolprop</b> (refrigerant properties)</a></h3>
+<p> Coolprop from <a href="http://www.coolprop.org/"> www.coolprop.org</a> is a c++ shared library 
+that provides fluid and mixture properties. It contains interfaces for several 
+programming languages including Matlab. Usage in m-files is straight forward with an included 
+wrapper function. Integration into Simulink, considering calculation efficiency will require 
+knowledge about integration of shared libraries.<br></p>
+
+<h3><a name="refprop"><b> 2.5.3 Refprop</b> (refrigerant properties)</a></h3>
+<p> Refprop <a href="https://www.nist.gov/srd/refprop"> NIST</a> is another library that provides fluid 
+and mixture properties. It contains interfaces for several programming languages including Matlab. 
+Usage in m-files and integration into Simulink is straight forward with an included wrapper function.<br><br></p>
+
+<h2><b> <a name="weather_data_records">2.6 Weather Data Records</a></b></h2>
+<p><b>Timestep in the Data</b></p>
+<p>The following informations regarding a suitable timestep for the simulation of a 
+component are an indication not a requriement. Please check carefully the 
+required timestep in the weather data for your application and simulation model.</p>
+
+<p>Solar thermal collectors</p>
+<ul>
+ <li> 1 minute data is required for an accurate energy balance, controller design, especially for vacuum tube collectors </li>
+ <li> 1 hour timestep data can be sufficient for daily, monthly or annual energy balance </li>
+</ul>
+
+<p> PV-Generators</p> 
+<ul>
+ <li> 1 Minute timestep is required for an accurate energy balance, inverter and battery design </li>
+ <li> 1 hour timestep data can be sufficient for annual energy balance and battery sizing </li>
+</ul>
+
+<p>Buildings</p>
+<ul>
+ <li> 1 hour timestep data is sufficient for most building simulations </li>
+</ul>
+<br>
+
+<p><b>Energy Plus Dataset</b></p>
+<p>The e+ (Energy Plus) weather datasets .epw are available for download at 
+[<a href="6_Literature.html#Energy_Plus_2020">Energyplus 20200</a>].<br>
+The data can easily be imported by using the import filter function epw2wdb.m<br><p>
+<b>German TRY Dataset 2011</b><p>
+<p>The 2011 datasets of the test reference years for Germany 
+[<a href="6_Literature.html#DWD_2014">DWD 20144</a>] are 
+available in the Carnot public\data folder. The datasets have been processed to 
+fit to the Carnot weather data format (see wformat.m). The processing has been 
+done with try2wdb.m..<br>
+The test reference years represent the following regions:</p>
+<img alt="" src="Figures/TRYtable.jpg" height="333" width="939"><br>
+<p>Table: TRY regions in Germany (source [<a href="6_Literature.html#DWD_2014">DWD 2014</a>])</p>
+<p>The TRY are available for a standard year, a hot summer and a cold winter. Keep 
+in mind that according to [<a href="6_Literature.html#DWD_2014">DWD 2014</a>] 
+the TRY are designed for thermal building 
+simulation and that they may not be suitable for other puposes including solar 
+thermal collector simulation. The topic is discussed by 
+[<a href="6_Literature.html#Schaefer_Hiller_2015">Schäfer, Hiller 2015</a>]. 
+One of the errors as reported by Schäfer is the 'wrong' timestep in some 
+datasets (true local time instead of CET). The data sets have been examined, see 
+the file DwdTry2010_to_Wformat.mlx in the folder 
+carnot\public\library_m\weather_and_sun\try2wdb\scripts. According to these 
+tests, the timesteps in TRY2010_02*.dat, TRY2010_04*.dat, TRY2010_09*.dat, 
+TRY2010_11*.dat have been modified (timestep option 'TRY2010' in
+<a href="try2wdb.html">try2wdb</a>).<br><br></p>
+<p><b>German TRY Dataset 2016</b></p>
+<p>The 2016 Datasets are available form DWD and BBS (see [<a href="6_Literature.html#DWD_2017">DWD 2017</a>]).
+The datasets have a high spacial resolution. The import with the data processing function 
+dwd2wdb.m has been done for one example (DE_TRY2016_Potsdam_averageYear.mat) 
+available in the public\data folder..<br>
+<h3>Meteonorm Data</h3>
+<p>The data records can be created with the Meteonorm Software 
+[<a href="6_Literature.html#Meteonorm_2019">Meteonorm 20199</a>] 
+and imported to Carnot with the import function Metenorm2wdb.m and 
+MeteonormMinute2wdb.m. Meteonorm is a quite unique source for records with a 1 
+minute timestep.<br></p>
+<h2> <b> <a name="data_logging">2.7 Data Logg</a>ing</b></h2>
+<p> For furter evaluation of the simulation results the 
+major blocks are equipped with a data output (*dat).The carnot/Outputs/Loggerlibrary 
+contains data logging blocks to connect to the *dat output. Example : The
+<a href="HeatPump.html">HeatPump</a> model with the output HPdat, to be 
+connected the the <a href="Logger_Heat_Pump.html">Logger_Heat_Pump</a>. <br>In 
+the Logger-blocks a &quot;To File&quot; block writes datafor analyzing 
+the results of 
+systems simulations.. Matlab functions evaluate the data written by the logger. 
+The functions names start with &quot;cs_*.m&quot; (for Carnot Statistics). The main 
+evaluation is the energy performance of the model (&quot;cs_energy*.m), example:
+<a href="cs_energy_heatpump.html">cs_energy_heatpump</a>. <br> <br>  </p>
+<h3>2.7.1 Evaluation functions</h3>
+<p>The evaluation is done for a specified period in one year. The period can be: </p>
+<ol>
+	<li>year </li>
+	<li>month (in the year)</li>
+	<li>week&nbsp; (in the year)</li>
+	<li>day&nbsp; (in the year)</li>
+	<li>hour&nbsp; (in the year)</li>
+</ol>
+<p>The output is given in a specific order:</p>
+<ol>
+	<li>time of simulation start or time of beginning of the period</li>
+	<li>time of simulation end or time of end of the period</li>
+	<li>energy balances between inlets and outlets in Joule</li>
+	<li>efficiency of the component (if applicable)</li>
+	<li>number of on/off cycles </li>
+	<li>operation time in seconds </li>
+	<li>average massflow in kg/h </li>
+	<li>average inlet temperature during operation in degree Celsius *) </li>
+	<li>average outlet temperature during operation in degree Celsius *) </li>
+</ol>
+<p>Remark: *) The average values are only calculated if the &quot;detailed output&quot; is 
+activated. The values are calculated during the operation time of the component 
+(typically when there is a massflow or the component is switched on).</p>
+<p>For details of the different functions type :<br>
+<tt>help cs_energy_&lt;TAB&gt;</tt><br></p>
+
+<h3><a name="DataPointNames">2.7.2 Output Data and Data Point Names</a></h3>
+<p>The logger is connected to the data output of the corresponding Carnot model. 
+Examples for the data outputs are Bdat or HPdat. The output of the data logger is 
+written to a file as a timeseries and available in Simulink as an output bus.</p>
+<p>General definition of the bus-names:</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">CostElecBuy </td>
+		<td style="width: 10px;">:</td>
+        <td> costs of the consumed electric energy </td>
+    </tr>
+    <tr>
+    	<td>CostElecSell</td>
+        <td>:</td>
+        <td>revenues for the produced electric energy</td>
+    </tr>
+    <tr>
+    	<td>CostFuel</td>
+        <td>:</td>
+        <td>costs of the consumed fuel</td>
+    </tr>
+    <tr>
+    	<td>Cycles</td>
+        <td>:</td>
+        <td>switching cycles of the component</td>
+    </tr>
+    <tr>
+    	<td>EnergyFuel</td>
+        <td>:</td>
+        <td>consumed fuel energy in J</td>
+    </tr>
+    <tr>
+    	<td>Mass</td>
+        <td>:</td>
+        <td>time integral of the mass flow in kg</td>
+    </tr>
+    <tr>
+    	<td>MassC</td>
+        <td>:</td>
+        <td>time integral of the mass flow on the cooling side in kg</td>
+    </tr>
+    <tr>
+    	<td>MassFuel</td>
+        <td>:</td>
+        <td>consumed fuel mass in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_H2O</td>
+        <td>:</td>
+        <td>mass of the produced water in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_H2</td>
+        <td>:</td>
+        <td>mass of remaining hydrogen in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_CO2</td>
+        <td>:</td>
+        <td>mass of the produced carbon dioxide in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_CO</td>
+        <td>:</td>
+        <td>mass of the produced carbon monoxide in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_CxHy</td>
+        <td>:</td>
+        <td>mass of the remaining hydro carbons&nbsp; in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_SO2</td>
+        <td>:</td>
+        <td>mass of the produced sulfur dioxide in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_N2</td>
+        <td>:</td>
+        <td>mass of the produced nitrogen in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_NOx</td>
+        <td>:</td>
+        <td>mass of the produced nitrogen oxides in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>Mgas_O2</td>
+        <td>:</td>
+        <td>mass of the remaining dioxide in the fume gas in kg</td>
+    </tr>
+    <tr>
+    	<td>MassH</td>
+        <td>:</td>
+        <td>time integral of the mass flow on the heating side in kg</td>
+    </tr>
+    <tr>
+    	<td>OpTime</td>
+        <td>:</td>
+        <td>operating time in s</td>
+    </tr>
+    <tr>
+    	<td>Q</td>
+        <td>:</td>
+        <td>thermal energy in J</td>
+    </tr>
+    <tr>
+    	<td>Qc</td>
+        <td>:</td>
+        <td>cooling side energy in J</td>
+    </tr>
+    <tr>
+    	<td>Qc_def</td>
+        <td>:</td>
+        <td>cooling side energy deficit in J (energy deficit when outlet temperature is above setpoint)</td>
+    </tr>
+    <tr>
+    	<td>Qdeficit</td>
+        <td>:</td>
+        <td>deficit thermal energy in J (e.g. deficit of energy to reach the setpoint)</td>
+    </tr>
+    <tr>
+    	<td>Qh</td>
+        <td>:</td>
+        <td>heating side energy in J</td>
+    </tr>
+    <tr>
+    	<td>Qh_def</td>
+        <td>:</td>
+        <td>heating side energy deficit in J (energy deficit when outlet temperature is below setpoint)</td>
+    </tr>
+    <tr>
+    	<td>Qinternal</td>
+        <td>:</td>
+        <td>internal gains (energy) of a house in J</td>
+    </tr>
+    <tr>
+    	<td>Qloss</td>
+        <td>:</td>
+        <td>thermal losses (energy) by transmission through an insulation in J</td>
+    </tr>
+    <tr>
+    	<td>Qsolar</td>
+        <td>:</td>
+        <td>solar gains (energy) of a house in J</td>
+    </tr>
+    <tr>
+    	<td>Qvent</td>
+        <td>:</td>
+        <td>thermal losses (energy) by ventilation of a house in J</td>
+    </tr>
+    <tr>
+    	<td>SolarEnergyGlobal</td>
+        <td>:</td>
+        <td>irradiated global solar energy in J/m²</td>
+    </tr>
+    <tr>
+    	<td>SolarEnergyDirect</td>
+        <td>:</td>
+        <td>irradiated direct solar energy in J/m²</td>
+    </tr>
+    <tr>
+    	<td>SolarEnergyDiffuse</td>
+        <td>:</td>
+        <td>irradiated diffuse solar energy in J/m²</td>
+    </tr>
+    <tr>
+    	<td>Temperature_Ambient</td>
+        <td>:</td>
+        <td>Outdoor ambient temperature in degree Celsius, data from <a href="WDB_format.html">WDB</a></td>
+    </tr>
+    <tr>
+    	<td>Troom</td>
+        <td>:</td>
+        <td>Room or indoor temperature of house in degree Celsius, data from building model e.g. HouseSimple</td>
+    </tr>
+    <tr>
+    	<td>Troom_setpoint</td>
+        <td>:</td>
+        <td>setpoint for room temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td>T_in</td>
+        <td>:</td>
+        <td>inlet temperature in degree Celsius (general inlet temperature 
+		if heating or cooling is not clear, e.g. for a storage)</td>
+    </tr>
+    <tr>
+    	<td>T_out</td>
+        <td>:</td>
+        <td>outlet temperature in degree Celsius (general oulet temperature 
+		if heating or cooling is not clear, e.g. for a storage)</td>
+    </tr>
+    <tr>
+    	<td>T_mean</td>
+        <td>:</td>
+        <td>mean temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td>T_set</td>
+        <td>:</td>
+        <td>setpoint temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td>Tc_in</td>
+        <td>:</td>
+        <td>cooling side inlet temperature in degree Celsius 
+		(also called primary side or source side inlet for heat pumps)</td>
+    </tr>
+    <tr>
+    	<td>Tc_out</td>
+        <td>:</td>
+        <td>cooling side inlet temperature in degree Celsius 
+		(also called primary side outlet for heat pumps or cold water supply line)</td>
+    </tr>
+    <tr>
+    	<td>Tc_mean</td>
+        <td>:</td>
+        <td>cooling side mean temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td>Tc_set</td>
+        <td>:</td>
+        <td>cooling side setpoint temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td>Th_in</td>
+        <td>:</td>
+        <td>heating side inlet temperature in degree Celsius 
+		(also called return line temperature)</td>
+    </tr>
+    <tr>
+    	<td>Th_out</td>
+        <td>:</td>
+        <td>heating side outlet temperature in degree Celsius 
+		(also called flow line or supply line temperature)</td>
+    </tr>
+    <tr>
+    	<td>Th_mean</td>
+        <td>:</td>
+        <td>heating side mean temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td>Th_set</td>
+        <td>:</td>
+        <td>heating side setpoint temperature in degree Celsius</td>
+    </tr>
+    <tr>
+    	<td>Welec_in</td>
+        <td>:</td>
+        <td>consumed electric energy in J (from AC power)</td>
+    </tr>
+    <tr>
+    	<td>Welec_out</td>
+        <td>:</td>
+        <td>produced electric energy in J (from AC power)</td>
+    </tr>
+    <tr>
+    	<td>Welec_PV</td>
+        <td>:</td>
+        <td>produced electric energy from PV generator (DC) in J</td>
+    </tr>
+    <tr>
+    	<td></td>
+        <td>:</td>
+        <td></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Flow_Diverter</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Flow_Diverter.jpg" align=right>
+<p class="blockname">Flow_Diverter</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics
+<br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Divide the entering mass flow in two mass flows according to the fraction fdiv.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Divide the entering mass flow in two mass flows according to the fraction fdiv. 
+All other properties are fed through.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; mdot(THB1) = fdiv * mdot(THB) </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; mdot(THB2) = (1-fdiv) * mdot(THB)</p>
+<p> Connect the output clq of this block to the input of the corresponding 
+<a href="Flow_Mixer.html">Flow_Mixer</a>. 
+The corresponding flow mixer is the flow mixer which combines the flow of 
+the two branches THB1 and THB2.<br>
+The signal fdiv is calculated in the flow mixer. Feed back fdiv from the flow 
+mixer to this block to assure a proper flow diversion according to the pressure 
+drop in the branches 1 and 2 (see example_Hydraulic_FlowDiverter.slx). 
+Use fdiv as a control input if you want to set the flow diversion manually or by 
+a controller (see example_Hydraulic_FlowDiverterExternalControl.slx). 
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> fdiv</td>
+        <td>:</td>
+        <td> Flow division rate</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB1</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of branch 1</td>
+    </tr>
+    <tr>
+    	<td> THB2</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of branch 2</td>
+    </tr>
+    <tr>
+    	<td> clq </td>
+        <td>:</td>
+        <td> bus with massflow and pressure drop coefficients in THB 
+		(information is needed by the corresponding flow mixer)</td>
+    </tr>
+</table>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hydraulic_FlowDiverter </li>
+ <li> example_Hydraulic_FlowDiverterExternalControl </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

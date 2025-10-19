@@ -1,0 +1,406 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>try2wdb converts weather data from German DWD 2010 TRY-fromat to Carnot WDB</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="try2wdb.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>try2wdb converts weather data from German DWD 2010 TRY-fromat to Carnot WDB</h1><!--introduction--><p>The solar position is calculated by carlib functions since TRY do not have this information.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">SYNTAX:</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Reference and Literature</a></li><li><a href="#5">main calculations of try2wdb</a></li><li><a href="#7">Copryright and Versions</a></li></ul></div><h2 id="1">SYNTAX:</h2><pre>outmat = try2wdb(infile, outfile,  lat, long, long0, station, country,
+comment, [tstepOption, skipPlots])</pre><p>altenative SYNTAX:   outmat = try2wdb   opens dialog windows for the parameters</p><h2 id="2">Inputs</h2><pre>infile      : character string of the input file name
+ The values of infile have to be in following order:
+  1 RG TRY-Region                                                           {1..15}
+  2 IS Standortinformation                                                  {1,2}
+  3 MM Monat                                                                {1..12}
+  4 DD Tag                                                                  {1..28,30,31}
+  5 HH Stunde (MEZ)                                                         {1..24}
+  6 N  Bedeckungsgrad                                              [Achtel] {0..8;9}
+  7 WR Windrichtung in 10 m H&ouml;he &uuml;ber Grund                        [&deg;]      {0;10..360;999}
+  8 WG Windgeschwindigkeit in 10 m H&ouml;he &uuml;ber Grund                 [m/s]
+  9 t  Lufttemperatur in 2m H&ouml;he &uuml;ber Grund                        [&deg;C]
+ 10 p  Luftdruck in Stationsh&ouml;he                                   [hPa]
+ 11 x  Wasserdampfgehalt, Mischungsverh&auml;ltnis                      [g/kg]
+ 12 RF Relative Feuchte in 2 m H&ouml;he &uuml;ber Grund                     [%]      {1..100}
+ 13 W  Wetterereignis der aktuellen Stunde                                  {0..99}
+ 14 B  Direkte Sonnenbestrahlungsst&auml;rke (horiz. Ebene)             [W/m&sup2;]   abw&auml;rts gerichtet: positiv
+ 15 D  Difuse Sonnenbetrahlungsst&auml;rke (horiz. Ebene)               [W/m&sup2;]   abw&auml;rts gerichtet: positiv
+ 16 IK Information, ob B und oder D Messwert/Rechenwert                     {1;2;3;4;9}
+ 17 A  Bestrahlungsst&auml;rke d. atm. W&auml;rmestrahlung (horiz. Ebene)    [W/m&sup2;]   abw&auml;rts gerichtet: positiv
+ 18 E  Bestrahlungsst&auml;rke d. terr. W&auml;rmestrahlung                  [W/m&sup2;]   aufw&auml;rts gerichtet: negativ
+ 19 IL Qualit&auml;tsbit f&uuml;r die langwelligen Strahlungsgr&ouml;&szlig;en                   {1;2;3;4;5;6;7;8;9}
+outfile    : character string of the output file name
+             The outfile should follow the definition:
+                 CC_city.dat
+             where
+             CC = 2-letter (Alpha 2) code of the country (ISO 3166-1)
+             city = name of the city, use english name if available
+lat        : [-90,90] north positive
+long       : [-180,180] west positive
+long0      : reference longitude (timezone), [-180,180] west positive
+station    : name of the station
+country    : name of the country
+comment    : free comment
+optional parameters :
+ tstepOption :
+             'fullhour' - (default) timestep is 0:3600:8760*3600
+             'halfhour' - timestep is [0, 1800:3600:8759.5*3600, 8760*3600]
+             'legal2solar' - fullhour legal time transformed to solar time
+             'solar2legal' - fullhour solar time transformed to legal time
+             'TRY2010' - special timestep for TRY2010 Region 02, 09, 11
+ showPlots   : optional parameter
+             true    - (default) solar radiation and azimuth angles
+                       are plotted to check the solar positon
+             false   - the plots are skiped</pre><h2 id="3">Outputs</h2><pre>outmat : weather data in the Carnot WDB format
+The output matrix has the CARNOT form as described in "wformat.txt". As
+no collector position is defined, a horizontal plane is assumed.
+The solar radiation is limitied to positive values (e.g. TRY2010_04_Wint.dat
+has negative values in the diffuse radiation).</pre><h2 id="4">Reference and Literature</h2><pre>DWD Handbuch TRY 2010:
+ https://www.bbsr-energieeinsparung.de/EnEVPortal/DE/Regelungen/Testreferenzjahre/Testreferenzjahre/TRY_Handbuch.pdf?__blob=publicationFile&amp;v=2
+BauSim 2014: http://www.ibpsa.org/proceedings/bausimPapers/2014/p1172_final.pdf</pre><pre>see also dwd2wdb, tmy2wdb</pre><h2 id="5">main calculations of try2wdb</h2><p>check input parameters</p><h2 id="7">Copryright and Versions</h2><p>This file is part of the CARNOT Blockset.</p><p>Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen. Additional Copyright for this file see list auf authors. All rights reserved.</p><p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><p>1. Redistributions of source code must retain the above copyright notice,    this list of conditions and the following disclaimer.</p><p>2. Redistributions in binary form must reproduce the above copyright    notice, this list of conditions and the following disclaimer in the    documentation and/or other materials provided with the distribution.</p><p>3. Neither the name of the copyright holder nor the names of its    contributors may be used to endorse or promote products derived from    this software without specific prior written permission.</p><p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. ********************************************************************* version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction author list:  hf -&gt; Bernd Hafner</p><p>version   author  changes                                     date 6.1.0     hf      created from Meteonorm2wformat              29nov2013 6.1.1     hf      added outfile to title of figures           05jan2015 7.1.0     hf      new name try2wdb (old name try2wformat)     24mar2019 7.1.1     hf      adapted comments                            31dec2019 7.1.2     hf      replaced try2wformat by try2wdb             02aug2020 7.1.3     hf      added reference year 2010 to tvalue call    11nov2021 8.2.0     hf      optional timestamps at hour 0.5             05jan2023                   option to skip the plot                   no negative values in solar radiation                   limit fb to cos(88&deg;) *********************************************************************</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% try2wdb converts weather data from German DWD 2010 TRY-fromat to Carnot WDB
+% The solar position is calculated by carlib
+% functions since TRY do not have this information.
+%
+%% SYNTAX: 
+%  outmat = try2wdb(infile, outfile,  lat, long, long0, station, country,
+%  comment, [tstepOption, skipPlots])
+%
+% altenative SYNTAX:   outmat = try2wdb
+%   opens dialog windows for the parameters
+%
+%% Inputs
+%  infile      : character string of the input file name
+%   The values of infile have to be in following order:
+%    1 RG TRY-Region                                                           {1..15}
+%    2 IS Standortinformation                                                  {1,2}
+%    3 MM Monat                                                                {1..12}
+%    4 DD Tag                                                                  {1..28,30,31}
+%    5 HH Stunde (MEZ)                                                         {1..24}
+%    6 N  Bedeckungsgrad                                              [Achtel] {0..8;9}
+%    7 WR Windrichtung in 10 m Höhe über Grund                        [°]      {0;10..360;999}
+%    8 WG Windgeschwindigkeit in 10 m Höhe über Grund                 [m/s]
+%    9 t  Lufttemperatur in 2m Höhe über Grund                        [°C]
+%   10 p  Luftdruck in Stationshöhe                                   [hPa]
+%   11 x  Wasserdampfgehalt, Mischungsverhältnis                      [g/kg]
+%   12 RF Relative Feuchte in 2 m Höhe über Grund                     [%]      {1..100} 
+%   13 W  Wetterereignis der aktuellen Stunde                                  {0..99}  
+%   14 B  Direkte Sonnenbestrahlungsstärke (horiz. Ebene)             [W/m²]   abwärts gerichtet: positiv 
+%   15 D  Difuse Sonnenbetrahlungsstärke (horiz. Ebene)               [W/m²]   abwärts gerichtet: positiv
+%   16 IK Information, ob B und oder D Messwert/Rechenwert                     {1;2;3;4;9}
+%   17 A  Bestrahlungsstärke d. atm. Wärmestrahlung (horiz. Ebene)    [W/m²]   abwärts gerichtet: positiv
+%   18 E  Bestrahlungsstärke d. terr. Wärmestrahlung                  [W/m²]   aufwärts gerichtet: negativ
+%   19 IL Qualitätsbit für die langwelligen Strahlungsgrößen                   {1;2;3;4;5;6;7;8;9}
+%  outfile    : character string of the output file name
+%               The outfile should follow the definition:
+%                   CC_city.dat 
+%               where
+%               CC = 2-letter (Alpha 2) code of the country (ISO 3166-1)
+%               city = name of the city, use english name if available
+%  lat        : [-90,90] north positive
+%  long       : [-180,180] west positive
+%  long0      : reference longitude (timezone), [-180,180] west positive
+%  station    : name of the station
+%  country    : name of the country
+%  comment    : free comment
+%  optional parameters :
+%   tstepOption : 
+%               'fullhour' - (default) timestep is 0:3600:8760*3600
+%               'halfhour' - timestep is [0, 1800:3600:8759.5*3600, 8760*3600]
+%               'legal2solar' - fullhour legal time transformed to solar time
+%               'solar2legal' - fullhour solar time transformed to legal time
+%               'TRY2010' - special timestep for TRY2010 Region 02, 09, 11
+%   showPlots   : optional parameter
+%               true    - (default) solar radiation and azimuth angles 
+%                         are plotted to check the solar positon 
+%               false   - the plots are skiped
+%
+%% Outputs
+%  outmat : weather data in the Carnot WDB format
+%  The output matrix has the CARNOT form as described in "wformat.txt". As
+%  no collector position is defined, a horizontal plane is assumed.
+%  The solar radiation is limitied to positive values (e.g. TRY2010_04_Wint.dat
+%  has negative values in the diffuse radiation).
+% 
+%% Reference and Literature
+%  DWD Handbuch TRY 2010: 
+%   https://www.bbsr-energieeinsparung.de/EnEVPortal/DE/Regelungen/Testreferenzjahre/Testreferenzjahre/TRY_Handbuch.pdf?__blob=publicationFile&v=2
+%  BauSim 2014: http://www.ibpsa.org/proceedings/bausimPapers/2014/p1172_final.pdf
+%
+%  see also dwd2wdb, tmy2wdb
+
+function outmat = try2wdb(varargin)
+%% main calculations of try2wdb
+% check input parameters
+tstepOption = 'fullhour';   % tstepOption is default value 'fullhour'
+showPlots = true;           % showPlots is default value true
+if nargin == 0              % no parameter given
+    [infile, pathname, filter] = ...
+        uigetfile({'*.dat','TRY data file'; '*.mat', 'MAT-files'; ...
+        '*.*', 'All files'}, 'Select input data file');
+    if filter == 0  
+        return
+    end
+    infile = fullfile(pathname,infile);
+    outfile = input('Name for output weather data file : ', 's');
+    station = input('Name of the station : ', 's');
+    country = input('Name of the country : ', 's');
+    comment = input('Comment : ', 's');
+    lat = input('Geographical latitude [-90,90] north positive : '); 
+    long = input('Geographical longitude [-180,180] west positive : '); 
+    long0 = input('Geographical longitude of the timezone [-180,180] west positive : ');
+elseif nargin > 7
+    infile = varargin{1};
+    outfile = varargin{2};
+    lat = varargin{3};
+    long = varargin{4};
+    long0 = varargin{5};
+    station = varargin{6};
+    country = varargin{7};
+    comment = varargin{8};
+elseif nargin < 8 || nargin > 10
+  help try2wdb
+  error('Number of input arguments must be 0, 8 or 10')
+end
+if nargin > 8                   % number of inputs is > 8
+    tstepOption = varargin{9};  % tstepOption is parameter 9
+end
+if nargin > 9                   % number of inputs is > 9
+    showPlots = varargin{10};   % skipPlots is parameter 10
+end
+% read dat file
+inmat = txt2mat(infile);
+if size(inmat,1) < size(inmat,2)
+    inmat = inmat';
+end
+% set output matrix
+outmat = zeros(size(inmat,1),19);
+if strcmp(tstepOption, 'halfhour')
+    outmat(:,1) = (0.5:8759.5)'*3600;    % time in s
+elseif strcmp(tstepOption, 'legal2solar')
+    outmat(:,1) = (1:8760)'*3600;    % time in s
+    outmat(:,1) = legaltime2solartime(outmat(:,1),long,long0);
+elseif strcmp(tstepOption, 'solar2legal')
+    outmat(:,1) = (0:8759)'*3600;    % time in s
+    outmat(:,1) = solartime2legaltime(outmat(:,1),long,long0);
+elseif strcmp(tstepOption, 'TRY2010')
+    outmat(:,1) = (1:8760)'*3600;    % time in s
+    outmat(:,1) = legaltime2solartime(outmat(:,1),long,long0);
+    outmat(4381:end,1) = (4380*3600)+1800:3600:(3600*8760);    % time in s
+    outmat(1:2,1) = [3600; 7200];   % keep 1 h timestep at the beginning
+else % default is 'fullhour'
+    outmat(:,1) = (1:8760)'*3600;    % time in s
+end
+% outmat(:,2) : time comment with tvalue will be set at the end
+% solar postion from carlib since TRY have no sun information
+[~,~,zenith,azimuth,~] = sunangles(outmat(:,1),lat,long,long0);
+fb = cos(pi/180*zenith);                % factor for normal beam radiation is cos
+fb = max(fb,0.035);                     % limit to 0.035 (cos of 88 °)
+outmat(:,3) = zenith;                   % zenith from carlib calculation
+outmat(:,4) = azimuth;                  % azimuth from carlib calculation
+outmat(:,5) = min(1350,max(0,inmat(:,14))./fb); % I_dir_norm
+outmat(:,6) = inmat(:,15); 				% I_dfu_hor
+outmat(:,7) = inmat(:,9);				% Tamb
+outmat(:,8) = skytemperature(inmat(:,9),inmat(:,12),inmat(:,6)/8); % tsky
+outmat(:,9) = inmat(:,12);				% humiditiy
+outmat(:,10) = -9999;               	% precipitation is not known
+outmat(:,11) = inmat(:,6)/8;			% cloud index
+outmat(:,12) = inmat(:,10)*100;		    % pressure hPa - Pa
+outmat(:,13) = inmat(:,8);			    % wind speed
+outmat(:,14) = inmat(:,7);			    % wind direction
+outmat(:,15) = zenith;					% collector incidence is zenith angle
+outmat(:,16) = -9999;					% teta rise is not known
+outmat(:,17) = -9999;					% teta head is not known
+outmat(:,18) = max(0, inmat(:,14));     % Idir on horizontal surface 
+outmat(:,19) = max(0, inmat(:,15));     % Idfu on surface
+% plot sun angles to verify geographical position and time reference
+if showPlots
+    figure
+    plot([(90-zenith).*10, outmat(:,18)+outmat(:,19)])
+    s = strrep(outfile,'_','');
+    title(['sunposition and global radiation ' s])
+    legend('solar horizon angle * 10', 'global radiation')
+    figure
+    plot([(90-zenith).*10, outmat(:,5)])
+    title(['sunposition and direct beam radiation ' s])
+    legend('solar horizon angle * 10', 'beam radiation')
+    disp(' ')
+    disp('try2wdb : Please check sun position and solar radiation in the figure.')
+    disp('          Solar height and radiation should be 0 an the same moment at sunrise and sunset.')
+    disp('          If not check longitude, latitude and time reference.')
+    disp(' ')
+end
+% copy first row to assure interpolation 
+outmat = [outmat(1,:); outmat(:,:)];
+outmat(1,1) = 0;                        % first row has time 0
+outmat(length(outmat),1) = 8760*3600;   % last row is end of the year
+% now all the time values are there: set time comment
+outmat(:,2) = tvalue(outmat(:,1),2010); % tstring
+% open file for output and write header
+fout = fopen(outfile,'w');
+fprintf(fout,'%% Format of weather data in CARNOT.\n');
+fprintf(fout,'%%   station name:  %s   country: %s\n', station, country);
+fprintf(fout,'%%   geographical positon: longitude: %f , latitude: %f\n', lat, long);
+fprintf(fout,'%%   reference meridian for time (example: 0° = Greenwich Mean Time): %f\n', long0);
+fprintf(fout,'%% Data converted from Test Reference Year. %s \n', comment);
+fprintf(fout,'%% Use the Carnot block "Weather_Datafile" to get the data in your model.\n');
+fprintf(fout,'%%\n');
+fprintf(fout,'%% col   description                                       units\n');
+fprintf(fout,'%% 1     time                                                s\n');
+fprintf(fout,'%% 2     timevalue (comment line) format YYYYMMDDHHMM        -\n');
+fprintf(fout,'%%       Y is the year, M the month, D the day, H the hour\n');
+fprintf(fout,'%% 3     zenith angle of sun (at time, not averaged)         degree\n');
+fprintf(fout,'%%       (continue at night to get time of sunrise by\n');
+fprintf(fout,'%%       linear interpolation)\n');
+fprintf(fout,'%% 4     azimuth angle of sun (0°=south, east negative)      degree\n');
+fprintf(fout,'%%       (at time, not average in timestep)\n');
+fprintf(fout,'%% 5     direct solar radiation on a normal surface          W/m^2\n');             
+fprintf(fout,'%% 6     diffuse solar radiation on surface                  W/m^2\n');             
+fprintf(fout,'%% 7     ambient temperature                                 degree centigrade\n'); 
+fprintf(fout,'%% 8     radiation temperature of sky                        degree centigrade\n'); 
+fprintf(fout,'%% 9     relative humidity                                   percent\n');           
+fprintf(fout,'%% 10    precipitation                                       m/s\n');               
+fprintf(fout,'%% 11    cloud index (0=no cloud, 1=covered sky)             -\n');                 
+fprintf(fout,'%% 12    station pressure                                    Pa\n');                
+fprintf(fout,'%% 13    mean wind speed                                     m/s\n');               
+fprintf(fout,'%% 14    wind direction (north=0° west=270°)                 degree\n');            
+fprintf(fout,'%% 15    incidence angle on surface (0° = vertical)          degree\n');          
+fprintf(fout,'%%       (= -9999, if surface orientation is unknown)\n');                        
+fprintf(fout,'%% 16    incidence angle in plane of vertical and main       degree\n');            
+fprintf(fout,'%%       surface axis (the main axis is parallel to heat\n');                       
+fprintf(fout,'%%       collecting pipes in a collector, it is pointing\n');                       
+fprintf(fout,'%%       to the center of the earth)\n');                                           
+fprintf(fout,'%% 17    incidence angle in plane of vertical and second     degree\n');            
+fprintf(fout,'%%       surface axis (the second axis is in the surface\n');                       
+fprintf(fout,'%%       and a vertical on the heat collecting pipes in \n');                   
+fprintf(fout,'%%       a collector, it is pointing to the horizon)\n%%\n');                   
+fprintf(fout,'%% 18    direct solar radiation on surface                   W/m^2\n');   
+fprintf(fout,'%% 19    diffuse solar radiation on surface                  W/m^2\n');   
+fprintf(fout,'%% UNKNOWN: set -9999 for unknown values\n%%\n');
+fprintf(fout,'%%   time        tvalue    zenith   azimuth   Ibn Idfuhor Tamb   Tsky   hum    prec  cloud   p      wspeed  wdir  incidence  tetal   tetat   Idirhor Idfuhor\n');
+% write matrix row by row to define formats
+outmat = outmat';               % transpose outmat before writing to file 
+%             time   tvalue  zenit  azimut  Ibn    Idfuh  Tamb   Tsky   hum    prec   cloud  press  wspeed wdir   incid  tetal  tetat  Idirh  Idfuh
+fprintf(fout,'%8.0f  %12.0f  %8.2f  %8.2f  %4.0f  %4.0f  %5.1f  %5.1f  %5.1f  %5.0f  %5.3f  %6.0f  %6.2f  %5.1f  %7.1f  %7.1f  %7.1f  %4.0f  %4.0f\n', ...
+       outmat);
+% close output file
+status = fclose (fout);
+if (status == 0)
+    outmat = outmat'; % transpose outmat again for variable output
+else
+    outmat = status;  % something went wrong, output is the status
+end
+
+%% Copryright and Versions
+% This file is part of the CARNOT Blockset.
+% 
+% Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+% Additional Copyright for this file see list auf authors.
+% All rights reserved.
+% 
+% Redistribution and use in source and binary forms, with or without 
+% modification, are permitted provided that the following conditions are 
+% met:
+% 
+% 1. Redistributions of source code must retain the above copyright notice, 
+%    this list of conditions and the following disclaimer.
+% 
+% 2. Redistributions in binary form must reproduce the above copyright 
+%    notice, this list of conditions and the following disclaimer in the 
+%    documentation and/or other materials provided with the distribution.
+% 
+% 3. Neither the name of the copyright holder nor the names of its 
+%    contributors may be used to endorse or promote products derived from 
+%    this software without specific prior written permission.
+% 
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+% AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+% IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+% ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+% LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+% CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+% SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+% INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+% CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+% ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+% THE POSSIBILITY OF SUCH DAMAGE.
+% ***********************************************************************
+% version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+% author list:  hf -> Bernd Hafner
+% 
+% version   author  changes                                     date
+% 6.1.0     hf      created from Meteonorm2wformat              29nov2013
+% 6.1.1     hf      added outfile to title of figures           05jan2015
+% 7.1.0     hf      new name try2wdb (old name try2wformat)     24mar2019
+% 7.1.1     hf      adapted comments                            31dec2019
+% 7.1.2     hf      replaced try2wformat by try2wdb             02aug2020
+% 7.1.3     hf      added reference year 2010 to tvalue call    11nov2021
+% 8.2.0     hf      optional timestamps at hour 0.5             05jan2023
+%                   option to skip the plot
+%                   no negative values in solar radiation
+%                   limit fb to cos(88°)
+% ***********************************************************************
+
+##### SOURCE END #####
+--></body></html>

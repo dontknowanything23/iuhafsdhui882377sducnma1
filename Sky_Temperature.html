@@ -1,0 +1,104 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Sky_Temperature</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/skytemperature.jpg" align=right>
+<p class="blockname">Sky_Temperature</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Weather_and_Sun
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculates the skytemperature in &deg;C.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+When there is the relative humidity, the sky temperature is calculated by 
+the formula of Berdahl (1984). Otherwise the sky temperature is calculated by 
+the formula of Unsworth (1975).<br>
+This block is also available as workspace function<br>
+<tt><a href="skytemperature.html">skytemperature</a></tt>.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> hum </td>
+        <td>:</td>
+        <td> relative humidity in % (set to -999 if unkown)</td>
+    </tr>
+    <tr>
+    	<td> Cloud </td>
+        <td>:</td>
+        <td> cloud index in [0..1] </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tsky</td>
+		<td style="width: 10px;">:</td>
+        <td> sky temperature in &deg;C </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/skytemperatureSHOT.jpg" /></p>
+
+<p><b>Literature:</b><br />
+Duffie, J., Beckman, W.: Solar Engineering of thermal processes, 
+John Wiley &amp; Sons, Inc. 2020<br>
+Berdahl, P.; Martin, M.: Characteristics of infrared sky radiation in the United
+States. Solar Energy 3/4:321-336, 1984<br>
+Unsworth, M.H.: Longwave radiation at the ground - 
+Angular distribution of incomming radiation; 
+Quaterly Journal of the Royal Meteorological Society, Vol. 101, No. 427, 1975
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

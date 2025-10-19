@@ -1,0 +1,372 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>cs_energy_electric_heater_ctrl - evaluation of data written by the Logger_ElectricHeaterCtrl</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="cs_energy_electric_heater_ctrl.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>cs_energy_electric_heater_ctrl - evaluation of data written by the Logger_ElectricHeaterCtrl</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Function Call</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Description</a></li><li><a href="#5">References</a></li><li><a href="#6">check the inputs</a></li><li><a href="#7">load the data</a></li><li><a href="#8">timerange</a></li><li><a href="#9">determine output</a></li><li><a href="#10">display some statistics</a></li><li><a href="#12">Copyright and Versions</a></li></ul></div><h2 id="1">Function Call</h2><pre>y = cs_energy_electric_heater_ctrl([timeclass], [file], [filedetail])</pre><h2 id="2">Inputs</h2><pre>timeclass - optional input parameter for the evaluation period
+ 1 : year (default)
+ 2 : month
+ 3 : week
+ 4 : day
+ 5 : hour</pre><pre>file - optional character string with the name of the .mat file
+ created by the data logger. If not given during function call, the
+ function itsself will open an input window for the choice of the file.
+ Files written by the Logger_ElectricHeaterCtrl have the format
+ 'electricheateroutput*.mat'</pre><pre>filedetail - optional character string with the name of the .mat file
+ created by the enabled data logger in the Logger_ElectricHeaterCtrl block.
+ This file contain the same information as file but they are stored only
+ when the the electric heater is in operation.
+ Files written by the Logger_ElectricHeaterCtrl have the format
+ 'electricheaterdetailoutput*.mat'</pre><pre>file must contain the following information in timeseries:
+ eh.Th_in  : inlet temperature in degree centigrade
+ eh.Th_out : outlet temperature in degree centigrade
+ eh.MassH  : integrated massflow in kg
+ eh.Cycles : number of 'on' cycles
+ eh.Optime : working time in s
+ eh.Qh     : delivered thermal energy in Joule
+ eh.Welec_in : consumed electric energy in Joule
+ eh..CostElecBuy : costs of the electric energy in -</pre><h2 id="3">Outputs</h2><pre>y - Matrix where for timeclass 1 the first row has the annual values.
+ For timeclass 2 the 12 rows contain the monthly values.
+ Columns:
+ 1   time of simulation or timeclass start
+ 2   time of simulation or timeclass end
+ 3   energy given to the system in Joule
+ 4   consumed electric energy in Joule
+ 5   number of on/off cycles
+ 6   operation time in seconds
+ 7   average massflow in kg/s
+ 8   mean inlet temperature during operation in &deg;C *)
+ 9   mean outlet temperature during operation in &deg;C *)
+10   costs the consumed electric energy
+*) The values are only calculated when 'filedetail' is given.
+   The values are evaluated at the operation time only.</pre><h2 id="4">Description</h2><pre>Evaluation of data written by Logger_ElectricHeaterCtrl.  The result
+of the function is the energy in annual, monthly, ... values, depending
+on the timeclass. For timeclass 1 the first row has the annual values.
+For timeclass 2 the 12 rows contain the monthly values.
+The outputs are organized in groups: time, energy, efficiency,
+operation, average massflows, average temperatures, economics</pre><h2 id="5">References</h2><pre>see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m
+ cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m
+ cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m
+ cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m</pre><h2 id="6">check the inputs</h2><h2 id="7">load the data</h2><h2 id="8">timerange</h2><h2 id="9">determine output</h2><h2 id="10">display some statistics</h2><h2 id="12">Copyright and Versions</h2><pre>This file is part of the CARNOT Blockset.
+Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+Additional Copyright for this file see list auf authors.
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.</pre><pre>************************************************************************
+VERSIONS
+author list:     hf -&gt; Bernd Hafner
+version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Version  Author  Changes                                     Date
+4.1.0    drhf    created                                     25mar2009
+4.1.1    drhf    spaces in the sprintf replacaes by tabs     10sep2009
+                for copying the text to an Excel sheet
+4.2.0    drhf    output matrix not only col 1, but all data  22sep2009
+4.3.0    drhf    includes number of cylces,                  30oct2009
+                new order (energy is the last colum)
+5.3.1    drhf    corrected timeclass limits                  21nov2012
+5.3.2    drhf    file can be choosen by uigetfile            29nov2012
+6.3.3    drhf    load details only is the file is not empty  03jan2017
+7.3.4    drhf    adapted to publish                          18feb2022
+8.4.0    hf      renamed to cs_energy_electric_heater_ctrl   18mar2023
+                 (old name: cs_electricheater)
+                 changes for public version
+8.4.1    hf      updated comments for publish and help       26mar2023
+************************************************************************</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% cs_energy_electric_heater_ctrl - evaluation of data written by the Logger_ElectricHeaterCtrl
+%% Function Call
+%  y = cs_energy_electric_heater_ctrl([timeclass], [file], [filedetail])
+%
+%% Inputs
+%  timeclass - optional input parameter for the evaluation period
+%   1 : year (default)
+%   2 : month
+%   3 : week
+%   4 : day
+%   5 : hour
+% 
+%  file - optional character string with the name of the .mat file 
+%   created by the data logger. If not given during function call, the  
+%   function itsself will open an input window for the choice of the file.
+%   Files written by the Logger_ElectricHeaterCtrl have the format 
+%   'electricheateroutput*.mat'
+% 
+%  filedetail - optional character string with the name of the .mat file 
+%   created by the enabled data logger in the Logger_ElectricHeaterCtrl block.
+%   This file contain the same information as file but they are stored only 
+%   when the the electric heater is in operation.
+%   Files written by the Logger_ElectricHeaterCtrl have the format 
+%   'electricheaterdetailoutput*.mat'
+%
+%  file must contain the following information in timeseries:
+%   eh.Th_in  : inlet temperature in degree centigrade
+%   eh.Th_out : outlet temperature in degree centigrade
+%   eh.MassH  : integrated massflow in kg
+%   eh.Cycles : number of 'on' cycles
+%   eh.Optime : working time in s
+%   eh.Qh     : delivered thermal energy in Joule
+%   eh.Welec_in : consumed electric energy in Joule
+%   eh..CostElecBuy : costs of the electric energy in -
+% 
+%% Outputs
+%  y - Matrix where for timeclass 1 the first row has the annual values.
+%   For timeclass 2 the 12 rows contain the monthly values.
+%   Columns:
+%   1   time of simulation or timeclass start
+%   2   time of simulation or timeclass end
+%   3   energy given to the system in Joule
+%   4   consumed electric energy in Joule
+%   5   number of on/off cycles
+%   6   operation time in seconds
+%   7   average massflow in kg/s
+%   8   mean inlet temperature during operation in °C *)
+%   9   mean outlet temperature during operation in °C *)
+%  10   costs the consumed electric energy
+%  *) The values are only calculated when 'filedetail' is given.
+%     The values are evaluated at the operation time only.
+% 
+%% Description
+%  Evaluation of data written by Logger_ElectricHeaterCtrl.  The result
+%  of the function is the energy in annual, monthly, ... values, depending 
+%  on the timeclass. For timeclass 1 the first row has the annual values.
+%  For timeclass 2 the 12 rows contain the monthly values.
+%  The outputs are organized in groups: time, energy, efficiency, 
+%  operation, average massflows, average temperatures, economics
+% 
+%% References
+%  see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m 
+%   cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m 
+%   cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m 
+%   cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m
+
+function y = cs_energy_electric_heater_ctrl(varargin)
+%% check the inputs
+[timeclass, file, filedetail, details, filter] = ...
+    inputfiles4cs_energy('electricheater', varargin{:});
+ncol = 9;
+if filter == 0
+    y = zeros(1,ncol);
+    return
+end
+%% load the data 
+D = importdata(file);               % import data from file to variable D
+if details                          % detailed data exists
+    DD = importdata(filedetail);    % import it to DD
+    if isempty(DD.Th_in.Data)       % if it's empty
+        details = false;            % there are no details
+    end
+end
+%% timerange
+[classnumber, limit] = get_timeclass_limits(timeclass);
+if classnumber < 0
+    y = zeros(1,ncol);
+    help cs_energy_electric_heater_ctrl
+    return
+end
+%% determine output
+y = zeros(classnumber,ncol);
+for class = 1:(length(limit)-1)
+    idxs = find(D.Th_in.Time >= limit(class),1,'first');
+    idxe = find(D.Th_in.Time <= limit(class+1),1,'last');
+    % if the simulation is not in the classlimit, the result matrix is zero
+    if ~isempty(idxs) ...                   % if the start is in the data
+            && (idxe > idxs)                % and start and end are not same
+        % 1   time of simulation or timeclass start
+        y(class,1) = D.Th_in.Time(idxs);
+        % 2   time of simulation or timeclass end
+        y(class,2) = D.Th_in.Time(idxe);
+        %  3 energy given to the system in Joule
+        y(class,3) = D.Qh.Data(idxe)-D.Qh.Data(idxs);
+        %  4 consumed electric energy in Joule
+        y(class,4) = D.Welec_in.Data(idxe)-D.Welec_in.Data(idxs);
+        % 5   number of on/off cycles
+        y(class,5) = D.Cycles.Data(idxe)-D.Cycles.Data(idxs);
+        % 6   operation time in seconds
+        time = D.OpTime.Time(idxe)-D.OpTime.Time(idxs);
+        y(class,6) = time;
+        % 7   average massflow in kg/s
+        if time > 0
+            y(class,7) = (D.MassH.Data(idxe)-D.MassH.Data(idxs))/time;
+        end
+        % 10 costs of electric energy
+        y(class,10) = D.CostElecBuy.Data(idxe)-D.CostElecBuy.Data(idxs);
+        if details
+            idxs = find(DD.Th_in.Time >= limit(class),1,'first');
+            idxe = find(DD.Th_in.Time <= limit(class+1),1,'last');
+            if ~isempty(idxs)                 % if the start is in the data
+                % 8  mean inlet temperature degree Celsius
+                y(class,8) = mean(DD.Th_in.Data(idxs:idxe));
+                % 9  mean outlet temperature degree Celsius
+                y(class,9) = mean(DD.Th_out.Data(idxs:idxe));
+            end
+        end
+    end
+end
+%% display some statistics
+starttime = D.Th_in.Time(1);   % time of simulation or timeclass start
+endtime = D.Th_in.Time(end);   % time of simulation or timeclass end
+time = endtime-starttime;               % total simulation time
+startdate = sec2date(starttime);        % date of simulation start
+enddate = sec2date(endtime);            % date of simulation end
+fprintf('*** Evaluation of the electric heater ***\n');
+fprintf('* Simulation start\t%02.0f:%02.0f:%02.0f  %02.0f.%02.0f.%04.0f\n', ...
+    startdate(4),startdate(5),startdate(6), ...
+    startdate(3), startdate(2),startdate(1));
+fprintf('*            end\t%02.0f:%02.0f:%02.0f  %02.0f.%02.0f.%04.0f\n', ...
+    enddate(4),enddate(5),enddate(6),...
+    enddate(3), enddate(2),enddate(1));
+fprintf('*            duration in hours\t%.1f\n', time/3600);
+fprintf('* Energy:    thermal output in kWh\t%.1f\n', D.Qh.Data(end)/3.6e6);
+fprintf('*            consumed electric energy in kWh\t%.1f\n', D.Welec_in.Data(end)/3.6e6);
+fprintf('*');
+fprintf('* Operation:     number on/off cycles\t%.0f\n', D.Cycles.Data(end));
+fprintf('*                operation time in hours\t%.1f\n', ...
+    D.OpTime.Data(end)/3600);
+fprintf('*            average massflow in kg/h\t%.1f\n', ...
+    D.MassH.Data(end)*3600/D.OpTime.Data(end));
+if details
+    fprintf('*            average inlet temperature in °C\t%.1f\n', ...
+        mean(DD.Th_in.Data));
+    fprintf('*            average outlet temperature in °C\t%.1f\n', ...
+        mean(DD.Th_out.Data));
+end
+fprintf('* Costs: bought electric energy\t%.2f\n', D.CostElecBuy.Data(end));
+fprintf('*** End of electric heater evaluation ***\n');
+
+%% Copyright and Versions
+%  This file is part of the CARNOT Blockset.
+%  Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+%  Additional Copyright for this file see list auf authors.
+%  All rights reserved.
+%  Redistribution and use in source and binary forms, with or without 
+%  modification, are permitted provided that the following conditions are 
+%  met:
+%  1. Redistributions of source code must retain the above copyright notice, 
+%    this list of conditions and the following disclaimer.
+%  2. Redistributions in binary form must reproduce the above copyright 
+%    notice, this list of conditions and the following disclaimer in the 
+%    documentation and/or other materials provided with the distribution.
+%  3. Neither the name of the copyright holder nor the names of its 
+%    contributors may be used to endorse or promote products derived from 
+%    this software without specific prior written permission.
+%  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+%  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+%  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+%  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+%  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+%  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+%  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+%  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+%  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+%  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+%  THE POSSIBILITY OF SUCH DAMAGE.
+%  
+%  ************************************************************************
+%  VERSIONS
+%  author list:     hf -> Bernd Hafner
+%  version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+%  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+%  Version  Author  Changes                                     Date
+%  4.1.0    drhf    created                                     25mar2009
+%  4.1.1    drhf    spaces in the sprintf replacaes by tabs     10sep2009
+%                  for copying the text to an Excel sheet
+%  4.2.0    drhf    output matrix not only col 1, but all data  22sep2009
+%  4.3.0    drhf    includes number of cylces,                  30oct2009
+%                  new order (energy is the last colum)
+%  5.3.1    drhf    corrected timeclass limits                  21nov2012
+%  5.3.2    drhf    file can be choosen by uigetfile            29nov2012
+%  6.3.3    drhf    load details only is the file is not empty  03jan2017
+%  7.3.4    drhf    adapted to publish                          18feb2022
+%  8.4.0    hf      renamed to cs_energy_electric_heater_ctrl   18mar2023
+%                   (old name: cs_electricheater)
+%                   changes for public version
+%  8.4.1    hf      updated comments for publish and help       26mar2023
+%  ************************************************************************
+
+##### SOURCE END #####
+--></body></html>

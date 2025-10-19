@@ -1,0 +1,146 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Saturation_Property</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/SaturationProperty.gif" align=right>
+<p class="blockname">Saturation_Property</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the saturation properties at the specified conditions.
+</p>
+
+<p><b>Description:</b><br>
+The block calculates the saturation properties of the (') state and the
+(&quot;) state, i.e. the property of boiling fluid or saturated steam according
+to the equation <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; prop(x) = x*prop" + (1-x)*prop'<br><br>
+with<br>
+prop - specified property<br>
+x - vapurcontent<br>
+prop' - boiling fluid state<br>
+prop" - saturated steam state<br><br>
+The block calls up the function satuprop in the CARNOT 
+<a href="carlib.html">Carlib Library</a> where the calculation is carried out. 
+The material properties functions can also be called directly from the command 
+window by typing <br>
+<tt><a href = "saturationproperty.html">saturationproperty</a>
+(<em>temperature, pressure, fluid_type, fluid_mix</em>)</tt><br>
+in the Matlab Command Window. Instead of the italic variables the actual value 
+of the respective property has to be entered. <br>
+For more information about the function type:<br>
+<tt>help saturationproperty</tt><br>
+The property is specified by entering a property_ID (see Parameters and Dialog 
+Box. In the same way the phase has to be entered in the mask of the block to 
+determine which saturationproperty, water or steam, should be calculated. 
+<p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature (scalar or vector) in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid types</a> </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix </td>
+        <td>:</td>
+        <td> see definition of CARNOT
+		<a href = "2_Basic_Concepts.html#Fluid_ID">fluid mixtures</a></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">density</td>
+		<td style="width: 10px;">:</td>
+        <td> density in kg/m<sup>3</sup>  </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/SaturationPropertyMaskA.jpg" /></p>
+
+<p> You can choose the inputs to be the : </p>
+<ul>
+ <li> state variables (temperature, pressure, fluid type 
+ and mix have separate input ports)</li>
+ <li> the Thermo Hydraulic Bus (THB) </li>
+ <li> or, for compatibility with older versions, 
+ the Thermo Hydraulic Vector (THV) </li>
+</ul>
+
+<p><img src="Figures/SaturationPropertyMaskB.jpg" /></p>
+
+<p>Use the <a href="GlobalMessageLevel.html">GlobalMessageLevel</a> 
+block to handle the debugging messages.</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> exampleSaturationProperty </li>
+</ul>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+The saturation_property block is only available for water.
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

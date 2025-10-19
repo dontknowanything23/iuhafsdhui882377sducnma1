@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerHouse.jpg" style="float: right"><a name="data_logging_house_heating"><font size="5"><b>Logger_House</b></font></a><br>
+<b>Path: carint/Evaluation</b> <br> <br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate a simple house block of the Carnot blocksetby using 
+<a href="cs_energy_house.html">
+cs_energy_house</a>&nbsp; 
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>set point room temperature 
+    <li>Hdat : output data of house heating model 
+    <li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the 
+	files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_h : displaying data of house heating model 
+    <li>files : &quot;houseoutput<i>_extension</i>.mat&quot; and &quot;housedetailoutput<i>_extension</i>.mat&quot; where extension 
+    is a string you can choose in the parameters of the block.&nbsp;&nbsp; 
+    where extension is a string you can choose in the parameters of the block. 
+</ul>
+<p><strong>Description</strong><p>The file &quot;housedetailoutput<i>_extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated.&nbsp; <br>Detailed outputs 
+are written only when the heating (or cooling) system massflow is above the 
+threshold value.<br>The files are saved in the 
+current working directory of Matlab unless you specify a complete pathname.</p>
+<p>The ElectricPrice input is usefull if you want to evaluate the energy costs 
+with variable traiffs.</p>
+<p>The files contain the following informations in timeseries variables : </p>
+<ul>
+	<li>house.Temperature_Ambient : ambient temperature in degree Celsius</li>
+	<li>house.Troom : room temperature in degree Celsius</li>
+	<li>house.Troom_setpoint : setpoint for room temperature in degree Celsius</li>
+	<li>house.Qh : heating energy from the system to the house in Joule</li>
+	<li>house.Qc : cooling energy from the system to the house in Joule</li>
+	<li>house.Qloss : transmission losses in Joule (negative value for losses)</li>
+	<li>house.Qvent : ventilation losses in Joule (negative value for losses)</li>
+	<li>house.Qinternal : internal gains in Joule (positive value for gains)</li>
+	<li>house.Qsolar : solar gain in Joule (positive value for gains)</li>
+	<li>house.T_in : inlet temperature of the heating sytem in degree Celsius</li>
+	<li>house.T_out : outlet temperature of the heating sytem in degree Celsius</li>
+	<li>house.Mass : integrated massflow through the heating system in kg</li>
+	<li>house.Cycles : number of on/off cycles of the pump</li>
+	<li>house.OpTime : operation time of the pump in s</li>
+</ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br></p>
+<p><b>Parameters and Dialog Box</b>
+<ul type="disc">
+    <li>sample time for data saving in s (standard value 3600 s)
+    <li>File extension: the text string replaces <i>&quot;extension&quot;</i> 
+    in the filename &quot;heatingoutput<i>_extension</i>.mat&quot;
+    <li>checkbox for additional detailed data file
+	(some evaluations in <a href="cs_energy_heatpump.html">cs_energy_house</a> 
+	are only possible with the detailed file, e.g. mean operation temperature)<li>
+	sample time for detailed logging (default value of 60 s, be carefull when 
+	changing this value)<li>Threshold for the heating or cooling power to 
+	activate the detailed logging.</ul>
+<p><img alt="" src="Figures/LoggerHouseMask.jpg">&nbsp;</p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes 
+</p>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+@import url('../../../../../tutorial/doc/Carnot_Style.css');
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerCoGen.jpg" style="float: right"><a name="data_logging_furnace"><font size="5"><b>Logger_CoGen</b></font></a><p>
+<b>Path: Carnot/Outputs/Logger</b><br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate the
+<a href="Cogeneration_Motor.html">Cogeneration_Motor</a> model of the Carnot blockset by using
+<a href="cs_energy_cogen.html">cs_energy_cogen</a> 
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>CoDat (data bus of the <a href="Cogeneration_Motor.html">
+	Cogeneration_Motor</a>)<li><a href="ElectricityPrice.html">Electricity Price</a> (bus with the prices 
+	for consumed electric energy) 
+    <li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the 
+	files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_Co : displaying data of <a href="Cogeneration_Motor.html">
+	Cogeneration_Motor</a><li>files : &quot;cogenoutput<i>_extension</i>.mat&quot; and &quot;cogendetailoutput<i>_extension</i>.mat&quot;where 
+    extension is a string you can choose in the parameters of the block. 
+</ul>
+<p>The file contains the following information in timeseries. The timeseries 
+appear in a structure with the variable &quot;boiler&quot;.</p>
+<ul>
+	<li>cogen.Th_in : inlet temperature (heating) in degree Celsius </li>
+	<li>cogen.Th_out : outlet temperature (heating) in degree Celsius
+	</li>
+	<li>cogen.MassH : time integral of the mass flow on 
+	the heating side in kg</li>
+	<li>cogen.Qh : heating energy in J</li>
+	<li>cogen.Tmean : average operation temperature in degree Celsius</li>
+	<li>cogen.MassFuel : mass of consumed fuel in kg</li>
+	<li>cogen.EnergyFuel : energy of consumed fuel in J</li>
+	<li>cogen.Welec_in : used electric energy in J</li>
+	<li>cogen.Welec_out : produced electric energy in J</li>
+	<li>cogen.MassH2O : mass of water in the fume gas in kg</li>
+	<li>cogen. MassCO2 : mass of CO2 in the fume gas in kg</li>
+	<li>cogen.MassO2 : mass of (remaining) O2 in the fume gas in kg</li>
+	<li>cogen.MassSO2&nbsp; : mass of SO2 in the fume gas in kg</li>
+	<li>cogen.MassN2&nbsp; : mass of N2 in the fume gas in kg</li>
+	<li>cogen.MassNOx&nbsp; : mass of NOx in the fume gas in kg</li>
+	<li>cogen.MassCO&nbsp; : mass of CO in the fume gas in kg</li>
+	<li>cogen.MassCxHy&nbsp; : mass of CxHy in the fume gas in kg</li>
+	<li>cogen.Cycles : number of on/off cycles</li>
+	<li>cogen.OpTime : operation time of the boiler in s</li>
+	<li>cogen.CostFuel : costs of fuel in -</li>
+	<li>cogen.CostElecBuy : costs of the consumed electric energy in - (mainly 
+	energy for the controller)</li>
+	<li>cogen.CostElecSell : revenues for the produced electric energy in - </li>
+</ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br></p>
+<p><b>Parameters and Dialog Box</b>
+<p>The file &quot;cogendetailoutput_<i>extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated. Detailed outputs 
+are written with a 60 s timestep only if the motor is working.</p>
+<p><img alt="" src="Figures/LoggerCoGenMask.jpg"></p>
+<p>&nbsp;</p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No 
+</p>
+</body>
+
+</html>

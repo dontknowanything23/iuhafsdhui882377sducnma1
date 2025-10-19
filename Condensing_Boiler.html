@@ -1,0 +1,259 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Condensing Boiler</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/CondensingBoiler.jpg" align=right>
+<p class="blockname">Condensing_Boiler</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Boiler
+<br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+1 x N node model of a condensing boiler with a lookup table fir the efficiency.
+</p>
+
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The boiler model is a simple model which considers the heat input into the 
+combustion chamber of the boiler. The model does not consider any limitations 
+from the process or combustion control (e.g. delay times, initial burner 
+control during start up). On the water side of the furnace, a multinode 
+model is used to model the time dependent conditions. The differential equation 
+for the water temperature characteristic of a node in the boiler is <br><br>
+&nbsp;&nbsp; (m*c/N)*dT<sub>Node</sub>/dt = UA/N*(T<sub>amb</sub>-T<sub>node</sub>) 
++ m<sub>dot</sub>*cf(T<sub>in</sub>-T<sub>node</sub>)+P<sub>act</sub>/N <br><br>
+the actual power is <br><br>
+&nbsp;&nbsp; Pact = eta_lookup_table(Tm, ctrl) * Pgas * Ctrl<br><br>
+the electric power consumption is<br><br>
+&nbsp;&nbsp; Pelec = Pel_lookup_table(Ctrl)<br><br>
+with the variables </p>
+
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>Symbol</b></td>
+		<td style="width: 400px;"><b>Used for</b></td>
+        <td><b>Unit</b></td>
+    </tr>
+    <tr>
+    	<td> c</td>
+        <td> heat capacity boiler</td>
+        <td> J/kg/K</td>
+    </tr>
+    <tr>
+    	<td> Ctrl</td>
+        <td> control signal, range 0..1 </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> cf</td>
+        <td> heat capacity of fluid </td>
+        <td> J/kg/K </td>
+    </tr>
+    <tr>
+    	<td> m</td>
+        <td> mass of the boiler </td>
+        <td> kg </td>
+    </tr>
+    <tr>
+    	<td> m<sub>dot</sub> </td>
+        <td> mass flow rate </td>
+        <td> kg/s </td>
+    </tr>
+    <tr>
+    	<td> N</td>
+        <td> number of nodes </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> P<sub>act</sub></td>
+        <td> actual thermal power of the boiler </td>
+        <td> W </td>
+    </tr>
+    </tr>
+    <tr>
+    	<td> P<sub>gas</sub></td>
+        <td> actual heat input on the gas side <br>
+		(= net caloric value * gas mass flow) </td>
+        <td> W </td>
+    </tr>
+    <tr>
+    	<td> t </td>
+        <td> time </td>
+        <td> s </td>
+    </tr>
+    <tr>
+    	<td> Tm </td>
+        <td> temperature for efficiency table<br>
+		(inlet temperature or mean of <br>
+		inlet and outlet temperature)</td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> T<sub>amb</sub> </td>
+        <td> ambient temperature (for thermal losses) </td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> T<sub>node</sub> </td>
+        <td> fluid temperature of the node in the boiler </td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> T<sub>in</sub> </td>
+        <td> temperature of the fluid entering the node </td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> UA </td>
+        <td> heat loss coefficient to ambient </td>
+        <td> W/K </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature of the surrounding in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THB </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the boiler return line</td>
+    </tr>
+    <tr>
+    	<td> Ctrl</td>
+        <td>:</td>
+        <td> control signal of the boiler in [0..1]</td>
+    </tr>
+    <tr>
+    	<td> Fuel</td>
+        <td>:</td>
+        <td> fuel bus</a>, use <a href="Fuel.html">Fuel</a> block to create the bus</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the boiler flow line </td>
+    </tr>
+    <tr>
+    	<td> Bdat </td>
+        <td>:</td>
+        <td> Data bus of the boiler with informations for a <br>
+		Scope, Display, To Workspace, To File block or the <br>
+		CARNOT <a href="Logger_Boiler.html">Logger_Boiler</a></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Boiler Data Bus (Bdat):</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the boiler return line </td>
+    </tr>
+    <tr>
+    	<td> THB </td>
+        <td>:</td>
+        <td> <a href="THB_format.html">Thermo Hydraulic Bus</a> of the boiler flow line</td>
+    </tr>
+    <tr>
+    	<td> Tmean </td>
+        <td>:</td>
+        <td> mean temperature in &deg;C </a></td>
+    </tr>
+    <tr>
+    	<td> Qdot </td>
+        <td>:</td>
+        <td> actual heating capacity (thermal power) in W </a></td>
+    </tr>
+    <tr>
+    	<td> eco </td>
+        <td>:</td>
+        <td> ecolocgy bus, see chapter
+		<a href="2_Basic_Concepts.html#eco_vector">
+		2.1.5 Eco bus (2 Basic Concepts)</a> </a></td>
+    </tr>
+    <tr>
+    	<td> ControlActual </td>
+        <td>:</td>
+        <td> currently uses value of the control signal </td>
+    </tr>
+    <tr>
+    	<td> ControlSetpoint </td>
+        <td>:</td>
+        <td> set point of the control signal </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/CondensingBoilerConf4.jpg" /></p>
+<p>Choose the boiler parameter set in the mask from carnot public 
+data files, internal data files or any other selected path. <br>
+The parameters are saved as a structure in the folder "parameter_sets".<br>
+For details see  
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a>
+</p>
+<p><img src="Figures/CondensingBoilerConf3.jpg"  /></p>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_CondensingBoiler </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Patankar: Numerical Heat Tansfer and Fluid Flow, 1980</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - T_Ground_Undisturbed</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/TgroundUndisturbed.jpg" align=right>
+<p class="blockname">T_Ground_Undisturbed</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Temperature of the undisturbed ground at a certain depth over the year.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The temperature of the undisturbed ground Tg is caclulated for 
+a number of equidistant nodes from the surface down to a depth z.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Tg = Tavg - dTavg * exp(-z/dg) * 
+cos(2*pi*(t-ts)/t0 - z/dg) + G*z </p>
+<p>The penetration depth dg is: </p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; dg = sqrt(t0*cond/(pi*dens*cp)) </p>
+<p>with<br>
+cond : thermal conductivity of the ground in W/m/K <br />
+cp : heat capacity of the ground in J/kg/K <br />
+dens : density of the ground in kg/m³ <br />
+G : temperature increase in the depth (= 0.03 K/m) <br />
+t : time of the year in seconds <br />
+t0 : total seconds of one year (= 3600*24*365) <br />
+ts : time in seconds where the ambient temperature curve shows a minimum <br />
+Tavg : annual mean ambient temperature <br />
+dTavg : annual amplitude of the ambient temperature <br />
+z : depth in meters </p>
+<p>The equation is based on approaches presented in the 
+literature for seasonal temperature variations in the earth’s crust (Baehr, 
+Stephan 2006; Wesselak, Schabbach 2009), neglecting the influence of the heat 
+transfer resistance from the ambient air to the surface of the ground (i.e. u_surf). 
+</p>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature of the ground in &deg;C</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/TgroundUndisturbed_MAKS.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> <a href="ice_storage.html"> Ice_Storage </a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Baehr, Stephan: Wärme- und Stoffübertragung, Springer Verlag, 2006<br>
+Wesselak, Schabbach: Regenerative Energiequellen, Springer Verlag, 2009
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No </td>
+    </tr>
+</table>
+
+</body>
+
+</html>

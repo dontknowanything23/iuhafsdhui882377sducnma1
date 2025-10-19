@@ -1,0 +1,473 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CarnotCallbacks_Data_from_File loads a variable from file and sets the name in a from workspace block</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="CarnotCallbacks_Data_from_File.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>CarnotCallbacks_Data_from_File loads a variable from file and sets the name in a from workspace block</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Function Call</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Outputs</a></li><li><a href="#4">Description</a></li><li><a href="#5">References and Literature</a></li><li><a href="#6">main calculations of CarnotCallbacks_Data_from_File</a></li><li><a href="#8">internal functions</a></li><li><a href="#9">function UserMaskEnable enables editing of filename and pathname</a></li><li><a href="#10">function GetFilename opens a user interface to choose a filename</a></li><li><a href="#11">function LoadData loads the data to a variable in the base workspace</a></li><li><a href="#12">extendAnnualData(Data, start_time, stop_time) - extend data to the full simulation timerange</a></li><li><a href="#13">extend the data to one year if needed</a></li><li><a href="#15">add timesteps at the beginning or end if needed</a></li><li><a href="#18">Copyright and Versions</a></li></ul></div><h2 id="1">Function Call</h2><pre>varargout = CarnotCallbacks_Data_from_File(varargin)</pre><h2 id="2">Inputs</h2><pre>hdl - block handle (result of gcbh function)
+function GetFilename: folder - indicates the folder where to search for the data file
+function LoadData: pathname - path where the files are stored
+function LoadData: filename - filename with extension
+         data in the file:   column 1 : timestamp in s
+                             column 2 : 1st data column
+                             ...
+                             column n : nth data column</pre><h2 id="3">Outputs</h2><pre>ok - true if loading was successfull, false otherwise
+function LoadData: data - variable with the data (col 1 is the time)</pre><h2 id="4">Description</h2><pre>CarnotCallbacks_Data_from_File is a callback script to load files and
+write the filename in a From_Workspace Block.
+The variable pathname can be used to hand over the path to files which
+are not stored on the Matlab-path.
+The data needs to have the timestamp in the 1st column. The function
+assumes that the timerange of the data is one year, starting first of
+january.
+For simulation of more than one year the data of the file is repeated to
+cover the simulation time if necessary. This works for positive stop
+times above 8760*3600 s and also for negative start times. A start time
+of -30*24*3600 for example is possible.
+The data is extended in the following way:
+1. If the data has no timestamp 0 s at the beginning, the first line of
+   the data is copied added at the start of the data. A timestamp of 0 s
+   is added for this line.
+2. If the data has no timestamp of 365*24*3600 s, the last line of
+   the data is copied added at the end of the data. A timestamp of
+   365*24*3600 s is added for this line.
+3. For a start time before 0 s, the complete data is duplicated with a
+   the original timestamp - 365*24*3600 s. Any data lines before start
+   time are not duplicated in the data.
+4. For a stop time later than 365*24*3600 s, the complete data is
+   duplicated with the original timestamp + 365*24*3600 s. Any data
+   lines before after stop time are not duplicated in the data.</pre><h2 id="5">References and Literature</h2><pre>function is used by Carnot block: Data_from_File, Weather_Datafile</pre><h2 id="6">main calculations of CarnotCallbacks_Data_from_File</h2><p>Switch for command line calls</p><h2 id="8">internal functions</h2><h2 id="9">function UserMaskEnable enables editing of filename and pathname</h2><h2 id="10">function GetFilename opens a user interface to choose a filename</h2><h2 id="11">function LoadData loads the data to a variable in the base workspace</h2><h2 id="12">extendAnnualData(Data, start_time, stop_time) - extend data to the full simulation timerange</h2><pre>Function Call
+out = extendAnnualData(Data, start_time, stop_time)
+Inputs
+Data         - matrix with input Data without extension
+start_time   - start time of the simulation in s
+stop_time    - stop time of the simulation in s
+Outputs
+out         - matrix with extended Data if necessary
+Description
+extend data to the data of the simulation time if necessary</pre><h2 id="13">extend the data to one year if needed</h2><h2 id="15">add timesteps at the beginning or end if needed</h2><pre>start time is smaller than first timestamp in the Data</pre><h2 id="18">Copyright and Versions</h2><pre>This file is part of the CARNOT Blockset.
+Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+Additional Copyright for this file see list auf authors.
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.</pre><pre>************************************************************************
+VERSIONS
+author list:     hf -&gt; Bernd Hafner
+                 tob --&gt; Tobias Blanke
+                 pk  -&gt; Patrick Kefer
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+Version  Author  Changes                                     Date
+6.1.0    hf      created on base of CarnotCallbacks_GetFile  23dec2017
+6.1.1    hf      added questdlg if file does not exist       04mar2018
+7.1.0    hf      added 'current' option for path             27jan2019
+7.1.1    hf      removed VariableName in block mask, data    03feb2019
+                 ia nOw assigned to variable DataName
+                 t_sample is output parameter
+7.1.2    tob     ExtendData is added to have data the intire 31mar2020
+                 simulation time from negative to postive
+                 extensions
+7.1.3    pk      strip lower level block paths from          14aug2020
+                 current_system string (no Stop/StartTime)
+                 (changes done in extendData function)
+8.2.0    hf      use set_param for t_sample, remove t_sample 22dec2022
+                 as 3rd parameter in LoadData
+8.3.0    hf      extendAnnualData as internal function call  04jan2023
+                 instead of external function extendData :
+                 copying datafiles with original timestamp
+                 this allows irregular timesteps in the data
+                 new version to evaluate the start_time_str
+                 start_time and stop_time as parameters
+8.4.0    hf      added parameter "interpolate data" to mask  24feb2023
+8.4.1    hf      always set variable out in extendAnnualData 03mar2023
+************************************************************************</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% CarnotCallbacks_Data_from_File loads a variable from file and sets the name in a from workspace block
+%% Function Call
+%  varargout = CarnotCallbacks_Data_from_File(varargin)
+%% Inputs
+%  hdl - block handle (result of gcbh function)
+%  function GetFilename: folder - indicates the folder where to search for the data file
+%  function LoadData: pathname - path where the files are stored
+%  function LoadData: filename - filename with extension
+%           data in the file:   column 1 : timestamp in s
+%                               column 2 : 1st data column
+%                               ...
+%                               column n : nth data column
+%% Outputs
+%  ok - true if loading was successfull, false otherwise
+%  function LoadData: data - variable with the data (col 1 is the time)
+% 
+%% Description
+%  CarnotCallbacks_Data_from_File is a callback script to load files and 
+%  write the filename in a From_Workspace Block. 
+%  The variable pathname can be used to hand over the path to files which
+%  are not stored on the Matlab-path.
+%  The data needs to have the timestamp in the 1st column. The function
+%  assumes that the timerange of the data is one year, starting first of
+%  january.
+%  For simulation of more than one year the data of the file is repeated to 
+%  cover the simulation time if necessary. This works for positive stop
+%  times above 8760*3600 s and also for negative start times. A start time
+%  of -30*24*3600 for example is possible.
+%  The data is extended in the following way:
+%  1. If the data has no timestamp 0 s at the beginning, the first line of 
+%     the data is copied added at the start of the data. A timestamp of 0 s
+%     is added for this line.
+%  2. If the data has no timestamp of 365*24*3600 s, the last line of
+%     the data is copied added at the end of the data. A timestamp of
+%     365*24*3600 s is added for this line.
+%  3. For a start time before 0 s, the complete data is duplicated with a
+%     the original timestamp - 365*24*3600 s. Any data lines before start 
+%     time are not duplicated in the data.
+%  4. For a stop time later than 365*24*3600 s, the complete data is 
+%     duplicated with the original timestamp + 365*24*3600 s. Any data 
+%     lines before after stop time are not duplicated in the data.
+%  
+%% References and Literature
+%  function is used by Carnot block: Data_from_File, Weather_Datafile
+ 
+function varargout = CarnotCallbacks_Data_from_File(varargin)
+%% main calculations of CarnotCallbacks_Data_from_File
+% Switch for command line calls
+if nargin >= 1 && ischar(varargin{1})
+    FunctionName = varargin{1};
+    % Call the function
+    if nargout > 0
+        [varargout{1:nargout}] = feval(FunctionName, varargin{2:end});
+    else
+        feval(FunctionName, varargin{2:end});
+    end
+else
+    error('CarnotCallbacks_Load_from_File: First argument must be a valid function name. Second argument must be the blockhandle.')
+end
+end
+
+%% internal functions
+%% function UserMaskEnable enables editing of filename and pathname
+function ok = UserMaskEnable(bhandle)  
+userparam = get_param(bhandle, 'UserParam');
+switch userparam
+    case 'off'
+        me = {'off';'off';'on';'off';'off';'on'};
+        ok = true;
+    case 'on'
+        me = {'on';'on';'on';'off';'off';'on'};
+        ok = true;
+    otherwise
+        me = {'off';'off';'on';'off';'off';'on'};
+        ok = true;
+end
+set_param(bhandle, 'MaskEnables', me);
+end
+
+%% function GetFilename opens a user interface to choose a filename
+function ok = GetFilename(bhandle,folder)
+switch folder
+    case 'selected'
+        ps = get_param(bhandle, 'PathName');
+    case 'public'
+        ps = 'path_carnot(''data'')';
+    case 'internal'
+        ps = 'path_carnot(''intdata'')';
+    otherwise
+        ps = get_param(bhandle, 'PathName');
+end
+pname = eval(ps);
+fname = erase(get_param(bhandle, 'FileName'),'''');
+oldpath = pwd;
+% path is 'current' : user selected current working directory only
+if ~strcmp(pname,'current')     % not 'current' 
+    cd(pname)                   % change to directory given by folder
+end
+[fname,pname2,ok] = ...
+    uigetfile({'*.mat';'*.dat';'*.txt';'*.csv';'*.*'}, ...
+    'Pick a data file',fname);
+if ok
+    set_param(bhandle, 'FileName', mat2str(fname));
+    if ~strcmp(pname,'current')                 % not 'current' : user selected current working directory only
+        if ~strcmpi(pname,pname2(1:end-1))      % if pathes are not the same
+            ps = mat2str(pname2(1:end-1));   % new path is one from uigetfile
+        end
+        set_param(bhandle, 'PathName', ps);  % set new path in mask
+    end
+end
+cd(oldpath)
+end
+ 
+%% function LoadData loads the data to a variable in the base workspace 
+function [ok,data] = LoadData(bhandle,pathname,filename) 
+% function [ok,data,t_sample] = LoadData(bhandle,pathname,filename) %#ok<DEFNU>
+% removed t_sample as function parameter, hf 22dec2022
+ok = false;             % default value
+data = [0 0; 3600 0];   % default data
+t_sample = 60;          % default sample time
+if ~BlockIsInCarnotLibrary          % not in carnot library any more
+    [~,file,ext] = fileparts(filename);
+    if strcmp(pathname,'current')   % 'current' : user selected current working directory only
+        pathname = pwd;
+    end
+    fullname = fullfile(pathname,filename);
+    if exist(fullname,'file')    % search on given path
+        ok = true;
+    else
+        choice = questdlg({['Block ' pathname, '/',filename]; ...
+            ['Datafile: ', file]; 'not found.'}, 'File not found', ...
+            'Load from Carnot public data', 'Load from Carnot internal data', ...
+            'Load from selected path', 'Load from Carnot public data');
+        % Handle response
+        switch choice
+            case 'Load from selected path'
+                ok = GetFilename(bhandle,'selected');
+            case 'Load from Carnot internal data'
+                ok = GetFilename(bhandle,'internal');
+            case 'Load from Carnot public data'
+                ok = GetFilename(bhandle,'public');
+        end
+        filename = eval(get_param(bhandle, 'FileName'));
+        pathname = eval(get_param(bhandle, 'PathName'));
+        [~,~,ext] = fileparts(filename);
+        fullname = fullfile(pathname,filename);
+    end
+    if ok == true                 % if the file exists
+        if strcmp(ext,'.mat')
+            data = importdata(fullname);
+        else
+            data = load(fullname);
+        end
+        % sample time is timestep of data
+        if isa(data,'double')                   % if variable is a real matrix
+            t_sample = data(3,1) - data(2,1);
+        else                                    % else: variable is a timeseries
+            t_sample = data.Time(2) - data.Time(1);
+        end
+        % extend Data to full simulation time (from negative to postive
+        % extensions)
+        current_system = get_param(0, 'CurrentSystem');
+        current_system = regexprep(current_system,'/.*','');
+        % get the stop time as string
+        stop_time_as_str = get_param(current_system, 'StopTime');
+        % get the start time as string
+        start_time_as_str = get_param(current_system, 'StartTime');
+        % evaluate the string to transform 365*24*3600 for a year instead
+        % of 31.536.000 sec into a double
+        start_time = eval(start_time_as_str);
+        stop_time = eval(stop_time_as_str);
+        % [data] = extendData(data); % removed external function call 
+        % added internal function call to extendAnnualData
+        data = extendAnnualData(data,start_time,stop_time);
+    end
+end
+set_param(bhandle,'t_sample',num2str(t_sample));
+end
+
+%%  extendAnnualData(Data, start_time, stop_time) - extend data to the full simulation timerange
+%  Function Call
+%  out = extendAnnualData(Data, start_time, stop_time)
+%  Inputs
+%  Data         - matrix with input Data without extension
+%  start_time   - start time of the simulation in s
+%  stop_time    - stop time of the simulation in s
+%  Outputs
+%  out         - matrix with extended Data if necessary
+%  Description
+%  extend data to the data of the simulation time if necessary
+function out = extendAnnualData(data, start_time, stop_time)
+%% extend the data to one year if needed
+out = data;     % copy data to output
+if data(end,1) - data(1,1) > 8760*3600 % data covers more than 1 year
+    % give a waring if simulation time exceeds data
+    if start_time < data(1,1) || stop_time > data(end,1)
+        warning('extendData:Data covers more than a year. Cannot extend the data.')
+    end
+else %  data covers one year or less
+    %  first timestamp in the Data is larger than 0
+    if data(1,1) > 0
+        % first row of the Data for time 0 till first valid line
+        out = [data(1,:); out];
+        out(1,1) = 0;              % first timestamp is 0 s
+    end
+    %  last timestamp in the Data is smaller than 1 year (8760*3600 s)
+    if data(end,1) < 8760*3600
+        % last row of the Data for timesteps till end of the year
+        out = [out; data(end,:)];
+        out(end,1) = 8760*3600;   % last timestamp is 8760*3600 s
+    end
+    %% add timesteps at the beginning or end if needed
+    %  start time is smaller than first timestamp in the Data
+    n = 1;
+    % repeat until start time is in the Data or 25 iterations are reached
+    while start_time < out(1,1) && n < 25 
+        time = data(:,1)-n*8760*3600;           % time is column 1 - one year
+        n = n+1;
+        idx = find(time<=start_time,1,'last');  % find last timestep <= start time
+        % combine to new data : skip first line of the data with timestamp
+        % 0 s since it is a copy of the first valid data
+        if isempty(idx) % stop_time is not yet in the time vector
+            out = [time, data(:,2:end); out(2:end,:)];
+        else % stop time is in the time vector, take indices from idx onwards
+            out = [time(idx:end,1), data(idx:end,2:end); out(2:end,:)];
+        end
+    end
+    %  stop time is larger than last timestamp in the Data
+    n = 1;
+    % repeat until stop time is in the Data or 25 iterations are reached
+    while stop_time > out(end,1) && n < 25
+        time = data(:,1)+n*8760*3600;             % time is column 1 + one year
+        n = n+1;
+        idx = find(time>=stop_time,1,'first');  % find first timestep >= stop time
+        % combine to new data : skip first line of the data with timestamp
+        % 0 s since it is a copy of the first valid data
+        if isempty(idx) % stop_time was not yet in the time vector
+            out = [out; time(2:end,1), data(2:end,2:end)]; %#ok<AGROW>
+        else
+            out = [out; time(2:idx,1), data(2:idx,2:end)]; %#ok<AGROW>
+        end
+    end
+end
+end
+
+%% Copyright and Versions
+%  This file is part of the CARNOT Blockset.
+%  Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+%  Additional Copyright for this file see list auf authors.
+%  All rights reserved.
+%  Redistribution and use in source and binary forms, with or without 
+%  modification, are permitted provided that the following conditions are 
+%  met:
+%  1. Redistributions of source code must retain the above copyright notice, 
+%    this list of conditions and the following disclaimer.
+%  2. Redistributions in binary form must reproduce the above copyright 
+%    notice, this list of conditions and the following disclaimer in the 
+%    documentation and/or other materials provided with the distribution.
+%  3. Neither the name of the copyright holder nor the names of its 
+%    contributors may be used to endorse or promote products derived from 
+%    this software without specific prior written permission.
+%  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+%  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+%  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+%  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+%  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+%  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+%  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+%  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+%  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+%  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+%  THE POSSIBILITY OF SUCH DAMAGE.
+%  
+%  ************************************************************************
+%  VERSIONS
+%  author list:     hf -> Bernd Hafner
+%                   tob REPLACE_WITH_DASH_DASH> Tobias Blanke    
+%                   pk  -> Patrick Kefer
+%  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+%  version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+%  Version  Author  Changes                                     Date
+%  6.1.0    hf      created on base of CarnotCallbacks_GetFile  23dec2017
+%  6.1.1    hf      added questdlg if file does not exist       04mar2018
+%  7.1.0    hf      added 'current' option for path             27jan2019
+%  7.1.1    hf      removed VariableName in block mask, data    03feb2019
+%                   ia nOw assigned to variable DataName        
+%                   t_sample is output parameter
+%  7.1.2    tob     ExtendData is added to have data the intire 31mar2020
+%                   simulation time from negative to postive 
+%                   extensions
+%  7.1.3    pk      strip lower level block paths from          14aug2020
+%                   current_system string (no Stop/StartTime)   
+%                   (changes done in extendData function)
+%  8.2.0    hf      use set_param for t_sample, remove t_sample 22dec2022
+%                   as 3rd parameter in LoadData
+%  8.3.0    hf      extendAnnualData as internal function call  04jan2023
+%                   instead of external function extendData :
+%                   copying datafiles with original timestamp 
+%                   this allows irregular timesteps in the data
+%                   new version to evaluate the start_time_str
+%                   start_time and stop_time as parameters
+%  8.4.0    hf      added parameter "interpolate data" to mask  24feb2023
+%  8.4.1    hf      always set variable out in extendAnnualData 03mar2023
+%  ************************************************************************
+
+##### SOURCE END #####
+--></body></html>

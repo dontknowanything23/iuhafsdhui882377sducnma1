@@ -1,0 +1,804 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>cs_energy_storage - evaluation of data files written by the Logger_Storage</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="cs_energy_storage.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>cs_energy_storage - evaluation of data files written by the Logger_Storage</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Function call</a></li><li><a href="#2">Inputs</a></li><li><a href="#3">Output</a></li><li><a href="#4">Description</a></li><li><a href="#5">References</a></li><li><a href="#6">check the inputs</a></li><li><a href="#7">load the data</a></li><li><a href="#8">timerange</a></li><li><a href="#9">loop over all timeclasses</a></li><li><a href="#11">Future Release :</a></li><li><a href="#12">Copyright and Versions</a></li></ul></div><h2 id="1">Function call</h2><pre>y = cs_energy_storage([timeclass], [file], [filedetail])</pre><h2 id="2">Inputs</h2><pre>timeclass - optional input parameter for the evaluation period
+ 1 : year (default)
+ 2 : month
+ 3 : week
+ 4 : day
+ 5 : hour</pre><pre>file - optional character string with the name of the .mat file
+ created by the data logger. If not given during function call, the
+ function itsself will open an input window for the choice of the file.
+ Files written by the Logger_Storage have the format 'storageoutput*.mat'</pre><pre>filedetail - optional character string with the name of the .mat file
+ created by the enabled data logger in the Logger_Storage block.
+ This file contain the same information as file but they are stored only
+ when there is an energy transport through one of the ports.
+ Files written by the Logger_Storage have the format 'storagedetailoutput*.mat'</pre><pre>Energy balance of the ports: negative values for energy leaving the storage.
+file and, if given filedetail, must contain the following information in timeseries:
+ stg.storageType     storage type number (1,2,3,4,5,11,12)
+ stg.volume          storage volume in m&sup3;
+ stg.energy          structure with
+ stg.energy.internal change in energy between simulation start and end in Joule
+ stg.energy.losses   thermal losses to ambient in Joule (negative for losses)
+ stg.Welec_in        energy input by the electric heater in Joule
+ stg.Tnodes          storage node temperatures in degree Celsius
+ stg.Tamb            ambient temperature in degree Celsius
+ stg.Pipe1           structure of pipe 1 with
+   stg.Pipe1.T_in    inlet temperature of pipe 1 in degree Celsius
+   stg.Pipe1.T_out   outlet temperature of pipe 1 in degree Celsius
+   stg.Pipe1.Mass    mass (time intergal of massflow) through pipe 1 in kg
+   stg.Pipe1.Cycles  number of massflow on/off cycles in pipe 1
+   stg.Pipe1.OpTime  operation time (time with massflow) of pipe 1 in s
+   stg.Pipe1.Q       energy exchange from or to storage via pipe 1 in Joule
+ stg.Pipe2           structure of pipe 2 (same information as pipe 1)
+ stg.Pipe3           structure of pipe 3 (same information as pipe 1)
+ stg.Pipe4           structure of pipe 4 (same information as pipe 1)
+ stg.Pipe5           structure of pipe 5 (same information as pipe 1)
+ stg.HX1             structure of heat exchanger 1 with
+   stg.HX1.T_in      inlet temperature of heat exchanger 1 in degree Celsius
+   stg.HX1.T_out     outlet temperature of heat exchanger 1 in degree Celsius
+   stg.HX1.Mass      mass (time intergal of mass flow) through heat exchanger 1 in kg
+   stg.HX1.Cycles    number of mass flow on/off cycles in heat exchanger 1
+   stg.HX1.OpTime    operation time (time with mass flow) of heat exchanger 1 in s
+   stg.HX1.Q         energy exchange from or to storage via heat exchanger 1 in Joule
+ stg.HX2             structure of heat exchanger 2 (same information as HX1)
+ stg.HX3             structure of heat exchanger 2 (same information as HX1)</pre><h2 id="3">Output</h2><pre>y - Matrix where for timeclass 1 the first row has the annual values.
+For timeclass 2 the 12 rows contain the monthly values.
+Energy balance of the ports: negative values for energy leaving the storage.
+ Columns:
+ 1   time of simulation or timeclass start in s
+ 2   time of simulation or timeclass end in s
+ 3   internal change of energy (negative value for lower content at the end)
+ 4   lost energy to the ambient (negative values for lost energy)
+ 5   energy from or to pipe 1 in Joule
+ 6   energy from or to pipe 2 in Joule
+ 7   energy from or to pipe 3 in Joule
+ 8   energy from or to pipe 4 in Joule
+ 9   energy from or to pipe 5 in Joule
+ 10  energy from or to heat exchanger 1 in Joule
+ 11  energy from or to heat exchanger 2 in Joule
+ 12  energy from or to heat exchanger 3 in Joule
+ 13  energy from the electric heater in Joule
+ 14  loss coefficient of the storage in W/K
+ 15  number of cycles pipe 1
+ 16  number of cycles pipe 2
+ 17  number of cycles pipe 3
+ 18  number of cycles pipe 4
+ 19  number of cycles pipe 5
+ 20  number of cycles heat exchanger 1
+ 21  number of cycles heat exchanger 2
+ 22  number of cycles heat exchanger 3
+ 23  time with massflow (operation time) pipe 1 in s
+ 24  time with massflow (operation time) pipe 2 in s
+ 25  time with massflow (operation time) pipe 3 in s
+ 26  time with massflow (operation time) pipe 4 in s
+ 27  time with massflow (operation time) pipe 5 in s
+ 28  time with massflow (operation time) heat exchanger 1 in s
+ 29  time with massflow (operation time) heat exchanger 2 in s
+ 30  time with massflow (operation time) heat exchanger 3 in s
+ 31  average massflow pipe 1 in kg/s
+ 32  average massflow pipe 2 in kg/s
+ 33  average massflow pipe 3 in kg/s
+ 34  average massflow pipe 4 in kg/s
+ 35  average massflow pipe 5 in kg/s
+ 36  average massflow heat exchanger 1 in kg/s
+ 37  average massflow heat exchanger 2 in kg/s
+ 38  average massflow heat exchanger 3 in kg/s
+ 39  mean storage temperature in &deg;C
+ 40  mean storage temperature lowest quater &deg;C
+ 41  mean storage temperature lower middle quater &deg;C
+ 42  mean storage temperature upper middle quater &deg;C
+ 43  mean storage temperature top quater &deg;C
+ 44  mean ambient temperature in &deg;C
+ 45  mean outlet temperature during operation pipe 1 in &deg;C *)
+ 46  mean outlet temperature during operation pipe 2 in &deg;C *)
+ 47  mean outlet temperature during operation pipe 3 in &deg;C *)
+ 48  mean outlet temperature during operation pipe 4 in &deg;C *)
+ 49  mean outlet temperature during operation pipe 5 in &deg;C *)
+ 50  mean outlet temperature during operation heat exchanger 1 in &deg;C *)
+ 51  mean outlet temperature during operation heat exchanger 2 in &deg;C *)
+ 52  mean outlet temperature during operation heat exchanger 3 in &deg;C *)
+*) The values are only calculated when 'filedetail' is given.</pre><h2 id="4">Description</h2><pre>Evaluation of data written by Logger_Storage. The result
+of the function is the energy in annual, monthly, ... values, depending
+on the timeclass. For timeclass 1 the first row has the annual values.
+For timeclass 2 the 12 rows contain the monthly values.
+The outputs are organized in groups: time, energy, efficiency,
+operation, average massflows, average temperatures, economics</pre><h2 id="5">References</h2><pre>see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m
+ cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m
+ cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m
+ cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m</pre><h2 id="6">check the inputs</h2><h2 id="7">load the data</h2><h2 id="8">timerange</h2><h2 id="9">loop over all timeclasses</h2><h2 id="11">Future Release :</h2><pre>Parameter colinfo: (not used in the current version of cs_energy_storage)
+The evaluation is done for up to 6 inputs with the information
+specified in the input file. The storage port is connected to
+one of the inputs of the CreateSdat block in the storage model.
+Define the type of load and source by the following format:
+     colinfo = {{'Port','ConnectedType'}, {'Port','ConnectedType'}, ...}
+Port can be :   'PP1' for pipe 1
+ConnectedType : 'DHW' for Domestic Hot Water
+                 'CIR' for domestic hot water CIRculation
+                 'HEC' for heating of the building (HEating Circuit)
+                 'HGN' for Heat GeNerator (a device for heat production)
+                 'BOI' for (peak load) BOIler (typically gas or oil boiler)
+                 'HPP' for Heat PumP
+                 'SOL' for SOLar thermal collector
+                 'EHE' for Electric HEater
+                 'CGU' for CoGeneration Unit
+                 'CLL' for ChiLLer (a device for cold water production)
+combinations:
+                 'BOI_DHW'   for boiler charging the domestic hot water
+                             part of the storage
+                 'BOI_HEC'   for boiler charging the heating
+                             part of the storage</pre><pre>Set column info and index
+------------- commented out (for the moment) ---------------------------
+if ~exist('colinfo','var')    % colinfo was not given as input, define it now
+   storageType = D.storageType.Data(end);
+   switch storageType
+       case 0
+           colinfo = {{'PP1','HGN'},{'EHE','EHE'}};
+       case 1
+           colinfo = {{'PP1','HGN'},{'PP2','HCC'},{'EHE','EHE'}};
+       case 2
+           colinfo = {{'HX1','SOL'},{'PP1','DHW'},{'PP2','CIR'}};
+       case 3
+           colinfo = {{'HX1','SOL'},{'HX2','HGN'}, ...
+               {'PP1','DHW'},{'PP2','CIR'}};
+       case 4
+           colinfo = {{'HX1','SOL'},{'HX2','DHW'},{'HX3','CIR'}, ...
+               {'PP2','HCC'},{'PP3','HGN_DHW'},};
+       case 5
+           colinfo = {{'HX1','SOL'},{'HX2','DHW'},{'HX3','CIR'}, ...
+               {'PP1','HGN_HEC'},{'PP2','HCC'},{'PP3','HGN_DHW'}};
+       otherwise
+           colinfo = {{'NNN','NNN'}};
+   end
+end
+-------------------------------------------------------------------------</pre><h2 id="12">Copyright and Versions</h2><pre>This file is part of the CARNOT Blockset.
+Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+Additional Copyright for this file see list auf authors.
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.</pre><pre>************************************************************************
+VERSIONS
+author list:     hf -&gt; Bernd Hafner
+version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Version  Author  Changes                                     Date
+4.1.0    hf      created                                     24jan2009
+4.1.1    hf      umbenannt auf cs_energy_storage von stb_... 25feb2009
+4.1.2    hf      spaces in the sprintf replaced by tabs      10sep2009
+                 for copying the text to an Excel sheet
+4.2.0    hf      output matrix not only col 1, but all data  22sep2009
+4.3.0    hf      includes number of cylces,                  30oct2009
+5.1.0    hf      corrected timeclass limits                  21nov2012
+5.1.1    hf      file can be choosen by uigetfile            28nov2012
+6.1.0    hf      energy balance changed: positive values     10sep2014
+                 are entering the storage, negative values
+                 are leaving
+6.1.1    hf       added "see also" to help comments at top    17oct2014
+                 corrected number of input argument at
+                 initial check (was 2, now 1, 2 or 3)
+7.1.0    hf      order of input data adapted to logger       18jan2020
+                 file and Sdat format in Carnot 7
+7.2.0    hf      input data is stored in timeseries          05mar2022
+7.2.1    hf      adapted to timeseries names                 12mar2022
+7.3.0    hf      output is average massflow                  20mar2022
+8.3.1    hf      corrected average massflow calculation      21dec2022
+8.4.0    hf      changes for public version                  18mar2023
+                 call inputfiles4cs_energy
+8.4.1    hf      updated comments for publish and help       26mar2023
+************************************************************************</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% cs_energy_storage - evaluation of data files written by the Logger_Storage 
+%% Function call
+%  y = cs_energy_storage([timeclass], [file], [filedetail])
+%
+%% Inputs
+%  timeclass - optional input parameter for the evaluation period
+%   1 : year (default)
+%   2 : month
+%   3 : week
+%   4 : day
+%   5 : hour
+% 
+%  file - optional character string with the name of the .mat file 
+%   created by the data logger. If not given during function call, the  
+%   function itsself will open an input window for the choice of the file.
+%   Files written by the Logger_Storage have the format 'storageoutput*.mat'
+% 
+%  filedetail - optional character string with the name of the .mat file 
+%   created by the enabled data logger in the Logger_Storage block.
+%   This file contain the same information as file but they are stored only 
+%   when there is an energy transport through one of the ports.
+%   Files written by the Logger_Storage have the format 'storagedetailoutput*.mat'
+%   
+%  Energy balance of the ports: negative values for energy leaving the storage.
+%  file and, if given filedetail, must contain the following information in timeseries:
+%   stg.storageType     storage type number (1,2,3,4,5,11,12)
+%   stg.volume          storage volume in m³
+%   stg.energy          structure with
+%   stg.energy.internal change in energy between simulation start and end in Joule
+%   stg.energy.losses   thermal losses to ambient in Joule (negative for losses)
+%   stg.Welec_in        energy input by the electric heater in Joule
+%   stg.Tnodes          storage node temperatures in degree Celsius
+%   stg.Tamb            ambient temperature in degree Celsius
+%   stg.Pipe1           structure of pipe 1 with
+%     stg.Pipe1.T_in    inlet temperature of pipe 1 in degree Celsius
+%     stg.Pipe1.T_out   outlet temperature of pipe 1 in degree Celsius
+%     stg.Pipe1.Mass    mass (time intergal of massflow) through pipe 1 in kg
+%     stg.Pipe1.Cycles  number of massflow on/off cycles in pipe 1
+%     stg.Pipe1.OpTime  operation time (time with massflow) of pipe 1 in s
+%     stg.Pipe1.Q       energy exchange from or to storage via pipe 1 in Joule
+%   stg.Pipe2           structure of pipe 2 (same information as pipe 1)
+%   stg.Pipe3           structure of pipe 3 (same information as pipe 1)
+%   stg.Pipe4           structure of pipe 4 (same information as pipe 1)
+%   stg.Pipe5           structure of pipe 5 (same information as pipe 1)
+%   stg.HX1             structure of heat exchanger 1 with
+%     stg.HX1.T_in      inlet temperature of heat exchanger 1 in degree Celsius
+%     stg.HX1.T_out     outlet temperature of heat exchanger 1 in degree Celsius
+%     stg.HX1.Mass      mass (time intergal of mass flow) through heat exchanger 1 in kg
+%     stg.HX1.Cycles    number of mass flow on/off cycles in heat exchanger 1
+%     stg.HX1.OpTime    operation time (time with mass flow) of heat exchanger 1 in s
+%     stg.HX1.Q         energy exchange from or to storage via heat exchanger 1 in Joule
+%   stg.HX2             structure of heat exchanger 2 (same information as HX1)
+%   stg.HX3             structure of heat exchanger 2 (same information as HX1)
+%  
+%% Output
+%  y - Matrix where for timeclass 1 the first row has the annual values.
+%  For timeclass 2 the 12 rows contain the monthly values.
+%  Energy balance of the ports: negative values for energy leaving the storage.
+%   Columns:
+%   1   time of simulation or timeclass start in s
+%   2   time of simulation or timeclass end in s
+%   3   internal change of energy (negative value for lower content at the end)
+%   4   lost energy to the ambient (negative values for lost energy)
+%   5   energy from or to pipe 1 in Joule 
+%   6   energy from or to pipe 2 in Joule 
+%   7   energy from or to pipe 3 in Joule
+%   8   energy from or to pipe 4 in Joule 
+%   9   energy from or to pipe 5 in Joule 
+%   10  energy from or to heat exchanger 1 in Joule 
+%   11  energy from or to heat exchanger 2 in Joule 
+%   12  energy from or to heat exchanger 3 in Joule 
+%   13  energy from the electric heater in Joule
+%   14  loss coefficient of the storage in W/K
+%   15  number of cycles pipe 1
+%   16  number of cycles pipe 2
+%   17  number of cycles pipe 3
+%   18  number of cycles pipe 4
+%   19  number of cycles pipe 5
+%   20  number of cycles heat exchanger 1
+%   21  number of cycles heat exchanger 2
+%   22  number of cycles heat exchanger 3
+%   23  time with massflow (operation time) pipe 1 in s
+%   24  time with massflow (operation time) pipe 2 in s
+%   25  time with massflow (operation time) pipe 3 in s
+%   26  time with massflow (operation time) pipe 4 in s
+%   27  time with massflow (operation time) pipe 5 in s
+%   28  time with massflow (operation time) heat exchanger 1 in s
+%   29  time with massflow (operation time) heat exchanger 2 in s
+%   30  time with massflow (operation time) heat exchanger 3 in s
+%   31  average massflow pipe 1 in kg/s
+%   32  average massflow pipe 2 in kg/s
+%   33  average massflow pipe 3 in kg/s
+%   34  average massflow pipe 4 in kg/s
+%   35  average massflow pipe 5 in kg/s
+%   36  average massflow heat exchanger 1 in kg/s
+%   37  average massflow heat exchanger 2 in kg/s
+%   38  average massflow heat exchanger 3 in kg/s
+%   39  mean storage temperature in °C
+%   40  mean storage temperature lowest quater °C
+%   41  mean storage temperature lower middle quater °C
+%   42  mean storage temperature upper middle quater °C
+%   43  mean storage temperature top quater °C
+%   44  mean ambient temperature in °C
+%   45  mean outlet temperature during operation pipe 1 in °C *)
+%   46  mean outlet temperature during operation pipe 2 in °C *)
+%   47  mean outlet temperature during operation pipe 3 in °C *)
+%   48  mean outlet temperature during operation pipe 4 in °C *)
+%   49  mean outlet temperature during operation pipe 5 in °C *)
+%   50  mean outlet temperature during operation heat exchanger 1 in °C *)
+%   51  mean outlet temperature during operation heat exchanger 2 in °C *)
+%   52  mean outlet temperature during operation heat exchanger 3 in °C *)
+%  *) The values are only calculated when 'filedetail' is given.
+% 
+%% Description
+%  Evaluation of data written by Logger_Storage. The result
+%  of the function is the energy in annual, monthly, ... values, depending 
+%  on the timeclass. For timeclass 1 the first row has the annual values.
+%  For timeclass 2 the 12 rows contain the monthly values.
+%  The outputs are organized in groups: time, energy, efficiency, 
+%  operation, average massflows, average temperatures, economics
+% 
+%% References
+%  see also cs_energy_battery.m cs_energy_electric_heater_ctrl.m 
+%   cs_energy_pv_generator.m cs_energy_boiler.m cs_energy_energymeter.m 
+%   cs_energy_storage.m cs_energy_cogen.m cs_energy_heatpump.m 
+%   cs_energy_collector.m cs_energy_house.m inputfiles4cs_energy.m
+
+function y = cs_energy_storage(varargin)
+%% check the inputs
+[timeclass, file, filedetail, details, filter] = ...
+    inputfiles4cs_energy('storage', varargin{:});
+ncol = 52;
+if filter == 0
+    y = zeros(1,ncol);
+    return
+end
+%% load the data 
+D = importdata(file);               % import data from file to variable D
+if details                          % detailed data exists
+    DD = importdata(filedetail);    % import it to DD
+    if isempty(DD.storageType.Data) % if it's empty
+        details = false;            % there are no details
+    end
+end
+%% timerange
+[classnumber, limit] = get_timeclass_limits(timeclass);
+if classnumber < 0
+    y = zeros(1,ncol);
+    help cs_energy_storage
+    return
+end
+%% loop over all timeclasses
+y = zeros(classnumber,ncol);
+for class = 1:(length(limit)-1) % loop over all classes
+    % find all time values that are in the limts of the class
+    idxs = find(D.storageType.Time >= limit(class),1,'first');
+    idxe = find(D.storageType.Time <= limit(class+1),1,'last');
+    % if the simulation is not in the classlimit, the result matrix is zero
+    if ~isempty(idxs) ...                   % if the start is in the data
+            && (idxe > idxs)                % and start and end are not same
+        % 1   time of simulation or timeclass start
+        y(class,1) = D.storageType.Time(idxs);
+        % 2   time of simulation or timeclass end
+        y(class,2) = D.storageType.Time(idxe);
+        time = y(class,2)-y(class,1);       % time in timeclass
+        %  3   internal change of energy
+        y(class,3) = D.energy.internal.Data(idxe)-D.energy.internal.Data(idxs);
+        %  4   lost energy to the ambient
+        y(class,4) = D.energy.losses.Data(idxe)-D.energy.losses.Data(idxs);
+        %  5   energy from/to pipe 1
+        y(class,5) = D.Pipe1.Q.Data(idxe)-D.Pipe1.Q.Data(idxs);
+        %  6   energy from/to pipe 2
+        y(class,6) = D.Pipe2.Q.Data(idxe)-D.Pipe2.Q.Data(idxs);
+        %  7   energy from/to pipe 3
+        y(class,7) = D.Pipe3.Q.Data(idxe)-D.Pipe3.Q.Data(idxs);
+        %  8   energy from/to pipe 4
+        y(class,8) = D.Pipe4.Q.Data(idxe)-D.Pipe4.Q.Data(idxs);
+        %  9   energy from/to pipe 5
+        y(class,9) = D.Pipe5.Q.Data(idxe)-D.Pipe5.Q.Data(idxs);
+        % 10   energy from/to heat exchanger 1
+        y(class,10) = D.HX1.Q.Data(idxe) - D.HX1.Q.Data(idxs);
+        % 11   energy from/to heat exchanger 2
+        y(class,11) = D.HX2.Q.Data(idxe) - D.HX2.Q.Data(idxs);
+        % 12   energy from/to heat exchanger 3
+        y(class,12) = D.HX3.Q.Data(idxe) - D.HX3.Q.Data(idxs);
+        % 13  energy from the electric heater in Joule
+        y(class,13) = D.Welec_in.Data(idxe) - D.Welec_in.Data(idxs);
+        % 14  loss coefficient of the storage in W/K
+        % tm is the average storage temperature in the timeclass
+        tm = mean(D.Tnodes.Data(idxs:idxe,:),'all');
+        ta = mean(D.Tamb.Data(idxs:idxe));
+        y(class,14) = abs(y(class,4)/time/(tm-ta));
+        % 15  number of cycles pipe 1
+        y(class,15) = D.Pipe1.Cycles.Data(idxe)-D.Pipe1.Cycles.Data(idxs);
+        % 16  number of cycles pipe 2
+        y(class,16) = D.Pipe2.Cycles.Data(idxe)-D.Pipe2.Cycles.Data(idxs);
+        % 17  number of cycles pipe 3
+        y(class,17) = D.Pipe3.Cycles.Data(idxe)-D.Pipe3.Cycles.Data(idxs);
+        % 18  number of cycles pipe 4
+        y(class,18) = D.Pipe4.Cycles.Data(idxe)-D.Pipe4.Cycles.Data(idxs);
+        % 19  number of cycles pipe 5
+        y(class,19) = D.Pipe5.Cycles.Data(idxe)-D.Pipe5.Cycles.Data(idxs);
+        % 20  number of cycles heat exchanger 1
+        y(class,20) = D.HX1.Cycles.Data(idxe)-D.HX1.Cycles.Data(idxs);
+        % 21  number of cycles heat exchanger 2
+        y(class,21) = D.HX2.Cycles.Data(idxe)-D.HX2.Cycles.Data(idxs);
+        % 22  number of cycles heat exchanger 3
+        y(class,22) = D.HX3.Cycles.Data(idxe)-D.HX3.Cycles.Data(idxs);
+        % 23  time with massflow (operation time) pipe 1 in s
+        time = D.Pipe1.OpTime.Data(idxe)-D.Pipe1.OpTime.Data(idxs);
+        y(class,23) = time;
+        % 31  average massflow pipe 1 in kg/s
+        if time > 0
+            y(class,31) = (D.Pipe1.Mass.Data(idxe)-D.Pipe1.Mass.Data(idxs))/time;
+        end
+        % 24  time with massflow (operation time) pipe 2 in s
+        time = D.Pipe2.OpTime.Data(idxe)-D.Pipe2.OpTime.Data(idxs);
+        y(class,24) = time;
+        % 32  average massflow pipe 2 in kg/s
+        if time > 0
+            y(class,32) = (D.Pipe2.Mass.Data(idxe)-D.Pipe2.Mass.Data(idxs))/time;
+        end
+        % 25  time with massflow (operation time) pipe 3 in s
+        time = D.Pipe3.OpTime.Data(idxe)-D.Pipe3.OpTime.Data(idxs);
+        y(class,25) = time;
+        % 33  average massflow pipe 3 in kg/s
+        if time > 0
+            y(class,33) = (D.Pipe3.Mass.Data(idxe)-D.Pipe3.Mass.Data(idxs))/time;
+        end
+        % 26  time with massflow (operation time) pipe 4 in s
+        time = D.Pipe4.OpTime.Data(idxe)-D.Pipe4.OpTime.Data(idxs);
+        y(class,26) = time;
+        % 34  average massflow pipe 4 in kg/s
+        if time > 0
+            y(class,34) = (D.Pipe4.Mass.Data(idxe)-D.Pipe4.Mass.Data(idxs))/time;
+        end
+        % 27  time with massflow (operation time) pipe 5 in s
+        time = D.Pipe5.OpTime.Data(idxe)-D.Pipe5.OpTime.Data(idxs);
+        y(class,27) = time;
+        % 35  average massflow pipe 5 in kg/s
+        if time > 0
+            y(class,35) = (D.Pipe5.Mass.Data(idxe)-D.Pipe5.Mass.Data(idxs))/time;
+        end
+        % 28  time with massflow (operation time) heat exchanger 1 in s
+        time = D.HX1.OpTime.Data(idxe)-D.HX1.OpTime.Data(idxs); 
+        y(class,28) = time;
+        % 36  average massflow heat exchanger 1 in kg/s
+        if time > 0
+            y(class,36) = (D.HX1.Mass.Data(idxe)-D.HX1.Mass.Data(idxs))/time;
+        end
+        % 29  time with massflow (operation time) heat exchanger 2 in s
+        time = D.HX2.OpTime.Data(idxe)-D.HX2.OpTime.Data(idxs);
+        y(class,29) = time;
+        % 37  average massflow heat exchanger 2 in kg/s
+        if time > 0
+            y(class,37) = (D.HX2.Mass.Data(idxe)-D.HX2.Mass.Data(idxs))/time;
+        end
+        % 30  time with massflow (operation time) heat exchanger 3 in s
+        time = D.HX3.OpTime.Data(idxe)-D.HX3.OpTime.Data(idxs);
+        y(class,30) = time;
+        % 38  average massflow heat exchanger 3 in kg/s
+        if time > 0
+            y(class,38) = (D.HX3.Mass.Data(idxe)-D.HX3.Mass.Data(idxs))/time;
+        end
+        % 39  mean storage temperature in °C
+        y(class,39) = tm;
+        % 40  mean storage temperature lowest quater °C
+        nt = size(D.Tnodes.Data,2); % number of temperatur sensors
+        ntidx = 1:round(1*nt/4);
+        y(class,40) = mean(D.Tnodes.Data(idxs:idxe,ntidx),'all');
+        % 41  mean storage temperature lower middle quater °C
+        ntidx = (round(1*nt/4)+1):round(2*nt/4);
+        y(class,41) = mean(D.Tnodes.Data(idxs:idxe,ntidx),'all');
+        % 42  mean storage temperature upper middle quater °C
+        ntidx = (round(2*nt/4)+1):round(3*nt/4);
+        y(class,42) = mean(D.Tnodes.Data(idxs:idxe,ntidx),'all');
+        % 43  mean storage temperature top quater °C
+        ntidx = (round(3*nt/4)+1):nt;
+        y(class,43) = mean(D.Tnodes.Data(idxs:idxe,ntidx),'all');
+        % 44  mean ambient temperature in °C
+        y(class,44) = ta;
+        if details
+            idxs = find(DD.storageType.Time >= limit(class),1,'first');
+            idxe = find(DD.storageType.Time <= limit(class+1),1,'last');
+            % if there was massflow during this time
+            if DD.Pipe1.Mass.Data(idxe) > DD.Pipe1.Mass.Data(idxs)   
+                % 45  mean outlet temperature during operation pipe 1 in °C
+                y(class,45) = mean(DD.Pipe1.T_out.Data(idxs:idxe));
+            end
+            % if there was massflow during this time
+            if DD.Pipe2.Mass.Data(idxe) > DD.Pipe2.Mass.Data(idxs)   
+                % 46  mean outlet temperature during operation pipe 2 in °C
+                y(class,46) = mean(DD.Pipe2.T_out.Data(idxs:idxe));
+            end
+            % if there was massflow during this time
+            if DD.Pipe3.Mass.Data(idxe) > DD.Pipe3.Mass.Data(idxs)   
+                % 47  mean outlet temperature during operation pipe 3 in °C
+                y(class,47) = mean(DD.Pipe3.T_out.Data(idxs:idxe));
+            end
+            % if there was massflow during this time
+            if DD.Pipe4.Mass.Data(idxe) > DD.Pipe4.Mass.Data(idxs)   
+                % 48  mean outlet temperature during operation pipe 4 in °C
+                y(class,48) = mean(DD.Pipe4.T_out.Data(idxs:idxe));
+            end
+            % if there was massflow during this time
+            if DD.Pipe5.Mass.Data(idxe) > DD.Pipe5.Mass.Data(idxs)   
+                % 49  mean outlet temperature during operation pipe 5 in °C
+                y(class,49) = mean(DD.Pipe5.T_out.Data(idxs:idxe));
+            end
+            % if there was massflow during this time
+            if DD.HX1.Mass.Data(idxe) > DD.HX1.Mass.Data(idxs)   
+                % 50  mean outlet temperature during operation heat exchanger 1
+                y(class,50) = mean(DD.HX1.T_out.Data(idxs:idxe));
+            end
+            % if there was massflow during this time
+            if DD.HX2.Mass.Data(idxe) > DD.HX2.Mass.Data(idxs)   
+                % 51  mean outlet temperature during operation heat exchanger 2
+                y(class,51) = mean(DD.HX2.T_out.Data(idxs:idxe));
+            end
+            % if there was massflow during this time
+            if DD.HX3.Mass.Data(idxe) > DD.HX3.Mass.Data(idxs)   
+                % 52  mean outlet temperature during operation heat exchanger 3
+                y(class,52) = mean(DD.HX3.T_out.Data(idxs:idxe));
+            end
+        end
+    end % if ~isempty
+end % for call
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- display some statistics REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+starttime = D.storageType.Time(1);  % time of simulation or timeclass start
+endtime = D.storageType.Time(end);  % time of simulation or timeclass end
+time = endtime-starttime;           % total simulation time
+startdate = sec2date(starttime);    % date of simulation start
+enddate = sec2date(endtime);        % date of simulation end
+fprintf('*** Energy evaluation of the storage tank ***\n');
+fprintf('* Simulation from hh:mm:ss day.month.year\t%.0f:%.0f:%.0f  %.0f.%.0f.%.0f\n', ...
+    startdate(4),startdate(5),startdate(6),startdate(3), startdate(2),startdate(1));
+fprintf('*            till hh:mm:ss day.month.year\t%.0f:%.0f:%.0f  %.0f.%.0f.%.0f\n', ...
+    enddate(4),enddate(5),enddate(6),enddate(3), enddate(2),enddate(1));
+fprintf('*            duration in hours\t%.1f\n', time/3600);
+fprintf('*\n');
+fprintf('* Storage data:\n');
+fprintf('*            storage type \t%.0f\n', D.storageType.Data(end));
+fprintf('*            volume in m³ \t%.2f\n', D.volume.Data(end));
+fprintf('*\n');
+fprintf('* Energy:    difference between start and stop in kWh\t%.1f\n', ...
+    D.energy.internal.Data(end)/time/3.6e6);
+fprintf('*            losses to the ambient in kWh\t%.1f\n', ...
+    D.energy.losses.Data(end)/3.6e6);
+fprintf('*            from/to pipe 1 in kWh\t%.1f\n',D.Pipe1.Q.Data(end)/3.6e6);
+fprintf('*            from/to pipe 2 in kWh\t%.1f\n',D.Pipe2.Q.Data(end)/3.6e6);
+fprintf('*            from/to pipe 3 in kWh\t%.1f\n',D.Pipe3.Q.Data(end)/3.6e6);
+fprintf('*            from/to pipe 4 in kWh\t%.1f\n',D.Pipe4.Q.Data(end)/3.6e6);
+fprintf('*            from/to pipe 5 in kWh\t%.1f\n',D.Pipe5.Q.Data(end)/3.6e6);
+fprintf('*            from/to heat exchanger 1 in kWh\t%.1f\n',D.HX1.Q.Data(end)/3.6e6);
+fprintf('*            from/to heat exchanger 2 in kWh\t%.1f\n',D.HX2.Q.Data(end)/3.6e6);
+fprintf('*            from/to heat exchanger 3 in kWh\t%.1f\n',D.HX3.Q.Data(end)/3.6e6);
+fprintf('*\n');
+tm = mean(D.Tnodes.Data,'all');
+ta = mean(D.Tamb.Data);
+fprintf('* Operation: mean storage temperature in °C\t%.1f\n', tm);
+fprintf('*            mean ambient temperature in °C\t%.1f\n', ta);
+fprintf('*            loss coefficient of the storage in W/K\t%.1f\n', ...
+    abs(D.energy.losses.Data(end)/time/(tm-ta)));
+fprintf('*            number of cycles pipe 1\t%.0f\n', D.Pipe1.Cycles.Data(end));
+fprintf('*            number of cycles pipe 2\t%.0f\n', D.Pipe2.Cycles.Data(end));
+fprintf('*            number of cycles pipe 3\t%.0f\n', D.Pipe3.Cycles.Data(end));
+fprintf('*            number of cycles pipe 4\t%.0f\n', D.Pipe4.Cycles.Data(end));
+fprintf('*            number of cycles pipe 5\t%.0f\n', D.Pipe5.Cycles.Data(end));
+fprintf('*            number of cycles heat exchanger 1\t%.0f\n', D.HX1.OpTime.Data(end));
+fprintf('*            number of cycles heat exchanger 2\t%.0f\n', D.HX1.OpTime.Data(end));
+fprintf('*            number of cycles heat exchanger 3\t%.0f\n', D.HX1.OpTime.Data(end));
+fprintf('*            operation time pipe 1\t%.0f\n', D.Pipe1.OpTime.Data(end)/3600);
+fprintf('*            operation time pipe 2\t%.0f\n', D.Pipe2.OpTime.Data(end)/3600);
+fprintf('*            operation time pipe 3\t%.0f\n', D.Pipe3.OpTime.Data(end)/3600);
+fprintf('*            operation time pipe 4\t%.0f\n', D.Pipe4.OpTime.Data(end)/3600);
+fprintf('*            operation time pipe 5\t%.0f\n', D.Pipe5.OpTime.Data(end)/3600);
+fprintf('*            operation time heat exchanger 1\t%.0f\n', D.HX1.OpTime.Data(end)/3600);
+fprintf('*            operation time heat exchanger 2\t%.0f\n', D.HX1.OpTime.Data(end)/3600);
+fprintf('*            operation time heat exchanger 3\t%.0f\n', D.HX1.OpTime.Data(end)/3600);
+if details
+    if ~isempty(DD.Pipe1.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature pipe 1 in °C\t%.1f\n', ....
+            mean(DD.Pipe1.T_out.Data));
+    end
+    if ~isempty(DD.Pipe2.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature pipe 2 in °C\t%.1f\n', ....
+            mean(DD.Pipe2.T_out.Data));
+    end
+    if ~isempty(DD.Pipe3.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature pipe 3 in °C\t%.1f\n', ....
+            mean(DD.Pipe3.T_out.Data));
+    end
+    if ~isempty(DD.Pipe4.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature pipe 4 in °C\t%.1f\n', ....
+            mean(DD.Pipe4.T_out.Data));
+    end
+    if ~isempty(DD.Pipe5.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature pipe 5 in °C\t%.1f\n', ....
+            mean(DD.Pipe5.T_out.Data));
+    end
+    if ~isempty(DD.HX1.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature heat exchanger 1 in °C\t%.1f\n', ....
+            mean(DD.HX1.T_out.Data));
+    end
+    if ~isempty(DD.HX2.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature heat exchanger 2 in °C\t%.1f\n', ....
+            mean(DD.HX2.T_out.Data));
+    end
+    if ~isempty(DD.HX3.T_out.Data)        % if the start is in the data
+        fprintf('*            mean outlet temperature heat exchanger 3 in °C\t%.1f\n', ....
+            mean(DD.HX3.T_out.Data));
+    end
+end
+fprintf('*\n');
+fprintf('*** End of storage evaluation ***\n');
+
+
+%% Future Release :
+%  Parameter colinfo: (not used in the current version of cs_energy_storage)
+%  The evaluation is done for up to 6 inputs with the information
+%  specified in the input file. The storage port is connected to
+%  one of the inputs of the CreateSdat block in the storage model.
+%  Define the type of load and source by the following format: 
+%       colinfo = {{'Port','ConnectedType'}, {'Port','ConnectedType'}, ...}
+%  Port can be :   'PP1' for pipe 1 
+%  ConnectedType : 'DHW' for Domestic Hot Water
+%                   'CIR' for domestic hot water CIRculation
+%                   'HEC' for heating of the building (HEating Circuit)
+%                   'HGN' for Heat GeNerator (a device for heat production)
+%                   'BOI' for (peak load) BOIler (typically gas or oil boiler)
+%                   'HPP' for Heat PumP
+%                   'SOL' for SOLar thermal collector
+%                   'EHE' for Electric HEater
+%                   'CGU' for CoGeneration Unit
+%                   'CLL' for ChiLLer (a device for cold water production)
+%  combinations:
+%                   'BOI_DHW'   for boiler charging the domestic hot water
+%                               part of the storage
+%                   'BOI_HEC'   for boiler charging the heating
+%                               part of the storage
+% 
+%  Set column info and index
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- commented out (for the moment) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% if ~exist('colinfo','var')    % colinfo was not given as input, define it now
+%     storageType = D.storageType.Data(end);
+%     switch storageType
+%         case 0
+%             colinfo = {{'PP1','HGN'},{'EHE','EHE'}};
+%         case 1
+%             colinfo = {{'PP1','HGN'},{'PP2','HCC'},{'EHE','EHE'}};
+%         case 2
+%             colinfo = {{'HX1','SOL'},{'PP1','DHW'},{'PP2','CIR'}};
+%         case 3
+%             colinfo = {{'HX1','SOL'},{'HX2','HGN'}, ...
+%                 {'PP1','DHW'},{'PP2','CIR'}};
+%         case 4
+%             colinfo = {{'HX1','SOL'},{'HX2','DHW'},{'HX3','CIR'}, ...
+%                 {'PP2','HCC'},{'PP3','HGN_DHW'},};
+%         case 5 
+%             colinfo = {{'HX1','SOL'},{'HX2','DHW'},{'HX3','CIR'}, ...
+%                 {'PP1','HGN_HEC'},{'PP2','HCC'},{'PP3','HGN_DHW'}};
+%         otherwise
+%             colinfo = {{'NNN','NNN'}};
+%     end
+% end
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+
+%% Copyright and Versions
+%  This file is part of the CARNOT Blockset.
+%  Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+%  Additional Copyright for this file see list auf authors.
+%  All rights reserved.
+%  Redistribution and use in source and binary forms, with or without 
+%  modification, are permitted provided that the following conditions are 
+%  met:
+%  1. Redistributions of source code must retain the above copyright notice, 
+%    this list of conditions and the following disclaimer.
+%  2. Redistributions in binary form must reproduce the above copyright 
+%    notice, this list of conditions and the following disclaimer in the 
+%    documentation and/or other materials provided with the distribution.
+%  3. Neither the name of the copyright holder nor the names of its 
+%    contributors may be used to endorse or promote products derived from 
+%    this software without specific prior written permission.
+%  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+%  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+%  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+%  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+%  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+%  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+%  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+%  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+%  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+%  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+%  THE POSSIBILITY OF SUCH DAMAGE.
+%  
+%  ************************************************************************
+%  VERSIONS
+%  author list:     hf -> Bernd Hafner
+%  version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+%  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+%  Version  Author  Changes                                     Date
+%  4.1.0    hf      created                                     24jan2009
+%  4.1.1    hf      umbenannt auf cs_energy_storage von stb_... 25feb2009
+%  4.1.2    hf      spaces in the sprintf replaced by tabs      10sep2009
+%                   for copying the text to an Excel sheet
+%  4.2.0    hf      output matrix not only col 1, but all data  22sep2009
+%  4.3.0    hf      includes number of cylces,                  30oct2009
+%  5.1.0    hf      corrected timeclass limits                  21nov2012
+%  5.1.1    hf      file can be choosen by uigetfile            28nov2012
+%  6.1.0    hf      energy balance changed: positive values     10sep2014
+%                   are entering the storage, negative values 
+%                   are leaving
+%  6.1.1    hf       added "see also" to help comments at top    17oct2014
+%                   corrected number of input argument at 
+%                   initial check (was 2, now 1, 2 or 3)
+%  7.1.0    hf      order of input data adapted to logger       18jan2020
+%                   file and Sdat format in Carnot 7
+%  7.2.0    hf      input data is stored in timeseries          05mar2022
+%  7.2.1    hf      adapted to timeseries names                 12mar2022
+%  7.3.0    hf      output is average massflow                  20mar2022
+%  8.3.1    hf      corrected average massflow calculation      21dec2022
+%  8.4.0    hf      changes for public version                  18mar2023
+%                   call inputfiles4cs_energy
+%  8.4.1    hf      updated comments for publish and help       26mar2023
+%  ************************************************************************
+
+##### SOURCE END #####
+--></body></html>

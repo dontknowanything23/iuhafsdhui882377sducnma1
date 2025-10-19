@@ -1,0 +1,141 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - alfa_wall_out</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/alfa_wall_out.jpg" align=right>
+<p class="blockname">alfa_wall_out</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Heat_Transfer
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Calculate the heat transfer of a wall to the outdoor.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Convective and radiative heat transfer at the SURFACE OF A VERTICAL WALL 
+towards outdoor ambient. The block is disigned to be combined with the
+<a href="../../alfa_wall_in/doc/Wall_basic.html">Wall_basic</a> block. It is 
+used in the <a href="../../alfa_wall_in/doc/Wall_out.html">Wall_out</a> and
+<a href="../../alfa_wall_in/doc/Wall_with_Window.html">Wall_with_Window</a> 
+blocks.
+</p>
+<p><b>Solar radition</b><br>
+Solar radiation is absorbed on the surface, weighted by the absorbtion 
+coefficient <span style='font-family:Symbol'>a</span>.<br>
+The change of energy at the surface becomes :<br><br>
+&nbsp&nbsp&nbsp&nbsp dQ/dt = <span style='font-family:Symbol'>a</span> 
+* Qdot_solar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [W]</p>
+
+<p><b>Radiative heat transfer</b><br>
+Long-wave radiation interaction with the surroundings or opposite surfaces 
+is subject to the radiative heat transfer coefficient based on law of 
+radiation: <br><br>
+&nbsp&nbsp&nbsp&nbsp U<sub>r</sub> = <span style='font-family:Symbol'>e</span>* 
+<span style='font-family:Symbol'>s</span>* (T<sub>amb</sub><sup>2</sup>
++ T<sub>s</sub><sup>2</sup>) * (T<sub>amb</sub> + T<sub>s</sub>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [W/(m<sup>2</sup>*K)]<br><br>
+with <br>
+<span style='font-family:Symbol'>e</span> : longwave emissvity of the 
+surface in [-]<br>
+<span style='font-family:Symbol'>s</span><sub>SB</sub> : 
+Stefan-Boltzmann constant 5.67e-8 W/(m<sup>2</sup>*K<sup>4</sup>)</p>
+<p> The heat exchange between wall-surface A<sub>s</sub></span> (temperature T<sub>s</sub>)
+and the environment (temperature T<sub>amb</sub>) is </p>
+
+<p>&nbsp&nbsp&nbsp&nbsp dQ/dt = U<sub>r</sub>*A<sub>s</sub>*(T<sub>amb</sub>
+- T<sub>s</sub>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [W] </p>
+
+<p><b>Convective heat transfer</b><br>
+The convective heat transfer at the <i>exterior surface</i> A<sub>s</sub> 
+of the wall is calculated according to EN 6946 :</p>
+<p>&nbsp&nbsp&nbsp&nbsp U<sub>c</sub> = 4.0 + 4*vwind 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [W/(m<sup>2</sup>*K)]</p>
+<p>
+where vwind is the air velocity in m/s.</p>
+
+<p>&nbsp&nbsp&nbsp&nbsp dQ/dt = U<sub>c</sub>*A<sub>s</sub>*(T<sub>amb</sub>
+- T<sub>s</sub>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [W] </p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">Weather Data Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> Ts </td>
+        <td>:</td>
+        <td> temperature of the wall surface in &degC </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">qdots</td>
+		<td style="width: 10px;">:</td>
+        <td> specific heat flow into wall construction in W/m<sup>2</sup></td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/alfa_wall_out_MASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_House_RoomFloorHeating </li>
+ <li> example_House_RoomRadiator </li>
+</ul>
+
+<p><b>Literature:</b><br />
+EN ISO 6946 : Building components and building elements - 
+Thermal resistance and thermal transmittance; Calculation methods 
+(ISO 6946:2017)</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

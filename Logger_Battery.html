@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+@import url('../../../../../tutorial/doc/Carnot_Style.css');
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerBattery.jpg" style="float: right"><a name="data_logging_furnace"><font size="5"><b>Logger_Battery</b></font></a><p>
+<b>Path: Carnot/Outputs/Logger</b><br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate the
+<a href="Battery.html">battery</a> model of the Carnot blockset by using
+<a href="cs_energy_battery.html">cs_energy_battery</a> 
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>BattDat (data bus of the <a href="Battery.html">battery</a>)<li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the 
+	files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_Batt : displaying data of battery 
+    <li>files : &quot;batteryoutput<i>_extension</i>.mat&quot; and &quot;batterydetailoutput<i>_extension</i>.mat&quot;where 
+    extension is a string you can choose in the parameters of the block. 
+</ul>
+<p>The file contains the following information in timeseries. The timeseries 
+appear in a structure with the variable &quot;batt&quot;.</p>
+<ul>
+	<li>EnergySetpointCharge : AC energy charged at setpoint in J</li>
+	<li>EnergySetpointDisarge : AC energy discharged at setpoint in J</li>
+	<li>EnergyChargeAC : energy charged at AC connection in J </li>
+	<li>EnergyDischargeAC : energy discharged at AC connection in J</li>
+	<li>EnergyChargeDC : energy charged on DC side (into the cell) in J</li>
+	<li>EnergyDischargeDC : energy discharged on DC side (from the cell) in J </li>
+	<li>Energy_Excess : energy excess (which could not be stored, typically sent 
+	to grid) in J </li>
+	<li>Energy_Deficit : energy deficit (which could not be deliverey by the 
+	battery, typically taken from grid) in J </li>
+	<li>Energy : energy in the battery in J </li>
+	<li>SOC : state of charge </li>
+	<li>Capacity:&nbsp; capacity of the batter in J </li>
+	<li>Time_Charging duration of charging in s </li>
+	<li>Time_Discharging duration of discharging in s </li>
+	<li>Cycles_Charging number of charging cycles </li>
+	<li>Cycles_Discharging number of discharging cycles </li>
+</ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br></p>
+<p><b>Parameters and Dialog Box</b>
+<p><img alt="" src="Figures/LoggerBatteryMask.jpg"><p>The file &quot;batterydetailoutput_<i>extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated. Detailed outputs 
+are written with a 60 s timestep only if the battery is charged or discharged.</p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No 
+</p>
+</body>
+
+</html>

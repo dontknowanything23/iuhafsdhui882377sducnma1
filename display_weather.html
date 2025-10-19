@@ -1,0 +1,93 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - display_weather</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/display_weather.jpg" align=right>
+<p class="blockname">display_weather</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Outputs/Selectors</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block shows the specified weather variables from the 
+<a href="2_Basic_Concepts.html#WDB">weather vector</a>.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block shows the specified weather variables from weather data vector. 
+In the parameter block the weather variables can be chosen. 
+The number of inputs can be changed by changing the Mux- and Demux-blocks in 
+the subsystem. Be sure to short all unconnected outputs to the Terminator 
+block to avoid a warning in the MATLAB command window. In SIMULINK version 
+2.0 scopes do not open when starting the simulation. 
+You have to double-click on the scope to see the graph.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">weather</td>
+		<td style="width: 10px;">:</td>
+        <td> weather data vector </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> to scope </td>
+		<td style="width: 10px;">:</td>
+        <td> selected data of the weather data vector </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/display_weatherSHOT.jpg" /></p>
+
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+The weather data vector has been replaced by the weather data bus 
+<a href="2_Basic_Concepts.html#WDB">WDB</a>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

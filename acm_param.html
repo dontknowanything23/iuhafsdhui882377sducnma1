@@ -1,0 +1,238 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>acm_param(M) - calculate parameters for an adsorption cooling machine</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-03-20"><meta name="DC.source" content="acm_param.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>acm_param(M) - calculate parameters for an adsorption cooling machine</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">syntax</a></li><li><a href="#2">input:</a></li><li><a href="#3">Description</a></li><li><a href="#4">main function</a></li><li><a href="#6">Copyright and Versions</a></li></ul></div><h2 id="1">syntax</h2><pre>K = acm_param(M)</pre><h2 id="2">input:</h2><pre>matrix M where each row has five elements (specify at least seven rows for M)
+[Qdot_E     Qdot_G     t_E     t_G     t_AC]</pre><pre>first element is the cooling capacity of the evaporator in kW
+ Qdot_E = M(:,1);</pre><pre>second element is the corresponding driving heat of the generator in kW
+ Qdot_G = M(:,2);</pre><pre>third element is the corresponding arithmetic mean temperature of the
+external waterloop of the evaporator in &deg;C
+ t_E = M(:,3);</pre><pre>fourth element is the corresponding arithmetic mean temperature of the
+external waterloop of the generator in &deg;C
+  t_G = M(:,4);</pre><pre>fifth element is the corresponding arithmetic mean temperature of the
+external waterloop of absorber and condenser in &deg;C
+ t_AC = M(:,5);</pre><h2 id="3">Description</h2><pre>This file calculates the characteristic paramaters A, E, s_e, r_e, s_g and r_g
+for the acm-model based on the fitted deltadelta_t' model from A. K&uuml;hn (2005).
+WARNING : use this model with caution because it is not very precise and
+not validated.
+Linear model:
+ deltadelta_t'=t_G - A*t_AC + E*t_E
+ Qdot_E = s_e * deltadelta_t' + r_e
+ Qdot_G = s_g * deltadelta_t' + r_g</pre><pre class="language-matlab">output: [A  E  s_E  s_G  r_E  r_G]
+</pre><h2 id="4">main function</h2><h2 id="6">Copyright and Versions</h2><pre>This file is part of the CARNOT Blockset.
+Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+Additional Copyright for this file see list auf authors.
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.</pre><pre>************************************************************************
+VERSIONS
+author list:  eva -&gt; Eva Hennig
+             hf -&gt; Bernd Hafner</pre><pre>version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction</pre><pre>version  author  changes                                     date
+4.1.0    eva     created                                     12jan2010
+4.1.1    hf      in acm_param_func: (sum(...))^2             13jan2010
+                 changed to: sum((...).^2)
+                 in comment: syntax:   acm_param(M, order)
+                 changed to: syntax:   acm_param(M)
+4.1.2    hf      in acm_param_func changed to:               20jan2010
+                 sum((Qdot_E-M(:,1)).^2)+sum((Qdot_G-M(:,2)).^2)
+8.1.3    hf      rearranged comments for publish             08jun2023</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% acm_param(M) - calculate parameters for an adsorption cooling machine
+%%  syntax
+%  K = acm_param(M)
+%
+%% input: 
+%  matrix M where each row has five elements (specify at least seven rows for M)
+%  [Qdot_E     Qdot_G     t_E     t_G     t_AC]
+%
+%  first element is the cooling capacity of the evaporator in kW
+%   Qdot_E = M(:,1);
+%
+%  second element is the corresponding driving heat of the generator in kW
+%   Qdot_G = M(:,2);
+%
+%  third element is the corresponding arithmetic mean temperature of the
+%  external waterloop of the evaporator in °C
+%   t_E = M(:,3);
+%
+%  fourth element is the corresponding arithmetic mean temperature of the 
+%  external waterloop of the generator in °C
+%    t_G = M(:,4);
+%
+%  fifth element is the corresponding arithmetic mean temperature of the
+%  external waterloop of absorber and condenser in °C
+%   t_AC = M(:,5);
+% 
+%% Description
+%  This file calculates the characteristic paramaters A, E, s_e, r_e, s_g and r_g 
+%  for the acm-model based on the fitted deltadelta_t' model from A. Kühn (2005).
+%  WARNING : use this model with caution because it is not very precise and
+%  not validated.
+%  Linear model:
+%   deltadelta_t'=t_G - A*t_AC + E*t_E
+%   Qdot_E = s_e * deltadelta_t' + r_e
+%   Qdot_G = s_g * deltadelta_t' + r_g 
+%
+%   output: [A  E  s_E  s_G  r_E  r_G]
+%
+
+function K = acm_param(M)
+%% main function
+if nargin ~= 1
+   help acm_param
+   return
+end
+
+K = fminsearch(@(x) acm_param_func(x, M), [1 1 0.5 0.5 1 1]);
+
+end % of function
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%      subfunctions in this file
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+
+function f = acm_param_func(x, M)
+deltadelta_t = (M(:,4) - x(1).*M(:,5) + x(2).*M(:,3));
+Qdot_E = x(3).*deltadelta_t + x(5);
+% Qdot_E'
+% M(:,1)'
+Qdot_G = x(4).*deltadelta_t + x(6);
+% Qdot_G'
+% M(:,2)'
+f = sum((Qdot_E-M(:,1)).^2)+sum((Qdot_G-M(:,2)).^2);
+% f = sum(((M(:,4) - x(1).*M(:,5) + x(2).*M(:,3))*(x(3) + x(4)) + x(5) + x(6) - M(:,1) - M(:,2)).^2);
+% Version 4.1.0 : f = (sum((M(:,4) - x(1).*M(:,5) + x(2).*M(:,3))*(x(3) + x(4)) + x(5) + x(6) - M(:,1) - M(:,2)))^2;
+end
+
+%% Copyright and Versions
+%  This file is part of the CARNOT Blockset.
+%  Copyright (c) 1998-2024, Solar-Institute Juelich of the FH Aachen.
+%  Additional Copyright for this file see list auf authors.
+%  All rights reserved.
+%  Redistribution and use in source and binary forms, with or without 
+%  modification, are permitted provided that the following conditions are 
+%  met:
+%  1. Redistributions of source code must retain the above copyright notice, 
+%    this list of conditions and the following disclaimer.
+%  2. Redistributions in binary form must reproduce the above copyright 
+%    notice, this list of conditions and the following disclaimer in the 
+%    documentation and/or other materials provided with the distribution.
+%  3. Neither the name of the copyright holder nor the names of its 
+%    contributors may be used to endorse or promote products derived from 
+%    this software without specific prior written permission.
+%  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+%  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+%  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+%  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+%  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+%  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+%  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+%  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+%  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+%  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+%  THE POSSIBILITY OF SUCH DAMAGE.
+%  
+%  ************************************************************************
+%  VERSIONS
+%  author list:  eva -> Eva Hennig
+%               hf -> Bernd Hafner
+%
+%  version: CarnotVersion.MajorVersionOfFunction.SubversionOfFunction
+% 
+%  version  author  changes                                     date
+%  4.1.0    eva     created                                     12jan2010
+%  4.1.1    hf      in acm_param_func: (sum(...))^2             13jan2010
+%                   changed to: sum((...).^2)
+%                   in comment: syntax:   acm_param(M, order)
+%                   changed to: syntax:   acm_param(M)
+%  4.1.2    hf      in acm_param_func changed to:               20jan2010
+%                   sum((Qdot_E-M(:,1)).^2)+sum((Qdot_G-M(:,2)).^2)
+%  8.1.3    hf      rearranged comments for publish             08jun2023
+
+##### SOURCE END #####
+--></body></html>

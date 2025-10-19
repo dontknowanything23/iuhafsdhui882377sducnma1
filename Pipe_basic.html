@@ -1,0 +1,185 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pipe_basic</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Pipe_basic.gif" align=right>
+<p class="blockname">Pipe_basic</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Thermal 1xN node model a pipe including thermal losses.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The thermal pipe model is a one-dimensional mulitnode model. It includes 
+heat capacity of the wall, heat losses to the environment, thermal conductivity 
+between nodes, heat transfer by mass flow and thermal losses to the ambient. 
+The basic differential equation for the heat and mass transfer is solved by 
+the finite volume method [Patankar, 1980]. The transfer due to convection is 
+calculated by the upwind scheme (the flow only comes from the last node in flow 
+direction). Thermal conductivity is calculated by central differences. The 
+resulting differential equation for one node is:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 
+(c<sub>wall</sub>*</span>length/V<sub>node</sub> 
++ c<sub>p</sub>*rho)* dT/dt = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+U * A<sub>loss</sub> / V<sub>node</sub> * (T<sub>amb</sub> 
+- T<sub>node</sub>) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
++ cond / dh<sup>2</sup> * (T<sub>nextnode</sub> - T<sub>node</sub>) 
++ cond / dh<sup>2</sup> * (T<sub>lastnode</sub> - T<sub>node</sub>) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
++ m<sub>dot</sub> * c<sub>p</sub> / V<sub>node</sub> * 
+(T<sub>lastnode</sub> - T<sub>node</sub>) 
+<br><br>
+with
+</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Symbol</td>
+		<td style="width: 300px;">used for</td>
+        <td> Unit </td>
+    </tr>
+    <tr>
+    	<td>A<sub>loss</sub></td>
+        <td>surface area for losses</td>
+        <td>m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td>cond</td>
+        <td>effective axial thermal conductivity</td>
+        <td>W/m/K</td>
+    </tr>
+    <tr>
+    	<td>c<sub>p</sub></td>
+        <td>heat capacity of fluid</td>
+        <td>J/kg/K</td>
+    </tr>
+    <tr>
+    	<td>c<sub>wall</sub></td>
+        <td>thermal capacity of pipe wall per length</td>
+        <td>J/m/K</td>
+    </tr>
+    <tr>
+    	<td>d<sub>h</sub></td>
+        <td>distance between two nodes</td>
+        <td>m</td>
+    </tr>
+    <tr>
+    	<td>m<sub>dot</sub></td>
+        <td>mass flow rate</td>
+        <td>kg/s</td>
+    </tr>
+    <tr>
+    	<td><span 'font-family:Symbol'>r</span></td>
+        <td>density of the fluid </td>
+        <td>kg/m<sup>3</sup></td>
+    </tr>
+    <tr>
+    	<td>T</td>
+        <td>temperature of the fluid</td>
+        <td>&deg;C</td>
+    </tr>
+    <tr>
+    	<td>t</td>
+        <td>time</td>
+        <td>s</td>
+    </tr>
+    <tr>
+    	<td>U</td>
+        <td>heat loss coefficent per pipe surface </td>
+        <td>W/m<sup>2</sup>/K</td>
+    </tr>
+    <tr>
+    	<td>V<sub>node</sub></td>
+        <td>node volume </td>
+        <td>m<sup>3</sup></td>
+    </tr>
+</table>
+
+<p>For Fixed-Step Solvers you have to obey the following
+condition for the Courant number: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; c = timestep * velocity / d<sub>h</sub> &lt;= 1
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Tamb </td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature for thermal losses &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THBin </td>
+        <td>:</td>
+        <td> incomming <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Tnodes </td>
+		<td style="width: 10px;">:</td>
+        <td> node temperature or temperatures of the store in &deg;C</td>
+    </tr>
+	<tr>
+		<td style="width: 100px;"> THB </td>
+		<td style="width: 10px;">:</td>
+        <td> leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/Pipe_basic_MASK_1.jpg" /></p>
+<p><img src="Figures/Pipe_basic_MASK_2.jpg" /></p>
+<p><img src="Figures/Pipe_basic_MASK_3.jpg" /></p>
+
+<p><b>Literature:</b><br />
+Patankar: Numerical Heat Tansfer and Fluid Flow, 1980</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

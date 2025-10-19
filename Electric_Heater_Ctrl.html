@@ -1,0 +1,196 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Electric_Heater_Ctrl</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Electric_Heater_Ctrl.jpg" align=right>
+<p class="blockname">Electric_Heater_Ctrl</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Boiler
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Model of an electrical heater (instantaneous water heater).
+</p>
+<p><b>Description:</b><br>
+The model heats the entering mass flow of the <a href="2_Basic_Concepts.html">
+Thermo-Hydraulic Bus</a> with an electric power. A Thermal Node is used to 
+model the thermal inertia of the heater and losses to the ambient. The model 
+is described by the equation:</p>
+<p>&nbps;&nbps;&nbps;&nbps; 
+mcp * dT/dt = UA*(Tamb-T) + mdot*cp_in*(Tin-T) + Ctrl*Electric_heating_power
+</p>
+
+<p>with</p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">cp_in</td>
+		<td style="width: 10px;">:</td>
+        <td> heat capacity of entering fluid in J/kg/K </td>
+    </tr>
+    <tr>
+    	<td> Ctrl </td>
+        <td>:</td>
+        <td> Control input, range [0...1] </td>
+    </tr>
+    <tr>
+    	<td> mcp</td>
+        <td>:</td>
+        <td> thermal capacity of the heater in J/K</td>
+    </tr>
+    <tr>
+    	<td> mdot</td>
+        <td>:</td>
+        <td> entering fluid massflow in kg/s</td>
+    </tr>
+    <tr>
+    	<td> Tamb</td>
+        <td>:</td>
+        <td> ambient temperature for the thermal losses in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> Tin</td>
+        <td>:</td>
+        <td> temperature of entering massflow in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> T </td>
+        <td>:</td>
+        <td> temperature of the node and outlet in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> Electric_heating_power </td>
+        <td>:</td>
+        <td> heating power input in W </td>
+    </tr>
+    <tr>
+    	<td> UA </td>
+        <td>:</td>
+        <td> thermal loss coefficient in W/K </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the inlet </td>
+    </tr>
+    <tr>
+    	<td> Tamb</td>
+        <td>:</td>
+        <td> Ambient temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Ctrl </td>
+        <td>:</td>
+        <td> Control signal input </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBout </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the outlet </td>
+    </tr>
+    <tr>
+    	<td> EHdat </td>
+        <td>:</td>
+        <td> Data bus for evaluation and display </td>
+    </tr>
+</table>
+
+<p>The electric heater data bus EHdata contains the following data points:</p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBout </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the outlet </td>
+    </tr>
+	<tr>
+		<td>THBin</td>
+		<td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> of the inlet </td>
+    </tr>
+    <tr>
+    	<td> Electric_heating_power </td>
+        <td>:</td>
+        <td> heating power input in W </td>
+    </tr>
+    <tr>
+    	<td> ControlSetpoint </td>
+        <td>:</td>
+        <td> Control setpoint signal input (Ctrl)</td>
+    </tr>
+    <tr>
+    	<td> ControlActual </td>
+        <td>:</td>
+        <td> Applied control signal </td>
+    </tr>
+</table>
+
+<p>The control signal is not limited to [0..1]. A negative value 
+leads to a negative heating power (= thermal load), if the 
+"Electric heating power" parameter is positive.</p>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/electricHeaterCtrl_Mask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_ElectricHeaterCtrl">
+	example_ElectricHeaterCtrl</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

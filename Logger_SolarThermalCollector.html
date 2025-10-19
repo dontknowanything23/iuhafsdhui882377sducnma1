@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+@import url('../../../../../tutorial/doc/Carnot_Style.css');
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerSolarThermalColl.jpg" style="float: right"><a name="data_logging_furnace"><font size="5"><b>Logger_SolarThermalCollector</b></font></a><p>
+<b>Path: Carnot/Outputs/Logger</b><br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate the
+solar thermal collector models of the Carnot blockset by using
+<a href="cs_energy_collector.html">cs_energy_collector</a> 
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>Cdat (data bus of the boiler)<li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the 
+	files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_c : displaying data of boiler 
+    <li>files : &quot;collectoroutput<i>_extension</i>.mat&quot; and &quot;collectordetailoutput<i>_extension</i>.mat&quot;where 
+    extension is a string you can choose in the parameters of the block. 
+</ul>
+<p>The file contains the following information in timeseries. The timeseries 
+appear in a structure with the variable &quot;boiler&quot;.</p>
+<ul>
+	<li>coll.Th_in : inlet temperature (heating) in degree Celsius </li>
+	<li>coll.Th_out : outlet temperature (heating) in degree Celsius
+	</li>
+	<li>coll.Tmean : mean collector temperature in degree Celsius</li>
+	<li>coll.MassH : time integral of the mass flow on 
+	the heating side in kg</li>
+	<li>coll.Qh : delivered thermal energy in J</li>
+	<li>coll.Esolar&nbsp; : solar energy irradiated on the collector surface in J</li>
+	<li>coll.Cycles : number of on/off cycles</li>
+	<li>coll.OpTime : operation time of the boiler in s</li>
+	<li>coll.StagnationTime : stagnation time of the collector in s (time above 
+	a temperature threshold)</li>
+</ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br>&nbsp;</p>
+<p><b>Parameters and Dialog Box</b>
+<p>The file &quot;collectordetailoutput_<i>extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated. Detailed outputs 
+are written with a 60 s timestep only if the solar pump is working.</p>
+<p>Specify a stagnation temperature as a parameter in the mask. Every timestep 
+the collector temperature rises above this threshold is counted as stagnation 
+time.</p>
+<p><img alt="" src="Figures/LoggerSolarThermalCollMask.jpg"></p>
+<p><font size="4"><b><br>Examples<br></b>Logger_Boiler : 
+example_LoggerBoiler.slx</font></p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No 
+</p>
+</body>
+
+</html>

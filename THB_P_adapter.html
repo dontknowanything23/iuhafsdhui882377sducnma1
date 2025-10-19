@@ -1,0 +1,115 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - THB_P_adapter</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/THB_P_adapter.PNG" align=right>
+<p class="blockname">THB_P_adapter</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Heat_Exchanger</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Connect active components to the house-model, i.e. to model a floor heating.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The model consists of a fluid mass, heated (or cooled) by the incoming flow.
+The power is than transferred with the heat transfer coefficient and the
+temperature difference to the heating power for a wall or floor. The heat 
+transfer can be given by a calculation model:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; HEATTRANSFER = Heattransfer_Coefficient * 
+Room_Length * Room_Width / Pipe_Laying_Distance * Pipe_Diameter * pi<br><br>
+In the figure of the parameter window, the heat transfer is set to the value<br>
+&nbsp;&nbsp;&nbsp;&nbsp; HEATTRANSFER = (800 W/m<sup>2</sup>) * (5 m) * (5 m) 
+/ (0.2 m) * (0.022 m) * 3.1415
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T[P]</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature of the active layer in &deg;C, 
+		given by the wall of floor model </td>
+    </tr>
+    <tr>
+    	<td> THBin</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the inlet (flow line) </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">power</td>
+		<td style="width: 10px;">:</td>
+        <td> thermal power in W given to the active layer </td>
+    </tr>
+    <tr>
+    	<td> THB</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the outlet (return line)</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/THB_P_adapterMask.PNG" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_House_RoomFloorHeating </li>
+</ul>
+
+<p><b>Literature:</b><br />
+<a href="pdf/Dott_Validitaet_FBH_TABS_Modell_CarnotUserTreff_2014.pdf">
+Dott_Validitaet_FBH_TABS_Modell_CarnotUserTreff_2014</a>
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

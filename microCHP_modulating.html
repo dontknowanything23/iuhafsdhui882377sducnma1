@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - microCHP_modulating</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/microCHP_modulating.png" align=right>
+<p class="blockname">microCHP_modulating</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Source/Cogeneration<br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Pragraph Block Purpose
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Pragraph Block description
+</p>
+
+<p><b>Purpose</b> <br>
+This block calculates mass flow rate, outlet flow temperature, fuel and 
+electrical power of a mini-CHP with modulating power.
+</p>
+
+<p><b>Description</b> <br>
+The engine speed of this CHP depends on the return flow temperature of the 
+consumer circuit T_return_load, the flow setpoint temperature T_flow_setpoint 
+and temperatures of flow T_flow and return flow T_return of the CHP. 
+T_return_load can be, as circumstances require, a storage temperature or the 
+return flow temperature.<br>
+The modulation is directly implemented on the heating power because of the 
+linear connection between engine speed and heating power. 
+</p> 
+<p>During the adjustable start-up phase the CHP runs with inputed initial 
+heating power. Then, the CHP pass over to the ramp-up phase and runs with 
+maximum heating power. As soon as T_flow has reached 60°C the CHP pass over 
+to the control phase. During the control phase the heating power is readjusted 
+after an inputed readjustment intervall.
+</p>
+<p>The generated electrical power and fuel power are based on measured data of 
+a modulating mini-CHP called "Ecopower" from Vaillant with a heating power 
+range from 3,5 to 12,5 kW. <br>
+The electrical power is calculated by an inputed fraction parameter f_P_el that 
+refers to the heating power. <br>
+The fuel power is calculated by the factor f_P_gas multiplied with the heating 
+power. P_gas_factor is calculated by linear interpolation between 1.79 at 
+minimum heating power and 1.5 at maximum heating power (f_P_gas_lookup-table).
+<br>
+The model enables a free scalability of the heating power. It is therefor 
+needed to enter the desired heating power range and initial heating power. 
+The maximum mass flow of the pump and thermal capacity of the CHP are linearly 
+resized according to the relation between inputed maximum heating power and 
+maximum heating power of the basic unit. <br>
+The model includes a return temperature raising facility. A return setpoint 
+temperature is calculated depending on heating power and flow setpoint temperature. 
+The thermostatic mixer is located in the return flow of the CHP. 
+</p>
+<p>Thermal and electrical efficiency are calculated and summarised in a 
+data output vector. 
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_return_load</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the entering flow </td>
+    </tr>
+    <tr>
+    	<td> control </td>
+        <td>:</td>
+        <td> demand signal, range 0..1 </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB_flow_load </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the leaving flow</td>
+    </tr>
+    <tr>
+    	<td> data </td>
+        <td>:</td>
+        <td> Q_thermal [kWh], Q_electrical [kWh], Q_gas [kWh], 
+		eta_thermal, eta_electrical, eta_system </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/microCHPmodulatingMask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_microCHP_modulating">
+	example_microCHP_modulating</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Diourane Mouhcin: Aufbereitung von zwei vorhandenen BHKW-Modellen zur 
+Bereitstellung in der Carnot-User-Community (Bachelor-Arbeit), 2012</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

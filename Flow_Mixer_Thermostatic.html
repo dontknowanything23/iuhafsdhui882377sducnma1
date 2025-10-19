@@ -1,0 +1,142 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Flow_Mixer_Thermostatic</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/flow_mixer_thermostatic.jpg" align=right>
+<p class="blockname">Flow_Mixer_Thermostatic</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The thermostatic flow mixer valve mixes cold and hot fluid to achive a 
+desired temperature at the outlet.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block uses the <a href="Flow_Mixer_basic.html">Flow_Mixer_basic</a> 
+block to calculate the mixture of the fluids and the mass flow diversion. 
+The outlet temperature is controlled by an integral control. 
+If Tset is higher than the temperatures of THBhot, the maximum temperature 
+the outlet is the temperature of THBhot.<br>
+The model calculates the pressure drop in the hot and cold branch and 
+gives this information to the Flow_Diverter.</p>
+
+<p> For a correct flow diversion connect :
+</p>
+<ol>
+ <li> THB1 of the Flow_Diverter to the THBhot 
+ input of the Flow_Mixer_Thermostatic </li>
+ <li> THB2 of the Flow_Diverter to the THBcold 
+ input of the Flow_Mixer_Thermostatic </li>
+ <li> the input clq to the output of the corresponding 
+ <a href="Flow_Diverter.html">Flow_Diverter</a></li>
+</ol>
+
+<p> The corresponding Flow_Diverter is the flow mixer which separates 
+the flow in two branches THB1 and THB2.<br>
+
+<p><img src="Figures/FlowMixerThermoExample.jpg" /></p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBhot</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of branch 1 with the hot fluid</td>
+    </tr>
+    <tr>
+    	<td> THBcold</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of branch 2 with the cold fluid</td>
+    </tr>
+    <tr>
+    	<td> clq </td>
+        <td>:</td>
+        <td> Bus with massflow and pressure drop coefficients of the 
+		THB before it was separated in THB1 (THBhot) and THB2 (THBcold)</td>
+    </tr>
+    <tr>
+    	<td> Tset </td>
+        <td>:</td>
+        <td> temperature set point in &deg;C for the mixing valve controller</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the mixed flow </td>
+    </tr>
+    <tr>
+    	<td> fdiv</td>
+        <td>:</td>
+        <td> Flow division rate for the corresponding Flow_Diverter</td>
+    </tr>
+    <tr>
+    	<td> clq_ </td>
+        <td>:</td>
+        <td> bus with massflow and pressure drop coefficients in THB 
+		(information is needed by the corresponding flow mixer)</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/flow_mixer_thermostaticSHOT.jpg" /></p>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Hydraulic_FlowMixerThermostatic </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

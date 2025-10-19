@@ -1,0 +1,140 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Storage_Type_11</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/storageType11.jpg" align=right>
+<p class="blockname">Storage_Type_11</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Storage/Thermal
+<br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Multiport model for buffer storage with "3-point" direct connection.
+</p>
+<p><b>Description:</b><br>
+The model uses 2 buffer storage tanks (<a href="Storage_Type_N.html">
+Storage_Type_1</a>) to model a buffer storage with a "3-point" connection.<br>
+3 point means that the return flow is passing through the buffer tank via a
+<a href="StoragePorts_PipeConnections.html">Pipe</a> port and the flowline is 
+connected directly to the load. A T-piece in the flowline connects the buffer 
+tank. <br />
+The T-piece is modeled by a small buffer tank of <a href="Storage_Type_N.html">
+Storage_Type_1</a> with one single node to model the complete mixing of the 
+flow in the T-piece. The T-piece "storage" has no thermal losses. Only the 
+volume of the T-piece and its connecting pipes has to be given.<br />
+The main storage is modeled by a <a href="Storage_Type_N.html">
+Storage_Type_1</a> with all its parameters.</p>
+<p><img src="Figures/storageType11_pic1.png"></p>
+<p><em>Figure: Hydraulic scheme of a 3-point connected buffer storage tank.
+</em></p>
+<p><img src="Figures/storageType11_pic2.jpg"></p>
+<p><em>Figure: Model implementation in Carnot Storage_Type_11</em></p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td>ambient temperature in &deg;C (for thermal losses) </td>
+    </tr>
+    <tr>
+    	<td> THB_chg</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of the incomming charging port</td>
+    </tr>
+    <tr>
+    	<td> THB_dis</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of the incomming discharging port</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Sdat</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="CreateSdat.html">Storage data bus</a> </td>
+    </tr>
+    <tr>
+    	<td> Tsensors</td>
+        <td>:</td>
+        <td>value of temperature sensors in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> THBchg</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of the outgoing charging port</td>
+    </tr>
+    <tr>
+    	<td> THBdis</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>  
+		of the outgoing discharging port</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img src="Figures/storageType11_MASK1.jpg" /></p>
+<p><img src="Figures/storageType11_MASK2.jpg" /></p>
+<p><img src="Figures/storageType11_MASK3.jpg" /></p>
+
+<p>You may directly choose predefined parameter sets.<br />
+For details see chapter 
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> example_Storage_Type11 </li>
+	<li> example_StorageType11Type1 </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>

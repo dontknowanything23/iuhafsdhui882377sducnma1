@@ -1,0 +1,159 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Mixing Valve</title>
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here-->
+<img src="Figures/mixing_valve.PNG" align=right>
+<p class="blockname">Mixing_Valve</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics<br><br><br>
+</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Model of a mixing valve with flow coefficient and pressure drop calculation. 
+The block feeds back the flow diversion to the Flow_Diverter.
+</p>
+
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block uses the <a href="Flow_Mixer.html">Flow_Mixer</a>. 
+In this block the <a href="Flow_Mixer_basic.html">Flow_Mixer_basic</a> 
+block calculates the mixture of the fluids and the mass flow diversion.<br>
+Feed back fdiv to the corresponding <a href="Flow_Diverter.html">Flow_Diverter</a> 
+upwards in flow direction. The pressure drop of in the two incomming branches is 
+derived from the valve position set by the Ctrl input. A Memory block or a Pt1 transfer 
+function as a variant subsystem in the the <a href="Flow_Mixer.html">Flow_Mixer</a> 
+breaks the algebraic loop of <a href="Flow_Diverter.html">Flow_Diverter</a> 
+and <a href="Flow_Mixer.html">Flow_Mixer</a>. 
+For the variable-step solver ode15s or ode113 it is recommended to activate the Pt1 option.<br>
+The hydraulic characteristics are calculated by the <a href="Valve.html">Valve</a> block. 
+Typically mixing valves have a linear characteristic in the branch B 
+(the shortcut between flow line and return line) and an equal percentage 
+characteristics in the branch A (the branch with the heat or cold generation). 
+Together with the pressure drop of generators and pipes in the branch A a more 
+or less linear characteristic in both branches is achieved (see
+<a href="pdf/VDMA_Einheitsblatt24199.pdf">VDMA 2015</a>).<br>
+The model of the mixing valve is somehow ideal: 
+The valve can be open or closed without internal leakage. 
+The relative flow coefficient for the "closed valve, psi_0" is used for 
+a mixing valve position closed to 0 or closed to 1.
+A closed valve in branch A or B (mixing valve completely open or completely closed)
+leads to a negative flow ID set by the <a href="Valve.html">Valve</a>.
+The negative ID is used as an information for the closed branch, see
+<a href="2_Basic_Concepts.html#flow_id">chapter 2: Basic Concepts</a>. 
+If you want to model the internal leakage, limit the control input to values 
+above 0 and below 1 (e.g. 0.01..0.99).<br>
+The Valve running time is used to limit the changes in the control input Ctrl 
+by a Rate Limiter block of Simulink. The maximum allowed change is <br><br>
+Rising slew rate = + 1/ValveRunningTime<br><br>
+Falling slew rate = - 1/ValveRunningTime<br><br>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB1_A</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> of first branch A </td>
+    </tr>
+    <tr>
+    	<td>THB2_B</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> of second branch B </td>
+    </tr>
+    <tr>
+    	<td>clq</td>
+        <td>:</td>
+        <td>Bus with massflow and pressure drop coefficients of the THB before it was separated 
+		in THB1 and THB2 by the <a href="Flow_Diverter.html">Flow_Diverter</a> </td>
+    </tr>
+    <tr>
+    	<td>Ctrl</td>
+        <td>:</td>
+        <td>Setpoint for the position of the mixing valve (0 = branch B; 1 = branch A)</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_AB</td>
+		<td style="width: 10px;">:</td>
+        <td><a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> of the mixed fluid flow </td>
+    </tr>
+    <tr>
+    	<td>fdiv</td>
+        <td>:</td>
+        <td>massflow diversion factor fdiv used for mixing the entering two mass flows in one mass flow, 
+		connect to the <a href="Flow_Diverter.html">Flow_Diverter</a></td>
+    </tr>
+    <tr>
+    	<td>pos</td>
+        <td>:</td>
+        <td>Bus with the current position of the valves in branch A (pos_A) and B (pos_B). 
+		For an interpretation as mixing valve position (0 = branch B; 1 = branch A), 
+		use bus element pos_A.</td>
+    </tr>
+</table>
+
+<p>
+For a correct flow diversion according to the pressure drop in the branches THB1 and THB2 connect :
+</p>
+<ul>
+ <li> clq input to the output of the corresponding <a href="Flow_Diverter.html">Flow_Diverter</a> </li>
+ <li> THB1 of the <a href="Flow_Diverter.html">Flow_Diverter</a> to the THB1_A input </li>
+ <li> THB2 of the <a href="Flow_Diverter.html">Flow_Diverter</a> to the THB2_B input </li>
+</ul>
+
+<p><b>Mask Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/mixing_valveMASK.JPG" /></p>
+
+<p><b>Literature:</b><br>
+<a href="pdf/CARNOT_Nutzertreffen2018_HSBiberach_Volkmer_Hydraulik.pdf">
+Volkmer: Presentation of the FH Biberach Thamo_6x2 Library, Carnot User Meeting Darmstadt 2018<br>
+<a href="pdf/VDMA_Einheitsblatt24199.pdf">VDMA-Einheitsblatt 24199, 2015</a><br>
+</p>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+A Memory block or a Pt1 transfer function breaks the algebraic loop of diverter and mixer. 
+For the variable-step solver ode15s or ode113 it is recommended to activate the Pt1 option.
+</p>
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b></p>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+</html>

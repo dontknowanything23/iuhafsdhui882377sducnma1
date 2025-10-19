@@ -1,0 +1,174 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Ground_Source_Heat_Exchanger </title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/groundsourceheatexchanger.jpg" align=right>
+<p class="blockname">Ground_Source_Heat_Exchanger</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Source/Heat_Exchanger<br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Model of a vertical ground source heat exchanger for heat pumps.
+</p>
+<p><b>Description:</b><br>
+The CARNOT EWS model is a transient model for dynamic simulation of borehole
+heat exchangers or so-called vertical ground heat exchangers. The model is
+based on the equations described by [Huber97], [Huber 1999] and has been 
+implemented using the state space model of Matlab/Simulink [Bianchi06].
+</p>
+<p>The field geometry can be : </p>
+<ul>
+	<li>1 probe</li>
+	<li>2 probes B/H = 0.1</li>
+	<li>2 probes B/H = 0.05</li>
+	<li>3x6 probes B/H = 0.1</li>
+	<li>5x10 probes B/H = 0.1</li>
+</ul>
+
+<p>Typical values for the ground properties are : </p>
+<table>
+ <tr>
+  <td width=205><b><u>material </u></b></td>
+  <td width=215><b><u>conductivity in W/(m*K)</u></b></td>
+  <td width=215><b><u>capacity in J/(kg*K)</u></b></td>
+  <td width=275><b><u>density in kg/m³</u></b></td>
+ </tr>
+ <tr>
+  <td>sand (dry)</td>
+  <td>0.3 </td>
+  <td>800</td>
+  <td>1650</td>
+ </tr>
+ <tr>
+  <td>sand (humid)</td>
+  <td>0.6</td>
+  <td>1000</td>
+  <td>1750</td>
+ </tr>
+ <tr>
+  <td >clay (humid)</td>
+  <td>1.3</td>
+  <td>880 </td>
+  <td>1450</td>
+ </tr>
+ <tr>
+  <td>soil saturated with
+  water </td>
+  <td>up to 3.0</td>
+  <td>2000 </td>
+  <td>1500</td>
+ </tr>
+ <tr>
+  <td>bentonite filling</td>
+  <td>1.0 </td>
+  <td>2000 </td>
+  <td>1000</td>
+ </tr>
+ <tr>
+  <td>soil with gravel</td>
+  <td>0.59</td>
+  <td>1840</td>
+  <td>2040</td>
+ </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the entering flow </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBout</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the leaving flow </td>
+    </tr>
+    <tr>
+    	<td> Tnodes </td>
+        <td>:</td>
+        <td> radial node temperatures in the ground in &deg;C </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/groundsourceheatexchangerMask1.jpg" /></p>
+<p><img src="Figures/groundsourceheatexchangerMask2.jpg" /></p>
+<p><img src="Figures/groundsourceheatexchangerMask3.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_GroundSourceHX">
+	example_GroundSourceHX</a> </li>
+	<li> <a href="matlab:open_system example_GroundSourceHX_with_HP">
+	example_GroundSourceHX_with_HP</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Bianchi M. A., Adaptive modellbasierte prädiktive Regelung einer 
+Kleinwärmepumenanlage, Dissertation ETH Zuerich, No. 16892, 2006<br>
+<a href="http://www.hetag.ch/download/HU_EWS1_SB.pdf">
+Huber A, Schuler O., Berechnungsmodul für Erdwärmesonden (EWS). 
+ENET Bericht Nr. 9658807-1, 1997</a> (accessed 09/01/2025)<br>
+<a href="http://www.hetag.ch/download/HU_EWS2_SB.pdf">
+Huber: Huber A., Erweiterung des Programms EWS für Erdwärmesondenfelder, 
+Forschungsprogramm Umgebungs- und Abwärme, Wärme-Kraft-Kopplung (UAW) im 
+Auftrag des Bundesamtes für Energie, Swiss, 1999 </a> (accessed 09/01/2025)
+</p>
+<p><b>Validation:</b><br>
+<a href="pdf/Ochs_Carnot_EWS_2012.pdf">Ochs_Carnot_EWS_2012</a><br>
+<a href="pdf/Schmitz_Validierung_EWS_Modell_2022.pdf">
+Schmitz_Validierung_EWS_Modell_2022</a>
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

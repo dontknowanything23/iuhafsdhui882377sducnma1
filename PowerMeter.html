@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - PowerMeter</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/powermeter.gif" align=right>
+<p class="blockname">PowerMeter</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Control
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the thermal power between inlet and outlet of a component.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block shows the power [W] in one <a href="2_Basic_Concepts.html#THB"> 
+Thermo-Hydraulic Bus (THB) </a> between the inlet and the outlet of one component. 
+If the temperature at the outlet is above the temperature at the inlet, the 
+calculated power is positive.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; power = heat_capacity * mass-flow * (T_out - T_in)</p>
+<p>Connect THB_in to the THB entering the component and THB_out to the THB at 
+the outlet.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_out</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus </a> 
+		at the component outlet</td>
+    </tr>
+    <tr>
+    	<td> THB_in</td>
+        <td>:</td>
+        <td><a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus </a> 
+		at the component inlet</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">power</td>
+		<td style="width: 10px;">:</td>
+        <td> thermal power in W</td>
+    </tr>
+    <tr>
+    	<td> - - -</td>
+        <td>:</td>
+        <td> - - -</td>
+    </tr>
+</table>
+
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

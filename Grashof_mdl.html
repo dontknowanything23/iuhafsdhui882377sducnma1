@@ -1,0 +1,167 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Grashof</title>
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Grashof.jpg" align=right>
+<p class="blockname">Grashof</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Hydraulics
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the Grashof number.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block calculates the Grashof number according to the inputs.<br>
+The Grashof number is defined by the equation </p>
+
+<p><img src="Formulas/formel_grashof.jpg" /></p>
+
+<p>with: </p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"><b>Symbol</b></td>
+		<td style="width: 400px;"><b>used for </b></td>
+        <td> <b>unit</b> </td>
+    </tr>
+    <tr>
+    	<td> <span style='font-family:Symbol'> b </span></td>
+        <td> volumetric coefficient of expansion </td>
+        <td> 1/K </td>
+    </tr>
+    <tr>
+    	<td> g </td>
+        <td> gravity constant </td>
+        <td> m/s<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> T<sub>wall</sub> </td>
+        <td> temperature of the wall or surface </td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> T<sub>inf</sub> </td>
+        <td> temperature in infinite distance </td>
+        <td> &deg;C </td>
+    </tr>
+    <tr>
+    	<td> <span style='font-family:Symbol'> r </span></td>
+        <td> density of the fluid </td>
+        <td> kg/m<sup>3</sup></td>
+    </tr>
+    <tr>
+    	<td> x </td>
+        <td> characteristic length of the component </td>
+        <td> m </td>
+    </tr>
+    <tr>
+    	<td> <span style='font-family:Symbol'> h </span></td>
+        <td> dynamic viscosity ( = density * kinematic_viscosity )</td>
+        <td> N*s/m </td>
+    </tr>
+</table>
+
+<p>The block calls the function &quot;grashof&quot; in the CARNOT 
+<a href="carnot_manual.htm#Carlib">Carlib Library</a> where the calculation is
+carried out. The material properties functions can also be called directly from
+the command window by typing <br>
+<br>
+<tt>grashof(Twall, Tinf, pressure, fluidtype, fluidmix)</tt><br>
+<br>
+Instead of the italic variables the actual value of
+the respective property has to be entered. This is possible for the Carlib
+functions density, thermal_conductivity, heat_capacity, kinematic_viscosity,
+prandtl, vapourpressure and saturationtemperature. For more information about
+the function type<br>
+<br>
+<tt>help grashof</tt><br>
+<br>
+to the workspace as for any other MATLAB function.<br>
+For more information of the fluidtype and fluidmix see above 
+<a href = 'FluidEnum.html'> FluidEnum </a>
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Twall</td>
+		<td style="width: 10px;">:</td>
+        <td> wall temperature in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> Tinf </td>
+        <td>:</td>
+        <td> temperature in infinite distance in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa</td>
+    </tr>
+    <tr>
+    	<td> Fluid_Type </td>
+        <td>:</td>
+        <td> fluid type, see <a href = 'FluidEnum.html'> FluidEnum </a> for the definition </td>
+    </tr>
+    <tr>
+    	<td> Fluid_Mix</td>
+        <td>:</td>
+        <td> fluid mixture, see <a href = 'FluidEnum.html'> FluidEnum </a> for the definition </td>
+    </tr>
+    <tr>
+    	<td> dimension </td>
+        <td>:</td>
+        <td> characteristic dimension of the component im m </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Gr </td>
+		<td style="width: 10px;">:</td>
+        <td> Grashof number </td>
+    </tr>
+</table>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No </td>
+    </tr>
+</table>
+
+</body>
+
+</html>

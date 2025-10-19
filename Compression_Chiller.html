@@ -1,0 +1,124 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Compression_Air_Water_Chiller</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/CompressionAirWaterChiller.png" align=right>
+<p class="blockname">Compression_Air_Water_Chiller</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Chiller
+<br><br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Model of a reversible air to water chiller or heat pump.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block is based on the characteristic curves for cooling capacity and 
+coefficient of performance of the reversible air-to-water heat pump with waste 
+heat recovery LI 16TER+ by Dimplex. The cooling capacity, coefficient of 
+performance, electrical power and THB_WATER_OUT are calculated. The air THB is 
+not calculated due to missing interest. The scaling is based on the point of 
+11.9 kW. Enter the cooling capacity for the point T_AIR_IN = 30 &deg;C, 
+T_WATER_OUT = 7 &deg;C. A capacity between 5..50 kW is recommended.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_water_in</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the water inlet (return line)</td>
+    </tr>
+    <tr>
+    	<td> T_AIR_IN </td>
+        <td>:</td>
+        <td> temperature of the inlet air in &deg;C 
+		(typically outdoor ambient temperature) </td>
+    </tr>
+    <tr>
+    	<td> control </td>
+        <td>:</td>
+        <td> control signal of the chiller in 0..1 </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_water_out</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+	 	of the water outlet (flow line) </td>
+    </tr>
+    <tr>
+    	<td> COP </td>
+        <td>:</td>
+        <td> Coefficient Of Performance in - </td>
+    </tr>
+    <tr>
+    	<td> P_el </td>
+        <td>:</td>
+        <td> electrical power consumption in W </td>
+    </tr>
+    <tr>
+    	<td> Q_cold </td>
+        <td>:</td>
+        <td> thermal power in W (THB_water_in to THB_water_out) </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/CompressionAirWaterChillerMask.png" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_compression_air_water_chiller </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

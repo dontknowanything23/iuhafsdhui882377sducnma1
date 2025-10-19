@@ -1,0 +1,108 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pressure_Drop_Collector</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/PressureDropCollector.gif" align=right>
+<p class="blockname">Pressure_Drop_Collector</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Pressure_Drop 
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the pressure drop of a solar thermal collector.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Calculates the pressure drop according to constant values of con, lin and qua: <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; dp_dyn = c + l*mdot + q*mdot² <br>
+<br>
+Static height is taken in account via the collector inclination, 
+the collector length and the node temperatures: <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; dp_stat = density * grav * length * sin(inclination) <br>
+<br>
+Total pressure is <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; dp = dp_dyn + dpstat<br>
+<br>
+The pressure drop is included in the pressure of the THB. The pressure 
+coefficients clq of the THB are also adapted. <br>
+Calculation is done for Flow_ID &gt; 10000, static height only for Flow_ID &gt; 20000, see 
+<a href="2_Basic_Concepts.html#carnot_vectors">Basic Concepts</a> for details.<br>
+The block is used for example in the <a href = "collector_en12975.html" >SolarCollector</a> 
+and <a href = "Collector_1xN.html" >Collector_1xN</a>.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> Tnodes </td>
+		<td style="width: 10px;">:</td>
+        <td> node temperature or temperatures of the solar thermal collector in &deg;C</td>
+    </tr>
+    <tr>
+    	<td> THBin </td>
+        <td>:</td>
+        <td> incomming <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> positon </td>
+        <td>:</td>
+        <td> positon vector of the collector, see <a href = "Fixed_Surface.html">Fixed_Surface</a></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB </td>
+		<td style="width: 10px;">:</td>
+        <td> leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/PressureDropCollector_MASK.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

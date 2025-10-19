@@ -1,0 +1,133 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pipe_Geometry</title>
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/PipeGeometry.jpg" align=right>
+<p class="blockname">Pipe_Geometry</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Hydraulics</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Multinode pipe with capacity and theoretical pressure drop calculation.
+</p>
+<p><b>Description:</b><br>
+For the thermal model and calculations see block 
+<a href="Pipe_basic.html">Pipe_basic</a>.<br>
+The pressure drop is calculated with a roughness and number of bends model 
+according to [VDI Wärmeatlas, 2019] :</p>
+<p><img src="Formulas/formel_pipe.jpg" /></p>
+<p>
+The heat loss coefficient per pipe length is : </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; ul = 2*lambda*pi/ln(d_out/d_in)</p>
+<p>
+with <br>
+&nbsp;&nbsp; d_in : inner diameter of the pipe in m <br>
+&nbsp;&nbsp; d_out : outer diameter of the pipe with insulation in m <br>
+&nbsp;&nbsp; lambda : thermal conductivity of the pipe wall 
+             (or insulation material) in W/m/K <br>
+&nbsp;&nbsp; ln : natural logarithm </p>
+<p>
+Simular pipe models also based on <a href="Pipe_basic.html">Pipe_basic</a> 
+but with different approaches for the pressure drop 
+(<a href="Pipe.html">Pipe</a>) and the thermal losses 
+(<a href="Pipe_Isolation.html">Pipe_Isolation</a>) are available.</p>
+<p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td>ambient temperature in &deg;C for thermal losses </td>
+    </tr>
+    <tr>
+    	<td> THBin </td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		at the inlet of the pipe </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		at the outlet of the pipe </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<p><img alt="" src="Figures/PipeGeoMask1.jpg" /></p>
+<p><img alt="" src="Figures/PipeGeoMask2.jpg" /></p>
+<p><img alt="" src="Figures/PipeGeoMask3.jpg" /></p>
+<p><img alt="" src="Figures/PipeGeoMask4.jpg" /></p>
+<p> Some remarks regarding the parameters:
+</p>
+<ul type=disc class="auto-style1">
+	<li>effective axial heat conduction in W/m/K: 
+	axcond = Cross-section area of wall / 
+	(PI*(d<sup>2</sup>/4)*lambda<sub>Wall</sub>)</li>
+	<li>capacity of pipe wall per length in J/m/K :  
+	heat_capacity = c<sub>Wall</sub>*m<sub>Wall</sub>/length </li>
+	<li>number of nodes : for numerical calculations a reasonable 
+	value is one node per meter of pipe length</li>
+	<li>height between pipe inlet and pipe outlet : outlet above 
+	inlet is positive. For simplification you may set height to zero 
+	in pumped systems when thermosyphon flow is not significant.</li>
+</ul>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_PipeGeometry </li>
+</ul>
+
+<p><b>Literature:</b><br />
+VDI Wärmeatlas:  VDI-Gesellschaft Verfahrenstechnik und Chemieingenieurwesen, 
+Springer Vieweg; 12. Aufl., 2019</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>

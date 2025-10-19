@@ -1,0 +1,67 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - RealTime</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/RealTime.png" align=right>
+<p class="blockname">RealTime</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Toolbox</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+This block gives the system time in seconds.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The underlying s-function of the block takes the current time of your computer 
+(function localtime in time.h). The year is not considered which means an 
+output of 0 s on January, 1st, 00:00:00. Leap years are taken into account 
+by a simplified method (leap year is when the mod(year,4) == 0).
+</p>
+
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">time</td>
+		<td style="width: 10px;">:</td>
+        <td> local time in s (0 s = January, 1st, 00:00:00) </td>
+    </tr>
+</table>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

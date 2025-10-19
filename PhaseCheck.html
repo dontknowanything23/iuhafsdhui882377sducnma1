@@ -1,0 +1,101 @@
+﻿!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Enthalpy</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/PhaseCheck.gif" align=right>
+<p class="blockname">PhaseCheck</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block checks, if the fluid is still in the liquid phase. Simulation is 
+stopped if the fluid is not liquid. This block applies specially for water 
+but also some other fluids.
+</p>
+<p><b>Description:</b><br>
+The block checks according to the inputs temperature T, pressure p and fluid 
+mixture (for 2-phase- fluids, see FluidEnum), if the fluid is still in the same 
+phase, for example if water is not steam or ice. The vapour pressure is calculated 
+by <a href = "carlib.html">CARLIB</a> function vapourpressure.<br><br>
+Temperature limits for different fluids:<br><br>
+Water :<br>
+T &lt; 0 °C :  The water in your system is ice.<br>
+system pressure p &lt; vapor pressure : The water in your system is steam.<br><br>
+
+Air :<br>
+T &lt; -273.15 °C : Your system temperature is below 0 K.<br><br>
+
+Cotton oil :<br>
+T &lt; -20 °C : The oil in your system is solid.<br>
+T &gt; 450 °C : The oil in your system has cracked.<br><br>
+
+Silicone oil: <br>
+T &lt; -50 °C : The oil in your system is solid.<br>
+T &gt; 450 °C : The oil in your system has cracked.<br><br>
+
+Water glycol mix: <br>
+T &lt; ((-222.2222*fluid_mix+61.9048)*fluid_mix-48.7302)*fluid_mix) : 
+The water-glycol mix in your system is ice.<br>
+system pressure p &lt; vapour pressure : The water-glycol in your system is steam
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> incomming <a href="2_Basic_Concepts.html#THB">
+		Thermo-Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_PhaseCheck </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

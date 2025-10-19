@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Cooling_Tower</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/CoolingTower.jpg" align=right>
+<p class="blockname">Cooling_Tower</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Source/Chiller <br><br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Calculates the output THV and the energy and water consumption of the closed 
+circuited cooling tower.
+</p>
+
+<p><b>Description</b> <br>
+The output temperature depends on air temperature, humidity, rpm of the fan, 
+flow rate and glykol content.<br><br>
+wet –bulb temperature<br>
+<br> 
+<img alt="" height="49" src="Figures/formel_cooling_tower_a.jpg" width="268"> 
+<br clear="all"> 
+<br>
+power calculation in case of speed regulation<br>
+proportionality rule<br>
+<br> 
+<img alt="" height="59" src="Figures/formel_cooling_tower_b.jpg" width="87"> 
+<br clear="all"> 
+<br>
+water consumption<br>
+<br>
+<img alt="" height="261" src="Figures/formel_cooling_tower_c.jpg" width="469"><br> 
+</p>
+<p>The saturation pressure p_s is calculated with the simplified approximation 
+of Glück<br><br>
+<table border="1">
+  <tr>
+    <th style="width: 106px">Symbol</th>
+    <th style="width: 239px">used for</th>
+  </tr>
+  <tr>
+    <td style="width: 106px">c</td>
+    <td style="width: 239px"> specific heat capacity in J/kg/K</td>
+  </tr> 
+  <tr>
+    <td style="width: 106px">h</td>
+    <td style="width: 239px"> specific enthalpy in J/kg</td>
+  </tr>
+  <tr>
+    <td style="width: 106px">n</td>
+    <td style="width: 239px"> rotation speed in 1/s&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="width: 106px">m_dot</td>
+    <td style="width: 239px"> mass flow in kg/s</td>
+  </tr>
+  <tr>
+    <td style="width: 106px">p</td>
+    <td style="width: 239px">pressure in Pa</td>
+  </tr>
+  <tr>
+    <td style="width: 106px">P</td>
+    <td style="width: 239px">electric power in W</td>
+  </tr>
+  <tr>
+    <td style="width: 106px">Q_dot</td>
+    <td style="width: 239px"> thermal power in W</td>
+  </tr>
+  <tr>
+    <td style="width: 106px">t</td>
+    <td style="width: 239px">temperature</td>
+  </tr>
+  <tr>
+    <td style="width: 106px">x</td>
+    <td style="width: 239px"> water content of air <br>in kg water / kg dry air</td>
+  </tr>
+</table>
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBin</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the inlet, only fluid-typ water/glycol </td>
+    </tr>
+    <tr>
+    	<td> WDB </td>
+        <td>:</td>
+        <td> <a href="WDB_format.html">Weather Data Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> rpm_fan </td>
+        <td>:</td>
+        <td> rotation speed in rounds per minute, limited to the range 
+		0 … 824 1/min</td>
+    </tr>
+    <tr>
+    	<td> control_fan </td>
+        <td>:</td>
+        <td> On / off signal of the fan, value 0 or 1 </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBout </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the outlet </td>
+    </tr>
+    <tr>
+    	<td> data_logging </td>
+        <td>:</td>
+        <td> data for logging, see Parameter and Dialog Box </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box</b> <br>
+The cooling tower mask is an overview about the performance data and about the 
+distribution of the data logging bus-signal.</p>
+<p><img alt="" src="Figures/CoolingTowerMask.jpg"> <br clear="all"> 
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_CoolingTower">example_CoolingTower</a> </li>
+</ul>
+
+<p> <b>Literature: </b> <br>
+<a href="pdf/Thesing_Modellerstellung_Kuehlturm_FHD_2010.pdf" name="author">
+Mario Thesing : Bachelor-Thesis: Solare Kühlung – Modellerstellung und -validierung 
+eines Kühlturmes unter Matlab / Simulink / Carnot</a>, Fachhochschule Düsseldorf, 
+Februar 2010
+<br>VDI Wärmeatlas, 7.Auflage, VDI Verlag
+<br>Taschenbuch für Heizung + Klima Technik 09/10, Oldenburg Industrieverlag
+<br>Fortschritt-Bericht VDI, Berechnungsmodell der nichtadiabaten Verdunstungskühlung 
+in Fluidtürmen und Verdunstungskondensatoren
+<br>VXI Verdunstungskühler, Auslegung und Technische Daten, BAC Baltimore Aircoil
+<br>VXI Lühlturm mit geschlossenem Kreislauf, BAC Baltimore Aircoil
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

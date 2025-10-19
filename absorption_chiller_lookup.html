@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Absorption_Chiller_LookUp</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/AKM.jpg" align=right>
+<p class="blockname">Absorption_Chiller_LookUp</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Chiller
+<br><br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+This block calculates the capacities and cop of the absorption chiller 
+Yazaki WFC-SC5 (nominal cooling capacity: 17.6 kW, nominal COP: 0.7) 
+based on measured curves.
+</p>
+
+<p><b>Description</b> <br>
+The capacities and COP are calculated by lookup-tables for the three 
+capacities dependent on the three input temperatures, based on measured 
+data.<br>
+The block includes a dynamic start-up behaviour with a dead time of 
+the cooling capacity and capacities in all cycles.<br>
+The dead time depends on the mean generator temperature at start.<br>
+<img src="Formulas/formel_yazaki_dead_time.jpg" align="left" border="0"> <br clear="all"> 
+Additionally the power of the solution pump is given out.
+</p>
+<p>The measured curves are only valid for the following volumeflows: <br>
+&nbsp;&nbsp; HT: 4320 l/h<br>
+&nbsp;&nbsp; MT: 9180 l/h<br>
+&nbsp;&nbsp; LT: 2770 l/h <br>
+Measurement range: <br>
+&nbsp;&nbsp; T_HT_IN 70 .. 88 &deg;C<br>
+&nbsp;&nbsp; T_MT_IN 29 .. 33 &deg;C<br>
+&nbsp;&nbsp; T_NT_IN 11 .. 14 &deg;C <br>
+Outside of this range the lookup-tables extrapolate.
+</p>
+<p>Additional files: The lookup-tables use data of the Variables WFC_q_hot, 
+WFC_q_recooling and WFC_q_cold, which are stored in Yazaki_KF.mat and loaded as 
+a PreLoad-Function </p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_GEN_IN</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the generator (HT) cycle input </td>
+    </tr>
+    <tr>
+    	<td> THB_COLD_IN</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the cooling (LT) cycle input</td>
+    </tr>
+    <tr>
+    	<td> THB_RC_IN</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the recooling (MT) cycle input</td>
+    </tr>
+    <tr>
+    	<td> Ctrl </td>
+        <td>:</td>
+        <td> control signal 0 = off, 1 = on </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB_GEN_OUT</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the generator (HT) cycle output</td>
+    </tr>
+    <tr>
+    	<td> THB_COLD_OUT</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the cooling (LT) cycle output</td>
+    </tr>
+    <tr>
+    	<td> THB_RC_OUT</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the recooling (MT) cycle output</td>
+    </tr>
+    <tr>
+    	<td> power_SP</td>
+        <td>:</td>
+        <td> electrical power of the solution pump in W </td>
+    </tr>
+    <tr>
+    	<td> Qcold_AKM_kW </td>
+        <td>:</td>
+        <td> cooling power in kW</td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img alt="" src="Figures/AbsorptionChillerLookUpMask1.jpg"></p>
+<p>Select &quot;own data&quot; for access to the parameters and the definition of another 
+machine:</p>
+<p><img alt="" src="Figures/AbsorptionChillerLookUpMask2.jpg"></p>
+<p><img alt="" src="Figures/AbsorptionChillerLookUpMask3.jpg"></p>
+<p><img alt="" src="Figures/AbsorptionChillerLookUpMask4.jpg"></p>
+<p><img alt="" src="Figures/AbsorptionChillerLookUpMask5.jpg"></p>
+<p><img alt="" src="Figures/AbsorptionChillerLookUpMask6.jpg"></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_Absorption_Chiller_LookUp </li>
+</ul>
+
+<p><b>Validation report</b><br>
+<a href="pdf/Validation_Report_absorption_chiller_Yazaki_WFC-SC5.pdf">
+Lohmann: VALIDIERUNG DES BLOCKS ABSORPTION CHILLER YAZAKI WFC-SC5, 
+FH Duesseldorf, 2014</a></p>
+
+<p><b>Literature:</b><br />
+Adam, M., Lohmann, S., Radosavljevic, R., Goebel, J., &amp; Gottschald, J. (2013): 
+Solare Kuehlung im Hardware-in-the-Loop-Test, Abschlussbericht zum 
+Forschungsprojekt FKZ 17 42X09, Hochschule Duesseldorf<br>
+<a href="pdf/KI_2014_01-02_Wissenschaft_Lohmann.pdf">
+Adam, M.; Lohmann, S.: Vermessung der Yazaki-Absorptionskaeltemaschine WFC-SC5; 
+KI Kaelte-Luft-Klimatechnik, 01-02 2014</a></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

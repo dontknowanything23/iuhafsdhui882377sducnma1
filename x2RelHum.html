@@ -1,0 +1,113 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - x2RelHum</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/x2RelHum.gif" align=right>
+<p class="blockname">x2RelHum</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Material_Properties
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block converts the absolute humidity, i.e. the load of water in moist air, 
+to the relative humidity.
+</p>
+
+<p><b>Description:</b><br>
+The function converts the relative humidity to the absolute humidity, i.e the
+load of water in moist air according to the inputs. The material properties 
+functions can also be called directly from the command window by typing <br>
+<tt>x2rel_hum(<em>temperature, pressure, rel_hum</em>)</tt><br>
+in the Matlab Command Window. Instead of the italic variables the actual value 
+of the respective property has to be entered. <br>
+For more information about the function type:<br>
+<tt>help x2rel_hum</tt>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">T</td>
+		<td style="width: 10px;">:</td>
+        <td> temperature (scalar or vector) in &deg;C </td>
+    </tr>
+    <tr>
+    	<td> p </td>
+        <td>:</td>
+        <td> pressure in Pa </td>
+    </tr>
+    <tr>
+    	<td> x </td>
+        <td>:</td>
+        <td> absolute humidity in kg<sub>water</sub>/kg<sub>air</sub> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">rel_hum</td>
+		<td style="width: 10px;">:</td>
+        <td> relative humidity in percent (0..100) </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/x2RelHumMask.png" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_FluidProp_RelHum2x </li>
+</ul>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+<!--Insert Notes here-->
+This block is only to be used in the case of air (fluid type 2, 
+see <a href="FluidEnum.html">FluidEnum</a>).
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

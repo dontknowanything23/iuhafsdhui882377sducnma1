@@ -1,0 +1,239 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Radiation_on_Inclined_Surface</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/RadiationOnInclinedSurface.jpg" align=right>
+<p class="blockname">Radiation_on_Inclined_Surface</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Weather
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+This block calculates the radiation on the inclined collector surface.
+</p>
+<p><b>Description:</b><br>
+The block calculates the radiation on the inclined collector surface. 
+You may delete this block when your weather data already contains the 
+solar radiation on the inclined surface. In this case, use the 
+<a href="WDB_format.html"> weather data bus </a> directly for the block 
+who needs the radiation on the inclined surface.
+</p>
+<p><u>Sky models</u><br>
+The solar radiation can be split into a direct and a diffuse part. The 
+diffuse radiation can be further divided into a part of the sky called 
+isotropic diffuse radiation, which is received from all over the sky 
+dome, a part that appears close to the beam, the circumsolar diffuse 
+radiation, and the so-called horizon brightening, that is situated in 
+the area near the horizon. Moreover the total radiation on the tilted 
+surface includes the part reflected from the ground and other 
+surrounding surfaces. <br>
+Sky models are the mathematical representation of the diffuse part of 
+the solar radiation. Depending on the model, the degree of consideration 
+of the different parts of the diffuse radiation varies. In the CARNOT 
+Toolbox, three different sky models can be specified, the isotropic sky, 
+Hay - Davies and the Perez model. </p>
+
+<p><u>Isotropic sky model</u><br>
+This model considers all the diffuse radiation as isotropic, so that 
+the circumsolar radiation and the horizon brightening do not appear. 
+The total radiation is calculated by three terms : the direct radiation, 
+the isotropic diffuse radiation and the ground reflectance. </p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; I<sub>glb,T</sub> = I<sub>bn</sub>
+*cos(<span style='font-family:Symbol'>q</span>) + 0.5*I<sub>dfu,h</sub>
+*(1+cos(<span style='font-family:Symbol'>b</span>)) + (I<sub>dir,h</sub>
++I<sub>dfu,h</sub>)*<span style='font-family:Symbol'>r</span><sub>ground
+</sub>*0.5*(1-cos(<span style='font-family:Symbol'>b</span>))
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; I<sub>dir,h</sub> = I<sub>bn</sub> 
+*cos(<span style='font-family:Symbol'>q</span><sub>z</sub>) 
+</p>
+<p> There are: </p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">I<sub>glb,T</sub></td>
+		<td style="width: 10px;">:</td>
+        <td> global solar radiation on the inclined or tilted (collector) 
+		surface in W/m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> I<sub>bn</sub> </td>
+        <td>:</td>
+        <td> beam radiation on a normal surface in W/m<sup>2</sup>, 
+		sometimes called direct normal irradiation DNI, 
+		normal refers to to a surface perpendicular to the radiation 
+		of the sun</td>
+    </tr>
+    <tr>
+    	<td> I<sub>dfu,h</sub> </td>
+        <td>:</td>
+        <td> diffuse solar radiation on the horizontal surface in 
+		W/m<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> I<sub>dir,h</sub> </td>
+        <td>:</td>
+        <td> direct solar radiation on the horizontal surface in 
+		W/m<sup>2</sup> </td>
+    </tr>
+    <tr>
+    	<td> <span style='font-family:Symbol'>b</span> </td>
+        <td>:</td>
+        <td> slope of the (collector) surface in degree </td>
+    </tr>
+    <tr>
+    	<td> <span style='font-family:Symbol'>q</span></td>
+        <td>:</td>
+        <td> incidence angle to normal of (collector) surface in degree</td>
+    </tr>
+    <tr>
+    	<td> <span style='font-family:Symbol'>q</span><sub>z</sub></td>
+        <td>:</td>
+        <td> zenith angle of the sun in degree </td>
+    </tr>
+    <tr>
+    	<td> <span style='font-family:Symbol'>r</span><sub>ground</sub></td>
+        <td>:</td>
+        <td> reflection of ground [0...1], (0.2 for usual ground, 
+		0.3..0.5 for sand and snow)</td>
+    </tr>
+</table>
+
+<p><u>Sky model by Hay-Davies</u><br>
+This model is an anisotropic one that takes into account the circumsolar 
+diffuse radiation. There is no treatment of horizon brightening, so the 
+diffuse radiation consists of two parts, the isotropic and the circumsolar. 
+The direction of the circumsolar radiation is assumed to be the same as the 
+beam radiation. An anisotropy index is introduced which is a function of 
+transmittance of the atmosphere for beam radiation and describes the 
+portion of horizontal diffuse radiation that is to be treated as forward 
+scattered. Under clear sky conditions the anisotropy index is high. If the 
+sky is entirely covered, the anisotropy index is 0 and the model is equal 
+to the isotropic sky model. <br>
+At its core lies the approach of Hay-Davies. They assumed an anisotropic sky.
+Radiation upon tilted surface I<sub>glb,T</sub> consists of four parts: 
+</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; I<sub>glb,T</sub> = I<sub>bn</sub>
+*cos(<span style='font-family:Symbol'>q</span>) + 0.5*I<sub>dfu,h</sub>
+*(1+cos(<span style='font-family:Symbol'>b</span>)) 
++ I<sub>dfu,h</sub>*I<sub>bn</sub>/I<sub>extra</sub>*
+(Rb - 0.5*(1+cos(<span style='font-family:Symbol'>b</span>))) 
++ (I<sub>dir,h</sub>+I<sub>dfu,h</sub>)
+*<span style='font-family:Symbol'>r</span><sub>ground</sub>*0.5
+*(1-cos(<span style='font-family:Symbol'>b</span>))
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; R<sub>b</sub> 
+= cos(<span style='font-family:Symbol'>q</span>) 
+/ cos(<span style='font-family:Symbol'>q</span><sub>z</sub>)
+</p>
+
+<p> There is: </p>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">I<sub>extra</sub></td>
+		<td style="width: 10px;">:</td>
+        <td> extraterrestrial solar radiation on a normal surface 
+		in W/m<sup>2</sup> </td>
+    </tr>
+
+<p>The Hay Davies model is not particularly more complex than the isotropic 
+model and leads to slightly higher estimates of radiation. 
+</p>
+
+<p><u>Sky model by Perez</u><br>
+The anisotropic sky model is based on a more detailed analysis of three 
+diffuse components: circumsolar, horizon brightening and the incidence angle 
+of the cirumsolar. Refere to [Duffie, Beckmann 2020] for the equations.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB_in</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">weather data bus</a>
+		with the radiation on the horizontal surface</td>
+    </tr>
+    <tr>
+    	<td> Position </td>
+        <td>:</td>
+        <td> Bus containing the three angles of the surface inclination, 
+		see <a href="Fixed_Surface.html">Fixed_surface</a> for details </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> WDB_out </td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">weather data bus</a>
+		with the radiation on the inclined surface </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/RadiationOnInclinedSurfaceMask.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+	<li> <a href="matlab:open_system example_RadiationInclinedSurface">
+	example_RadiationInclinedSurface</a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Duffie, J., Beckman, W.: Solar Engineering of thermal processes, 
+John Wiley &amp; Sons, 2020</p>
+<p><b>Validation</b><br>
+<a href="pdf/Validation_Report_inclined_surface.pdf">Hafner 2019: 
+Validation_Report_inclined_surface</a>
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Roof</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Roof_SHOT.jpg" align=right>
+<p class="blockname">Roof</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models
+<br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Model of a ceiling and roof.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The inner heat transfer is the same as for a ceiling. The outer heat transfer 
+to ambient is modeled in two parts: </p>
+<ul>
+ <li> Convective heat transfer outer surface according to EN 6946 </li>
+ <li> Radiative heat transfer to the ground is limited by a view of 0.25, 
+      i.e. view factor to the sky is 0.75 (Frohner, 2005) </li>
+</ul>
+
+<p>Dynamic, convective heat transfer coefficients according to (Glück 2007).
+The roof itself is modeled by the Beuken model.<br>
+For the further description see <a href = 'wall_out.html'>wall_out</a>
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">Weather Data Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> power per node </td>
+        <td>:</td>
+        <td> thermal power to the active node(s) in W </td>
+    </tr>
+	<tr>
+		<td style="width: 100px;">AIB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href = "AIB_format.html"> Air Infiltration Bus<a> 
+		(old name: AIV) 
+		see also <a = href = "CreateAIB.html">CreateAIB <a> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">[S]</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href = "Sbus_format.html"> 
+		Sources-Bus of the building model<a> </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/RoofMask.jpg" /></p>
+<p>
+You may directly choose predefined parameter sets. For details see chapter
+<a href="2_Basic_Concepts.html#Choosing_parameter_sets_for_configurated_models">
+2.2.1 Choosing parameter sets for configurated models</a>
+</p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> <a href="Room_Floor_Heating.html"> Room_Floor_Heating </a> </li>
+ <li> <a href="Room_Radiator.html"> Room_Radiator </a> </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Glück Bernd: Wärmeübergangskoeffizienten an thermisch aktiven Bauteiloberflächen 
+und der Übergang zu Basiskennlinien für die Wärmestromdichte; 
+gi Gesundheits-Ingenieur; 128. Jahrgang 2007, Heft 1, Seiten 1-10
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

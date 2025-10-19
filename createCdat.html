@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Block Template</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here-->
+&nbsp;<p class="blockname">
+<img alt="" src="Figures/createCdat.gif" style="float: right">createCdat</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Thermal_Models </p>
+<p style="margin-top:0px; margin-bottom:20px">&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:20px">&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:20px">&nbsp;</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Create the collector data bus (Cdat) for solar thermal collector models.
+</p>
+<p><b>Description:</b><br>
+All relevant informations for further evaluation of the solar collector are combined in 
+this structure.&nbsp;&nbsp;
+</p>
+
+<!--This is how we make lists-->
+<p><img alt="" src="Figures/createCdatFig.gif"></p>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 148px;">acol</td>
+		<td style="width: 10px;">:</td>
+        <td> collector surface in m² (ISO 9806 : brutto surface)</td>
+    </tr>
+	<tr>
+		<td style="width: 148px;">THBin </td>
+		<td style="width: 10px;">:</td>
+        <td> inlet <a href="THB_format.html">
+		<span
+     style='mso-bookmark:literature'>
+		<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>T</span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>hermo-Hydraulic
+     </span>
+		<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Bus</span></span></a> 
+		of the collector</td>
+    </tr>
+	<tr>
+		<td style="width: 148px;">THBout</td>
+		<td style="width: 10px;">:</td>
+        <td> oulet <a href="THB_format.html">
+		<span
+     style='mso-bookmark:literature'>
+		<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>T</span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>hermo-Hydraulic
+     </span>
+		<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Bus</span></span></a> 
+		of the collector</td>
+    </tr>
+	<tr>
+		<td style="width: 148px;">Qdot</td>
+		<td style="width: 10px;">:</td>
+        <td> thermal power of the collector in W</td>
+    </tr>
+	<tr>
+		<td style="width: 148px;">Tmean</td>
+		<td style="width: 10px;">:</td>
+        <td> average temperature of the collector in °C</td>
+    </tr>
+	<tr>
+		<td style="width: 148px;">WDB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="WDB_format.html">Weather Data Bus</a></td>
+    </tr>
+	</table>
+
+<p style="margin-bottom:0;">
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+
+<p style="margin-bottom:0;"><b>Output:</b>
+
+<table class="inputtable">
+	<tr>
+		<td style="width: 148px;">Cdat</td>
+		<td style="width: 10px;">:</td>
+        <td> Collector Data Bus with the informations of the input</td>
+    </tr>
+	</table>
+
+<p>&nbsp;<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

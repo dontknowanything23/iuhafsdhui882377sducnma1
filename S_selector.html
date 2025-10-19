@@ -1,0 +1,84 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - S_selector</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/s_selector.jpg" align=right>
+<p class="blockname">S_selector</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: 
+CARNOT/Outputs/Selectors<br><br></p>
+<!--End of Insert-->
+
+<hr>
+
+<p><b>Purpose:</b><br>
+Select elements in the S-vector of the room model.
+</p>
+<p><b>Note:</b> The block is obsolete since the S-vector is replaced by the 
+<a href = "Sbus_format.html">S-Bus</a> in Carnot 8. 
+</p>
+<p><b>Description:</b><br>
+This block delivers a user specified vector with elements of the S-vector.
+The sequence of elements in the output vector is identical to the sequence 
+of selected check boxes counted from to the top to the bottom.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">[S]</td>
+		<td style="width: 10px;">:</td>
+        <td> S-vector from NODE block </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> [S]s </td>
+		<td style="width: 10px;">:</td>
+        <td> output vector with user selected elements from [S] </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/s_selectorSHOT.jpg" /></p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

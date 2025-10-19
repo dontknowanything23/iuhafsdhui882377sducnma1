@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>energy meter</title>
+<style type="text/css">
+ div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+p
+	{margin-right:0cm;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+a:link
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;
+}
+ p.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+ul
+	{margin-bottom:0cm;}
+ li.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+.auto-style1 {
+	margin-left: 120px;
+}
+</style>
+</head>
+
+<body>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;
+line-height:120%;mso-fareast-font-family:"Times New Roman"'>
+
+<hr size=10 width="100%" noshade style='color:#A0A0A0' align=center>
+
+</span></span></div>
+
+<p><img alt="" src="Figures/EnergyMeterHC.gif" style="float: right" /><!--[if gte vml 1]><v:shape id="Bild_x0020_59" o:spid="_x0000_s1586" type="#_x0000_t75"
+ style='position:absolute;left:0;text-align:left;margin-left:41pt;margin-top:0;
+ width:81pt;height:45pt;z-index:57;visibility:visible;mso-wrap-style:square;
+ mso-wrap-distance-left:0;mso-wrap-distance-top:0;mso-wrap-distance-right:0;
+ mso-wrap-distance-bottom:0;mso-position-horizontal:right;
+ mso-position-horizontal-relative:text;mso-position-vertical:absolute;
+ mso-position-vertical-relative:line' o:allowoverlap="f"><v:imagedata src="Figures/energy_meter.jpg" xmlns:v="urn:schemas-microsoft-com:vml"/><w:wrap type="square" anchory="line" xmlns:w="urn:schemas-microsoft-com:office:word"/></v:shape><![endif]--><span class=GramE><span
+style='mso-bookmark:energy_meter'><span style='mso-bookmark:literature'><b><span style='font-size:18.0pt;line-height:120%'>E</span><span
+lang=EN-US style='font-size:18.0pt;line-height:120%'>nergy</span></b></span></span></span><span
+style='mso-bookmark:energy_meter'><span style='mso-bookmark:literature'><b><span style='font-size:18.0pt;line-height:120%'>M</span><span
+lang=EN-US style='font-size:18.0pt;line-height:120%'>ete</span><span style='font-size:18.0pt;line-height:120%'>r_HC</span></b><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+<span
+style='mso-bookmark:energy_meter'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%'> 
+<b>Path: CARNOT/<span lang="de">Control</span></b></span></span></span> <br clear=all style='mso-special-character:line-break'>
+<o:p></o:p></span></span></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='mso-bookmark:energy_meter'><span style='mso-bookmark:literature'><span
+lang=EN-US style='font-size:13.5pt;line-height:120%;mso-fareast-font-family:
+"Times New Roman"'>
+
+<hr size=2 width="100%" align=center>
+
+</span></span></span></div>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Purpose</span></b><span lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+The block shows the power</span><span style='font-size:13.5pt;line-height:120%'>, 
+the heating and the cooling </span>
+<span lang=EN-US style='font-size:13.5pt;line-height:120%'> energy 
+<span style='font-size:13.5pt;line-height:120%'> balance</span> a
+component</span><span style='font-size:13.5pt;line-height:120%'>. </span></span></p>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Description</span></b><span lang=EN-US style='font-size:13.5pt;line-height:120%'> <br>
+The block shows the power [W] and energy [J] gain or loss in one <span style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;line-height:120%'> &nbsp;<a href="../../EnergyMeter/doc/2_Basic_Concepts.html"><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'>Thermo-Hydraulic </span>
+<span style='font-size:13.5pt;
+line-height:120%'>Bus</span></a></span></span> </span>
+<span style='font-size:13.5pt;line-height:120%'> (THB) </span><span lang=EN-US style='font-size:13.5pt;line-height:120%'> 
+between the inlet and the outlet of one component. Connect TH</span><span style='font-size:13.5pt;line-height:120%'>B_in</span><span lang=EN-US style='font-size:13.5pt;line-height:120%'> to the </span>
+<span style='font-size:13.5pt;line-height:120%'> THB</span><span lang=EN-US style='font-size:13.5pt;line-height:120%'> 
+entering the component and TH</span><span style='font-size:13.5pt;line-height:120%'>B_out</span><span lang=EN-US style='font-size:13.5pt;line-height:120%'> to the </span>
+<span style='font-size:13.5pt;line-height:120%'> THB</span><span lang=EN-US style='font-size:13.5pt;line-height:120%'> at the outlet.<o:p><br />
+</span><span style='font-size:13.5pt;line-height:120%'> The block differentiates 
+between negative ("cooling") and positive ("heating") power. The integreation of 
+the power to an energy balance is done separately for heating and cooling.<br />
+The Reset input resets the energy counter to zero with a rising flank.<br />
+</span></o:p>
+</span></p>
+
+<p><span style='mso-bookmark:literature'><b>
+<span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Inputs:</span></b><span lang=EN-US style='font-size:13.5pt;line-height:120%'> </span><span lang=EN-US style='font-size:12.0pt;
+line-height:120%'><o:p></o:p></span></span></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l181 level1 lfo80;tab-stops:list 36.0pt'><span
+     style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Thermo-Hydraulic
+     </span>
+ <span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Bus</span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'> at component inlet </span><span
+     lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l181 level1 lfo80;tab-stops:list 36.0pt'><span
+     style='mso-bookmark:literature'><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Thermo-Hydraulic
+     </span>
+ <span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>Bus</span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'> at component outlet </span><o:p></o:p>
+ </span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l181 level1 lfo80;tab-stops:list 36.0pt; font-size: 13.5pt;'>
+	Reset (rising)</li>
+</ul>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Outputs:</span></b><span lang=EN-US style='font-size:13.5pt;line-height:120%'> </span></span></p>
+
+<ul type=disc class="auto-style1">
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l42 level1 lfo81;tab-stops:list 36.0pt'><span
+     style='mso-bookmark:literature'>
+ <span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>thermal </span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>power in [W] </span><span lang=EN-US style='mso-fareast-font-family:
+     "Times New Roman"'><o:p></o:p></span></span></li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l42 level1 lfo81;tab-stops:list 36.0pt'><span
+     style='mso-bookmark:literature'>
+ <span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>heating </span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>energy in [J]</span></span></li>
+	<li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     margin-left:36.0pt;mso-list:l42 level1 lfo81;tab-stops:list 36.0pt'>
+	<span
+     style='mso-bookmark:literature'>
+	<span style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>cooling </span><span lang=EN-US style='font-size:13.5pt;
+     line-height:120%;mso-fareast-font-family:"Times New Roman"'>energy in [J] </span><span lang=EN-US style='mso-fareast-font-family:
+     "Times New Roman"'><o:p></o:p></span></span></li>
+</ul>
+
+<p></p>
+<p><span style='mso-bookmark:literature'>
+<span
+style='font-size:13.5pt;line-height:120%'> <strong>Parameters and Dialog Box</strong></span><span lang=EN-US
+style='font-size:13.5pt;line-height:120%'>&nbsp;</span></span></p>
+<p><img alt="" src="Figures/EnergyMeterHCmask.jpg" /></p>
+<p></p>
+<p><span style='mso-bookmark:literature'>
+<span lang=EN-US
+style='font-size:13.5pt;line-height:120%'> <span class=GramE>see</span> </span>
+<span
+style='font-size:13.5pt;line-height:120%'> also: </span><font size="4">
+<a href="../../EnergyMeter/doc/THB_format.html">THB format </a>&nbsp;and 
+examples. </font></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style='mso-bookmark:literature'><b><span lang=EN-US style='font-size:
+13.5pt;line-height:120%'>Characteristics</span></b><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample
+time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> Inherited
+from driving block <br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='font-size:13.5pt;
+line-height:120%'>&nbsp;&nbsp;
+</span><span lang=EN-US style='font-size:13.5pt;
+line-height:120%'> No
+</span></span></p>
+
+</body>
+
+</html>

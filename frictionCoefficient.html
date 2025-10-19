@@ -1,0 +1,120 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - clq2friction_coeff</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/frictionCoefficient.gif" align=right>
+<p class="blockname">clq2friction_coeff, friction_coeff2clq</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Pressure_Drop
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The blocks convert the friction coefficent to the Carnot clq coefficients 
+and vice versa.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Determine the pipe friction coefficent lambda from Carnot clq with the 
+block clq2friction_coeff or determine the clq coefficients from pipe friction 
+coefficent lambda with the block friction_coeff2clq.<br>
+The pressure drop dp for a given friction coefficient lambda is:<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; dp = lambda * length * rho / (dia * 2) * v<br><br>
+with:<br>
+rho : density in kg/m<sup>3</sup><br>
+dia : diameter im m<br><br>
+For round pipes: <br>
+&nbsp;&nbsp;&nbsp;&nbsp; dp = 8 * lambda * l * mdot<sup>2</sup> 
+/(rho * pi<sup>2</sup> * dia<sup>5</sup>)<br><br>
+Carnot pressure drop calculation: <br>
+&nbsp;&nbsp;&nbsp;&nbsp; dp = c + l*mdot + q*mdot<sup>2</sup> <br><br>
+As the equation with lambda is quadratic in the velocity (~mass flow), the 
+constant and linear coefficients of the Carnot equation are zero.<br>
+If lambda is given, q can be determinded with:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; q = 8 * lambda * l / (rho * pi<sup>2</sup> 
+* dia<sup>5</sup>) <br><br>
+If the Carnot quadratic pressure drop coefficient q is given, lambda 
+can be calculated:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; lambda = q * rho * pi<sup>2</sup> 
+* dia<sup>5</sup> / (8 * l) 
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> clq2friction_coeff: q </td>
+        <td>:</td>
+        <td> quadratic pressure drop coefficient in Pa/(kg/s)<sup>2</sup></td>
+    </tr>
+    <tr>
+    	<td> friction_coeff2clq: pipe_friction_coeff </td>
+        <td>:</td>
+        <td> for : pipe friction coefficient lambda in -</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">clq2friction_coeff: pipe_friction_coeff</td>
+		<td style="width: 10px;">:</td>
+        <td> pipe friction coefficient lambda in -</td>
+    </tr>
+    <tr>
+    	<td>friction_coeff2clq: q</td>
+        <td>:</td>
+        <td> quadratic pressure drop coefficient in Pa/(kg/s)<sup>2</sup></td>
+    </tr>
+</table>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>

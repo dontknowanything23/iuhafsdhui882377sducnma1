@@ -1,0 +1,377 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<title>Pipe Connection</title>
+
+<style type="text/css">
+body{margin-left:108.0pt;}
+
+p	{
+	margin-right:0cm;
+	line-height:120%;
+	font-size:13.5pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+
+ul
+	{
+	margin-bottom:0cm;
+	list-style-position: outside;
+	}
+
+
+ol
+	{
+	margin-bottom:0cm;
+	list-style-position: outside;
+	}
+
+li
+	{
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	line-height:120%;
+	font-size:13.5pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+
+a:link
+	{
+	color:blue;
+	text-decoration:underline;
+	text-underline:single;
+	}
+
+
+p.toc1
+	{
+	margin-top: 1.0em;
+	margin-bottom: 0.0em;
+	}	
+
+
+p.toc2
+	{
+	margin-top: 0.0em;
+	margin-bottom: 0.0em;
+	margin-left:12.0pt;
+	}	
+
+p.toc3
+	{
+	margin-top: 0.0em;
+	margin-bottom: 0.0em;
+	margin-left:24.0pt;
+	}	
+
+p.blockname
+	{margin-top: 10px;
+	 margin-bottom: 0;
+	 font-size:18.0pt;
+	 line-height:120%;
+	 font-weight: bold;
+	}
+
+table
+	{
+	margin-left:108.0pt;
+	line-height:120%;
+	font-size:13.5pt;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+
+tt
+	{
+	font-family:"Courier New";
+	line-height:200%;
+	margin-left:20.0pt;
+	}
+
+
+h1
+	{
+	margin-right:0cm;
+	line-height:120%;
+	font-size: 18pt;
+	font-weight: bold;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+
+h2
+	{
+	margin-right:0cm;
+	line-height:120%;
+	font-size: 16pt;
+	font-weight: bold;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+
+h3
+	{
+	margin-right:0cm;
+	line-height:120%;
+	font-size: 13.5pt;
+	font-weight: bold;
+	font-family:"Calibri","sans-serif";
+	color:#5A5A5A;
+	}
+
+.eq 
+	{
+	width: 1000px;
+	margin-left:24.0pt;
+    font-family: "Times New Roman","sans-serif";
+	font-size: 13.5pt;
+	}
+
+.eq td 
+	{
+	width: 800px
+	text-align: left;
+	font-size: 13.5pt;
+	font-weight: normal;
+	color:#5A5A5A;
+	}
+
+hr	
+	{
+	border-width:0;
+	background-color:#A0A0A0;
+	color: #A0A0A0;
+	height: 2px;
+	}
+
+hr.large
+	{
+	height: 10px;
+	}
+
+.eq th 
+	{
+	width: 200px
+	text-align: right;
+	font-family: "Calibri","sans-serif";
+	font-size: 13.5pt;
+	font-weight: normal;
+	color:#5A5A5A;
+	}
+
+mathrm
+	{
+	font-family:"Times New Roman","sans-serif";
+	white-space: nowrap;
+	}
+
+.vectortable
+	{
+	border: 0;
+	}
+
+.vectortable th
+	{
+	padding: 6px;
+	text-align: left;
+	text-decoration: underline;
+	}
+
+.vectortable td
+	{
+	padding: 6px;
+	text-align: left;
+	vertical-align: top;
+	}
+
+.ref
+	{
+	padding: 0px;
+	/*list-style: none; 
+	counter-reset:array;
+*/	}
+
+.ref li:before
+	{
+	/*counter-increment:array;
+	content:"[" counter(array) "] ";*/
+	}
+	
+</style>
+</head>
+
+<body>
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here-->
+<img src="Figures/imgPipe_StoragePorts.gif" align=right>
+<p class="blockname">Pipe_Connection and Pipe_Stratified</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: Carnot/Storage/Thermal/Storage_Ports</p>
+<br>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Model of a pipe ending at the wall of the store, use with <a href="Storage_Type_N.html">Storage_Type_N</a>.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">from_StoreT</td>
+		<td style="width: 10px;">:</td>
+        <td>the node temperatures (output &quot;Tnodes&quot; of the <a href="sfun_storageTnodes.html">sfun_storageTnodes</a> </td>
+    </tr>
+    <tr>
+    	<td>THBin</td>
+        <td>:</td>
+        <td>the <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> as input of the system to the store</td>
+    </tr>
+</table>
+</p>
+
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">to_StoreT</td>
+		<td style="width: 10px;">:</td>
+        <td>input (input to the portN of the <a href="sfun_storageTnodes.html">sfun_storageTnodes</a></td>
+    </tr>
+    <tr>
+    	<td>THBout</td>
+        <td>:</td>
+        <td>the <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> as output of the store to the system</td>
+    </tr>
+</table>
+</p>
+
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block is a simple pipe ending at the wall of the storage. The fluid from this pipe 
+is released directly into the storage.<br>
+The relative height of the inlet and outlet are connected to the corresponing nodes
+of the storage model. For example of a model with 10 nodes, the connection is as follows:
+</p>
+<p>
+<table>
+	<tr>
+		<td style="width: 70px;">Node</td>
+        <td>Relative height inlet or outlet</td>
+    </tr>
+    <tr>
+    	<td>10</td>
+        <td>> 0.9</td>
+    </tr>
+    <tr>
+    	<td>9</td>
+        <td> > 0.8 .. <= 0.9</td>
+    </tr>
+    <tr>
+    	<td>8</td>
+        <td> > 0.7 .. <= 0.8</td>
+    </tr>
+    <tr>
+    	<td>7</td>
+        <td> > 0.6 .. <= 0.7</td>
+    </tr>
+    <tr>
+    	<td>6</td>
+        <td> > 0.5 .. <= 0.6</td>
+    </tr>
+    <tr>
+    	<td>5</td>
+        <td> > 0.4 .. <= 0.5</td>
+    </tr>
+    <tr>
+    	<td>4</td>
+        <td> > 0.3 .. <= 0.4</td>
+    </tr>
+    <tr>
+    	<td>3</td>
+        <td> > 0.2 .. <= 0.3</td>
+    </tr>
+    <tr>
+    	<td>2</td>
+        <td> > 0.1 .. <= 0.2</td>
+    </tr>
+    <tr>
+    	<td>1</td>
+        <td> <= 0.1</td>
+    </tr>
+</table>
+<br>
+</p>
+<p>
+When creating connections, copy the block and connect the THBin and THout to the
+corresponding in- and outlet ports. Then connect &quot;from_store&quot; of the pipe 
+to &quot;port N&quot; of the &quot;sfun_storage_Tnodes&quot; block. 
+Connect &quot;Tnodes&quot; of the &quot;sfun_storage_Tnodes&quot; 
+to "from_storeT" of the pipe.<br>
+The block transforms the incoming THB from a pipe or a pump to a vector which
+the storage interprets as heat exchanger.
+</p>
+
+<p><b>Stratified Charging or Discharing (Pipe_stratified)</b><br>
+The model is an ideal stratified charging or discharing device. The massflow is 
+entering the storage at a node between the inlet and the outlet depending on the 
+storage temperature. The last node at the outlet is always charged/discharged by 
+the entering massflow.<br>
+Stratified charging (inlet above outlet): <br>
+The model starts the check at the entry node defined by the relative hight. 
+The check is going down in the storage until it reaches a node where the 
+temperature is lower than the entering temperature. 
+At this node it starts charging the storage. When the temperature of the 
+storage is higher till the outlet node, the outlet node is taken as inlet node 
+for the massflow.<br>
+To model a complete stratified charging heat exchanger, set inlet-position to 1 and
+outlet- position to 0. The port also models stratified discharging for inlet
+below outlet. In this case the port starts discharging the storage if the flow
+temperature reaches a node where the temperature is higher.<br>
+Stratified dischaging (outlet above inlet):<br>
+The check is going upwards until the outlet node is reached. 
+The entering massflow is set to zero if the temperature in the storage is 
+below the inlet temperature of the pipe. <br>
+
+</p>
+
+<p><b>Parameters and Dialog Box</b><br>
+<img src="Figures/pipe_connection_to_storeSHOT.jpg"> <br>
+</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>States</td>
+        <td>:</td>
+        <td>None</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+</p>
+
+</body>
+</html>

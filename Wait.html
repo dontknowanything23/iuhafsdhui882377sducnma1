@@ -1,0 +1,83 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Wait</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/wait.jpg" align=right>
+<p class="blockname">Wait</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Toolbox</p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+Slow down the simulation to real time.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block pauses the simulation until the system time reaches the 
+specified date. After the first call, the block pauses the simulation 
+for the specified number of seconds.
+When the block appears more than once in a simulink model and each waiting time
+is e.g. 2 seconds, the function will only wait once 2 seconds per simulation
+step. If the blocks have different waiting times, the simulation will pause in
+each simulation step for the longest specified waiting time. For Real Time
+applications with an interface to the environment which requires the system
+time instead of the simulation time to evaluate external data.
+</p>
+
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/waitSHOT.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_wait </li>
+</ul>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+Simulink for Matlab R2018b offers the "Pacing Options" (Menue "Simulation"). 
+With this option you may slow down Simulink to real time (more or less).<br />
+The use of this option should be considered before using the "Wait" block.
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Specified by the parameter "waiting time"</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

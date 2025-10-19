@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Untitled</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+<link href="Carnot_Style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+@import url('Carnot_Style.css');
+@import url('../../../../../tutorial/doc/Carnot_Style.css');
+.auto-style1 {
+	color: #0000FF;
+	text-decoration: underline;
+}
+</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr size="10" noshade> 
+<p><img alt="" src="Figures/LoggerBoilerShot.jpg" style="float: right"><a name="data_logging_furnace"><font size="5"><b>Logger_Boiler</b></font></a><p>
+<b>Path: Carnot/Outputs/Logger</b><br clear="all">
+<hr> 
+<p><b>Purpose</b> <br>
+Creates data files which enable to evaluate the
+<a href="../../../public/tutorial/doc/Condensing_Boiler.html">
+<span class="auto-style1">condensing_boi</span>ler</a> model of the Carnot blockset by using
+<a href="cs_energy_boiler.html">cs_energy_boiler</a> 
+m-function.</p>
+<p><b>Inputs:</b> 
+<ul type="disc">
+    <li>Bdat (data bus of the boiler)<li><a href="ElectricityPrice.html">Electricity Price</a> (bus with the prices 
+	for consumed electric energy) 
+    <li>Enable : &quot;true&quot; or &quot;1&quot; activates the logging of the data in the 
+	files</ul>
+<p><b>Output:</b> 
+<ul type="disc">
+    <li>disp_b : displaying data of boiler 
+    <li>files : &quot;boileroutput<i>_extension</i>.mat&quot; and &quot;boilerdetailoutput<i>_extension</i>.mat&quot;where 
+    extension is a string you can choose in the parameters of the block. 
+</ul>
+<p>The file contains the following information in timeseries. The timeseries 
+appear in a structure with the variable &quot;boiler&quot;.</p>
+<ul>
+	<li>boiler.Th_in : inlet temperature (heating) in degree Celsius </li>
+	<li>boiler.Th_out : outlet temperature (heating) in degree Celsius
+	</li>
+	<li>boiler.MassH : time integral of the mass flow on 
+	the heating side in kg</li>
+	<li>boiler.Qh : heating energy in J</li>
+	<li>boiler.Th_mean : average operation temperature in degree Celsius</li>
+	<li>boiler.MassFuel : mass of consumed fuel in kg</li>
+	<li>boiler.EnergyFuel : energy of consumed fuel in J</li>
+	<li>boiler.Welec_in : used electric energy in J</li>
+	<li>boiler.CostFuel : costs of fuel in -</li>
+	<li>boiler.MassH2O : mass of water in the fume gas in kg</li>
+	<li>boiler. MassCO2 : mass of CO2 in the fume gas in kg</li>
+	<li>boiler.MassO2 : mass of (remaining) O2 in the fume gas in kg</li>
+	<li>boiler.MassSO2&nbsp; : mass of SO2 in the fume gas in kg</li>
+	<li>boiler.MassN2&nbsp; : mass of N2 in the fume gas in kg</li>
+	<li>boiler.MassNOx&nbsp; : mass of NOx in the fume gas in kg</li>
+	<li>boiler.MassCO&nbsp; : mass of CO in the fume gas in kg</li>
+	<li>boiler.MassCxHy&nbsp; : mass of CxHy in the fume gas in kg</li>
+	<li>boiler.Cycles : number of on/off cycles</li>
+	<li>boiler.OpTime : operation time of the boiler in s</li>
+	<li>boiler.CostElecBuy : costs of the electric energy in -</li>
+</ul>
+<p>For a full list of data point names see
+<a href="2_Basic_Concepts.html#DataPointNames">2_Basic_Concepts</a>.<br></p>
+<p><b>Parameters and Dialog Box</b>
+<p>The file &quot;boilerdetailoutput_<i>extension</i>.mat&quot; is only written 
+if the parameter &quot;detailed output&quot; is activated. Detailed outputs 
+are written with a 60 s timestep only if the burner is working.</p>
+<p><img alt="" src="Figures/LoggerBoilerMask.jpg"></p>
+<p><font size="4"><b><br>Examples<br></b>Logger_Boiler : 
+example_LoggerBoiler.slx</font></p>
+<p><b>Characteristics</b> <br>
+Direct Feedthrough&nbsp;&nbsp;&nbsp;Yes <br>
+Sample time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entered 
+by user in block parameters<br>
+Vectorized&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No 
+</p>
+</body>
+
+</html>

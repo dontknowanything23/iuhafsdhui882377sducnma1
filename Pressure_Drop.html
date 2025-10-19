@@ -1,0 +1,94 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Pressure_Drop</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/Pressure_Drop.gif" align=right>
+<p class="blockname">Pressure_Drop</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Pressure_Drop
+<br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the pressure drop in a hydraulic component.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block calculates the pressure drop in according to the inputs by the 
+following equation:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dp = con + lin*mdot + qua*mdot<sup>2</sup><br>
+The block is used in the pipe model of CARNOT.
+</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THBin </td>
+		<td style="width: 10px;">:</td>
+        <td> incomming <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> con </td>
+        <td>:</td>
+        <td> constant pressure drop coefficient in Pa </td>
+    </tr>
+    <tr>
+    	<td> lin </td>
+        <td>:</td>
+        <td> linear pressure drop coefficient in Pa/(kg/s) </td>
+    </tr>
+    <tr>
+    	<td> qua </td>
+        <td>:</td>
+        <td> quadratic pressure drop coefficient in Pa/(kg/s)<sup>2</sup> </td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;"> THB </td>
+		<td style="width: 10px;">:</td>
+        <td> leaving <a href="THB_format.html">Thermo Hydraulic Bus</a> </td>
+    </tr>
+</table>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

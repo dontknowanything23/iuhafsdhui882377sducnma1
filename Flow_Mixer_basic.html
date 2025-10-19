@@ -1,0 +1,181 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Flow_Mixer_basic</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/flow_mixer_basic.jpg" align=right>
+<p class="blockname">Flow_Mixer_basic</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Hydraulics
+<br><br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The block calculates the mixture of two incoming flows and calculates the 
+flow diversion rate for the corresponding <a href = "Flow_Diverter.html">
+Flow_Diverter</a> block.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+The block mixes two mass flows. The new temperature is calculated by an energy
+balance. For moist air the temperature and moisture content are calculated by
+an enthalpy balance and a mass balance. In the mixer, the pressure drop of the
+two branches is calculated and added to the pressure drop of the main cycle.<br>
+<br>
+Method to calculate the pressure drop of the two branches: <br>
+The pressure drop of the whole flow diversion subcycle is calculated with 
+a quadratic term of the form: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family:Symbol">D</span>p = 
+c + l * m<sub>dot</sub> + q * m<sub>dot</sub><sup>2</sup> <br><br>
+The mixer calculates the diversion of the two branches under the condition, 
+that the pressure drop in both branches must be the same: <br><br>
+<span style="font-family:Symbol">D</span>p1 = 
+<span style="font-family:Symbol">D</span>p2 = 
+<span style="font-family:Symbol">D</span>p <br><br>
+or <br><br> 
+&nbsp;&nbsp;&nbsp;&nbsp; c<sub>1</sub> + l<sub>1</sub>m<sub>dot1</sub>
++ q<sub>1</sub>m<sub>dot1</sub><sup>2</sup> = c<sub>2</sub> + 
+l<sub>2</sub>m<sub>dot2</sub>2 + q<sub>2</sub>m<sub>dot2</sub><sup>2</sup> 
+<br><br>
+A further condition is that the mass balance has to be fulfilled: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; m<sub>dottotal</sub> = m<sub>dot1</sub> + m<sub>dot2</sub>
+<br><br>
+With these three equations, the quadratic equation is solved for three mass flows: 
+full mass flow m<sub>dottotal</sub>, half of the entire mass flow and 25% of the 
+total mass flow. With these three values, the parabola of the quadratic pressure 
+drop equation is defined and can be calculated. The equation is solved in the 
+s-function mix_flow by the use of the function solve_quadratic_equation in 
+<a href = "carlib.html">CARLIB</a>.
+<br>
+Moreover, the flow diversion rate is calculated as: <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; f<sub>div</sub> = m<sub>dot1</sub> / m<sub>dottotal</sub>
+<br><br>
+and is fed back to the corresponding flow diverter upwards in flow direction. 
+This is necessary to give the information on how to divide the mass flow in the
+diverter to the block upstream, because physically the mass flow is divided
+according to the flow resistance in each branch. The mixer also receives a
+branch ID. If the mass flow through one branch is zero (for example because of
+a closed valve) the ID becomes negative and the mass flow through that branch
+is set to zero.</p>
+
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB1</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>
+		of branch 1 (THB1 of the corresponding 
+		<a href = "Flow_Diverter.html">Flow_Diverter</a>)</td>
+    </tr>
+    <tr>
+    	<td> THB2</td>
+        <td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a>
+		of branch 2 (THB2 of the corresponding 
+		<a href = "Flow_Diverter.html">Flow_Diverter</a>)</td>
+    </tr>
+    <tr>
+    	<td> clq </td>
+        <td>:</td>
+        <td> bus with the ID and the clq values of the main subcycle 
+		entering in the flow diversion subcycle (clq output of the 
+		corresponding <a href = "Flow_Diverter.html">Flow_Diverter</a>)</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a> 
+		of the mixed flow </td>
+    </tr>
+    <tr>
+    	<td> ID1 </td>
+        <td>:</td>
+        <td> ID of THB1 </td>
+    </tr>
+    <tr>
+    	<td> ID2 </td>
+        <td>:</td>
+        <td> ID of THB2 </td>
+    </tr>
+    <tr>
+    	<td> fdiv </td>
+        <td>:</td>
+        <td> calculated flow diversion factor </td>
+    </tr>
+</table>
+
+<p><b>Warnings:</b></p>
+<ul> 
+	<li>If you have a hydraulic subcycle that contains sub cycles with flow 
+	diverters itself, you have to take care to build up the cycle in such 
+	a way, that the branch with more diverting elements is connected to 
+	the input THB2 of the mixer. This branch must also be connected to the 
+	output TH2 of the corresponding <a href = "Flow_Diverter.html">
+	Flow_Diverter</a> upstream to feed back the right information. </li>
+	<li> Connect fdiv to the corresponding <a href = "Flow_Diverter.html">
+	Flow_Diverter</a>. Otherwise the mass flow diversion is not correct.</li>
+</ul>
+</p>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/flow_mixer_basicMASK.jpg" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_FlowMixerBasic </li>
+ <li> example_Hydraulic_FlowMixer </li>
+</ul>
+
+<hr>
+
+<p><b>NOTE:</b><br>
+To speed up the simulation, avoid the fdiv-feedback. If you know the rate flowing
+through each branch, use <a href = "Flow_Mixer_ideal.html">Flow_Mixer_ideal</a>.
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

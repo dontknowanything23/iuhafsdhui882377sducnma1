@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - microCHP_constant</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/microCHPconstant.PNG" align=right>
+<p class="blockname">microCHP_constant</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Source/Cogeneration
+<br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+This block calculates mass flow rate and outlet flow temperature depending on 
+inlet return temperature and inputed nominal heating power of a gas driven 
+micro-CHP with constant power.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+This block is based on characteristic curves calculating heating capacity 
+and representing a thermostat-controlled three-way mixer valve situated 
+in the inlet flow of a gas driven micro-CHP called "Dachs" by Senertec. 
+External mass flow rate, outlet flow temperature and heating power factor 
+depend on inlet return temperature and are calculated by 1-D lookup-tables 
+based on measured data.<br>
+The scaling is based on 
+</p>
+<ul>
+	<li>a heating power of 12.52 kW,</li> 
+	<li>an electrical power of 5.5 kW, </li> 
+	<li>a fuel power of 22,03 kW and</li> 
+	<li>a maximum external mass flow rate of 0.14 kg/s.</li>
+</ul>
+<p> Mass flow rate and thermal inertia are linearly resized according to the 
+inputed nominal heating power. Thermal and electrical efficiency are calculated 
+and summarised in a data output vector.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBretrun</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the inlet (return line) </td>
+    </tr>
+    <tr>
+    	<td> control </td>
+        <td>:</td>
+        <td> control signal in 0 / 1</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBflow</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the outlet (flow line) </td>
+    </tr>
+    <tr>
+    	<td> data</td>
+        <td>:</td>
+        <td> evaluation data bus </td>
+    </tr>
+</table>
+
+<!--This is how we make lists-->
+<p>The <b>evaluation data bus</b> is: </p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Q_th</td>
+		<td style="width: 300px;"> delivered thermal energy </td>
+        <td> J </td>
+    </tr>
+    <tr>
+    	<td> Q_el </td>
+        <td> delivered electric energy </td>
+        <td> J </td>
+    </tr>
+    <tr>
+    	<td> Q_Gas </td>
+        <td> consumed energy from the gas supply </td>
+        <td> J </td>
+    </tr>
+    <tr>
+    	<td> eta_th </td>
+        <td> thermal efficiency (= Q_th/Q_Gas) </td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> eta_el </td>
+        <td> electrical efficiency (= Q_el/Q_Gas)</td>
+        <td> - </td>
+    </tr>
+    <tr>
+    	<td> eta_sys </td>
+        <td> total or system efficiency (= (Q_th+Q_el)/Q_Gas)</td>
+        <td> - </td>
+    </tr>
+</table>
+
+<p><b>Parameters and Dialog Box:</b></p>
+<!--Insert sceen shot of the paramter mask here-->
+<p><img src="Figures/microCHPconstantMask.PNG" /></p>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+<ul>
+ <li> example_microCHPconstant </li>
+</ul>
+
+<p><b>Literature:</b><br />
+Diourane Mouhcin: Aufbereitung von zwei vorhandenen BHKW-Modellen 
+zur Bereitstellung in der Carnot-User-Community (Bachelor-Arbeit), 2012</p>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> No</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

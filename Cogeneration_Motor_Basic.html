@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - Cogeneration_Motor_Basic</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/CogenMotorBasic.gif" align=right>
+<p class="blockname">Cogeneration_Motor_Basic</p>
+<p style="margin-top:0px; margin-bottom:20px">
+Path: CARNOT/Basic/Thermal_Models<br><br><br><br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+Basic model of a cogeneration unit based on lookup-table data.
+</p>
+<p><b>Description:</b><br>
+The cogeneration model uses lookup-table data for the thermal and electric 
+power. The electric power can be modulated with the control signal. Thermal 
+power varies with the control signal and the return line temperature. The &quot;fuel 
+power&quot; (consumed fuel energy flow) depends on the control signal.<br>A
+<a href="Thermal_Node.html">Thermal_Node</a> is used to model the inertia of the 
+cogeneration unit.</p>
+<p>Efficiency definition:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; eta_elec = P_elec / P_fuel<br> 
+&nbsp;&nbsp;&nbsp;&nbsp; eta_therm = Qdot / P_fuel<br>
+&nbsp;&nbsp;&nbsp;&nbsp; eta_total = (P_elec + Qdot) / P_fuel
+</p>
+<p>Output eco of <a href="Combustion_Calculation.html">combustion_calculation</a> 
+is eta_total.
+</p>
+<p><img alt="" src="Figures/CogenMotorBasicFig1.gif"></p>
+
+<p style="margin-bottom:0;"><b>Input:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">Tamb</td>
+		<td style="width: 10px;">:</td>
+        <td> ambient temperature in °C (for thermal losses)</td>
+    </tr>
+	<tr>
+		<td>THBin</td>
+		<td>:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a>
+		of the return line</td>
+    </tr>
+	<tr>
+		<td>control</td>
+		<td>:</td>
+        <td> control signal [0..1]</td>
+    </tr>
+	<tr>
+		<td>fuel</td>
+		<td>:</td>
+        <td> bus for the fuel type, use <a href="Fuel.html">Fuel</a> 
+		block to create the bus</td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;">
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<p style="margin-bottom:0;"><b>Output:</b>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THBout</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB">Thermo-Hydraulic Bus</a> 
+		of the flow line</td>
+    </tr>
+	<tr>
+		<td>CoDat</td>
+		<td>:</td>
+        <td> Bus with informations for display and logging</td>
+    </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>1</td>
+        <td> THBin</td>
+    </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>2</td>
+        <td> THBout</td>
+    </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>3</td>
+        <td> Power_electric in W</td>
+    </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>4</td>
+        <td> Power_thermal in W</td>
+    </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>5</td>
+        <td> Power_fuel in W</td>
+    </tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>5</td>
+        <td> eco bus with the output of the
+		<a href="Combustion_Calculation.html">combustion_calculation</a></td>
+    </tr>
+	<tr>
+		<td>Pel</td>
+		<td>:</td>
+        <td> electric power in W</td>
+    </tr>
+	</table>
+
+<p><strong>Parameters and Dialog Box</strong><p>
+<img alt="" src="Figures/CogenMotorBasicMask.jpg"><hr>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+
+<ul>
+	<li> <a href="matlab:open_system example_CogenerationMotorBasic">
+	example_CogenerationMotorBasic</a> </li>
+</ul>
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes</td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td>Yes / No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

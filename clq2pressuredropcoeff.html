@@ -1,0 +1,112 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="AuthorXY">
+<link rel="stylesheet" type="text/css" href="Carnot_Style.css">
+<title>CARNOT manual - clq2pressuredropcoeff</title>
+
+<style type="text/css">body{margin-left:108.0pt;}</style>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<hr class="large">
+<!--Insert Block Name, Path and Image here, image size can be modified-->
+<img src="Figures/clq2pressuredropcoeff.gif" align=right>
+<p class="blockname">clq2pressuredropcoeff</p>
+<p style="margin-top:0px; margin-bottom:20px">Path: CARNOT/Basic/Pressure_Drop
+<br><br><br></p>
+<!--End of Insert-->
+<hr>
+
+<p><b>Purpose:</b><br>
+<!--Insert Block Purpose here-->
+The blocks convert the Carnot coefficient q to the pressure drop coefficient ceta.
+</p>
+<p><b>Description:</b><br>
+<!--Insert Block Description here-->
+Determine the pressure drop coefficient ceta from Carnot q. 
+The pressure drop dp for a given coefficient ceta is:<br>
+&nbsp;&nbsp;&nbsp; dp = ceta * rho/2 * w<sup>2</sup> &nbsp;&nbsp;&nbsp;(equation 1)
+<br><br>
+with: <br>
+rho : density in kg/m<sup>3</sup> <br>
+w : velocity in m/s <br><br>
+The Carnot equation for pressure drop is : <br>
+&nbsp;&nbsp;&nbsp; dp = c + l*mdot + q*mdot<sup>2</sup> &nbsp;&nbsp;&nbsp;(equation 2)
+<br><br>
+As the (equation 1) with ceta is quadratic in the velocity (~mass flow), the 
+constant and linear coefficients of the Carnot (equation 2) are zero.<br><br>
+With<br>
+&nbsp;&nbsp;&nbsp; mdot = Vdot*rho = w*A*rho <br>
+&nbsp;&nbsp;&nbsp; w = mdot/A/rho <br>
+&nbsp;&nbsp;&nbsp; dp = ceta * rho/2 * (mdot/A/rho)<sup>2</sup> <br>
+&nbsp;&nbsp;&nbsp; dp = ceta/(2*A^2*rho) * mdot<sup>2</sup> 
+The Carnot pressure drop coeff q is <br>
+&nbsp;&nbsp;&nbsp; q = ceta/(2*A<sup>2</sup>*rho) <br>
+<br>
+with <br>
+&nbsp;&nbsp;&nbsp; A = pi/4*d<sup>2</sup> <br>
+&nbsp;&nbsp;&nbsp; ceta = q*pi<sup>2</sup>*d<sup>4</sup>*rho/8 <br>
+<br>
+For more information see the <a href="density.html">density</a> block and the 
+<a href="velocity.html">velocity</a> block.
+</p>
+
+<p style="margin-bottom:0;"><b>Input:</b></p>
+<!--Input and Output Variables are presented in tables
+	Do not change the column width!-->
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">THB</td>
+		<td style="width: 10px;">:</td>
+        <td> <a href="2_Basic_Concepts.html#THB"> Thermo-Hydraulic Bus</a> </td>
+    </tr>
+    <tr>
+    	<td> q </td>
+        <td>:</td>
+        <td> Carnot pressure drop coefficient q in Pa/(kg/s)<sup>2</sup></td>
+    </tr>
+</table>
+
+<p style="margin-bottom:0;"><b>Output:</b></p>
+<table class="inputtable">
+	<tr>
+		<td style="width: 100px;">dp_coeff</td>
+		<td style="width: 10px;">:</td>
+        <td> dimensionless pressure drop coefficient ceta </td>
+    </tr>
+</table>
+
+<p><b>Examples:</b><br>
+Open the example explorer from the Matlab command window
+<!--Command line input should be presented like this-->
+<br><tt>ExampleBrowser</tt><br>
+or <a href="1_Tutorial.html#examples">load the examples via the CARNOT library</a>. 
+</p> 
+
+<hr>
+
+<p style="margin-bottom:0;"><b>Characteristics:</b>
+<table>
+	<tr>
+		<td style="width: 150px;">Direct Feedthrough</td>
+		<td style="width: 10px;">:</td>
+        <td> Yes </td>
+    </tr>
+    <tr>
+    	<td>Sample Time</td>
+        <td>:</td>
+        <td>Inherited from driving block</td>
+    </tr>
+    <tr>
+    	<td>Vectorized</td>
+        <td>:</td>
+        <td> No</td>
+    </tr>
+</table>
+
+</body>
+
+</html>
